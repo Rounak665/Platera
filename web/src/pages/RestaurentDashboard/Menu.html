@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="RestaurantDashboard.css"> <!-- Link to your CSS -->
+</head>
+<body>
+
+    <!-- loader -->
+    <div class="loader">
+        <div id="pl">
+            <div>
+                <video class="vid" src="../ContactUs/Assets/loader.mp4" autoplay muted loop></video>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="sidebar">
+            <div class="sidebar-toggle menu" id="menu">
+                <ion-icon name="menu"></ion-icon>
+            </div>
+            <div class="sidebar-toggle close-btn"><ion-icon name="close-outline" class="ico"></ion-icon></div>
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="../../../Public/images/logo.png" alt="">
+                </div>
+            </div>
+            
+            <div class="sidebar-menu">
+                <ul>
+                    <li><a href="RestaurantDashboard.html"><span class="icon"><ion-icon name="home-sharp"></ion-icon></span><span>Home</span></a></li>
+                    <li><a href="Category.html"><span class="icon"><ion-icon name="grid"></ion-icon></span><span>Categories</span></a></li>
+                    <li><a href=""><span class="icon"><ion-icon name="book"></ion-icon></span><span>Menu</span></a></li>
+                    <li><a href="Orders.html"><span class="icon"><ion-icon name="cart"></ion-icon></span><span>Orders</span></a></li>
+                    <li class="li_logout"><a href="../AddRestaurent/AddRestaurent.html#Signin-popup"><span class="icon"><ion-icon name="power"></ion-icon></span><span>Logout</span></a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <header>
+                <div class="headerLogo">
+                    <div class="logo">
+                        <img src="../../../Public/images/logo.png" alt="">
+                    </div>
+                </div>
+                <div class="search-wrapper">
+                    <span class="icon"><ion-icon name="search"></ion-icon></span>
+                    <input type="search" placeholder="Search">
+                </div>
+                
+                <div class="social-icons">
+                    <div class="logout_btn" onclick="signout()">
+                    <span class="logout">Logout</span>
+                    <span class="icon"><ion-icon name="power"></ion-icon></span>
+                    </div>
+                </div>
+            </header>
+            
+            <main>
+                <!-- Menu Section -->
+                <h2 class="dash-title">Menu</h2>
+                
+                <div class="page-action">
+                    <button class="btn btn-main" id="add-menu-btn" onclick="location.href='AddMenu.html'"><span class="icon"><ion-icon name="add-circle"></ion-icon></span> Add menu item</button>
+                </div>
+
+                <section class="recent">
+                    <div class="activity-card">
+                        <h3>Added menu items</h3>
+                        
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Price</th>
+                                        <th>Available?</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="menu-table">
+                                    <!-- Menu items will be inserted here by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts  -->
+
+    <!-- Icon Scripts -->
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <!-- Main JavaScript -->
+    <script>
+        document.querySelector("#menu").addEventListener("click", function() {
+            document.querySelector(".sidebar").classList.add("activate");
+        });
+
+        document.querySelector(".sidebar .close-btn").addEventListener("click", function() {
+            document.querySelector(".sidebar").classList.remove("activate");
+        });
+
+        function signout() {
+            localStorage.removeItem('authtoken');
+            localStorage.removeItem('admin');
+            window.location.href = '../AddRestaurent/AddRestaurent.html#Signin-popup'; 
+        }
+    </script>
+    <script>
+        // Initial Menu Data
+const initialMenu = [
+    {
+        id: 1,
+        image: 'https://static.vecteezy.com/system/resources/thumbnails/027/671/338/small_2x/tasty-burger-on-the-wooden-board-with-dark-lighting-and-black-background-food-and-delivery-concept-generative-ai-free-photo.jpg',
+        name: 'Burger',
+        category: { name: 'Fast Food' },
+        price: '₹150',
+        isAvailable: 1
+    },
+    {
+        id: 2,
+        image: 'https://img.freepik.com/premium-photo/pizza-with-salami-cheese-dark-surface_1220-5894.jpg',
+        name: 'Pizza',
+        category: { name: 'Italian' },
+        price: '₹300',
+        isAvailable: 0
+    },
+    {
+        id: 3,
+        image: 'https://img.freepik.com/premium-photo/dark-background-penne-pasta-with-tomato-sauce-parmesan-cheese-basilgenerative-ai_391052-10907.jpg',
+        name: 'Pasta',
+        category: { name: 'Italian' },
+        price: '₹200',
+        isAvailable: 1
+    }
+];
+
+// For Available Badge
+
+
+function populateInitialMenu() {
+    const menuTable = document.getElementById('menu-table');
+    
+    // Retrieve initial menu from local storage or set it if not exists
+    let storedMenu = JSON.parse(localStorage.getItem('menuItems')) || [];
+
+    // Only set initial menu if local storage is empty
+    if (storedMenu.length === 0) {
+        storedMenu = initialMenu;
+        localStorage.setItem('menuItems', JSON.stringify(storedMenu));
+    }
+
+    storedMenu.forEach((menuItem, index) => {
+        // Ensure the price is always displayed with the ₹ symbol
+        const formattedPrice = `₹${parseInt(menuItem.price.replace(/₹/, ''))}`;
+
+        const availableBadge = `
+            <span class="badge ${menuItem.isAvailable === 1 ? 'success' : 'warning'}" 
+                  onclick="toggleAvailability(${menuItem.id}, this)">
+                ${menuItem.isAvailable === 1 ? 'Available' : 'Not available'}
+            </span>`;
+
+        const menuRow = `
+            <tr>
+                <td>#${index + 1}</td>
+                <td><img src="${menuItem.image}" style="border-radius: 50%" height="50px" width="50px" alt=""></td>
+                <td>${menuItem.name}</td>
+                <td>${menuItem.category.name}</td>
+                <td>${formattedPrice}</td> <!-- Use formattedPrice here -->
+                <td>${availableBadge}</td>
+                <td><button class="btn btn-main-gradient" onclick="removeMenu(${menuItem.id}, ${index})"><span class="icon"><ion-icon name="trash"></ion-icon></span></button></td>
+            </tr>
+        `;
+        menuTable.insertAdjacentHTML('beforeend', menuRow);
+    });
+}
+
+// Badge Toggle Availablity
+function toggleAvailability(id, badgeElement) {
+    // Retrieve existing menu items from local storage
+    const existingMenu = JSON.parse(localStorage.getItem('menuItems')) || [];
+
+    // Find the menu item to toggle
+    const menuItem = existingMenu.find(item => item.id === id);
+
+    if (menuItem) {
+        // Toggle the availability
+        menuItem.isAvailable = menuItem.isAvailable === 1 ? 0 : 1;
+
+        // Update the badge text and class
+        badgeElement.textContent = menuItem.isAvailable === 1 ? 'Available' : 'Not available';
+        badgeElement.className = menuItem.isAvailable === 1 ? 'badge success' : 'badge warning';
+
+        // Update local storage
+        localStorage.setItem('menuItems', JSON.stringify(existingMenu));
+    }
+}
+
+
+// Remove Menu Item
+function removeMenu(id, index) {
+    // Retrieve existing menu items from local storage
+    const existingMenu = JSON.parse(localStorage.getItem('menuItems')) || [];
+
+    // Remove the item from the array
+    const updatedMenu = existingMenu.filter(item => item.id !== id);
+
+    // Update local storage
+    localStorage.setItem('menuItems', JSON.stringify(updatedMenu));
+
+    // Remove the row from the table
+    const menuTable = document.getElementById('menu-table');
+    menuTable.deleteRow(index);
+
+    // Optionally, you can refresh the table to reflect changes, but this is not necessary if you're already fetching the menu on page load.
+}
+// Populate initial menu on page load
+document.addEventListener('DOMContentLoaded', function() {
+    populateInitialMenu();  // Populate initial rows
+});
+
+    </script>
+    
+    
+</body>
+</html>

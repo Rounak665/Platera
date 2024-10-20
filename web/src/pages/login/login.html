@@ -1,0 +1,250 @@
+<!DOCTYPE html data-bs-theme="dark">
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  <title>Log In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+
+<body>
+  <div class="bg-img">
+  </div>
+  <img src="./Assets/moon.png" alt="" id="icon">
+  <div class="outer-box">
+
+    <div class="inner-box">
+      <img src="./Assets/OF.png" alt="" id="logo">
+      <form action="" class="login-form">
+        <div class="form-floating input-boxes">
+          <input type="text" class="form-control inputs" id="floatingInput" placeholder="name@example.com"
+            data-listener-added_72f4d75c="true" required>
+          <label for="floatingInput input-labels">Email/Phone No.</label>
+        </div>
+        <div class="form-floating input-boxes">
+          <input type="password" class="form-control inputs" id="floatingPassword" placeholder="Password"
+            data-listener-added_e3f9ee1f="true" required>
+          <label for="floatingPassword input-labels">Password</label>
+        </div>
+        <div class="under-password">
+          <div><input type="checkbox" class="checkbox-input form-check-input" id="Remeber Me" name="Remember Me"
+              value="Remember Me">
+            <label for="Remember Me" class="checkbox-label form-check-label">Remember Me</label>
+          </div>
+          <a href="#.html">Forgot password?</a>
+        </div>
+        <div class="g-recaptcha" data-sitekey="6Lc6OjkqAAAAAKpjvVKVJy6HcV28lXPWLvwAtNIr"></div>
+         <!-- This is the customizable captcha html code ------------------------------------------------------------------------------------ -->
+        <!-- if this code is activated then comment the div tag above -->
+
+
+        <!-- <div class="captcha-container">
+          <div class="captcha-box">
+            <canvas id="captchaCanvas" width="200" height="50"></canvas>
+            <button type="button" id="reloadCaptcha" class="reload-btn">↻</button>
+          </div>
+          <input type="text" id="captchaInput" class="form-control inputs" placeholder="Enter your captcha here" required>
+          <p id="captchaError" class="error-message" style="display:none;">Please enter the correct CAPTCHA</p>
+        </div> -->
+
+        <!-- the customizable captcha html ends here------------------------------------------------------------------------------------------ -->
+        <button class="btn btn-primary w-100 py-2 btn2" type="submit">Log in</button>
+        <p>Don't have an account?<a href="">Sign up now for free</a></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+    <script>
+    
+    function applyTheme(theme) {
+        if (theme === "dark") {
+            document.body.classList.add("dark-theme");
+            icon.src = "./Assets/sun.png";
+        } else {
+            document.body.classList.remove("dark-theme");
+            icon.src = "./Assets/moon.png";
+        }
+    }
+
+    
+    window.onload = function () {
+        const storedTheme = localStorage.getItem("theme"); 
+        if (storedTheme) {
+            applyTheme(storedTheme); 
+        }
+    }
+
+    
+    var icon = document.getElementById("icon");
+    icon.onclick = function () {
+        let currentTheme = document.body.classList.contains("dark-theme") ? "dark" : "light";
+        let newTheme = currentTheme === "dark" ? "light" : "dark";
+        
+        applyTheme(newTheme); 
+        localStorage.setItem("theme", newTheme); 
+    }
+</script>
+
+<!-- this is google captcha script-------------------------------------------------------------------------------------------------------- -->
+
+<!-- <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById('loginForm');
+
+    if (typeof grecaptcha === 'undefined') {
+        console.error('reCAPTCHA library is not loaded.');
+        return;
+    }
+
+    form.addEventListener('submit', function(event) {
+        const captchaResponse = grecaptcha.getResponse();
+
+        if (captchaResponse.length === 0) {
+            // Prevent form submission if CAPTCHA is not completed
+            event.preventDefault();
+            console.log('CAPTCHA not completed.');
+            document.querySelector('#captcha-error').style.display = 'block'; // Show error message
+        } else {
+            console.log('CAPTCHA completed.');
+            document.querySelector('#captcha-error').style.display = 'none'; // Hide error message
+        }
+    });
+});
+ -->
+
+</script>
+
+<!-- the google recaptcha ends here------------------------------------------------------------------------------------------                -->
+
+<!-- This is the customizable captcha script along with the dark white mode switch------------------------------------------------------------------------------------ -->
+<!-- if this code is activated then comment the script above -->
+<script>
+  
+  // const icon = document.getElementById("icon");
+  // icon.onclick = function () {
+  //     let currentTheme = document.body.classList.contains("dark-theme") ? "dark" : "light";
+  //     let newTheme = currentTheme === "dark" ? "light" : "dark";
+
+  //     applyTheme(newTheme);
+  //     localStorage.setItem("theme", newTheme);
+  // }
+
+  // function applyTheme(theme) {
+  //     if (theme === "dark") {
+  //         document.body.classList.add("dark-theme");
+  //         icon.src = "./Assets/sun.png";
+  //         updateCaptchaColor("#FFD04D"); 
+  //     } else {
+  //         document.body.classList.remove("dark-theme");
+  //         icon.src = "./Assets/moon.png";
+  //         updateCaptchaColor("#F12630"); 
+  //     }
+  // }
+
+  // window.onload = function () {
+  //     const storedTheme = localStorage.getItem("theme");
+  //     if (storedTheme) {
+  //         applyTheme(storedTheme);
+  //     }
+  // }
+
+
+  // function generateCaptcha() {
+  //     const canvas = document.getElementById('captchaCanvas');
+  //     const ctx = canvas.getContext('2d');
+  //     const width = 200;
+  //     const height = 80;
+  //     const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  //     let captcha = '';
+  //     canvas.width = width;
+  //     canvas.height = height;
+
+      
+  //     ctx.clearRect(0, 0, width, height);
+
+    
+  //     ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--captcha-bg-color');
+  //     ctx.fillRect(0, 0, width, height);
+
+  //     for (let i = 0; i < 6; i++) {
+  //         captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+  //     }
+
+  //     ctx.font = '40px Arial';
+  //     ctx.textAlign = 'center';
+  //     ctx.textBaseline = 'middle';
+  //     ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--primary-color');
+  //     ctx.fillText(captcha, width / 2, height / 2);
+
+  //     return captcha;
+  // }
+
+  // function updateCaptchaColor(color) {
+  //     document.documentElement.style.setProperty('--captcha-text-color', color);
+  // }
+
+  
+  // let captchaCode = generateCaptcha();
+
+ 
+  // document.getElementById('reloadCaptcha').addEventListener('click', () => {
+  //     captchaCode = generateCaptcha();
+  // });
+
+  // document.querySelector('form').addEventListener('submit', function (event) {
+  //     const captchaInput = document.getElementById('captchaInput');
+  //     const captchaError = document.getElementById('captchaError');
+
+  //     if (captchaInput.value !== captchaCode) {
+  //         event.preventDefault(); 
+  //         captchaError.style.display = 'block';
+  //     } else {
+  //         captchaError.style.display = 'none';
+  //     }
+  // });
+
+  
+  // updateCaptchaColor(getComputedStyle(document.body).getPropertyValue('--captcha-text-color'));
+
+  // customizable captcha script ends here-------------------------------------------------------------------------------------------
+</script>
+
+  <script>
+    const inputs = document.querySelectorAll('.form-control');
+
+    inputs.forEach(input => {
+
+      input.addEventListener('blur', function () {
+        if (input.value !== "") {
+
+          input.classList.add('has-content');
+        } else {
+
+          input.classList.remove('has-content');
+        }
+      });
+
+      input.addEventListener('focus', function () {
+        input.classList.remove('has-content');
+      });
+    });
+
+  </script>
+
+
+
+
+
+</body>
+
+</html>

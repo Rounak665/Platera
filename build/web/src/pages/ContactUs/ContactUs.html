@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=, initial-scale=1.0">
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="ContactUs.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+    <!-- Loader -->
+  <div class="loader">
+    <div id="pl">
+      <div>
+        <video class="vid" src="Assets/loader.mp4" autoplay muted loop></video>
+      </div>
+    </div>
+  </div>
+
+   <!-- Sign In PopUp Section -->
+   <section class="popup">
+    <div class="image-cropper">
+        <div class="container"
+            style="background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%), url('../SignUp_SignIn/Assets/signup1.jpg');">
+            <div class="content">
+                <h2 class="logo"><img src="../../../Public/images/logo.png" alt=""></h2>
+
+                <div class="text-sci">
+                    <h2>Welcome!<br><span>To Platera</span></h2>
+
+                    <p>Sign In now to experience our top trending dishes and exclusive offers.</p>
+
+                    <div class="social-icons">
+                        <a href="#"><i class='bx bx-envelope'></i></a>
+                        <a href="#"><i class='bx bxl-instagram'></i></a>
+                        <a href="#"><i class='bx bxl-facebook-circle'></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="logreg-box">
+                <div class="form-box login">
+                    <div class="close-btn"><ion-icon name="close-outline" class="ico"></ion-icon></div>
+                    <form action="#">
+                        <h2>Sign In</h2>
+
+                        <div class="input-box">
+                            <span class="icon"><i class='bx bx-envelope'></i></span>
+                            <input type="email" id="email" required>
+                            <label for="email">Email</label>
+                        </div>
+
+                        <div class="input-box">
+                            <span class="icon"><i class='bx bxs-lock-alt'></i></span>
+                            <input type="password" id="password" required>
+                            <label for="password">Password</label>
+                        </div>
+
+                        <div class="remember-forgot">
+                            <label><input type="checkbox">Remember me</label>
+                            <a href="#">Forgot password?</a>
+                        </div>
+
+                        <button type="submit" class="btn">Sign In</button>
+
+                        <div class="login-register">
+                            <p>Don't have an account? <a href="../SignUp_SignIn/SignUp_SignIn.html" class="register-link">Sign Up</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+  <!-- Navbar -->
+    
+  <header>
+    <div class="nav_bar">
+        <div class="logo">
+            <img src="../../../Public/images/logo.png" alt="logo" height="70px" >
+        </div>
+        <div class="nav_links">
+            <ul class="nav_list">
+                <li><a href="../../../index.html">Home</a></li>
+                <li><a href="../Menu/menu.html">Menu</a></li>
+                <li><a href="../AddRestaurent/AddRestaurent.html">Add Restaurants</a></li>
+            </ul>
+        </div>
+        <div class="buttons">
+            <a href="#"><button class="signin" id="signin">Sign In</button></a>
+            <a href="../SignUp_SignIn/SignUp_SignIn.html"><button class="signup">Sign Up</button></a>
+        </div>
+        <span class="menu" style="color: rgb(255, 255, 255);">
+            <i class="fa-solid fa-bars fa-xl"></i>
+        </span>
+    </div>
+</header>
+
+<!-- Contact Form -->
+
+  <section class="contact contact1" id="contact">
+    <video class="video-slide" src="Assets/vid.mp4" autoplay muted loop></video>
+    <div class="contact_container">
+        <div class="main-text scroll-scale show-items">
+            <h2>Get in Touch</h2>
+            <p>Whether you have a question or feedback feel free to reach out!</p>
+        </div>
+        <div class="contact_content scroll-scale show-items">
+            <div class="contact_info">
+                <div class="contact_card">
+                    <i class='bx bx-map-pin contact_card-icon'></i>
+                    <h3 class="contact_card-title">Visit Us</h3>
+                    <span class="contact_card-data">Whitefield, Bangalore</p></span>
+                    <span class="contact_card-data">Karnatak, PIN 568629, INDIA</p></span>
+                </div>
+                <div class="contact_card">
+                    <i class="bx bxs-phone-call contact_card-icon"></i>
+                    <h3 class="contact_card-title">Call Us</h3>
+                    <span class="contact_card-data">+91 - 1234567891</span>
+                    <span class="contact_card-data">Available: Mon-Sat | 9 AM - 9 PM</span>
+                </div>
+                <div class="contact_card">
+                    <i class="bx bx-envelope contact_card-icon"></i>
+                    <h3 class="contact_card-title">Email Us</h3>
+                    <span class="contact_card-data">support@platera.com</span>
+                </div>
+            </div>
+        </div>
+        <div class="contact_content scroll-scale show-items">
+            <form action="#" method="POST" class="contact_form">
+                <input type="hidden" name="access_key" value="62969577-3030-48de-a14b-c2cf74ebb013">
+                <div class="input_container">
+                    <input type="text" name="name" class="input" required="">
+                    <label for="first_name" name="first_name">Username</label>
+                    <span>Username</span>
+                </div>
+                <div class="input_container">
+                    <input type="email" name="email" class="input" required="">
+                    <label for="">Email</label>
+                    <span>Email</span>
+                </div>
+                <div class="input_container">
+                    <input type="tel" name="phone" class="input" required="">
+                    <label for="">Phone</label>
+                    <span>Phone</span>
+                </div>
+                <div class="input_container textarea">
+                    <textarea name="Message" id="" class="input" required=""></textarea>
+                    <label for="">Message</label>
+                    <span>Message</span>
+                </div>
+                <button type="submit" class="btn">Send<i class="bx bxs-send"></i></button>
+            </form>
+        </div>
+    </div>
+</section>
+</div>
+
+
+<!-- Footer ----------------------->
+
+<footer>
+    <div class="container_footer">
+        <div class="row">
+            <div class="col">
+                <img src="../../../Public/images/logo.png" alt="">
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quam at nisi veniam voluptatem eveniet obcaecati, modi itaque inventore. Nulla laudantium totam, enim autem aut harum.</p>
+            </div>
+            <div class="col">
+                <h3>Office <div class="underline"><span></span></div></h3>
+                <p>ITFL Road</p>
+                <p>Whitefield, Bangalore</p>
+                <p>Karnatak, PIN 568629, INDIA</p>
+                <p class="email_id">support@platera.in</p>
+                <h4>+91 - 1234567891</h4>
+            </div>
+            <div class="col">
+                <h3>Links <div class="underline"><span></span></div></h3>
+                <ul>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <h3>Newsletter <div class="underline"><span></span></div></h3>
+                <form>
+                    <img id="mail" src="../../../Public/images/mail.png" alt="">
+                    <input type="email" name="" id="" placeholder="Enter Your Email Address">
+                    <button type="submit"><img id="send" src="../../../Public/images/send.png" alt=""></button>
+                </form>
+                <div class="social_icon">
+                    <i class="fa-brands fa-facebook"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-pinterest"></i>
+                    <i class="fa-brands fa-x-twitter"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <p class="copyright">Platera @2024 - All Rights Reserved</p>
+</footer>
+
+            <!-- Scripts---------------------------- -->
+
+      <script>
+        const contactForm = document.querySelector('.contact_form');
+
+// Function to reset the form fields
+function resetForm() {
+    contactForm.reset();
+}
+// ------------ Input Animation-----------------
+
+const inputs = document.querySelectorAll(".input");
+
+function focusFunc() {
+    let parent =this.parentNode;
+    parent.classList.add("focus");
+}
+
+function blurFunc() {
+    let parent = this.parentNode;
+    if(this.value == "") {
+        parent.classList.remove("focus");
+}
+}
+inputs.forEach((input) => {
+    input.addEventListener("focus", focusFunc);
+    input.addEventListener("blur", blurFunc);
+});
+      </script>
+
+<script>
+
+    let select = document.getElementById("select");
+    let list = document.getElementById("list");
+
+    list.addEventListener("click", function(e){
+        if(e.target.tagName === "LI"){
+            select.querySelector("p").innerHTML = e.target.innerHTML;
+        }
+    })
+
+    select.addEventListener("click", function(){
+        list.classList.toggle("open");
+    })
+
+</script>
+
+<script>
+    document.querySelector("#signin").addEventListener("click", function( ) {
+        document.querySelector(".popup" ).classList.add( "active" );
+    });
+    document.querySelector(".form-box .close-btn").addEventListener("click", function( ) {
+        document.querySelector(".popup" ).classList.remove( "active" );
+    });
+ </script>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

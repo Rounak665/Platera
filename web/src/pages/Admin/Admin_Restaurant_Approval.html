@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="Admin.css"> <!-- Link to your CSS -->
+</head>
+<body>
+
+    <!-- loader -->
+    <div class="loader">
+        <div id="pl">
+          <div>
+            <video class="vid" src="../ContactUs/Assets/loader.mp4" autoplay muted loop></video>
+          </div>
+        </div>
+      </div>
+
+    <div>
+        <div class="sidebar">
+            <div class="sidebar-toggle menu" id="menu">
+                <ion-icon name="menu"></ion-icon>
+            </div>
+            <div class="sidebar-toggle close-btn"><ion-icon name="close-outline" class="ico"></ion-icon></div>
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="../../../Public/images/logo.png" alt="">
+                </div>
+            </div>
+            
+            <div class="sidebar-menu">
+                <ul>
+                    <li>
+                        <a href="">
+                            <span class="icon"><ion-icon name="bar-chart"></ion-icon></span>
+                            <span>Dahsboard Overview</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Admin_Order_Management.html">
+                            <span class="icon"><ion-icon name="wine"></ion-icon></span>
+                            <span>Order Management</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="icon"><ion-icon name="restaurant"></ion-icon></span>
+                            <span>Restaurant Approval</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Admin_Delivery_Executive.html">
+                            <span class="icon"><ion-icon name="bicycle"></ion-icon></span>
+                            <span>Delivery Executive Management</span>
+                        </a>
+                    </li>
+                    <li class="li_logout">
+                        <a href="../AddRestaurent/AddRestaurent.html#Signin-popup">
+                            <span class="icon"><ion-icon name="power"></ion-icon></span>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <header>
+                <div class="headerLogo">
+                    <div class="logo">
+                        <img src="../../../Public/images/logo.png" alt="">
+                    </div>
+                </div>
+                <div class="search-wrapper">
+                    <span class="icon"><ion-icon name="search"></ion-icon></span>
+                    <input type="search" placeholder="Search">
+                </div>
+                
+                <div class="social-icons">
+                    <div class="logout_btn" onclick="signout()">
+                    <span class="logout">Logout</span>
+                    <span class="icon"><ion-icon name="power"></ion-icon></span>
+                    </div>
+                </div>
+            </header>
+            
+            <main>
+                <h2 class="dash-title">Order Management</h2>
+
+                 <!-- Pending Restaurants Section -->
+    <section class="pending-restaurants">
+        <h2>Pending Restaurant Approvals</h2>
+        <table class="restaurant-table">
+            <thead>
+                <tr>
+                    <th>Restaurant Name</th>
+                    <th>Owner Name</th>
+                    <th>Email</th>
+                    <th>Contact Info</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="pendingRestaurantsTable">
+                <!-- Entries will be dynamically added here -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Pop-up Modal -->
+    <div id="infoPopup" class="popup-modal" style="display: none;">
+        <div class="popup-content">
+            <span class="close-popup" onclick="closePopup()">&times;</span>
+            <h2>Additional Restaurant Information</h2>
+            <div id="additionalInfo"></div>
+            <button class="btn-approve" onclick="approveRestaurant()">Approve</button>
+            <button class="btn-reject" onclick="rejectRestaurant()">Reject</button>
+        </div>
+    </div>
+
+    <!-- Approved Restaurants Section -->
+    <section class="approved-restaurants">
+        <h2>Approved Restaurants</h2>
+        <table class="restaurant-table">
+            <thead>
+                <tr>
+                    <th>Restaurant Name</th>
+                    <th>Owner Name</th>
+                    <th>Email</th>
+                    <th>Contact Info</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="approvedRestaurantsTable">
+                <!-- Approved restaurant entries will be dynamically added here -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Revocation Modal -->
+<div id="revokePopup" class="popup-modal" style="display: none;">
+    <div class="popup-content">
+        <span class="close-popup" onclick="closeRevokePopup()">&times;</span>
+        <div id="revokeContent"></div>
+    </div>
+</div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts  -->
+
+    <!-- Icon Scripts -->
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <!-- Main JavaScript -->
+    <script>
+        document.querySelector("#menu").addEventListener("click", function() {
+            document.querySelector(".sidebar").classList.add("activate");
+        });
+    
+        document.querySelector(".sidebar .close-btn").addEventListener("click", function() {
+            document.querySelector(".sidebar").classList.remove("activate");
+        });
+    
+        function signout() {
+            localStorage.removeItem('authtoken');
+            localStorage.removeItem('admin');
+            window.location.href = '../AddRestaurent/AddRestaurent.html#Signin-popup'; 
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+    const pendingRestaurantsTable = document.getElementById('pendingRestaurantsTable');
+    const approvedRestaurantsTable = document.querySelector('.approved-restaurants tbody');
+    const pendingRestaurants = JSON.parse(localStorage.getItem('pendingRestaurants')) || [];
+    const approvedRestaurants = JSON.parse(localStorage.getItem('approvedRestaurants')) || [];
+
+    // Populate the Pending Restaurants table
+    populatePendingRestaurants(pendingRestaurantsTable, pendingRestaurants);
+
+    // Populate the Approved Restaurants table
+    populateApprovedRestaurants(approvedRestaurantsTable, approvedRestaurants);
+});
+
+// Function to populate Pending Restaurants
+function populatePendingRestaurants(pendingRestaurantsTable, pendingRestaurants) {
+    pendingRestaurantsTable.innerHTML = ''; // Clear existing rows
+    pendingRestaurants.forEach((restaurant, index) => {
+        const row = `
+            <tr onclick="showPopup(${index})">
+                <td>${restaurant.restaurant_name}</td>
+                <td>${restaurant.owner_name}</td>
+                <td>${restaurant.email}</td>
+                <td>${restaurant.phone}</td>
+                <td>
+                    <button class="btn-approve" onclick="approveRestaurant(${index}); event.stopPropagation();">Approve</button>
+                    <button class="btn-reject" onclick="rejectRestaurant(${index}); event.stopPropagation();">Reject</button>
+                </td>
+            </tr>
+        `;
+        pendingRestaurantsTable.innerHTML += row;
+    });
+}
+
+// Function to populate Approved Restaurants
+function populateApprovedRestaurants(approvedRestaurantsTable, approvedRestaurants) {
+    approvedRestaurantsTable.innerHTML = ''; // Clear existing rows
+    approvedRestaurants.forEach((restaurant, index) => {
+        const row = `
+            <tr>
+                <td>${restaurant.restaurant_name}</td>
+                <td>${restaurant.owner_name}</td>
+                <td>${restaurant.email}</td>
+                <td>${restaurant.phone}</td>
+                <td>
+                    <button class="btn-revoke" onclick="showRevokeModal(${index});">Revoke Access</button>
+                </td>
+            </tr>
+        `;
+        approvedRestaurantsTable.innerHTML += row;
+    });
+}
+
+// Approve restaurant and move to the Approved Restaurants table
+function approveRestaurant(index) {
+    const pendingRestaurants = JSON.parse(localStorage.getItem('pendingRestaurants')) || [];
+    const approvedRestaurants = JSON.parse(localStorage.getItem('approvedRestaurants')) || [];
+
+    // Move the restaurant from pending to approved
+    const approvedRestaurant = pendingRestaurants.splice(index, 1)[0];
+    approvedRestaurants.push(approvedRestaurant);
+
+    // Save the email and password in local storage for login
+    localStorage.setItem('restaurantEmail', approvedRestaurant.email);
+    localStorage.setItem('restaurantPassword', approvedRestaurant.password); // Assumes password is part of the restaurant object
+
+    // Update local storage
+    localStorage.setItem('pendingRestaurants', JSON.stringify(pendingRestaurants));
+    localStorage.setItem('approvedRestaurants', JSON.stringify(approvedRestaurants));
+
+    // Add the approved restaurant dynamically to the approvedRestaurantsTable
+    const approvedRestaurantsTable = document.querySelector('.approved-restaurants tbody');
+    const row = `
+        <tr>
+            <td>${approvedRestaurant.restaurant_name}</td>
+            <td>${approvedRestaurant.owner_name}</td>
+            <td>${approvedRestaurant.email}</td>
+            <td>${approvedRestaurant.phone}</td>
+            <td>
+                <button class="btn-revoke" onclick="showRevokeModal(${approvedRestaurants.length - 1});">Revoke Access</button>
+            </td>
+        </tr>
+    `;
+    approvedRestaurantsTable.innerHTML += row;
+
+    // Refresh the pending table without reloading the page
+    const pendingRestaurantsTable = document.getElementById('pendingRestaurantsTable');
+    populatePendingRestaurants(pendingRestaurantsTable, pendingRestaurants);
+}
+
+// Reject restaurant and remove from the pending table
+function rejectRestaurant(index) {
+    const pendingRestaurants = JSON.parse(localStorage.getItem('pendingRestaurants')) || [];
+
+    // Get the restaurant being rejected
+    const rejectedRestaurant = pendingRestaurants[index];
+
+    // Remove the restaurant from pending
+    pendingRestaurants.splice(index, 1);
+
+    // Remove email and password from local storage
+    localStorage.removeItem('restaurantEmail');
+    localStorage.removeItem('restaurantPassword');
+
+    // Update local storage
+    localStorage.setItem('pendingRestaurants', JSON.stringify(pendingRestaurants));
+
+    alert(`Restaurant ${rejectedRestaurant.restaurant_name} has been rejected.`);
+    
+    // Refresh the pending table without reloading the page
+    const pendingRestaurantsTable = document.getElementById('pendingRestaurantsTable');
+    populatePendingRestaurants(pendingRestaurantsTable, pendingRestaurants);
+}
+
+// Show Pop-up with Additional Information
+function showPopup(index) {
+    const pendingRestaurants = JSON.parse(localStorage.getItem('pendingRestaurants')) || [];
+    const restaurant = pendingRestaurants[index];
+
+    const additionalInfo = `
+        <p><strong>Bank Account Name:</strong> ${restaurant.bank_account_name || "N/A"}</p>
+        <p><strong>Bank Account Number:</strong> ${restaurant.bank_account_number || "N/A"}</p>
+        <p><strong>GSTIN:</strong> ${restaurant.gstin || "N/A"}</p>
+        <p class="p-img"><strong>Menu Image:</strong> <img src="${restaurant.restaurant_menu_image || "#"}" alt="Menu Image" width="100"></p>
+        <p class="p-img"><strong>FSSAI License Image:</strong> <img src="${restaurant.fssai_license_image || "#"}" alt="FSSAI License" width="100"></p>
+        <p class="p-img"><strong>PAN Card Image:</strong> <img src="${restaurant.pan_card_image || "#"}" alt="PAN Card" width="100"></p>
+    `;
+    document.getElementById('additionalInfo').innerHTML = additionalInfo;
+    document.getElementById('infoPopup').style.display = 'flex';
+}
+
+// Close the Pop-up
+function closePopup() {
+    document.getElementById('infoPopup').style.display = 'none';
+}
+
+// Show the Revoke Modal with options
+function showRevokeModal(index) {
+    const approvedRestaurants = JSON.parse(localStorage.getItem('approvedRestaurants')) || [];
+    const restaurant = approvedRestaurants[index];
+
+    const revokeInfo = `
+        <h2>Revoke Access for ${restaurant.restaurant_name}</h2>
+        <p><strong>Owner:</strong> ${restaurant.owner_name}</p>
+        <p><strong>Email:</strong> ${restaurant.email}</p>
+        <button class="btn-restrict" onclick="restrictAccess(${index});">Restrict Login Access</button>
+        <button class="btn-hide" onclick="hideRestaurant(${index});">Hide Restaurant from Users</button>
+        <button class="btn-reverse" onclick="reverseApproval(${index});">Reverse Approval Status</button>
+    `;
+    document.getElementById('revokeContent').innerHTML = revokeInfo;
+    document.getElementById('revokePopup').style.display = 'flex';
+}
+
+// Restrict login access for the restaurant
+function restrictAccess(index) {
+    const approvedRestaurants = JSON.parse(localStorage.getItem('approvedRestaurants')) || [];
+    const restaurant = approvedRestaurants[index];
+
+    // Remove email and password from local storage
+    localStorage.removeItem('restaurantEmail');
+    localStorage.removeItem('restaurantPassword');
+
+    alert(`Login access restricted for ${restaurant.restaurant_name}.`);
+    closeRevokePopup();
+}
+
+// Hide the restaurant from customers
+function hideRestaurant(index) {
+    // Logic to hide the restaurant from customers
+    alert('Restaurant hidden from customers.');
+    closeRevokePopup();
+}
+
+// Reverse the approval and move it back to pending
+function reverseApproval(index) {
+    const approvedRestaurants = JSON.parse(localStorage.getItem('approvedRestaurants')) || [];
+    const pendingRestaurants = JSON.parse(localStorage.getItem('pendingRestaurants')) || [];
+
+    // Move the restaurant from approved to pending
+    const revokedRestaurant = approvedRestaurants.splice(index, 1)[0];
+    pendingRestaurants.push(revokedRestaurant);
+
+    // Remove email and password from local storage
+    localStorage.removeItem('restaurantEmail');
+    localStorage.removeItem('restaurantPassword');
+
+    // Update local storage
+    localStorage.setItem('approvedRestaurants', JSON.stringify(approvedRestaurants));
+    localStorage.setItem('pendingRestaurants', JSON.stringify(pendingRestaurants));
+
+    alert('Restaurant approval reversed and moved back to pending.');
+    closeRevokePopup();
+
+    // Refresh the tables without reloading the page
+    const approvedRestaurantsTable = document.querySelector('.approved-restaurants tbody');
+    const pendingRestaurantsTable = document.getElementById('pendingRestaurantsTable');
+
+    populateApprovedRestaurants(approvedRestaurantsTable, approvedRestaurants);
+    populatePendingRestaurants(pendingRestaurantsTable, pendingRestaurants);
+}
+
+// Close the Revoke Pop-up
+function closeRevokePopup() {
+    document.getElementById('revokePopup').style.display = 'none';
+}
+
+    </script>
+    
+</body>
+</html>
