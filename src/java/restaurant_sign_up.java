@@ -19,10 +19,19 @@ public class restaurant_sign_up extends HttpServlet {
             throws ServletException, IOException {
         
         // Get the form data
-        String name = request.getParameter("name_signup");
-        String email = request.getParameter("email_signup");
-        String password = request.getParameter("password_signup");
-        String re_password = request.getParameter("repassword_signup");
+        String restaurant_name = request.getParameter("restaurant_name");
+        String owner_name = request.getParameter("owner_name");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String address = request.getParameter("address");
+        String bank_account_name = request.getParameter("bank_account_name");
+        String bank_account_number = request.getParameter("bank_account_number");
+        String fssai_license = request.getParameter("fssai_license");
+        String pan_card = request.getParameter("pan_card");
+        String gstin = request.getParameter("gstin");
+        String password = request.getParameter("password");
+        String re_password = request.getParameter("re_password");
+        
 
         // Set the response content type
         response.setContentType("text/html;charset=UTF-8");
@@ -54,14 +63,21 @@ public class restaurant_sign_up extends HttpServlet {
                     oconn = (OracleConnection) ods.getConnection();
                     
                     // STEP 4: INSTANTIATING THE ORACLE PREPARED STATEMENT OBJECT
-                    String sql = "INSERT INTO users (name, email, password, user_role) values (?, ?, ?, ?)";
+                    String sql = "INSERT INTO restaurant_requests (restaurant_name, owner_name, email, password, phone, address, bank_account_name, bank_account_number, fssai_lic_no, pan_number, gst_in) values (?, ?, ?, ?)";
                     ops = (OraclePreparedStatement) oconn.prepareStatement(sql);
                     
                     // STEP 5: SETTING THE PLACEHOLDERS
-                    ops.setString(1, name);
+                    ops.setString(1, restaurant_name);
+                    ops.setString(2, owner_name);
                     ops.setString(2, email);
                     ops.setString(3, password);
-                    ops.setString(4, "customer");  // Default role set to "customer"
+                    ops.setString(5, phone);
+                    ops.setString(6, address);
+                    ops.setString(7, bank_account_name);
+                    ops.setString(8, bank_account_number);
+                    ops.setString(9, fssai_license);
+                    ops.setString(10, pan_card);
+                    ops.setString(11, gstin);
 
                     
                     // STEP 6: EXECUTE THE STATEMENT
@@ -69,9 +85,17 @@ public class restaurant_sign_up extends HttpServlet {
                     
                     if (result > 0) {
                         out.println("<h1>Sign Up Successful!</h1>");
-                        out.println("<p>Name: " + name + "</p>");
+                        out.println("<p>Restaurant name: " + restaurant_name + "</p>");
+                        out.println("<p>Owner name: " + owner_name + "</p>");
                         out.println("<p>Email: " + email + "</p>");
-                        out.println("<p>Role: customer</p>");
+                        out.println("<p>Phone: " + phone + "</p>");
+                        out.println("<p>Address: " + address + "</p>");
+                        out.println("<p>Bank account name: " + bank_account_name + "</p>");
+                        out.println("<p>Bank account number: " + bank_account_number + "</p>");
+                        out.println("<p>fssai license number: " + fssai_license + "</p>");
+                        out.println("<p>Pan number: " + pan_card + "</p>");
+                        out.println("<p>GSTIN: " + gstin + "</p>");
+                        
                     } else {
                         out.println("<h1>Error in sign-up. Please try again.</h1>");
                     }
