@@ -70,7 +70,7 @@
                     out.println("<td>" + bankAccountNumber + "</td>");
                     out.println("<td>" + gstin + "</td>");
                     out.println("<td>");
-                    out.println("<form action='approveRestaurant' method='post' style='display:inline;'>");
+                    out.println("<form action='http://localhost:8080/Platera-Main/approveRestaurant' method='post' style='display:inline;'>");
                     out.println("<input type='hidden' name='request_id' value='" + requestId + "'/>");
                     out.println("<input type='submit' value='Approve'/>");
                     out.println("</form>");
