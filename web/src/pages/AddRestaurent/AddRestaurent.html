@@ -101,14 +101,14 @@
         <div class="container1">
             <div class="close-btn"><ion-icon name="close-outline" class="icon"></ion-icon></div>
             <h1>Login</h1>
-            <form action="http://localhost:8080/Platera-Main/sign_in"   >
+            <form action="http://localhost:8080/Platera-Main/sign_in"  >
                 <div class="input_container">
-                    <input type="email" name="email" class="input" id="emailInput" required="">
+                    <input type="email" name="email_signin" class="input" id="emailInput" required>
                     <label for="Email">Email</label>
                     <span>Email</span>
                 </div>
                 <div class="input_container">
-                    <input type="password" name="password" class="input" id="passwordInput" required="">
+                    <input type="password" name="password_signin" class="input" id="passwordInput" required>
                     <label for="Password">Password</label>
                     <span>Password</span>
                 </div>
@@ -118,7 +118,7 @@
                     <a href="#">Forgot password?</a>
                 </div>
 
-                <button type="button" class="btn" onclick="validateAndRedirect()">Login</button></a>
+                <button type="submit" class="btn">Login</button>
 
                 <div class="login-register">
                     <p>Don't have an account? <a href="#" class="register-link" id="link-Signup">Sign Up</a></p>
@@ -582,7 +582,7 @@ populateRestaurantTable();
 </script>-->
 
      <!-- For FAQ -->
-      <script>
+<!--      <script>
         var acc = document.getElementsByClassName("accordion");
         var i;
 
@@ -600,7 +600,7 @@ populateRestaurantTable();
                 }
             });
         }
-      </script>
+      </script>-->
 
 </body>
 </html>
