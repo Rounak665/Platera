@@ -99,17 +99,17 @@
     <!-- Signin Popup -->
     <section class="popup" id="Signin-popup">
         <div class="container1">
-            <div class="close-btn"><ion-icon name="close-outline" class="ico"></ion-icon></div>
+            <div class="close-btn"><ion-icon name="close-outline" class="icon"></ion-icon></div>
             <h1>Login</h1>
-            <form action="#" class="contact_form" id="loginForm">
+            <form action="http://localhost:8080/Platera-Main/sign_in"   >
                 <div class="input_container">
                     <input type="email" name="email" class="input" id="emailInput" required="">
-                    <label for="">Email</label>
+                    <label for="Email">Email</label>
                     <span>Email</span>
                 </div>
                 <div class="input_container">
                     <input type="password" name="password" class="input" id="passwordInput" required="">
-                    <label for="">Password</label>
+                    <label for="Password">Password</label>
                     <span>Password</span>
                 </div>
                 
@@ -470,7 +470,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
      </script>
 
-<script>
+<!--<script>
     function validateAndRedirect() {
     var form = document.getElementById('loginForm');
     var emailInput = document.getElementById('emailInput').value; // Assuming this is your email input ID
@@ -579,7 +579,7 @@ function populateRestaurantTable() {
 // Call this function to populate the table on page load
 populateRestaurantTable();
 
-</script>
+</script>-->
 
      <!-- For FAQ -->
       <script>

@@ -46,6 +46,8 @@ public class restaurant_sign_up extends HttpServlet {
             out.println("<title>Servlet sign_up</title>");
             out.println("</head>");
             out.println("<body>");
+            out.println("<p>Its working</p>");
+            
             
             // Check if password and re-password match
             if (!password.equals(re_password)) {
@@ -63,7 +65,7 @@ public class restaurant_sign_up extends HttpServlet {
                     oconn = (OracleConnection) ods.getConnection();
                     
                     // STEP 4: INSTANTIATING THE ORACLE PREPARED STATEMENT OBJECT
-                    String sql = "INSERT INTO restaurant_requests (restaurant_name, owner_name, email, password, phone, address, bank_account_name, bank_account_number, fssai_lic_no, pan_number, gst_in) values (?, ?, ?, ?)";
+                    String sql = "INSERT INTO restaurant_requests (restaurant_name, owner_name, email, password, phone, address, bank_acc_name, bank_acc_number, fssai_lic_no, pan_number, gst_in) values (?, ?, ?, ?,?,?,?,?,?,?,?)";
                     ops = (OraclePreparedStatement) oconn.prepareStatement(sql);
                     
                     // STEP 5: SETTING THE PLACEHOLDERS
