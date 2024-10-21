@@ -19,7 +19,8 @@
                 <th>Bank Account Name</th>
                 <th>Bank Account Number</th>
                 <th>GSTIN</th>
-                <th>Actions</th>
+                <th>FSSAI License</th>
+                <th>Actions</th> 
             </tr>
         </thead>
         <tbody>
@@ -50,32 +51,34 @@
 
                 // Iterate through the result set and display each entry
                 while (rs.next()) {
-                    int requestId = rs.getInt("request_id");
-                    String restaurantName = rs.getString("restaurant_name");
-                    String ownerName = rs.getString("owner_name");
+                    int request_id = rs.getInt("request_id");
+                    String restaurant_name = rs.getString("restaurant_name");
+                    String owner_name = rs.getString("owner_name");
                     String email = rs.getString("email");
                     String phone = rs.getString("phone");
-                    String bankAccountName = rs.getString("bank_acc_name");
-                    String bankAccountNumber = rs.getString("bank_acc_number");
-                    String gstin = rs.getString("gst_in");
+                    String bank_acc_name = rs.getString("bank_acc_name");
+                    String bank_acc_number = rs.getString("bank_acc_number");
+                    String gst_in = rs.getString("gst_in");
+                    String fssai_lic_no=rs.getString("fssai_lic_no");
 
                     %>
                    <%out.println("<tr>");
-                    out.println("<td>" + requestId + "</td>");
-                    out.println("<td>" + restaurantName + "</td>");
-                    out.println("<td>" + ownerName + "</td>");
+                    out.println("<td>" + request_id + "</td>");
+                    out.println("<td>" + restaurant_name + "</td>");
+                    out.println("<td>" + owner_name + "</td>");
                     out.println("<td>" + email + "</td>");
                     out.println("<td>" + phone + "</td>");
-                    out.println("<td>" + bankAccountName + "</td>");
-                    out.println("<td>" + bankAccountNumber + "</td>");
-                    out.println("<td>" + gstin + "</td>");
+                    out.println("<td>" + bank_acc_name + "</td>");
+                    out.println("<td>" + bank_acc_number + "</td>");
+                    out.println("<td>" + gst_in + "</td>");
+                    out.println("<td>" + fssai_lic_no + "</td>");
                     out.println("<td>");
                     out.println("<form action='http://localhost:8080/Platera-Main/approveRestaurant' method='post' style='display:inline;'>");
-                    out.println("<input type='hidden' name='request_id' value='" + requestId + "'/>");
+                    out.println("<input type='hidden' name='request_id' value='" + request_id + "'/>");
                     out.println("<input type='submit' value='Approve'/>");
                     out.println("</form>");
                     out.println("<form action='rejectRestaurant' method='post' style='display:inline;'>");
-                    out.println("<input type='hidden' name='request_id' value='" + requestId + "'/>");
+                    out.println("<input type='hidden' name='request_id' value='" + request_id + "'/>");
                     out.println("<input type='submit' value='Reject'/>");
                     out.println("</form>");
                     out.println("</td>");
