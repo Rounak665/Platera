@@ -109,14 +109,12 @@ public class restaurant_sign_up extends HttpServlet {
                         try {
                             ops.close();
                         } catch (SQLException e) {
-                            e.printStackTrace();
                         }
                     }
                     if (oconn != null) {
                         try {
                             oconn.close();
                         } catch (SQLException e) {
-                            e.printStackTrace();
                         }
                     }
                 }
