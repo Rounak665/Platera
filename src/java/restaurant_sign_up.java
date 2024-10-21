@@ -11,7 +11,7 @@ import oracle.jdbc.OracleConnection;
 import oracle.jdbc.OraclePreparedStatement;
 import oracle.jdbc.pool.OracleDataSource;
 
-@WebServlet(urlPatterns = {"/sign_up"})
+@WebServlet(urlPatterns = {"/restaurant_sign_up"})
 public class restaurant_sign_up extends HttpServlet {
 
     // This method processes requests for both HTTP GET and POST methods
@@ -69,8 +69,8 @@ public class restaurant_sign_up extends HttpServlet {
                     // STEP 5: SETTING THE PLACEHOLDERS
                     ops.setString(1, restaurant_name);
                     ops.setString(2, owner_name);
-                    ops.setString(2, email);
-                    ops.setString(3, password);
+                    ops.setString(3, email);
+                    ops.setString(4, password);
                     ops.setString(5, phone);
                     ops.setString(6, address);
                     ops.setString(7, bank_account_name);
