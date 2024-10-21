@@ -15,8 +15,8 @@
 
 /* Example usage */
 body {
-    background-color: var(--main-color);
-    color: var(--text-grey);
+    background-color : var(--main-color);
+    color : var(--text-grey);
 }
 
 /* loader */
