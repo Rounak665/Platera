@@ -1,13 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
-/**
- *
- * @author rouna
- */
-class Database {
-    
+public class Database {
+    public static Connection getConnection() throws SQLException {
+        // Replace with your actual database connection details
+        String url = "jdbc:oracle:thin:@Rounak:1521:orcl";
+        String user = "ROUNAK";
+        String password = "CHAKRABORTY";
+        return DriverManager.getConnection(url, user, password);
+    }
 }
