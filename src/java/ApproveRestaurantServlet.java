@@ -20,19 +20,14 @@ public class ApproveRestaurantServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        OracleDataSource ods = null;
-        Connection conn = null;
 
-        try {
-            // Create the OracleDataSource object
-            ods = new OracleDataSource();
-            ods.setURL("jdbc:oracle:thin:@Rounak:1521:orcl"); // Update as needed
-            ods.setUser("ROUNAK");
-            ods.setPassword("CHAKRABORTY");
-
-            // Establish the connection
-            conn = ods.getConnection();
-            LOGGER.info("Connection established.");
+       
+            try (Connection conn = Database.getConnection()) { // Using try-with-resources
+            if (conn == null) {
+                LOGGER.severe("Database connection failed.");
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unable to connect to the database.");
+                return;
+            }
 
             int request_id = Integer.parseInt(request.getParameter("request_id"));
             LOGGER.info("Processing request ID: " + request_id);
@@ -79,19 +74,14 @@ public class ApproveRestaurantServlet extends HttpServlet {
                             insertRestaurantPstmt.executeUpdate();
                         }
 
-                        // Now delete the processed request
+//                         Now delete the processed request
                         String deleteSql = "DELETE FROM restaurant_requests WHERE request_id = ?";
                         try (PreparedStatement deletePstmt = conn.prepareStatement(deleteSql)) {
                             deletePstmt.setInt(1, request_id);
                             deletePstmt.executeUpdate();
                         }
-                         response.setContentType("text/html;charset=UTF-8");
-                    try (PrintWriter out = response.getWriter()) {
-                        out.println("<html><body>");
-                        out.println("<h1>Approval Successful</h1>");
-                        out.println("<p>The restaurant has been successfully approved!</p>"); 
-                        out.println("</body></html>");
-                    }
+                        response.setContentType("text/html");
+                        response.getWriter().println("<h2>Restaurant has been approved successfully</h2>");
                     }
                 } else {
                     LOGGER.warning("No request found for request ID: " + request_id);
@@ -112,13 +102,7 @@ public class ApproveRestaurantServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unexpected error occurred.");
         } finally {
             // Close the connection in the finally block
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                LOGGER.log(Level.SEVERE, "Error closing connection: " + e.getMessage(), e);
-            }
+            
         }
     }
 }

@@ -1,4 +1,5 @@
 import java.io.IOException;
+import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -12,18 +13,18 @@ import javax.servlet.http.HttpServletResponse;
 public class RejectRestaurantServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int requestId = Integer.parseInt(request.getParameter("request_id"));
+        int request_id = Integer.parseInt(request.getParameter("request_id"));
 
         try (Connection conn = Database.getConnection()) {
             // Delete the request directly
             String deleteSql = "DELETE FROM restaurant_requests WHERE request_id = ?";
             PreparedStatement deletePstmt = conn.prepareStatement(deleteSql);
-            deletePstmt.setInt(1, requestId);
+            deletePstmt.setInt(1, request_id);
             deletePstmt.executeUpdate();
+            response.setContentType("text/html");
+            response.getWriter().println("<h2>Restaurant has been rejected successfully</h2>");
         } catch (SQLException e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error occurred.");
-            return;
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error occurred."+ e.getMessage());
         }
 
 //        response.sendRedirect("adminRejectionSuccess.html"); 

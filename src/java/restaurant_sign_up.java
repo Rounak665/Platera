@@ -46,7 +46,6 @@ public class restaurant_sign_up extends HttpServlet {
             out.println("<title>Servlet sign_up</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<p>Its working</p>");
             
             
             // Check if password and re-password match
@@ -86,7 +85,7 @@ public class restaurant_sign_up extends HttpServlet {
                     int result = ops.executeUpdate();
                     
                     if (result > 0) {
-                        out.println("<h1>Sign Up Successful!</h1>");
+                        out.println("<h3>Your application has been received.<br>Futher updates will be sent to your email.</h3>");
                         out.println("<p>Restaurant name: " + restaurant_name + "</p>");
                         out.println("<p>Owner name: " + owner_name + "</p>");
                         out.println("<p>Email: " + email + "</p>");
@@ -99,7 +98,7 @@ public class restaurant_sign_up extends HttpServlet {
                         out.println("<p>GSTIN: " + gstin + "</p>");
                         
                     } else {
-                        out.println("<h1>Error in sign-up. Please try again.</h1>");
+                        out.println("<h2>Error in sign-up. Please try again.</h2>");
                     }
 
                 } catch (SQLException e) {

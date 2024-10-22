@@ -124,7 +124,7 @@ out.println("<tr>");
                     out.println("<input type='hidden' name='request_id' value='" + request_id + "'/>");
                     out.println("<input type='submit' value='Approve'/>");
                     out.println("</form>");
-                    out.println("<form action='rejectRestaurant' method='post' style='display:inline;'>");
+                    out.println("<form action='http://localhost:8080/Platera-Main/rejectRestaurant' method='post' style='display:inline;'>");
                     out.println("<input type='hidden' name='request_id' value='" + request_id + "'/>");
                     out.println("<input type='submit' value='Reject'/>");
                     out.println("</form>");
