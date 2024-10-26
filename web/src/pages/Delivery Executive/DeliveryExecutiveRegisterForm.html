@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Form Page with Navbar</title>
+    <link rel="stylesheet" href="./DeliveryExecutiveRegisterForm.css"> <!-- Link to external CSS file -->
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">LOGO</div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="account-icon">&#x1F464;</div>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+    </nav>
+
+    <!-- Dropdown Menu for Mobile -->
+    <div class="dropdown-menu" id="dropdownMenu">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </div>
+
+    <!-- Form -->
+    <h1>Form Submission</h1>
+    <form>
+        <!-- Name -->
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <!-- Phone Number -->
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+
+        <!-- Image Upload -->
+        <label for="image">Upload Image:</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
+
+        <!-- Aadhar -->
+        <label for="aadhar">Aadhar Number:</label>
+        <input type="text" id="aadhar" name="aadhar" required>
+
+        <!-- Vehicle Number -->
+        <label for="vehicle-number">Vehicle Number:</label>
+        <input type="text" id="vehicle-number" name="vehicle-number" required>
+
+        <!-- Driving License Number -->
+        <label for="driving-license">Driving License Number:</label>
+        <input type="text" id="driving-license" name="driving-license" required>
+
+        <!-- Bank Account Name -->
+        <label for="bank-account-name">Bank Account Name:</label>
+        <input type="text" id="bank-account-name" name="bank-account-name" required>
+
+        <!-- Bank Account Number -->
+        <label for="bank-account-number">Bank Account Number:</label>
+        <input type="text" id="bank-account-number" name="bank-account-number" required>
+
+        <!-- Age -->
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+
+        <!-- Gender -->
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+
+        <!-- Vehicle Type -->
+        <div class="radio-group">
+            <label>Vehicle Type:</label>
+            <label><input type="radio" name="vehicle-type" value="2-wheeler" required> 2-Wheeler</label>
+            <label><input type="radio" name="vehicle-type" value="4-wheeler" required> 4-Wheeler</label>
+        </div>
+
+        <!-- PAN Number -->
+        <label for="pan">PAN Number:</label>
+        <input type="text" id="pan" name="pan" required>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- JavaScript for Menu Toggle -->
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("dropdownMenu");
+            menu.classList.toggle("show");
+        }
+    </script>
+</body>
+</html>
