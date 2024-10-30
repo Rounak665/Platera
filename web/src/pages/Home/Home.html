@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodieHub | Discover & Order Food</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="Home.html"><img src="./assets/PlateraLogo.png" alt=""></a>
+        </div>
+        <div class="location-select">
+            <label for="location-dropdown">Location:</label>
+            <select id="location-dropdown">
+                <option value="Kolkata">Kolkata</option>
+                <option value="Hydrabad">Hydrabad</option>
+                <option value="Ahemadabad">Ahemadabad</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Mumbai">Mumbai</option>
+            </select>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#restaurants">Restaurants</a></li>
+            <li><a href="#dishes">Dishes</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="navbar-icons">
+            <button class="profile-btn" onclick="toggleProfileModal()"><i class="fas fa-user"></i></button>
+            <button class="cart-btn" onclick="toggleCartModal()"><i class="fas fa-shopping-cart"></i><span id="cart-count">0</span></button>
+        </div>
+    </nav>
+</header>
+
+<!-- Profile Modal -->
+<div class="profile-modal" id="profileModal">
+    <div class="modal-content">
+        <span class="close" onclick="toggleProfileModal()">&times;</span>
+        <h2>User Profile</h2>
+        <p>Name: John Doe</p>
+        <p>Email: johndoe@example.com</p>
+        <button class="logout-btn">Logout</button>
+    </div>
+</div>
+
+<!-- Cart Modal -->
+<div class="cart-modal" id="cartModal">
+    <div class="modal-content">
+        <span class="close" onclick="toggleCartModal()">&times;</span>
+        <h2>Your Cart</h2>
+        <ul id="cart-items"></ul>
+        <p>Total: $<span id="cart-total">0.00</span></p>
+        <button class="checkout-btn">Checkout</button>
+    </div>
+</div>
+
+<!-- Carousel Section -->
+<section class="carousel" id="home">
+    <div class="carousel-container">
+        <div class="carousel-slide">
+            <img src="./assets/slide1.jpg" alt="Slide 1">
+            <img src="./assets/slide1.jpg" alt="Slide 2">
+            <img src="slide3.jpg" alt="Slide 3">
+            <img src="slide4.jpg" alt="Slide 4">
+            <img src="slide5.jpg" alt="Slide 5">
+        </div>
+    </div>
+    <div class="search-bar">
+        <input type="text" placeholder="Search for food, restaurants, or cuisine..." />
+        <button>Search</button>
+    </div>
+    <div class="dots" id="dots"></div>
+</section>
+
+<!-- Popular Restaurants Section -->
+<section class="restaurants" id="restaurants">
+    <h2>Popular Restaurants</h2>
+    <div class="restaurant-list">
+        <!-- Each restaurant card -->
+        <div class="restaurant-card">
+            <img src="restaurant1.jpg" alt="Restaurant 1">
+            <h3>Restaurant One</h3>
+            <p>Italian, Pizza, Pasta</p>
+            <button class="view-menu-btn">View Menu</button>
+        </div>
+        <div class="restaurant-card">
+            <img src="restaurant2.jpg" alt="Restaurant 2">
+            <h3>Restaurant Two</h3>
+            <p>Chinese, Dumplings, Noodles</p>
+            <button class="view-menu-btn">View Menu</button>
+        </div>
+        <div class="restaurant-card">
+            <img src="restaurant3.jpg" alt="Restaurant 3">
+            <h3>Restaurant Three</h3>
+            <p>Indian, Biryani, Curry</p>
+            <button class="view-menu-btn">View Menu</button>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Dishes Section -->
+<section class="dishes" id="dishes">
+    <h2>Featured Dishes</h2>
+    <div class="dishes-list">
+        <!-- Each dish card -->
+        <div class="dish-card">
+            <img src="dish1.jpg" alt="Dish 1">
+            <h3>Spicy Pizza</h3>
+            <p>$12.99</p>
+            <button class="add-to-cart-btn" onclick="addToCart('Spicy Pizza', 12.99)">Add to Cart</button>
+        </div>
+        <div class="dish-card">
+            <img src="dish2.jpg" alt="Dish 2">
+            <h3>Chicken Biryani</h3>
+            <p>$9.99</p>
+            <button class="add-to-cart-btn" onclick="addToCart('Chicken Biryani', 9.99)">Add to Cart</button>
+        </div>
+        <div class="dish-card">
+            <img src="dish3.jpg" alt="Dish 3">
+            <h3>Cheesy Pasta</h3>
+            <p>$11.99</p>
+            <button class="add-to-cart-btn" onclick="addToCart('Cheesy Pasta', 11.99)">Add to Cart</button>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2024 FoodieHub. All rights reserved.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
