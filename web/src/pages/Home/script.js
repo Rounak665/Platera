@@ -1,3 +1,18 @@
+
+// JavaScript for Welcome Popup
+document.addEventListener("DOMContentLoaded", function() {
+    const welcomePopup = document.getElementById("welcomePopup");
+    const closePopupBtn = document.getElementById("closePopupBtn");
+
+    // Show popup when page reloads
+    welcomePopup.classList.add("active");
+
+    // Close popup when the "Close" button is clicked
+    closePopupBtn.addEventListener("click", function() {
+        welcomePopup.classList.remove("active");
+    });
+});
+
 // Toggle Modals
 function toggleProfileModal() {
     const modal = document.getElementById("profileModal");

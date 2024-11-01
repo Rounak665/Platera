@@ -6,6 +6,31 @@
     scroll-behavior: smooth;
 }
 
+/* Scrollbar Container */
+::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+    height: 10px; /* Height for horizontal scrollbar */
+}
+
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Track background */
+    border-radius: 5px; /* Rounded track */
+}
+
+/* Scrollbar Thumb */
+::-webkit-scrollbar-thumb {
+    background-color: #F12630; /* Scrollbar color */
+    border-radius: 5px; /* Rounded scrollbar */
+    border: 2px solid #f1f1f1; /* Creates space around thumb */
+}
+
+/* Hover Effect on Scrollbar Thumb */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #FFD04D; /* Darker shade on hover */
+}
+
+
 /*
 
     #F12630 RED
@@ -28,6 +53,70 @@
     box-shadow: none;
     color: #f8f8f8ff;
 }
+
+/* Welcome Popup */
+.welcome-popup {
+    position: fixed; /* Fixed positioning to center it */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000; /* Above all other elements */
+    visibility: hidden; /* Initially hidden */
+    opacity: 0;
+    transition: opacity 0.5s ease; /* Smooth fade-in */
+}
+
+.welcome-popup.active {
+    visibility: visible; /* Show popup */
+    opacity: 1;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    text-align: center;
+    width: 400px;
+    transition: opacity 0.5s ease; /* Smooth fade-in */
+    transform: scale(0.9); /* Initial scale for zoom effect */
+}
+
+.popup-content.active {
+    transform: scale(1); /* Return to full size */
+}
+
+.popup-content h3 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.popup-content p {
+    color: #666;
+}
+
+#closePopupBtn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#closePopupBtn:hover {
+    background-color: #0056b3;
+}
+
 
 /* Search Container */
 .search-container {
@@ -186,9 +275,9 @@
 }
 
 /* User Profile Styles */
-.user-profile {
-    /* Add styles for user profile section */
-}
+/* .user-profile {
+    
+} */
 
 .user-profile h2 {
     margin-bottom: 20px; /* Space below heading */
@@ -247,9 +336,9 @@
 }
 
 /* Cart Content Styles */
-.cart-content {
-    /* Add styles for cart content */
-}
+/* .cart-content {
+    
+} */
 
 .cart-content h2 {
     margin-bottom: 20px; /* Space below heading */
@@ -307,8 +396,6 @@
 .close-btn:hover {
     color: #F12630; /* Change color on hover */
 }
-
-
 
 /* Carousel Section */
 .carousel {
@@ -435,7 +522,7 @@
     width: 300px; /* Adjust width as needed */
     height: 40vh;
     text-align: center;
-    padding: 15px;
+    padding: 5px;
     transition: transform 0.3s ease;
     overflow: hidden;
 }
@@ -444,9 +531,14 @@
     width: 100%;
     height: 70%;
     object-fit: cover;
-    object-fit: cover;
-    
+    border-radius: 12px 12px 0 0;
+    transition: transform 0.3s ease;
 }
+
+.product-card:hover img {
+    transform: scale(1.05);
+}
+
 
 .product-card h4 {
     font-size: 1.4rem;
@@ -519,7 +611,7 @@
     display: flex;
     align-items: center;
     overflow: hidden;
-    height: 400px;
+    height: 410px;
 }
 
 /* Restaurant Slider */
@@ -540,14 +632,13 @@
 /* Restaurant Card */
 .restaurant-card {
     background: #fff;
-
     border-radius: 10px;
     border: #33333326 1px solid;
     /* box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.673); */
-    width: 350px;
+    width: 290px;
     height: 300px;
     flex: 0 0 auto;
-    transition: transform 0.3s ease;
+    /* transition: transform 0.3s ease; */
     overflow: hidden;
 }
 
@@ -555,10 +646,14 @@
 /* Restaurant Image */
 .restaurant-image {
     width: 100%;
-    height: 70%;
+    height: 55%;
     object-fit: cover;
     border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.restaurant-card:hover .restaurant-image {
+    transform: scale(1.05);
 }
 
 /* Restaurant Info */
@@ -576,6 +671,10 @@
 .restaurant-info p {
     margin: 5px 0;
     color: #666;
+}
+
+.restaurant-info .location{
+    font-weight: 700;
 }
 
 /* Slider Buttons */
@@ -607,10 +706,140 @@
 
 
 
-/* Footer */
-footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
+
+
+/* Footer section */
+footer{
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    z-index: 1;
+    /* right: 100; */
+    background-color: rgb(38, 38, 38);
+    color: rgb(255, 255, 255);
+    padding: 100px 0 30px 0;
+    border-top-left-radius: 125px;
+    font-size: 13px;
+    line-height: 20px;
+}
+footer .row{
+    width: 85%;
+    margin: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+footer .col{
+    flex-basis: 25%;
+    padding: 10px;
+}
+.col:nth-child(2), .col:nth-child(3){
+    flex-basis: 15%;
+}
+footer .col img{
+    width: 200px;
+    margin-bottom: 20px;
+}
+.col h3{
+    width: fit-content;
+    margin-bottom: 40px;
+    position: relative;
+}
+.email_id{
+    width: fit-content;
+    border-bottom: 1px solid rgb(255, 255, 255);
+    margin: 20px 0;
+}
+footer .col ul li{
+    list-style: none;
+    margin-bottom: 12px;
+}
+footer .col ul li a{
+    text-decoration: none;
+    color: #f4f4f4;
+}
+footer .col ul li a:hover{
+    color: #FFD04D;
+    transition: 0.3s;
+}
+footer .row .col form{
+    padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(255, 255, 255);
+    margin-bottom: 50px;
+}
+form #mail{
+    width: 18px;
+    margin-right: 10px;
+    margin-bottom: 0;
+}
+form #send{
+    width: 18px;
+    margin-bottom: 0;
+}
+form input{
+    width: 100%;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: rgb(255, 255, 255);
+}
+form button{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.social_icon .fa-brands{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     text-align: center;
+    line-height: 40px;
+    font-size: 30px;
+    color: black;
+    background-color: #f4f4f4;
+    margin-right: 15px;
+    cursor: ponter;
+}
+footer hr{
+    width: 90%;
+    border: 0;
+    border-bottom: 1px solid #f4f4f4;
+    margin: 20px auto;
+}
+footer p.copyright{
+    text-align: center;
+}
+.underline{
+    width: 100%;
+    height: 2px;
+    background-color: #767676;
+    border-radius: 2px;
+    position: absolute;
+    top: 25px;
+    left: 0;
+    overflow: hidden;
+}
+.underline span{
+    width: 15px;
+    height: 100%;
+    background-color: #f4f4f4;
+    border-radius: 2px;
+    position: absolute;
+    top: 0;
+    left: 10px;
+    animation: moving 2s linear infinite;
+}
+
+@keyframes moving{
+    0%{
+        left: -20px;
+    }    
+    100%{
+        left: 100%;
+    }
 }

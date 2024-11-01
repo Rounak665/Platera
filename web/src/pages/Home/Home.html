@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Platera | Discover & Order Food</title>
+    <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,6 +12,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+
+<!-- Welcome Popup -->
+<!-- <div class="welcome-popup" id="welcomePopup">
+    <div class="popup-content">
+        <h3>Welcome!</h3>
+        <p>Thanks for visiting our website.</p>
+        <button id="closePopupBtn">Close</button>
+    </div>
+</div> -->
 
 <!-- Navigation Bar -->
 <header>
@@ -162,59 +172,75 @@
         
         <div class="restaurant-slider">
             <div class="restaurant-card">
-                <img src="./assets/product1.png" alt="Restaurant 1" class="restaurant-image">
+                <img src="./assets/product1.png" alt="Restaurant 1" class="restaurant-image" >
                 <div class="restaurant-info">
-                    <h3>Restaurant 1</h3>
-                    <p>⭐ 4.5 | Italian, Fast Food</p>
+                    <h3>KFC</h3>
+                    <p>⭐ 4.7 | ₹₹</p> <!-- Ratings & Price Range -->
+                    <p>Burgers, Fast Food, Rolls & Wraps</p> <!-- Cuisines -->
+                    <p class="location">Dunlop</p> <!-- Location -->
                 </div>
             </div>
             <div class="restaurant-card">
                 <img src="./assets/product2.png" alt="Restaurant 2" class="restaurant-image">
                 <div class="restaurant-info">
-                    <h3>Restaurant 2</h3>
-                    <p>⭐ 4.7 | Indian, Vegetarian</p>
+                    <h3>Wow Momo!</h3>
+                    <p>⭐ 4.5 | ₹₹</p> <!-- Ratings & Price Range -->
+                    <p>Noodles, Chinese, Dumplings</p> <!-- Cuisines -->
+                    <p class="location">Central Kolkata</p> <!-- Location -->
                 </div>
             </div>
             <div class="restaurant-card">
-                <img src="./assets/product3.png" alt="Restaurant 3" class="restaurant-image">
+                <img src="./assets/product3.png" alt="Restaurant 3" class="restaurant-image" style="object-position: top;">
                 <div class="restaurant-info">
-                    <h3>Restaurant 3</h3>
-                    <p>⭐ 4.7 | Indian, Vegetarian</p>
+                    <h3>Pizza Hut</h3>
+                    <p>⭐ 4.4 | ₹₹</p> <!-- Ratings & Price Range -->
+                    <p>Pizzas</p> <!-- Cuisines -->
+                    <p class="location">Esplanade</p> <!-- Location -->
                 </div>
             </div>
             <div class="restaurant-card">
                 <img src="./assets/product4.png" alt="Restaurant 4" class="restaurant-image">
                 <div class="restaurant-info">
-                    <h3>Restaurant 4</h3>
-                    <p>⭐ 4.7 | Indian, Vegetarian</p>
+                    <h3>Burger King</h3>
+                    <p>⭐ 4.4 | ₹₹</p> <!-- Ratings & Price Range -->
+                    <p>Burgers, Fries, American</p> <!-- Cuisines -->
+                    <p class="location">Dunlop</p> <!-- Location -->
                 </div>
             </div>
             <div class="restaurant-card">
                 <img src="./assets/product5.png" alt="Restaurant 5" class="restaurant-image">
                 <div class="restaurant-info">
-                    <h3>Restaurant 5</h3>
-                    <p>⭐ 4.7 | Indian, Vegetarian</p>
+                    <h3>Subway</h3>
+                    <p>⭐ 4.3 | ₹₹₹</p> <!-- Ratings & Price Range -->
+                    <p>Sandwiches, Snacks, Beverages</p> <!-- Cuisines -->
+                    <p class="location">Park Street</p> <!-- Location -->
                 </div>
             </div>
             <div class="restaurant-card">
-                <img src="./assets/85ccae4e3576f9330af102c46ca85395.avif" alt="Restaurant 6" class="restaurant-image">
+                <img src="./assets/product6.avif" alt="Restaurant 6" class="restaurant-image">
                 <div class="restaurant-info">
-                    <h3>Restaurant 6</h3>
-                    <p>⭐ 4.7 | Indian, Vegetarian</p>
+                    <h3>Baskin Robins</h3>
+                    <p>⭐ 4.8 | ₹₹</p> <!-- Ratings & Price Range -->
+                    <p>Ice Cream, Desserts</p> <!-- Cuisines -->
+                    <p class="location">Elgin</p> <!-- Location -->
                 </div>
             </div>
             <div class="restaurant-card">
-                <img src="restaurant2.jpg" alt="Restaurant 2" class="restaurant-image">
+                <img src="./assets/product7.avif" alt="Restaurant 2" class="restaurant-image">
                 <div class="restaurant-info">
-                    <h3>Restaurant 2</h3>
-                    <p>⭐ 4.7 | Indian, Vegetarian</p>
+                    <h3>Arsalan</h3>
+                    <p>⭐ 4.5 | ₹₹₹</p> <!-- Ratings & Price Range -->
+                    <p>Biriyani, Mughlai, Indian, Kebabs,....</p> <!-- Cuisines -->
+                    <p class="location">Hati Bagan</p> <!-- Location -->
                 </div>
             </div>
             <div class="restaurant-card">
-                <img src="restaurant2.jpg" alt="Restaurant 2" class="restaurant-image">
+                <img src="./assets/product8.avif" alt="Restaurant 2" class="restaurant-image">
                 <div class="restaurant-info">
-                    <h3>Restaurant 2</h3>
-                    <p>⭐ 4.7 | Indian, Vegetarian</p>
+                    <h3>Domino's Pizza</h3>
+                    <p>⭐ 4.2 | ₹₹₹</p> <!-- Ratings & Price Range -->
+                    <p>Pizzas, Italian, pastas, Garlic Bread</p> <!-- Cuisines -->
+                    <p class="location">Central Avenue</p> <!-- Location -->
                 </div>
             </div>
             <!-- Add more restaurant cards as needed -->
@@ -224,36 +250,53 @@
     </div>
 </section>
 
+<!-- Spacer Section -->
+<section class="spacer-section"></section>
 
-<!-- Featured Dishes Section -->
-<section class="dishes" id="dishes">
-    <h2>Featured Dishes</h2>
-    <div class="dishes-list">
-        <!-- Each dish card -->
-        <div class="dish-card">
-            <img src="dish1.jpg" alt="Dish 1">
-            <h3>Spicy Pizza</h3>
-            <p>$12.99</p>
-            <button class="add-to-cart-btn" onclick="addToCart('Spicy Pizza', 12.99)">Add to Cart</button>
-        </div>
-        <div class="dish-card">
-            <img src="dish2.jpg" alt="Dish 2">
-            <h3>Chicken Biryani</h3>
-            <p>$9.99</p>
-            <button class="add-to-cart-btn" onclick="addToCart('Chicken Biryani', 9.99)">Add to Cart</button>
-        </div>
-        <div class="dish-card">
-            <img src="dish3.jpg" alt="Dish 3">
-            <h3>Cheesy Pasta</h3>
-            <p>$11.99</p>
-            <button class="add-to-cart-btn" onclick="addToCart('Cheesy Pasta', 11.99)">Add to Cart</button>
+<!-- Footer Section -->
+
+
+<footer>
+    <div class="container_footer">
+        <div class="row">
+            <div class="col">
+                <img src="./assets/PlateraLogo-red.png" alt="">
+                <p>Plaera delivers delicious meals from your favorite local restaurants straight to your door, combining speed and convenience with every order. From quick bites to gourmet dishes, enjoy a world of flavors anytime, anywhere!</p>
+            </div>
+            <div class="col">
+                <h3>Office <div class="underline"><span></span></div></h3>
+                <p>ITFL Road</p>
+                <p>Whitefield, Bangalore</p>
+                <p>Karnatak, PIN 568629, INDIA</p>
+                <p class="email_id">support@platera.in</p>
+                <h4>+91 - 1234567891</h4>
+            </div>
+            <div class="col">
+                <h3>Links <div class="underline"><span></span></div></h3>
+                <ul>
+                    <li><a href="../FooterLinkPages/Terms&Conditions/Terms&Conditions.html">Terms & Conditions</a></li>
+                    <li><a href="../FooterLinkPages/PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
+                    <li><a href="../FooterLinkPages/Help/Help.html">Help</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <h3>Newsletter <div class="underline"><span></span></div></h3>
+                <form>
+                    <img id="mail" src="./Public/images/mail.png" alt="">
+                    <input type="email" name="" id="" placeholder="Enter Your Email Address">
+                    <button type="submit"><img id="send" src="./Public/images/send.png" alt=""></button>
+                </form>
+                <div class="social_icon">
+                    <i class="fa-brands fa-facebook"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-pinterest"></i>
+                    <i class="fa-brands fa-x-twitter"></i>
+                </div>
+            </div>
         </div>
     </div>
-</section>
-
-<!-- Footer -->
-<footer>
-    <p>&copy; 2024 FoodieHub. All rights reserved.</p>
+    <hr>
+    <p class="copyright">Platera @2024 - All Rights Reserved</p>
 </footer>
 
 <script src="script.js"></script>
