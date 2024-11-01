@@ -26,7 +26,7 @@
     z-index: 2;
     /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
     box-shadow: none;
-    color: #fff;
+    color: #f8f8f8ff;
 }
 
 /* Search Container */
@@ -41,12 +41,14 @@
     padding: 5px 0;
     background: none;
     border: none;
+    border-radius: 5px;
     border-bottom: 2px solid rgba(255, 255, 255, 0.7);
-    color: white;
-    width: 150px;
+    color: #f8f8f8;
+    width: 170px;
     transition: width 0.3s ease;
     outline: none;
-    font-size: 1rem;
+    padding-left: 7px;
+    font-size: 0.9rem;
 }
 
 /* Expand search input on focus */
@@ -125,7 +127,7 @@
 
 #cart-count {
     background-color: #ffffff;
-    color: #ff6347;
+    color: #F12630;
     padding: 2px 6px;
     border-radius: 50%;
     font-size: 14px;
@@ -133,7 +135,7 @@
 }
 
 /* Modals */
-.profile-modal, .cart-modal {
+/* .profile-modal, .cart-modal {
     display: none;
     position: fixed;
     top: 0;
@@ -143,7 +145,7 @@
     background: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
-    z-index: 3;
+    z-index: 10;
 }
 
 .modal-content {
@@ -160,7 +162,153 @@
     font-size: 18px;
     cursor: pointer;
     color: #555;
+} */
+
+/* Profile and Cart Icons */
+.profile-icon, .cart-icon {
+    cursor: pointer;
+    font-size: 20px; /* Adjust icon size */
+    margin-left: 20px; /* Space between icons */
 }
+
+/* Sliding User Section */
+.user-section {
+    position: fixed; /* Fixed positioning for sliding effect */
+    top: 0;
+    right: -50%; /* Start off-screen */
+    width: 32%; /* Half-width */
+    height: 100%;
+    background-color: #f8f8f8;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease; /* Smooth transition */
+    padding: 100px;
+    z-index: 1000; /* Ensure it’s above other content */
+}
+
+/* User Profile Styles */
+.user-profile {
+    /* Add styles for user profile section */
+}
+
+.user-profile h2 {
+    margin-bottom: 20px; /* Space below heading */
+    font-size: 28px; /* Increase font size */
+    color: #333; /* Heading color */
+}
+
+.dashboard-options {
+    list-style-type: none;
+    padding: 0;
+}
+
+.dashboard-options li {
+    padding: 15px; /* Padding for each option */
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.2s; /* Smooth transition */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.dashboard-options li:hover {
+    background-color: #e0e0e0; /* Highlight on hover */
+}
+
+/* Logout Button Styles */
+.logout-btn {
+    margin-top: 20px; /* Space above the button */
+    padding: 10px 20px; /* Padding for the button */
+    background-color: #ef1e28; /* Button color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s; /* Smooth transition */
+    width: 100%; /* Full width */
+}
+
+.logout-btn:hover {
+    background-color: #f9464f; /* Darker shade on hover */
+}
+
+/* Sliding Cart Section */
+.cart-section {
+    position: fixed; /* Fixed positioning for sliding effect */
+    top: 0;
+    right: -50%; /* Start off-screen */
+    width: 32%; /* Half-width */
+    height: 100%;
+    background-color: #f9f9f9;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease; /* Smooth transition */
+    padding: 100px;
+    z-index: 1000; /* Ensure it’s above other content */
+}
+
+/* Cart Content Styles */
+.cart-content {
+    /* Add styles for cart content */
+}
+
+.cart-content h2 {
+    margin-bottom: 20px; /* Space below heading */
+    font-size: 28px; /* Increase font size */
+    color: #333; /* Heading color */
+}
+
+.cart-items {
+    list-style-type: none; /* Remove default list style */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+    max-height: 300px; /* Set max height for scrolling */
+    overflow-y: auto; /* Enable scrolling */
+}
+
+.cart-items li {
+    padding: 15px; /* Padding for each item */
+    border-bottom: 1px solid #e0e0e0; /* Separator line */
+    display: flex; /* Use flexbox for alignment */
+    justify-content: space-between; /* Space between item and price */
+    align-items: center; /* Center items vertically */
+}
+
+.checkout-btn {
+    margin-top: 20px; /* Space above the button */
+    padding: 10px 20px; /* Padding for the button */
+    background-color: #28a745; /* Button color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s; /* Smooth transition */
+    width: 100%; /* Full width */
+}
+
+.checkout-btn:hover {
+    background-color: #218838; /* Darker shade on hover */
+}
+
+/* Close Button Styles */
+.close-btn {
+    background: none; /* No background */
+    border: none; /* No border */
+    font-size: 70px; /* Adjust size */
+    color: #333;
+    font-weight: 200; /* Close button color */
+    cursor: pointer; /* Pointer cursor */
+    position: absolute; /* Positioning */
+    top: 20px; /* Distance from top */
+    right: 20px; /* Distance from right */
+    transition: color 0.3s; /* Transition for hover effect */
+}
+
+.close-btn:hover {
+    color: #F12630; /* Change color on hover */
+}
+
+
 
 /* Carousel Section */
 .carousel {
@@ -169,7 +317,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .carousel-container {
@@ -205,14 +353,14 @@
 /* Search Bar in Carousel */
 .search-bar {
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(0, 0, 0, 0.474);
     padding: 10px 20px;
-    border-radius: 30px;
+    border-radius: 35px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     z-index: 2;
 }
@@ -223,22 +371,25 @@
     font-size: 16px;
     outline: none;
     border-radius: 20px;
-    width: 600px;
+    width: 500px;
 }
 
 .search-bar button {
-    background-color: #ff6347;
+    background-color: #F12630;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 30px;
     margin-left: 10px;
     border-radius: 20px;
     font-size: 16px;
+    /* font-weight: bold; */
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .search-bar button:hover {
-    background-color: #e5533d;
+    background-color: #FFD04D;
+    color: #000000;
 }
 
 /* Dots Indicator */
@@ -262,8 +413,64 @@
 }
 
 .dots .active {
-    background-color: #ff6347;
+    background-color: #F12630;
 }
+
+/* Product Cards Container */
+.product-cards-container {
+    position: absolute;
+    bottom: -80px; /* Adjust position relative to the bottom of the carousel */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    z-index: 5;
+}
+
+/* Product Card Styling */
+.product-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    width: 300px; /* Adjust width as needed */
+    height: 40vh;
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
+.product-card img {
+    width: 100%;
+    height: 70%;
+    object-fit: cover;
+    object-fit: cover;
+    
+}
+
+.product-card h4 {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #181818;
+    margin: 5px 0;
+}
+
+.product-card p {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.product-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+}
+
+/* Spacer Section */
+.spacer-section {
+    height: 40px; /* Adjust this height as needed */
+    background-color: #f8f8f8; /* Optional, or add a background color if desired */
+}
+
 
 /* Popular Restaurants Section */
 .popular-restaurants {

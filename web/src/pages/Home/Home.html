@@ -16,7 +16,7 @@
 <header>
     <nav class="navbar">
         <div class="logo">
-            <a href="Home.html"><img src="./assets/PlateraLogo (2).png" alt=""></a>
+            <a href="./Home.html"><img src="./assets/PlateraLogo-red.png" alt=""></a>
         </div>
         <div class="search-container">
             <input type="text" id="location-search" class="location-search" placeholder="Search for a location...">
@@ -26,20 +26,54 @@
         <span id="selected-location" class="selected-location">Selected Location: None</span>
         
         <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
+            <li><a href="./Home.html">Home</a></li>
             <li><a href="#restaurants">Restaurants</a></li>
             <li><a href="#dishes">Dishes</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="navbar-icons">
-            <button class="profile-btn" onclick="toggleProfileModal()"><i class="fas fa-user"></i></button>
-            <button class="cart-btn" onclick="toggleCartModal()"><i class="fas fa-shopping-cart"></i><span id="cart-count">0</span></button>
+            <!-- <button class="profile-btn" onclick="toggleProfileModal()"><i class="fas fa-user"></i></button>
+            <button class="cart-btn" onclick="toggleCartModal()"><i class="fas fa-shopping-cart"></i><span id="cart-count">0</span></button> -->
+
+            <div class="profile-icon" id="profileIcon"><i class="fas fa-user"></i></div> <!-- Profile Icon -->
+            <div class="cart-icon" id="cartIcon"><i class="fas fa-shopping-cart"></i></div>
         </div>
     </nav>
 </header>
 
+
+<!-- Sliding User Section -->
+<section class="user-section" id="userSection">
+    <button class="close-btn" id="closeUserSection">&times;</button> <!-- Close Button -->
+    <div class="user-profile">
+        <h2>Dashboard</h2>
+        <ul class="dashboard-options">
+            <li>Profile Settings</li>
+            <li>Order History</li>
+            <li>Favorites</li>
+            <li>Logout</li>
+        </ul>
+        <button class="logout-btn">Logout</button> <!-- Logout Button -->
+    </div>
+</section>
+
+<!-- Sliding Cart Section -->
+<section class="cart-section" id="cartSection">
+    <button class="close-btn" id="closeCartSection">&times;</button> <!-- Close Button -->
+    <div class="cart-content">
+        <h2>Your Cart</h2>
+        <ul class="cart-items">
+            <li>Item 1 - ₹300</li>
+            <li>Item 2 - ₹450</li>
+            <li>Item 3 - ₹200</li>
+            <li>Total: ₹950</li>
+        </ul>
+        <button class="checkout-btn">Checkout</button>
+    </div>
+</section>
+
 <!-- Profile Modal -->
-<div class="profile-modal" id="profileModal">
+<!-- <div class="profile-modal" id="profileModal">
     <div class="modal-content">
         <span class="close" onclick="toggleProfileModal()">&times;</span>
         <h2>User Profile</h2>
@@ -47,10 +81,10 @@
         <p>Email: johndoe@example.com</p>
         <button class="logout-btn">Logout</button>
     </div>
-</div>
+</div> -->
 
 <!-- Cart Modal -->
-<div class="cart-modal" id="cartModal">
+<!-- <div class="cart-modal" id="cartModal">
     <div class="modal-content">
         <span class="close" onclick="toggleCartModal()">&times;</span>
         <h2>Your Cart</h2>
@@ -58,7 +92,7 @@
         <p>Total: $<span id="cart-total">0.00</span></p>
         <button class="checkout-btn">Checkout</button>
     </div>
-</div>
+</div> -->
 
 <!-- Carousel Section -->
 <section class="carousel" id="home">
@@ -80,7 +114,35 @@
 
     <!-- Dots Indicator -->
     <div class="dots" id="dots"></div>
+
+    <!-- Floating Product Cards -->
+    <div class="product-cards-container">
+        <div class="product-card">
+            <img src="./assets/card1.jpg" alt="Dish 1">
+            <h4>Order Online</h4>
+            <p>Stay home and order to your doorstep</p>
+        </div>
+        <div class="product-card">
+            <img src="./assets/card2.jpg" alt="Dish 2">
+            <h4>International Cuisins</h4>
+            <p>Explore our range of international cuisines</p>
+        </div>
+        <div class="product-card">
+            <img src="./assets/card3.jpg" alt="Dish 3">
+            <h4>Top Indian Dishes</h4>
+            <p>Check out our top Indian dishes</p>
+        </div>
+        <div class="product-card">
+            <img src="./assets/card4.jpg" alt="Dish 4">
+            <h4>Healthy Options</h4>
+            <p>Discover our healthy options</p>
+        </div>
+    </div>
+    
 </section>
+
+<!-- Spacer Section -->
+<section class="spacer-section"></section>
 
 <!-- Popular Restaurants Section -->
 <section class="popular-restaurants">
