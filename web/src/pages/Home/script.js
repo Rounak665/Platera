@@ -67,7 +67,7 @@ function showSlide(index) {
 // Auto-slide every 5 seconds
 setInterval(() => {
     moveSlide(1);
-}, 5000);
+}, 3000);
 
 function moveSlide(step) {
     showSlide(currentSlide + step);
@@ -76,14 +76,49 @@ function moveSlide(step) {
 // Initial display
 showSlide(0);
 
-document.getElementById("location-dropdown").addEventListener("change", function() {
-    const selectedLocation = this.value;
-    console.log("Selected location:", selectedLocation);
-    // Add functionality as needed for the selected location
-});
-
 document.querySelector(".search-bar button").addEventListener("click", function() {
     const searchTerm = document.querySelector(".search-bar input").value;
     console.log("Searching for:", searchTerm);
     // Add search functionality as needed
 });
+
+
+// location in navbar
+
+function filterLocations() {
+    const searchInput = document.getElementById("location-search").value.toLowerCase();
+    const dropdown = document.getElementById("location-select");
+    const options = dropdown.options;
+
+    // Iterate through the options and hide those that don't match the search
+    for (let i = 0; i < options.length; i++) {
+        const option = options[i];
+        const locationName = option.text.toLowerCase();
+
+        if (locationName.includes(searchInput) || searchInput === "") {
+            option.style.display = ""; // Show option
+        } else {
+            option.style.display = "none"; // Hide option
+        }
+    }
+}
+
+function selectLocation() {
+    const searchInput = document.getElementById("location-search").value;
+    document.getElementById("selected-location").textContent = `Selected Location: ${searchInput || 'None'}`;
+}
+
+// Restaurant slider
+function moveSlider(direction) {
+    const slider = document.querySelector(".restaurant-slider");
+    const cardWidth = document.querySelector(".restaurant-card").offsetWidth;
+    slider.scrollLeft += direction * (cardWidth + 20); // Move by one card width plus gap
+}
+
+// Restaurants section
+function filterRestaurants(criteria) {
+    console.log("Filtering by:", criteria);
+    // Logic to filter restaurants goes here
+    // Example: Adjust slider items based on the selected criteria
+}
+

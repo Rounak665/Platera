@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FoodieHub | Discover & Order Food</title>
+    <title>Platera | Discover & Order Food</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,18 +16,15 @@
 <header>
     <nav class="navbar">
         <div class="logo">
-            <a href="Home.html"><img src="./assets/PlateraLogo.png" alt=""></a>
+            <a href="Home.html"><img src="./assets/PlateraLogo (2).png" alt=""></a>
         </div>
-        <div class="location-select">
-            <label for="location-dropdown">Location:</label>
-            <select id="location-dropdown">
-                <option value="Kolkata">Kolkata</option>
-                <option value="Hydrabad">Hydrabad</option>
-                <option value="Ahemadabad">Ahemadabad</option>
-                <option value="Bangalore">Bangalore</option>
-                <option value="Mumbai">Mumbai</option>
-            </select>
+        <div class="search-container">
+            <input type="text" id="location-search" class="location-search" placeholder="Search for a location...">
+            <button class="select-location-btn" onclick="selectLocation()">&#x2192;</button> <!-- Arrow button -->
         </div>
+    
+        <span id="selected-location" class="selected-location">Selected Location: None</span>
+        
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#restaurants">Restaurants</a></li>
@@ -67,45 +64,104 @@
 <section class="carousel" id="home">
     <div class="carousel-container">
         <div class="carousel-slide">
-            <img src="./assets/slide1.jpg" alt="Slide 1">
-            <img src="./assets/slide1.jpg" alt="Slide 2">
-            <img src="slide3.jpg" alt="Slide 3">
-            <img src="slide4.jpg" alt="Slide 4">
-            <img src="slide5.jpg" alt="Slide 5">
+            <img src="./assets/slide1.png" alt="Slide 1">
+            <img src="./assets/slide2.png" alt="Slide 2">
+            <img src="./assets/slide3.png" alt="Slide 3">
+            <img src="./assets/slide4.png" alt="Slide 4">
+            <img src="./assets/slide5.png" alt="Slide 5">
         </div>
     </div>
+
+    <!-- Search Bar -->
     <div class="search-bar">
         <input type="text" placeholder="Search for food, restaurants, or cuisine..." />
         <button>Search</button>
     </div>
+
+    <!-- Dots Indicator -->
     <div class="dots" id="dots"></div>
 </section>
 
 <!-- Popular Restaurants Section -->
-<section class="restaurants" id="restaurants">
-    <h2>Popular Restaurants</h2>
-    <div class="restaurant-list">
-        <!-- Each restaurant card -->
-        <div class="restaurant-card">
-            <img src="restaurant1.jpg" alt="Restaurant 1">
-            <h3>Restaurant One</h3>
-            <p>Italian, Pizza, Pasta</p>
-            <button class="view-menu-btn">View Menu</button>
+<section class="popular-restaurants">
+    <h3>Popular Restaurants with online food delivery</h3>
+    <!-- Filter Buttons -->
+    <div class="filter-buttons">
+        <button class="filter-btn" onclick="filterRestaurants('ratings')">Ratings</button>
+        <button class="filter-btn" onclick="filterRestaurants('nonveg')">Non-Veg</button>
+        <button class="filter-btn" onclick="filterRestaurants('offers')">Offers</button>
+        <button class="filter-btn" onclick="filterRestaurants('under300')">Less than ₹300</button>
+        <button class="filter-btn" onclick="filterRestaurants('300to700')">₹300-₹700</button>
+    </div>
+
+    <!-- Restaurant Slider -->
+    <div class="slider-wrapper">
+        <button class="slide-btn prev-btn" onclick="moveSlider(-1)">&#10094;</button>
+        
+        <div class="restaurant-slider">
+            <div class="restaurant-card">
+                <img src="./assets/product1.png" alt="Restaurant 1" class="restaurant-image">
+                <div class="restaurant-info">
+                    <h3>Restaurant 1</h3>
+                    <p>⭐ 4.5 | Italian, Fast Food</p>
+                </div>
+            </div>
+            <div class="restaurant-card">
+                <img src="./assets/product2.png" alt="Restaurant 2" class="restaurant-image">
+                <div class="restaurant-info">
+                    <h3>Restaurant 2</h3>
+                    <p>⭐ 4.7 | Indian, Vegetarian</p>
+                </div>
+            </div>
+            <div class="restaurant-card">
+                <img src="./assets/product3.png" alt="Restaurant 3" class="restaurant-image">
+                <div class="restaurant-info">
+                    <h3>Restaurant 3</h3>
+                    <p>⭐ 4.7 | Indian, Vegetarian</p>
+                </div>
+            </div>
+            <div class="restaurant-card">
+                <img src="./assets/product4.png" alt="Restaurant 4" class="restaurant-image">
+                <div class="restaurant-info">
+                    <h3>Restaurant 4</h3>
+                    <p>⭐ 4.7 | Indian, Vegetarian</p>
+                </div>
+            </div>
+            <div class="restaurant-card">
+                <img src="./assets/product5.png" alt="Restaurant 5" class="restaurant-image">
+                <div class="restaurant-info">
+                    <h3>Restaurant 5</h3>
+                    <p>⭐ 4.7 | Indian, Vegetarian</p>
+                </div>
+            </div>
+            <div class="restaurant-card">
+                <img src="./assets/85ccae4e3576f9330af102c46ca85395.avif" alt="Restaurant 6" class="restaurant-image">
+                <div class="restaurant-info">
+                    <h3>Restaurant 6</h3>
+                    <p>⭐ 4.7 | Indian, Vegetarian</p>
+                </div>
+            </div>
+            <div class="restaurant-card">
+                <img src="restaurant2.jpg" alt="Restaurant 2" class="restaurant-image">
+                <div class="restaurant-info">
+                    <h3>Restaurant 2</h3>
+                    <p>⭐ 4.7 | Indian, Vegetarian</p>
+                </div>
+            </div>
+            <div class="restaurant-card">
+                <img src="restaurant2.jpg" alt="Restaurant 2" class="restaurant-image">
+                <div class="restaurant-info">
+                    <h3>Restaurant 2</h3>
+                    <p>⭐ 4.7 | Indian, Vegetarian</p>
+                </div>
+            </div>
+            <!-- Add more restaurant cards as needed -->
         </div>
-        <div class="restaurant-card">
-            <img src="restaurant2.jpg" alt="Restaurant 2">
-            <h3>Restaurant Two</h3>
-            <p>Chinese, Dumplings, Noodles</p>
-            <button class="view-menu-btn">View Menu</button>
-        </div>
-        <div class="restaurant-card">
-            <img src="restaurant3.jpg" alt="Restaurant 3">
-            <h3>Restaurant Three</h3>
-            <p>Indian, Biryani, Curry</p>
-            <button class="view-menu-btn">View Menu</button>
-        </div>
+        
+        <button class="slide-btn next-btn" onclick="moveSlider(1)">&#10095;</button>
     </div>
 </section>
+
 
 <!-- Featured Dishes Section -->
 <section class="dishes" id="dishes">
