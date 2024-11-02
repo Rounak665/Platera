@@ -11,13 +11,13 @@
 <body>
 
     <!-- Loader -->
-  <div class="loader">
+    <div class="loader">
     <div id="pl">
       <div>
         <video class="vid" src="src/pages/ContactUs/Assets/loader.mp4" autoplay muted loop></video>
       </div>
     </div>
-  </div>
+    </div>
     <!-- Header section -->
 
     <header>
@@ -45,6 +45,46 @@
             </span>
         </div>
     </header>
+
+    <!-- Popup Modal for Delivery Executive -->
+    <div id="popup-modal" class="popup">
+        <div class="popup-content">
+            <span id="close-popup" class="close">&times;</span>
+            
+            <!-- Login Form -->
+            <div id="login-form" class="form-content">
+                <h2>Login</h2>
+                <form>
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" name="username" required>
+
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" required>
+
+                    <button type="submit">Login</button>
+                    <p>Don't have an account? <a href="#" id="show-signup">Sign Up</a></p>
+                </form>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signup-form" class="form-content" style="display: none;">
+                <h2>Sign Up</h2>
+                <form>
+                    <label for="signup-username">Username</label>
+                    <input type="text" id="signup-username" name="username" required>
+
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" name="email" required>
+
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" name="password" required>
+
+                    <button type="submit">Sign Up</button>
+                    <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <!-- Sign In PopUp Section -->
     <section class="popup">
@@ -178,9 +218,101 @@
     </div>
 
     
-    <div class="body_container">
+    <!-- Popular Restaurants Section -->
+    <section class="popular-restaurants">
+        <h3>Popular Restaurants with online food delivery</h3>
+        <!-- Filter Buttons -->
+        <div class="filter-buttons">
+            <button class="filter-btn" onclick="filterRestaurants('ratings')">Ratings</button>
+            <button class="filter-btn" onclick="filterRestaurants('nonveg')">Non-Veg</button>
+            <button class="filter-btn" onclick="filterRestaurants('offers')">Offers</button>
+            <button class="filter-btn" onclick="filterRestaurants('under300')">Less than ₹300</button>
+            <button class="filter-btn" onclick="filterRestaurants('300to700')">₹300-₹700</button>
+        </div>
 
-    </div>
+        <!-- Restaurant Slider -->
+        <div class="slider-wrapper">
+            <button class="slide-btn prev-btn" onclick="moveSlider(-1)">&#10094;</button>
+            
+            <div class="restaurant-slider">
+                <div class="restaurant-card">
+                    <img src="./Public/images/product1.png" alt="Restaurant 1" class="restaurant-image" >
+                    <div class="restaurant-info">
+                        <h3>KFC</h3>
+                        <p>⭐ 4.7 | ₹₹</p> <!-- Ratings & Price Range -->
+                        <p>Burgers, Fast Food, Rolls & Wraps</p> <!-- Cuisines -->
+                        <p class="location">Dunlop</p> <!-- Location -->
+                    </div>
+                </div>
+                <div class="restaurant-card">
+                    <img src="./Public/images/product2.png" alt="Restaurant 2" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <h3>Wow Momo!</h3>
+                        <p>⭐ 4.5 | ₹₹</p> <!-- Ratings & Price Range -->
+                        <p>Noodles, Chinese, Dumplings</p> <!-- Cuisines -->
+                        <p class="location">Central Kolkata</p> <!-- Location -->
+                    </div>
+                </div>
+                <div class="restaurant-card">
+                    <img src="./Public/images/product3.png" alt="Restaurant 3" class="restaurant-image" style="object-position: top;">
+                    <div class="restaurant-info">
+                        <h3>Pizza Hut</h3>
+                        <p>⭐ 4.4 | ₹₹</p> <!-- Ratings & Price Range -->
+                        <p>Pizzas</p> <!-- Cuisines -->
+                        <p class="location">Esplanade</p> <!-- Location -->
+                    </div>
+                </div>
+                <div class="restaurant-card">
+                    <img src="./Public/images/product4.png" alt="Restaurant 4" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <h3>Burger King</h3>
+                        <p>⭐ 4.4 | ₹₹</p> <!-- Ratings & Price Range -->
+                        <p>Burgers, Fries, American</p> <!-- Cuisines -->
+                        <p class="location">Dunlop</p> <!-- Location -->
+                    </div>
+                </div>
+                <div class="restaurant-card">
+                    <img src="./Public/images/product5.png" alt="Restaurant 5" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <h3>Subway</h3>
+                        <p>⭐ 4.3 | ₹₹₹</p> <!-- Ratings & Price Range -->
+                        <p>Sandwiches, Snacks, Beverages</p> <!-- Cuisines -->
+                        <p class="location">Park Street</p> <!-- Location -->
+                    </div>
+                </div>
+                <div class="restaurant-card">
+                    <img src="./Public/images/product6.avif" alt="Restaurant 6" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <h3>Baskin Robins</h3>
+                        <p>⭐ 4.8 | ₹₹</p> <!-- Ratings & Price Range -->
+                        <p>Ice Cream, Desserts</p> <!-- Cuisines -->
+                        <p class="location">Elgin</p> <!-- Location -->
+                    </div>
+                </div>
+                <div class="restaurant-card">
+                    <img src="./Public/images/product7.avif" alt="Restaurant 2" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <h3>Arsalan</h3>
+                        <p>⭐ 4.5 | ₹₹₹</p> <!-- Ratings & Price Range -->
+                        <p>Biriyani, Mughlai, Indian, Kebabs,....</p> <!-- Cuisines -->
+                        <p class="location">Hati Bagan</p> <!-- Location -->
+                    </div>
+                </div>
+                <div class="restaurant-card">
+                    <img src="./Public/images/product8.avif" alt="Restaurant 2" class="restaurant-image">
+                    <div class="restaurant-info">
+                        <h3>Domino's Pizza</h3>
+                        <p>⭐ 4.2 | ₹₹₹</p> <!-- Ratings & Price Range -->
+                        <p>Pizzas, Italian, pastas, Garlic Bread</p> <!-- Cuisines -->
+                        <p class="location">Central Avenue</p> <!-- Location -->
+                    </div>
+                </div>
+                <!-- Add more restaurant cards as needed -->
+            </div>
+            
+            <button class="slide-btn next-btn" onclick="moveSlider(1)">&#10095;</button>
+        </div>
+    </section>
 
     <!-- Footer Section -->
 
@@ -235,9 +367,8 @@
     
     <!-- All Icon links -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
 
     <!-- Main Script -->
@@ -259,46 +390,49 @@
     </script>
 
     <!-- For signin popup and close -->
-     <script>
+    <script>
         document.querySelector("#signin").addEventListener("click", function( ) {
             document.querySelector(".popup" ).classList.add( "active" );
         });
         document.querySelector(".form-box .close-btn").addEventListener("click", function( ) {
             document.querySelector(".popup" ).classList.remove( "active" );
         });
-     </script>
+    </script>
 
      <!-- Hidden Admin Link -->
-     <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
-  const adminLink = document.getElementById('secret-admin-link');
+        const adminLink = document.getElementById('secret-admin-link');
 
-  if (adminLink) {
-    console.log("Admin link found.");
+        if (adminLink) {
+            console.log("Admin link found.");
 
-    // Listen for keydown events
-    document.addEventListener('keydown', function(event) {
-      console.log(`Key pressed: ${event.code}`);  // Log key presses for debugging
+        // Listen for keydown events
+        document.addEventListener('keydown', function(event) {
+        console.log(`Key pressed: ${event.code}`);  // Log key presses for debugging
 
-      // Check if Ctrl + Alt + B (KeyB) is pressed
-      if (event.ctrlKey && event.altKey && event.code === 'KeyB') {
-        console.log("Ctrl + Alt + B detected.");
-        event.preventDefault();  // Prevent any default action the browser might take for this combination
-        adminLink.style.display = 'block';  // Reveal the admin dashboard link
-        alert('Admin Dashboard link revealed');  // Optional: Testing purpose
-      }
+        // Check if Ctrl + Alt + B (KeyB) is pressed
+        if (event.ctrlKey && event.altKey && event.code === 'KeyB') {
+            console.log("Ctrl + Alt + B detected.");
+            event.preventDefault();  // Prevent any default action the browser might take for this combination
+            adminLink.style.display = 'block';  // Reveal the admin dashboard link
+            alert('Admin Dashboard link revealed');  // Optional: Testing purpose
+        }
+        });
+
+        // Hide the link again after it's clicked
+        adminLink.addEventListener('click', function() {
+        console.log("Admin link clicked, hiding it.");
+        adminLink.style.display = 'none';  // Hide again after clicking
+        });
+        } else {
+            console.error("Admin link not found!");
+        }
     });
+    </script>
 
-    // Hide the link again after it's clicked
-    adminLink.addEventListener('click', function() {
-      console.log("Admin link clicked, hiding it.");
-      adminLink.style.display = 'none';  // Hide again after clicking
-    });
-  } else {
-    console.error("Admin link not found!");
-  }
-});
-        </script>
+    
+<script src="./src/assets/script.js"></script>
 
 </body>
 </html>
