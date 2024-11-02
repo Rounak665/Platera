@@ -6,7 +6,8 @@
     "axe/forms": [
       "default",
       {
-        "label": "off"
+        "label": "off",
+        "select-name": "off"
       }
     ],
     "axe/name-role-value": [
@@ -17,5 +18,15 @@
       }
     ],
     "no-inline-styles": "off"
-  }
+  },
+  "browserslist": [
+    "defaults",
+    "not ie 11",
+    "not and_ff <= 127",
+    "not chrome <= 109",
+    "not firefox <= 127",
+    "not ios_saf <= 17.5",
+    "not safari <= 17.5",
+    "not samsung <= 25"
+  ]
 }
