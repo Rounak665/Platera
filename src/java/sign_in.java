@@ -40,13 +40,35 @@ public class sign_in extends HttpServlet {
             try (ResultSet rs = stmt.executeQuery()){
     
             System.out.println("Query executed.");
+            
+            
+           
 
             // Check if user exists
             if (rs.next()) {
+                int userRole = 0;
                 // User exists, display success message
-                out.println("<h2>Login Successful!</h2>");
-                out.println("<p>Welcome, " + email + "!</p>");               
-                response.sendRedirect("src/pages/Home/Home.html");
+                String userRoleSql = "SELECT user_role FROM users WHERE email = ?";
+                    try (PreparedStatement userRolePstmt = conn.prepareStatement(userRoleSql)) {
+                        userRolePstmt.setString(1, rs.getString("email"));
+                        ResultSet userRoleRs = userRolePstmt.executeQuery();
+                        if (userRoleRs.next()) {
+                            userRole = userRoleRs.getInt("user_id");
+                        }
+                    }
+                if(userRole==1){
+                response.sendRedirect("src/pages/Admin/Admin_Order_Management.html");//1 for admin
+                }
+                if(userRole==2){
+                response.sendRedirect("src/pages/Home/Home.html");//2 for customer
+                }
+                if(userRole==3){
+                response.sendRedirect("src/pages/RestaurentDashboard/RestaurantDashboard.html");//3 for restaurant owners
+                }
+                if(userRole==4){
+                response.sendRedirect("src/pages/Home/Home.html");//4 for delivery executives
+                }
+                
 
             } else {
                 // User does not exist, display error message

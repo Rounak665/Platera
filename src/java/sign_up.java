@@ -61,7 +61,7 @@ public class sign_up extends HttpServlet {
                         ops.setString(1, name);
                         ops.setString(2, email);
                         ops.setString(3, password);
-                        ops.setString(4, "customer");  // Default role set to "customer"
+                        ops.setString(4, "2");  // Default role set to "customer".2 for customer
 
                         // STEP 6: EXECUTE THE STATEMENT
                         int result = ops.executeUpdate();
@@ -89,27 +89,7 @@ public class sign_up extends HttpServlet {
     }
     
 
-    // Handles the HTTP GET method
-//    @Override
-//    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//        try {
-//            processRequest(request, response);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(sign_up.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//    }
-//
-//    // Handles the HTTP POST method
-//    @Override
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//        try {
-//            processRequest(request, response);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(sign_up.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//      }
+    
 }
 
     
