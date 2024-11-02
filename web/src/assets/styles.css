@@ -19,7 +19,29 @@ body{
     overflow-x: hidden;
 }
 
+/* Scrollbar Container */
+::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+    height: 10px; /* Height for horizontal scrollbar */
+}
 
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Track background */
+    border-radius: 5px; /* Rounded track */
+}
+
+/* Scrollbar Thumb */
+::-webkit-scrollbar-thumb {
+    background-color: #F12630; /* Scrollbar color */
+    border-radius: 5px; /* Rounded scrollbar */
+    border: 2px solid #f1f1f1; /* Creates space around thumb */
+}
+
+/* Hover Effect on Scrollbar Thumb */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #FFD04D; /* Darker shade on hover */
+}
   
 
 
@@ -648,7 +670,145 @@ body{
     color: #F12630;
 }
 
+/* Popular Restaurants Section */
+.popular-restaurants {
+    padding: 80px 100px;
+    background-color: #f8f8f8;
+    text-align: left;
+}
 
+.popular-restaurants h3 {
+    font-size: 2rem;
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+/* Filter Buttons */
+.filter-buttons {
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+    /* margin-bottom: 20px; */
+}
+
+.filter-btn {
+    background-color: #e0e0e000;
+    color: #000000;
+    border: solid 1px #33333344;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filter-btn:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.filter-btn.active {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Slider Wrapper */
+.slider-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    height: 410px;
+}
+
+/* Restaurant Slider */
+.restaurant-slider {
+    margin: 20px auto;
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.restaurant-slider::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+}
+
+/* Restaurant Card */
+.restaurant-card {
+    background: #fff;
+    border-radius: 10px;
+    border: #33333326 1px solid;
+    /* box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.673); */
+    width: 290px;
+    height: 300px;
+    flex: 0 0 auto;
+    /* transition: transform 0.3s ease; */
+    overflow: hidden;
+}
+
+
+/* Restaurant Image */
+.restaurant-image {
+    width: 100%;
+    height: 55%;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.restaurant-card:hover .restaurant-image {
+    transform: scale(1.05);
+}
+
+/* Restaurant Info */
+.restaurant-info {
+    padding: 15px;
+    text-align: left;
+}
+
+.restaurant-info h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin: 0;
+}
+
+.restaurant-info p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.restaurant-info .location{
+    font-weight: 700;
+}
+
+/* Slider Buttons */
+.slide-btn {
+    position: absolute;
+    top: 25px;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0);
+    color: #040404;
+    border: solid 1px #00000084;
+    padding: 2px 13px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.prev-btn {
+    right: 60px;
+}
+
+.next-btn {
+    right: 12px;
+}
+
+.slide-btn:hover {
+    background: rgba(0, 0, 0, 0.805);
+    color: #fff;
+}
 
 
 /* Footer section */
