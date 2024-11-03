@@ -115,8 +115,12 @@ body{
     z-index: 999;
     margin: 0px auto;
 }
-.nav_bar .logo{
+header .nav_bar .logo{
+    width: 100px;
     margin-left: 30px;
+}
+header .nav_bar .logo img{
+    height: 70px;
 }
 .nav_bar .nav_links .nav_list{
     display: flex;
