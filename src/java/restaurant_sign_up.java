@@ -58,7 +58,7 @@ public class restaurant_sign_up extends HttpServlet {
                     
                     // STEP 3: INSTANTIATING THE ORACLE CONNECTION OBJECT
                     OracleDataSource ods = new OracleDataSource();
-                    ods.setURL("jdbc:oracle:thin:@Rounak:1521:orcl"); // Use your DB details
+                    ods.setURL("jdbc:oracle:thin:@LAPTOP-FD5S7I0J:1521:orclSree"); // Use your DB details
                     ods.setUser("ROUNAK");
                     ods.setPassword("CHAKRABORTY");
                     oconn = (OracleConnection) ods.getConnection();

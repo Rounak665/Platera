@@ -27,7 +27,7 @@
 
         <%
             // Database connection details
-            String jdbcUrl = "jdbc:oracle:thin:@Rounak:1521:orcl"; // Replace with your Oracle DB URL
+            String jdbcUrl = "jdbc:oracle:thin:@LAPTOP-FD5S7I0J:1521:orclSree"; // Replace with your Oracle DB URL
             String dbUser = "ROUNAK"; // Replace with your DB username
             String dbPassword = "CHAKRABORTY"; // Replace with your DB password
 

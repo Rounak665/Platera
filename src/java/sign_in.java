@@ -47,7 +47,7 @@ public class sign_in extends HttpServlet {
 
         try {
             // Establish connection
-            ods.setURL("jdbc:oracle:thin:@Rounak:1521:orcl"); // Update as needed
+            ods.setURL("jdbc:oracle:thin:@LAPTOP-FD5S7I0J:1521:orclSree"); // Update as needed
             ods.setUser("ROUNAK");
             ods.setPassword("CHAKRABORTY");
             conn = ods.getConnection();
