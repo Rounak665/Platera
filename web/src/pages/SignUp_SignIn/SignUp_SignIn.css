@@ -9,7 +9,7 @@ body, html {
     scroll-behavior: smooth;
     height: 100%;
     overflow-x: hidden;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
     background: #020410;
     scroll-snap-type: y mandatory; /* Vertical scrolling with snap */
 }
@@ -387,7 +387,7 @@ section {
 
 .image-cropper {
     width: 65%;
-    height: 470px;
+    height: 570px;
     overflow: hidden;
     position: absolute;
     top: 50%;

@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import oracle.jdbc.pool.OracleDataSource;
 
 @WebServlet("/approveRestaurant")
 public class ApproveRestaurantServlet extends HttpServlet {
@@ -31,6 +29,7 @@ public class ApproveRestaurantServlet extends HttpServlet {
 
             int request_id = Integer.parseInt(request.getParameter("request_id"));
             LOGGER.info("Processing request ID: " + request_id);
+            
 
             // Get the request details
             String selectSql = "SELECT * FROM restaurant_requests WHERE request_id = ?";
@@ -40,7 +39,7 @@ public class ApproveRestaurantServlet extends HttpServlet {
 
                 if (rs.next()) {
                     // Insert the approved restaurant into the users table
-                    String insertUserSql = "INSERT INTO users (name, email, password, phone, user_role) VALUES (?, ?, ?, ?, 'restaurant_owner')";
+                    String insertUserSql = "INSERT INTO users (name, email, password, phone, user_role) VALUES (?, ?, ?, ?, '3')";
                     try (PreparedStatement insertUserPstmt = conn.prepareStatement(insertUserSql)) {
                         insertUserPstmt.setString(1, rs.getString("owner_name"));
                         insertUserPstmt.setString(2, rs.getString("email"));

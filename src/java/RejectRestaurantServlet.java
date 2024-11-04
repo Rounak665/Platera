@@ -1,5 +1,4 @@
 import java.io.IOException;
-import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

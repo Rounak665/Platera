@@ -1,15 +1,13 @@
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.DriverManager;
+import java.sql.Connection;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import oracle.jdbc.OracleConnection;
 import oracle.jdbc.OraclePreparedStatement;
-import oracle.jdbc.pool.OracleDataSource;
 
 @WebServlet(urlPatterns = {"/restaurant_sign_up"})
 public class restaurant_sign_up extends HttpServlet {
@@ -36,8 +34,8 @@ public class restaurant_sign_up extends HttpServlet {
         // Set the response content type
         response.setContentType("text/html;charset=UTF-8");
 
-        OracleConnection oconn = null;
-        OraclePreparedStatement ops = null;
+//        OracleConnection oconn = null;
+//        OraclePreparedStatement ops = null;
 
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
@@ -52,20 +50,10 @@ public class restaurant_sign_up extends HttpServlet {
             if (!password.equals(re_password)) {
                 out.println("<h1>Passwords do not match!</h1>");
             } else {
-                try {
-                    // STEP 2: REGISTERING THE ORACLE DRIVER WITH THIS SERVLET (if needed)
-                    DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
+                try(Connection conn=Database.getConnection()) {
                     
-                    // STEP 3: INSTANTIATING THE ORACLE CONNECTION OBJECT
-                    OracleDataSource ods = new OracleDataSource();
-                    ods.setURL("jdbc:oracle:thin:@LAPTOP-FD5S7I0J:1521:orclSree"); // Use your DB details
-                    ods.setUser("ROUNAK");
-                    ods.setPassword("CHAKRABORTY");
-                    oconn = (OracleConnection) ods.getConnection();
-                    
-                    // STEP 4: INSTANTIATING THE ORACLE PREPARED STATEMENT OBJECT
                     String sql = "INSERT INTO restaurant_requests (restaurant_name, owner_name, email, password, phone, address, bank_acc_name, bank_acc_number, fssai_lic_no, pan_number, gst_in) values (?, ?, ?, ?,?,?,?,?,?,?,?)";
-                    ops = (OraclePreparedStatement) oconn.prepareStatement(sql);
+                    OraclePreparedStatement ops = (OraclePreparedStatement) conn.prepareStatement(sql);
                     
                     // STEP 5: SETTING THE PLACEHOLDERS
                     ops.setString(1, restaurant_name);
@@ -104,45 +92,26 @@ public class restaurant_sign_up extends HttpServlet {
                 } catch (SQLException e) {
                     out.println("<h1>Database error occurred!</h1>");
                     e.printStackTrace(out);
-                } finally {
-                    // STEP 7: CLEAN UP RESOURCES
-                    if (ops != null) {
-                        try {
-                            ops.close();
-                        } catch (SQLException e) {
-                        }
-                    }
-                    if (oconn != null) {
-                        try {
-                            oconn.close();
-                        } catch (SQLException e) {
-                        }
-                    }
-                }
+                } 
             }
             
             out.println("</body>");
             out.println("</html>");
         }
-    }
-
-    // Handles the HTTP GET method
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    // Handles the HTTP POST method
+    } 
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        processRequest(request,response);
     }
 
-    // Returns a short description of the servlet
     @Override
-    public String getServletInfo() {
-        return "Sign-up servlet that saves user data to Oracle DB with default role 'customer'";
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request,response);
     }
+
+
+    
 }
