@@ -12,3 +12,16 @@ function filterRestaurants(criteria) {
     // Example: Adjust slider items based on the selected criteria
 }
 
+// Menu Section Carousal
+const images = document.querySelectorAll(".carousel-image");
+let currentImageIndex = 0;
+
+// Function to show the next image
+function showNextImage() {
+    images[currentImageIndex].classList.remove("active");
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+    images[currentImageIndex].classList.add("active");
+}
+
+// Change image every 3 seconds
+setInterval(showNextImage, 3000);
