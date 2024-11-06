@@ -361,9 +361,6 @@ main {
 
 /* -------------Restaurant Approval---------- */
 
-.pending-restaurants, .approved-restaurants {
-    margin-bottom: 40px;
-}
 
 h2 {
     font-size: 24px;
@@ -384,7 +381,8 @@ h2 {
 }
 
 .restaurant-table th {
-    background-color: #f4f4f4;
+    background-color: #007bff;
+    color: #f4f4f4;
     font-weight: bold;
 }
 
@@ -392,85 +390,35 @@ h2 {
     background-color: #fff;
 }
 
-.btn-approve, .btn-reject, .btn-revoke {
+.button {
     padding: 8px 12px;
-    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
-    border-radius: 4px;
+    color: #fff;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
-.btn-approve {
-    background-color: #28a745; /* Green */
-}
-.btn-approve:hover {
-    background-color: #218838;
+/* Approve button styles */
+.approve-btn {
+    background-color: #28a745; /* Green color */
 }
 
-.btn-reject {
-    background-color: #dc3545; /* Red */
+.approve-btn:hover {
+    background-color: #28a745;
+    transform: scale(1.05);
 }
-.btn-reject:hover {
+
+/* Reject button styles */
+.reject-btn {
+    background-color: #dc3545; /* Red color */
+}
+
+.reject-btn:hover {
     background-color: #c82333;
-}
-
-.btn-revoke {
-    background-color: #ff9800; /* Orange */
-}
-
-.btn-approve:hover, .btn-reject:hover, .btn-revoke:hover {
-    opacity: 0.8;
-}
-
-/* Revoke Buttons for Restriction, Hide, and Reverse */
-.btn-restrict {
-    background-color: #007bff;
-    color: white;
-}
-
-.btn-restrict:hover {
-    background-color: #0069d9;
-}
-
-.btn-hide {
-    background-color: #ffc107;
-    color: white;
-}
-
-.btn-hide:hover {
-    background-color: #e0a800;
-}
-
-.btn-reverse {
-    background-color: #fd7e14;
-    color: white;
-}
-
-.btn-reverse:hover {
-    background-color: #e76f00;
-}
-#revokeContent{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-#revokeContent h2{
-    font-size: 30px;
-    margin-top: 30px;
-}
-
-#revokeContent p{
-    font-size: 20px;
-    margin-bottom: 20px;
-}
-#revokeContent button{
-    width: 190px;
-    margin-bottom: 20px;
-    height: auto;
-    padding: 15px 10px;
-    border-radius: 8px;
+    transform: scale(1.05);
 }
 
 /* -------------Delivery Executive------------ */
