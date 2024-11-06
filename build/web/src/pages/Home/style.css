@@ -834,6 +834,10 @@ footer p.copyright{
     left: 10px;
     animation: moving 2s linear infinite;
 }
+#logout-btn{
+    position: absolute;
+    right: 30px;
+}
 
 @keyframes moving{
     0%{

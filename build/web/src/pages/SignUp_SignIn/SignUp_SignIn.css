@@ -600,6 +600,14 @@ section {
 .login-register p a:hover{
     text-decoration: underline;
 }
+.t-c {
+    color: #F12630 !important;
+}
+
+.t-c:hover {
+    color: #d01525; 
+}
+
 
 
 /* ----RESPONSIVENESS--------- */
