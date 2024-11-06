@@ -1,0 +1,2 @@
+*.war filter=lfs diff=lfs merge=lfs -text
+dist/*.war filter=lfs diff=lfs merge=lfs -text

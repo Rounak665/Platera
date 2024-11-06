@@ -13,7 +13,8 @@ import oracle.jdbc.OraclePreparedStatement;
 public class restaurant_sign_up extends HttpServlet {
 
     // This method processes requests for both HTTP GET and POST methods
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         // Get the form data
@@ -100,18 +101,6 @@ public class restaurant_sign_up extends HttpServlet {
         }
     } 
     
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request,response);
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request,response);
-    }
-
-
+    
     
 }

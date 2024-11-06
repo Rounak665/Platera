@@ -63,6 +63,7 @@ public class sign_up extends HttpServlet {
                             out.println("<p>Name: " + name + "</p>");
                             out.println("<p>Email: " + email + "</p>");
                             out.println("<p>Role: customer</p>");
+                            response.sendRedirect("src/pages/Home/Home.html");
                         } else {
                             out.println("<h1>Error in sign-up. Please try again.</h1>");
                         }
