@@ -18,12 +18,70 @@
         <!-- Sidebar and Header Section -->
         <div>
             <div class="sidebar">
-                <!-- Sidebar content omitted for brevity -->
+                <div class="sidebar-toggle menu" id="menu">
+                    <ion-icon name="menu"></ion-icon>
+                </div>
+                <div class="sidebar-toggle close-btn"><ion-icon name="close-outline" class="ico"></ion-icon></div>
+                <div class="sidebar-header">
+                    <div class="logo">
+                        <img src="../../../Public/images/logo.png" alt="">
+                    </div>
+                </div>
+                
+                <div class="sidebar-menu">
+                    <ul>
+                        <li>
+                            <a href="">
+                                <span class="icon"><ion-icon name="bar-chart"></ion-icon></span>
+                                <span>Dahsboard Overview</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Admin_Order_Management.html">
+                                <span class="icon"><ion-icon name="wine"></ion-icon></span>
+                                <span>Order Management</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="Admin_Restaurant_Approval.html">
+                                <span class="icon"><ion-icon name="restaurant"></ion-icon></span>
+                                <span>Restaurant Approval</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <span class="icon"><ion-icon name="bicycle"></ion-icon></span>
+                                <span>Delivery Executive Management</span>
+                            </a>
+                        </li>
+                        <li class="li_logout">
+                            <a href="../AddRestaurent/AddRestaurent.html#Signin-popup">
+                                <span class="icon"><ion-icon name="power"></ion-icon></span>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
             
             <div class="main-content">
                 <header>
-                    <!-- Header content omitted for brevity -->
+                    <div class="headerLogo">
+                        <div class="logo">
+                            <img src="../../../Public/images/logo.png" alt="">
+                        </div>
+                    </div>
+                    <div class="search-wrapper">
+                        <span class="icon"><ion-icon name="search"></ion-icon></span>
+                        <input type="search" placeholder="Search">
+                    </div>
+                    
+                    <div class="social-icons">
+                        <div class="logout_btn" onclick="signout()">
+                        <span class="logout">Logout</span>
+                        <span class="icon"><ion-icon name="power"></ion-icon></span>
+                        </div>
+                    </div>
                 </header>
 
                 <main>
