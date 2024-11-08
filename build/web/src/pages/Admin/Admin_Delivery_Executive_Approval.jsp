@@ -101,15 +101,18 @@
                             <thead>
                                 <tr>
                                     <th>Request ID</th>
-                                    <th>Restaurant Name</th>
-                                    <th>Owner Name</th>
+                                    <th>Applicant Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
-                                    <th>Bank Account Name</th>
+                                    <th>Address</th>
+                                    <th>Aadhar</th>
+                                    <th>Pan Number</th>
+                                    <th>Driving License</th>
                                     <th>Bank Account Number</th>
-                                    <th>GSTIN</th>
-                                    <th>FSSAI License</th>
-                                    <th>Pan</th>
+                                    <th>Vehicle Number</th>
+                                    <th>Vehicle Type</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>   
                                     <th>Actions</th> 
                                 </tr>
                             </thead>
@@ -122,39 +125,45 @@
 
                                     try {
                                         conn = Database.getConnection(); // Assuming getConnection method works with Java 1.5
-                                        String sql = "SELECT * FROM restaurant_requests";
+                                        String sql = "SELECT * FROM delivery_executive_requests";
                                         stmt = conn.prepareStatement(sql);
                                         rs = stmt.executeQuery();
 
                                         while (rs.next()) {
                                             int request_id = rs.getInt("request_id");
-                                            String restaurant_name = rs.getString("restaurant_name");
-                                            String owner_name = rs.getString("owner_name");
+                                            String name = rs.getString("name");
                                             String email = rs.getString("email");
                                             String phone = rs.getString("phone");
-                                            String bank_acc_name = rs.getString("bank_acc_name");
-                                            String bank_acc_number = rs.getString("bank_acc_number");
-                                            String gst_in = rs.getString("gst_in");
-                                            String fssai_lic_no = rs.getString("fssai_lic_no");
+                                            String bank_acc_number = rs.getString("bank_account_number");
+                                            String aadhar_number = rs.getString("aadhar_number");
+                                            String address = rs.getString("address");
+                                            String vehicle_number = rs.getString("vehicle_number");
+                                            String driving_license_number = rs.getString("driving_license_number");
+                                            String age = rs.getString("age");
+                                            String gender = rs.getString("gender");
+                                            String vehcile_type = rs.getString("vehicle_type");
                                             String pan_number = rs.getString("pan_number");
                                 %>
                                 <tr>
                                     <td> <%=request_id%> </td>
-                                    <td> <%=restaurant_name%> </td>
-                                    <td> <%=owner_name%> </td>
+                                    <td> <%=name%> </td>>
                                     <td> <%=email%> </td>
                                     <td> <%=phone%> </td>
-                                    <td> <%=bank_acc_name%> </td>
-                                    <td> <%=bank_acc_number%> </td>
-                                    <td> <%=gst_in%> </td>
-                                    <td> <%=fssai_lic_no%> </td>
+                                    <td> <%=address%> </td>
+                                    <td> <%=aadhar_number%> </td>
                                     <td> <%=pan_number%> </td>
+                                    <td> <%=driving_license_number%> </td>
+                                    <td> <%=bank_acc_number%> </td>
+                                    <td> <%=vehicle_number%> </td>
+                                    <td> <%=vehcile_type%> </td>
+                                    <td> <%=age%> </td>
+                                    <td> <%=gender%> </td>                                   
                                     <td>
-                                        <form action='http://localhost:8080/Platera-Main/approveRestaurant' method='post' style='display:inline;'>
+                                        <form action='http://localhost:8080/Platera-Main/ApproveDeliveryExecutive' method='post' style='display:inline;'>
                                             <input type='hidden' name='request_id' value='<%=request_id%>'/>
                                             <input type='submit' class="button approve-btn" value='Approve'/>
                                         </form>
-                                        <form action='http://localhost:8080/Platera-Main/rejectRestaurant' method='post' style='display:inline;'>
+                                        <form action='http://localhost:8080/Platera-Main/RejectDeliveryExecutive' method='post' style='display:inline;'>
                                             <input type='hidden' name='request_id' value='<%=request_id%>'/>
                                             <input type='submit' class="button reject-btn" value='Reject'/>
                                         </form>

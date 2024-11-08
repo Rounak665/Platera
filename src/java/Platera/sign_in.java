@@ -59,7 +59,7 @@ public class sign_in extends HttpServlet {
                                     // Redirect based on user role
                                     switch (user_role_id) {
                                         case 1:
-                                            response.sendRedirect("src/pages/Admin/Admin_Order_Management.html"); // Admin
+                                            response.sendRedirect("src/pages/Admin/Admin_Order_Management.jsp"); // Admin
                                             break;
                                         case 2:
                                             response.sendRedirect("src/pages/Home/Home.jsp"); // Customer
@@ -68,7 +68,7 @@ public class sign_in extends HttpServlet {
                                             response.sendRedirect("src/pages/RestaurentDashboard/RestaurantDashboard.html"); // Restaurant owner
                                             break;
                                         case 4:
-                                            response.sendRedirect("src/pages/Home/Home.jsp"); // Delivery executive
+                                            response.sendRedirect("src/pages/DeliveryExecutive/DeliveryDashboard.jsp"); // Delivery executive
                                             break;
                                         default:
                                             out.println("<h2>Invalid Role!</h2>");

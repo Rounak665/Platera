@@ -3,13 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/src/java/Platera/DeliveryExecutiveVerifyOTP.java</file>
-            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/src/java/Platera/sign_up.java</file>
-            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/src/java/Platera/RestaurantVerifyOTP.java</file>
-            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/web/src/pages/SignUp_SignIn/RestaurantVerifyOTP.jsp</file>
-            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/src/java/Platera/DeliveryExecutiveSignUp.java</file>
-            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/web/src/pages/AddDeliveryExecutive/AddDeliveryExecutive.html</file>
-            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/web/src/pages/SignUp_SignIn/DeliveryExecutiveVerifyOTP.jsp</file>
+            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/web/src/pages/Admin/Admin.css</file>
+            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/src/java/Platera/ApproveDeliveryExecutive.java</file>
+            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/src/java/Platera/ApproveRestaurant.java</file>
+            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/web/src/pages/Admin/Admin_Delivery_Executive_Approval.jsp</file>
+            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/web/src/pages/Home/Home.jsp</file>
+            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/src/java/Platera/Logout.java</file>
+            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/src/java/Platera/RejectRestaurant.java</file>
+            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/web/src/pages/Admin/Admin_Order_Management.jsp</file>
+            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/src/java/Platera/RejectDeliveryExecutive.java</file>
+            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/nbproject/build-impl.xml</file>
         </group>
     </open-files>
 </project-private>

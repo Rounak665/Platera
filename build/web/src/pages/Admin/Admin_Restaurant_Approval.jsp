@@ -18,12 +18,77 @@
         <!-- Sidebar and Header Section -->
         <div>
             <div class="sidebar">
-                <!-- Sidebar content omitted for brevity -->
+                <div class="sidebar-toggle menu" id="menu">
+                    <ion-icon name="menu"></ion-icon>
+                </div>
+                <div class="sidebar-toggle close-btn"><ion-icon name="close-outline" class="ico"></ion-icon></div>
+                <div class="sidebar-header">
+                    <div class="logo">
+                        <img src="../../../Public/images/logo.png" alt="">
+                    </div>
+                </div>
+                
+                <div class="sidebar-menu">
+                    <ul>
+                        <li>
+                            <a href="">
+                                <span class="icon"><ion-icon name="bar-chart"></ion-icon></span>
+                                <span>Dahsboard Overview</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./Admin_Order_Management.jsp">
+                                <span class="icon"><ion-icon name="wine"></ion-icon></span>
+                                <span>Order Management</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./Admin_Restaurant_Approval.jsp">
+                                <span class="icon"><ion-icon name="restaurant"></ion-icon></span>
+                                <span>Restaurant Approval</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./Admin_Delivery_Executive_Approval.jsp">
+                                <span class="icon"><ion-icon name="bicycle"></ion-icon></span>
+                                <span>Delivery Executive Management</span>
+                            </a>
+                        </li>
+                        <li class="li_logout">
+                            <a href="../AddRestaurent/AddRestaurent.html#Signin-popup">
+                                <span class="icon"><ion-icon name="power"></ion-icon></span>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
             
             <div class="main-content">
                 <header>
-                    <!-- Header content omitted for brevity -->
+                    <div class="headerLogo">
+                        <div class="logo">
+                            <img src="../../../Public/images/logo.png" alt="">
+                        </div>
+                    </div>
+                    <div class="search-wrapper">
+                        <span class="icon"><ion-icon name="search"></ion-icon></span>
+                        <input type="search" placeholder="Search">
+                    </div>
+                    
+                    <div class="social-icons">
+                        <div class="logout_btn">
+                            <form action="http://localhost:8080/Platera-Main/logout" class="d-flex align-items-center">
+                                <button type="submit" class="btn d-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
+                                    <path d="M7.5 1v7h1V1z"></path>
+                                    <path d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812"></path>
+                                    </svg>
+                                    <span class="ml-2">Logout</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                 </header>
 
                 <main>
@@ -44,6 +109,7 @@
                                     <th>Bank Account Number</th>
                                     <th>GSTIN</th>
                                     <th>FSSAI License</th>
+                                    <th>Pan</th>
                                     <th>Actions</th> 
                                 </tr>
                             </thead>
@@ -70,6 +136,7 @@
                                             String bank_acc_number = rs.getString("bank_acc_number");
                                             String gst_in = rs.getString("gst_in");
                                             String fssai_lic_no = rs.getString("fssai_lic_no");
+                                            String pan_number = rs.getString("pan_number");
                                 %>
                                 <tr>
                                     <td> <%=request_id%> </td>
@@ -81,6 +148,7 @@
                                     <td> <%=bank_acc_number%> </td>
                                     <td> <%=gst_in%> </td>
                                     <td> <%=fssai_lic_no%> </td>
+                                    <td> <%=pan_number%> </td>
                                     <td>
                                         <form action='http://localhost:8080/Platera-Main/approveRestaurant' method='post' style='display:inline;'>
                                             <input type='hidden' name='request_id' value='<%=request_id%>'/>
