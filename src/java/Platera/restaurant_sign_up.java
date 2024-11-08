@@ -4,11 +4,22 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
+import java.util.Random;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import oracle.jdbc.OraclePreparedStatement;
 
 @WebServlet(urlPatterns = {"/restaurant_sign_up"})
@@ -18,7 +29,7 @@ public class restaurant_sign_up extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         // Get the form data
         String restaurant_name = request.getParameter("restaurant_name");
         String owner_name = request.getParameter("owner_name");
@@ -32,11 +43,9 @@ public class restaurant_sign_up extends HttpServlet {
         String gstin = request.getParameter("gstin");
         String password = request.getParameter("password");
         String re_password = request.getParameter("re_password");
-        
 
         // Set the response content type
         response.setContentType("text/html;charset=UTF-8");
-
 
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
@@ -45,62 +54,78 @@ public class restaurant_sign_up extends HttpServlet {
             out.println("<title>Servlet sign_up</title>");
             out.println("</head>");
             out.println("<body>");
-            
-            
+
             // Check if password and re-password match
             if (!password.equals(re_password)) {
                 out.println("<h1>Passwords do not match!</h1>");
             } else {
-                try(Connection conn=Database.getConnection()) {
-                    
-                    String sql = "INSERT INTO restaurant_requests (restaurant_name, owner_name, email, password, phone, address, bank_acc_name, bank_acc_number, fssai_lic_no, pan_number, gst_in) values (?, ?, ?, ?,?,?,?,?,?,?,?)";
-                    OraclePreparedStatement ops = (OraclePreparedStatement) conn.prepareStatement(sql);
-                    
-                    // STEP 5: SETTING THE PLACEHOLDERS
-                    ops.setString(1, restaurant_name);
-                    ops.setString(2, owner_name);
-                    ops.setString(3, email);
-                    ops.setString(4, password);
-                    ops.setString(5, phone);
-                    ops.setString(6, address);
-                    ops.setString(7, bank_account_name);
-                    ops.setString(8, bank_account_number);
-                    ops.setString(9, fssai_license);
-                    ops.setString(10, pan_card);
-                    ops.setString(11, gstin);
 
-                    
-                    // STEP 6: EXECUTE THE STATEMENT
-                    int result = ops.executeUpdate();
-                    
-                    if (result > 0) {
-                        out.println("<h3>Your application has been received.<br>Futher updates will be sent to your email.</h3>");
-                        out.println("<p>Restaurant name: " + restaurant_name + "</p>");
-                        out.println("<p>Owner name: " + owner_name + "</p>");
-                        out.println("<p>Email: " + email + "</p>");
-                        out.println("<p>Phone: " + phone + "</p>");
-                        out.println("<p>Address: " + address + "</p>");
-                        out.println("<p>Bank account name: " + bank_account_name + "</p>");
-                        out.println("<p>Bank account number: " + bank_account_number + "</p>");
-                        out.println("<p>fssai license number: " + fssai_license + "</p>");
-                        out.println("<p>Pan number: " + pan_card + "</p>");
-                        out.println("<p>GSTIN: " + gstin + "</p>");
-                        
-                    } else {
-                        out.println("<h2>Error in sign-up. Please try again.</h2>");
+                Random random = new Random();
+                int otp = 100000 + random.nextInt(900000);
+
+                HttpSession session = request.getSession(true);
+                session.setAttribute("otp", otp);
+                session.setAttribute("restaurant_name", restaurant_name);
+                session.setAttribute("owner_name", owner_name);
+                session.setAttribute("email", email);
+                session.setAttribute("phone", phone);
+                session.setAttribute("address", address);
+                session.setAttribute("bank_account_name", bank_account_name);
+                session.setAttribute("bank_account_number", bank_account_number);
+                session.setAttribute("fssai_license", fssai_license);
+                session.setAttribute("pan_card", pan_card);
+                session.setAttribute("gstin", gstin);
+                session.setAttribute("password", password);
+                session.setAttribute("user_role",3);
+
+                String subject = "Your OTP for Platera Restaurant registration";
+                String body = "Hello " + owner_name + ",\n\nYour OTP is: " + otp + "\n\nPlease enter this OTP to verify your email address for your restaurant registration.";
+
+                // Sending email
+                final String username = "plateraminorproject@gmail.com";  // Use your actual Gmail account
+                final String passwordEmail = "ybnwqkgdnlmlywbf"; // Use your actual Gmail App Password
+                Properties props = new Properties();
+                props.put("mail.smtp.auth", "true");
+                props.put("mail.smtp.starttls.enable", "true");
+                props.put("mail.smtp.host", "smtp.gmail.com");
+                props.put("mail.smtp.port", "587");
+
+                Session mailSession = Session.getInstance(props, new Authenticator() {
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, passwordEmail);
                     }
+                });
 
-                } catch (SQLException e) {
-                    out.println("<h1>Database error occurred!</h1>");
-                    e.printStackTrace(out);
-                } 
+                try {
+                    
+                    Message message = new MimeMessage(mailSession);
+                    message.setFrom(new InternetAddress(username));
+                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+                    message.setSubject(subject);
+                    message.setText(body);
+
+                    // Send the email
+                    Transport.send(message);
+
+                    // Set email attribute and forward to verifyOTP page
+                    request.setAttribute("email", email);
+                    
+// Continue for other attributes
+
+                    request.getRequestDispatcher("src/pages/SignUp_SignIn/RestaurantVerifyOTP.jsp").forward(request, response);
+                } catch (MessagingException e) {
+                    // Log error message and print stack trace
+                    out.println("<h1>Error sending OTP email!</h1>");
+                    out.println("<p>Message: " + e.getMessage() + "</p>");
+                    e.printStackTrace(out);  // Optionally log this in a log file
+                }
+
             }
-            
+
             out.println("</body>");
             out.println("</html>");
         }
-    } 
-    
-    
-    
+    }
+
 }

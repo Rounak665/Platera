@@ -24,15 +24,15 @@
         <div class="container">
             <div class="close-btn"><ion-icon name="close-outline" class="ico"></ion-icon></div>
             <h1>Delivery Executive Registration</h1>
-            <form action="" id="restaurantRegistrationForm" class="contact_form" >
+            <form action="http://localhost:8080/Platera-Main/DeliveryExecutiveSignUp" id="restaurantRegistrationForm" class="contact_form" method="POST">
                 <div class="input_container">
                     <input type="text" name="name" class="input" required>
                     <label for="name">Name</label>
                     <span>Name</span>
                 </div>
                 <div class="input_container">
-                    <input type="email" name="age" class="input" required>
-                    <label for="age">Email</label>
+                    <input type="email" name="email" class="input" required>
+                    <label for="email">Email</label>
                     <span>Email</span>
                 </div>
                 <div class="input_container">
@@ -46,8 +46,8 @@
                     <span>Enter Your Address</span>
                 </div>
                 <div class="input_container">
-                    <input type="number" name="age" class="input" required>
-                    <label for="age">age</label>
+                    <input type="text" name="age" class="input" required>
+                    <label for="age">Age</label>
                     <span>Age</span>
                 </div>
                 <div class="input_container" id="gender">
@@ -116,7 +116,7 @@
         <div class="container1">
             <div class="close-btn"><ion-icon name="close-outline" class="icon"></ion-icon></div>
             <h1>Login</h1>
-            <form action="">
+            <form action="http://localhost:8080/Platera-Main/sign_in" method="POST">
                 <div class="input_container">
                     <input type="email" name="email_signin" class="input" id="emailInput" required>
                     <label for="Email">Email</label>

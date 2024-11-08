@@ -53,14 +53,15 @@ public class sign_up extends HttpServlet {
                 session.setAttribute("email",email);
                 session.setAttribute("password",password);
                 session.setAttribute("name",name);
+//                session.setAttribute("user_role",2);
 
                 // Send OTP to email
                 String subject = "Your OTP for Platera Signup";
                 String body = "Hello " + name + ",\n\nYour OTP is: " + otp + "\n\nPlease enter this OTP to complete your sign-up.";
 
                 // Sending email
-                final String username = "rounakcstar665@gmail.com";  // Use your actual Gmail account
-                final String passwordEmail = "oobmhzcagqkpbgaz"; // Use your actual Gmail App Password
+                final String username = "plateraminorproject@gmail.com";  // Use your actual Gmail account
+                final String passwordEmail = "ybnwqkgdnlmlywbf"; // Use your actual Gmail App Password
                 Properties props = new Properties();
                 props.put("mail.smtp.auth", "true");
                 props.put("mail.smtp.starttls.enable", "true");
