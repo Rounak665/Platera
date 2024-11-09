@@ -56,8 +56,8 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                         insertUsersPstmt.setString(1, rs.getString("name"));
                         insertUsersPstmt.setString(2, rs.getString("email"));
                         insertUsersPstmt.setString(3, rs.getString("password"));
-                        insertUsersPstmt.setString(4, rs.getString("address"));
-                        insertUsersPstmt.setInt(5, rs.getInt("phone"));
+                        insertUsersPstmt.setInt(4, rs.getInt("phone"));
+                        insertUsersPstmt.setString(5, rs.getString("address"));
                         insertUsersPstmt.executeUpdate();
                     }
 
@@ -82,7 +82,7 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                     try (PreparedStatement insertDelExecPstmt = conn.prepareStatement(insertDelExecSql)) {
                         insertDelExecPstmt.setInt(1, userId); 
                         insertDelExecPstmt.setInt(2, rs.getInt("aadhar_number"));
-                        insertDelExecPstmt.setInt(3, rs.getInt("pan_number"));
+                        insertDelExecPstmt.setString(3, rs.getString("pan_number"));
                         insertDelExecPstmt.setString(4, rs.getString("driving_license_number"));
                         insertDelExecPstmt.setString(5, rs.getString("gender"));
                         insertDelExecPstmt.setInt(6, rs.getInt("age"));
@@ -117,7 +117,7 @@ public class ApproveDeliveryExecutive extends HttpServlet {
 
     private void sendApprovalEmail(String email) {
         String subject = "Approval of Your Platera Delivery Executive Application";
-        String body = "Dear Delivery Executive Applicant,\n\n" +
+        String body = "Dear Applicant,\n\n" +
                       "Congratulations! Your application to join Platera as a Delivery Executive has been approved.\n" +
                       "Welcome to the Platera team. We look forward to working with you!\n\n" +
                       "Best regards,\nThe Platera Team";

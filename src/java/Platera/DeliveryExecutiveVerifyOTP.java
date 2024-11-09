@@ -35,11 +35,11 @@ public class DeliveryExecutiveVerifyOTP extends HttpServlet {
         Integer sessionOTP = (Integer) session.getAttribute("otp");
         String name = (String) session.getAttribute("name");
         String email = (String) session.getAttribute("email");
-        String phone = (String) session.getAttribute("phone");
+        Integer phone = (Integer) session.getAttribute("phone");
         String address = (String) session.getAttribute("address");
-        String age = (String) session.getAttribute("age");
+        Integer age = (Integer) session.getAttribute("age");
         String gender = (String) session.getAttribute("gender");
-        String aadharNumber = (String) session.getAttribute("aadharNumber");
+        Integer aadharNumber = (Integer) session.getAttribute("aadharNumber");
         String bankAccountName = (String) session.getAttribute("bankAccountName");
         String bankAccountNumber = (String) session.getAttribute("bankAccountNumber");
         String panNumber = (String) session.getAttribute("panNumber");
@@ -64,11 +64,11 @@ public class DeliveryExecutiveVerifyOTP extends HttpServlet {
                     // Set values for the placeholders
                     statement.setString(1, name);
                     statement.setString(2, email);
-                    statement.setString(3, phone);
+                    statement.setInt(3, phone);
                     statement.setString(4, address);
-                    statement.setString(5, age);
+                    statement.setInt(5, age);
                     statement.setString(6, gender);
-                    statement.setString(7, aadharNumber);
+                    statement.setInt(7, aadharNumber);
                     statement.setString(8, bankAccountName);
                     statement.setString(9, bankAccountNumber);
                     statement.setString(10, panNumber);
@@ -100,7 +100,7 @@ public class DeliveryExecutiveVerifyOTP extends HttpServlet {
                 }
             } else {
                 out.println("<h1>Invalid OTP. Please try again.</h1>");
-                session.invalidate();  // Invalidate session after failure
+                session.invalidate();  
             }
         } catch (Exception e) {
             e.printStackTrace();  // Custom debugging for other errors

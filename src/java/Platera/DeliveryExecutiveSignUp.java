@@ -33,11 +33,14 @@ public class DeliveryExecutiveSignUp extends HttpServlet {
         // Retrieve form parameters
         String name = request.getParameter("name");
         String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
+        String phoneStr = request.getParameter("phone");
+        Integer phone=Integer.parseInt(phoneStr);
         String address = request.getParameter("address");
-        String age = request.getParameter("age");
+        String ageStr = request.getParameter("age");
+        Integer age=Integer.parseInt(ageStr);
         String gender = request.getParameter("gender");
-        String aadhar_number = request.getParameter("aadhar_number");
+        String aadharNumberStr = request.getParameter("aadhar_number");
+        Integer aadhar_number = Integer.parseInt(aadharNumberStr);
         String bank_account_name = request.getParameter("bank_account_name");
         String bank_account_number = request.getParameter("bank_account_number");
         String pan_number = request.getParameter("pan_number");
@@ -52,12 +55,13 @@ public class DeliveryExecutiveSignUp extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<p>Age: </p>" + age);
 
-//        try (PrintWriter out = response.getWriter()) {
-//            // Check if passwords match
-//            if (!password.equals(re_Password)) {
-//                out.println("<h1>Passwords do not match!</h1>");
-//                return;
-//            }
+        
+            // Check if passwords match
+            if (!password.equals(re_Password)) {
+                out.println("<h1>Passwords do not match!</h1>");
+                return;
+            }
+        
 
             // Generate OTP
             Random random = new Random();
@@ -125,3 +129,4 @@ public class DeliveryExecutiveSignUp extends HttpServlet {
 //        }
     }
 }
+

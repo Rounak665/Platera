@@ -53,7 +53,7 @@ public class RejectDeliveryExecutive extends HttpServlet {
                     String deleteSql = "DELETE FROM DELIVERY_EXECUTIVE_REQUESTS WHERE REQUEST_ID = ?";
                     try (PreparedStatement deletePstmt = conn.prepareStatement(deleteSql)) {
                         deletePstmt.setInt(1, request_id);
-//                        deletePstmt.executeUpdate();
+                        deletePstmt.executeUpdate();
                     }
 
                     response.setContentType("text/html");
