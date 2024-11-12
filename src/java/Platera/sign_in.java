@@ -55,6 +55,7 @@ public class sign_in extends HttpServlet {
                                     session.setAttribute("email", email);
                                     session.setAttribute("user_role_id", user_role_id);
                                     session.setAttribute("name", name);  // Set the name attribute in the session
+                                    session.setAttribute("welcomePopup", false);
 
                                     // Redirect based on user role
                                     switch (user_role_id) {

@@ -53,6 +53,7 @@ public class sign_up extends HttpServlet {
                 session.setAttribute("email",email);
                 session.setAttribute("password",password);
                 session.setAttribute("name",name);
+                session.setAttribute("welcomePopup",false);
 //                session.setAttribute("user_role",2);
 
                 // Send OTP to email
