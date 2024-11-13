@@ -8,23 +8,27 @@
 </head>
 <body>
     <div class="container">
+        <div class="logo">
+            <img src="Assets/favicon.png" alt="Logo" width="50" height="50">
+        </div>
         <h2>Reset Password</h2>
+        <p>Please enter your new password below to reset it.</p>
         <%
             String newPassword = request.getParameter("newPassword");
             String confirmPassword = request.getParameter("confirmPassword");
             String email = (String) session.getAttribute("userEmail");
-
+    
             if (newPassword != null && confirmPassword != null) {
                 if (newPassword.equals(confirmPassword)) {
                     try {
                         Class.forName("com.mysql.jdbc.Driver");
                         Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/yourdb", "username", "password");
-
+    
                         String sql = "UPDATE users SET password = ? WHERE email = ?";
                         PreparedStatement stmt = conn.prepareStatement(sql);
                         stmt.setString(1, newPassword);
                         stmt.setString(2, email);
-
+    
                         int rows = stmt.executeUpdate();
                         if (rows > 0) {
                             out.println("<p class='success-message'>Password updated successfully!</p>");
@@ -41,12 +45,12 @@
             }
         %>
         <form method="post">
-            <label for="newPassword">New Password:</label>
-            <input type="password" id="newPassword" name="newPassword" required />
-            <label for="confirmPassword">Confirm New Password:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required />
+            <input type="password" id="newPassword" name="newPassword" placeholder="Enter New Password" required />
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm New Password" required />
+    
             <button type="submit">Change Password</button>
         </form>
+        <a href="login.jsp" class="back-link">Back to login</a>
     </div>
 </body>
 </html>
