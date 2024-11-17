@@ -149,35 +149,32 @@
                                                     double price = rs.getDouble("price");
                                                     String availability = rs.getString("availability").equalsIgnoreCase("Y") ? "Yes" : "No";
                                                     String imagePath = rs.getString("image"); // Image path from DB
- 
-                                                    
-                                                        
-                                                        String realPath = getServletContext().getRealPath("/");  // Get the absolute path to the web app (build folder)
-                                                        String projectRoot = new File(realPath).getParentFile().getParent();  // Step back two levels to reach the Platera-Main root
-                                                        System.out.println(projectRoot);
+
 //                                                        System.out.println(request.getContextPath());
+                                                    String imageDirectory = request.getContextPath() + '/' + imagePath;
 
-                                                        String imageDirectory = projectRoot + File.separator + imagePath;  
 
-                                                        
-                                                       
-                                                        
-                                                        
-                                                    
                                         %>
                                         <tr>
                                             <td><%= itemId%></td>
                                             <td>
-                                               <img src="<%= request.getContextPath() +'/'+ imagePath %>" alt="Dish Image" width="50">                                              
+                                                <img src="<%= imageDirectory%>" alt="Dish Image" width="50">                                              
                                             </td>
                                             <td><%= itemName%></td>
                                             <td><%= categoryName%></td>
                                             <td><%= price%></td>
                                             <td><%= availability%></td>
                                             <td>
-                                                <a href="editDish.jsp?id=<%= itemId%>">Edit</a> | 
-                                                <a href="deleteDish.jsp?id=<%= itemId%>">Delete</a>
+                                                <form action="http://localhost:8080/Platera-Main/EditDish" method="POST">
+                                                    <input type="hidden" name="id" value="<%= itemId%>">
+                                                    <button type="submit" class="btn-edit">Edit</button>
+                                                </form>
+                                                <form action="http://localhost:8080/Platera-Main/DeleteDish" method="POST" onsubmit="return confirm('Are you sure you want to delete this dish?');">
+                                                    <input type="hidden" name="id" value="<%= itemId%>">
+                                                    <button type="submit" class="btn-delete">Delete</button>
+                                                </form>
                                             </td>
+
                                         </tr>
 
                                         <%
@@ -234,19 +231,19 @@
 
         <!-- Main JavaScript -->
         <script>
-                            document.querySelector("#menu").addEventListener("click", function () {
-                                document.querySelector(".sidebar").classList.add("activate");
-                            });
+                                                    document.querySelector("#menu").addEventListener("click", function () {
+                                                        document.querySelector(".sidebar").classList.add("activate");
+                                                    });
 
-                            document.querySelector(".sidebar .close-btn").addEventListener("click", function () {
-                                document.querySelector(".sidebar").classList.remove("activate");
-                            });
+                                                    document.querySelector(".sidebar .close-btn").addEventListener("click", function () {
+                                                        document.querySelector(".sidebar").classList.remove("activate");
+                                                    });
 
-                            function signout() {
-                                localStorage.removeItem('authtoken');
-                                localStorage.removeItem('admin');
-                                window.location.href = '../AddRestaurent/AddRestaurent.html#Signin-popup';
-                            }
+                                                    function signout() {
+                                                        localStorage.removeItem('authtoken');
+                                                        localStorage.removeItem('admin');
+                                                        window.location.href = '../AddRestaurent/AddRestaurent.html#Signin-popup';
+                                                    }
         </script>
 
 
