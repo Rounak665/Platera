@@ -22,7 +22,7 @@
             <div class="sidebar-toggle menu" id="menu">
                 <ion-icon name="menu"></ion-icon>
             </div>
-            <div class="sidebar-toggle close-btn"><ion-icon name="close-outline" class="ico"></ion-icon></div>
+            <div class="sidebar-toggle close-btn"><ion-icon name="close-outline" class="icon"></ion-icon></div>
             <div class="sidebar-header">
                 <div class="logo">
                     <img src="../../../Public/images/logo.png" alt="">
@@ -32,31 +32,31 @@
             <div class="sidebar-menu">
                 <ul>
                     <li>
-                        <a href="RestaurantDashboard.html">
+                        <a href="">
                             <span class="icon"><ion-icon name="home-sharp"></ion-icon></span>
                             <span>Home</span>
                         </a>
                     </li>
                     <li>
-                        <a href="Category.html">
+                        <a href="./Category.jsp">
                             <span class="icon"><ion-icon name="grid"></ion-icon></span>
                             <span>Categories</span>
                         </a>
                     </li>
                     <li>
-                        <a href="Menu.html">
+                        <a href="./Menu.jsp">
                             <span class="icon"><ion-icon name="book"></ion-icon></span>
                             <span>Menu</span>
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="./Orders.jsp">
                             <span class="icon"><ion-icon name="cart"></ion-icon></span>
                             <span>Orders</span>
                         </a>
                     </li>
                     <li class="li_logout">
-                        <a href="../AddRestaurent/AddRestaurent.html#Signin-popup">
+                        <a href="http://localhost:8080/Platera-Main/logout">
                             <span class="icon"><ion-icon name="power"></ion-icon></span>
                             <span>Logout</span>
                         </a>

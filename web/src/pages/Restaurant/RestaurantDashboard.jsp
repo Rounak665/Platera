@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurant Dashboard Overview</title>
-    <link rel="stylesheet" href="RestaurantDashboard.css"> <!-- Link to your CSS -->
+    <link rel="stylesheet" href="./RestaurantDashboard.css"> <!-- Link to your CSS -->
 </head>
 <body>
 
@@ -24,7 +24,7 @@
             <div class="sidebar-toggle menu" id="menu">
                 <ion-icon name="menu"></ion-icon>
             </div>
-            <div class="sidebar-toggle close-btn"><ion-icon name="close-outline" class="ico"></ion-icon></div>
+            <div class="sidebar-toggle close-btn"><ion-icon name="close-outline" class="icon"></ion-icon></div>
             <div class="sidebar-header">
                 <div class="logo">
                     <img src="../../../Public/images/logo.png" alt="">
@@ -40,25 +40,25 @@
                         </a>
                     </li>
                     <li>
-                        <a href="Category.html">
+                        <a href="./Category.jsp">
                             <span class="icon"><ion-icon name="grid"></ion-icon></span>
                             <span>Categories</span>
                         </a>
                     </li>
                     <li>
-                        <a href="Menu.html">
+                        <a href="./Menu.jsp">
                             <span class="icon"><ion-icon name="book"></ion-icon></span>
                             <span>Menu</span>
                         </a>
                     </li>
                     <li>
-                        <a href="Orders.html">
+                        <a href="./Orders.jsp">
                             <span class="icon"><ion-icon name="cart"></ion-icon></span>
                             <span>Orders</span>
                         </a>
                     </li>
                     <li class="li_logout">
-                        <a href="../AddRestaurent/AddRestaurent.html#Signin-popup">
+                        <a href="http://localhost:8080/Platera-Main/logout">
                             <span class="icon"><ion-icon name="power"></ion-icon></span>
                             <span>Logout</span>
                         </a>
@@ -185,44 +185,6 @@ document.querySelector(".sidebar .close-btn").addEventListener("click", function
 }
     </script>
 
-<script>
-    // Function to populate the Recent Menu Items section
-function populateRecentMenu() {
-    const recentMenuTable = document.getElementById('recent-menu-table');
-    const menuItems = JSON.parse(localStorage.getItem('menuItems')) || [];
-
-    // Clear existing rows
-    recentMenuTable.innerHTML = '';
-
-    // Populate table with menu items from localStorage
-    menuItems.forEach((menuItem, index) => {
-        // Ensure the price is always displayed with the ₹ symbol
-        const formattedPrice = `₹${parseInt(menuItem.price.replace(/₹/, ''))}`;
-
-        const availableBadge = `<span class="badge ${menuItem.isAvailable === 1 ? 'success' : 'warning'}">
-                                    ${menuItem.isAvailable === 1 ? 'Available' : 'Not available'}
-                                </span>`;
-
-        const menuRow = `
-            <tr>
-                <td>#${index + 1}</td>
-                <td><img src="${menuItem.image}" style="border-radius: 50%" height="50px" width="50px" alt="Menu Item"></td>
-                <td>${menuItem.name}</td>
-                <td>${menuItem.category.name}</td>
-                <td>${formattedPrice}</td> <!-- Use formattedPrice here -->
-                <td>${availableBadge}</td>
-            </tr>
-        `;
-        recentMenuTable.insertAdjacentHTML('beforeend', menuRow);
-    });
-}
-
-// Call the function to populate the menu on page load
-document.addEventListener('DOMContentLoaded', function() {
-    populateRecentMenu();  // Populate the recent menu items
-});
-
-</script>
 
 </body>
 </html>

@@ -9,11 +9,7 @@
 
     // Handle form submission (POST request)
     if ("POST".equalsIgnoreCase(request.getMethod())) {
-        // Combine all input fields into a single OTP value
-        String otpInput = request.getParameter("otpDigit1") +
-                          request.getParameter("otpDigit2") +
-                          request.getParameter("otpDigit3") +
-                          request.getParameter("otpDigit4");
+        String otpInput = request.getParameter("code");
 
         // Validate OTP
         if (otpInput.equals(sessionOtp)) {
@@ -34,49 +30,22 @@
     <link rel="stylesheet" href="ForgotPassword.css">
 </head>
 <body>
-    <div class="otp-content">
-        <div class="otp-body">
-            <ion-icon name="notifications" class="otp-icon"></ion-icon>
-            <h2>Verify OTP</h2>
-            <p>We have sent you a one-time password. Please enter it below:</p>
-            <div class="otp-timer" id="otp-timer">2:00</div>
-            <form action="verifyOtp.jsp" method="POST">
-                <div class="otp-input">
-                    <input type="tel" maxlength="1" pattern="[0-9]*">
-                    <input type="tel" maxlength="1" pattern="[0-9]*">
-                    <input type="tel" maxlength="1" pattern="[0-9]*">
-                    <input type="tel" maxlength="1" pattern="[0-9]*">
-                </div>
-                <p>Didn't receive the OTP? <a href="#">RESEND</a></p>
-                <button type="submit" class="btn-verify">Verify</button>
-            </form>
+    <div class="container">
+        <div class="logo">
+            <img src="Assets/favicon.png" alt="Logo" width="50" height="50">
         </div>
+        <h2>Check your email</h2>
+        <p>We've sent an otp. Please check your inbox at your registered email address.</p>
+        <form action="verifyOtp.jsp" method="POST">
+            <input type="text" id="code" name="code" placeholder="Enter code here" required />
+            <button type="submit" class="btn-verify">Continue with login code</button>
+        </form>
+        <a href="login.jsp" class="back-link">Back to login</a>
+        <% if (!message.isEmpty()) { %>
+            <p class="error-message"><%= message %></p>
+        <% } %>
     </div>
 
-    <script>
-        // JavaScript for the countdown timer
-        var timerElement = document.getElementById("otp-timer");
-        var timeRemaining = 120; // 2 minutes in seconds
-
-        function updateTimer() {
-            var minutes = Math.floor(timeRemaining / 60);
-            var seconds = timeRemaining % 60;
-
-            // Format time as MM:SS
-            var timeFormatted = minutes.toString().padStart(2, "0") + ":" + seconds.toString().padStart(2, "0");
-
-            // Update the display
-            timerElement.textContent = timeFormatted;
-
-            if (timeRemaining > 0) {
-                timeRemaining--;
-            } else {
-                clearInterval(timerInterval); // Stop the timer once it reaches 0
-            }
-        }
-
-        // Update the timer every second
-        var timerInterval = setInterval(updateTimer, 1000);
-    </script>
+  
 </body>
 </html>

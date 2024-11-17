@@ -8,7 +8,11 @@
 </head>
 <body>
     <div class="container">
+        <div class="logo">
+            <img src="Assets/favicon.png" alt="Logo" width="50" height="50">
+        </div>
         <h2>Forgot Password</h2>
+        <p>Please enter your email address. We will send a otp to your inbox.</p>
         <%
             String email = request.getParameter("email");
             if (email != null && !email.isEmpty()) {
@@ -21,10 +25,10 @@
             }
         %>
         <form method="post">
-            <label for="email">Enter your email address:</label>
-            <input type="email" id="email" name="email" required />
+            <input type="email" id="email" name="email" placeholder="Enter your email" />
             <button type="submit">Send OTP</button>
         </form>
+        <a href="login.jsp" class="back-link">Back to login</a>
     </div>
 </body>
 </html>

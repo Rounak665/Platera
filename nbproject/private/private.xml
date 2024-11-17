@@ -3,16 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/web/src/pages/SignUp_SignIn/resetPassword.jsp</file>
-            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/web/src/pages/Home/Home.jsp</file>
-            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/web/src/pages/SignUp_SignIn/VerifyOtp_Aman.jsp</file>
-            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/web/src/pages/SignUp_SignIn/ForgotPassword.jsp</file>
+            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/src/java/Platera/FetchCategories.java</file>
+            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/web/src/pages/SignUp_SignIn/ForgotPassword.css</file>
+            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/web/src/pages/Restaurant/Menu.jsp</file>
             <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/src/java/Platera/sign_in.java</file>
-            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/web/src/pages/SignUp_SignIn/verifyOTP.jsp</file>
-            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/src/java/Platera/sign_up.java</file>
-            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/web/src/pages/Admin/Admin_Order_Management.jsp</file>
-            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/web/src/pages/Admin/Admin_Restaurant_Approval.jsp</file>
-            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/web/src/pages/Admin/Admin_Order_Management_Design_Only.jsp</file>
+            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/web/src/pages/SignUp_SignIn/ForgotPassword.jsp</file>
+            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/web/src/pages/Restaurant/AddDish.jsp</file>
+            <file>file:/C:/Users/rouna/Documents/NetBeansProjects/Platera-Main/src/java/Platera/RestaurantAddDish.java</file>
         </group>
     </open-files>
 </project-private>
