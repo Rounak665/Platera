@@ -1,3 +1,6 @@
 .vscode/settings.json
 dist/Platera.war
 /build/
+/nbproject/
+/src/java/Platera/Database.java
+
