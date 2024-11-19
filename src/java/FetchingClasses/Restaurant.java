@@ -1,4 +1,6 @@
-package Platera;
+package FetchingClasses;
+
+
 
 public class Restaurant {
 

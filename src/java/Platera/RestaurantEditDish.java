@@ -1,5 +1,7 @@
 package Platera;
 
+import FetchingClasses.Database;
+import FetchingClasses.Category;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/EditDish")
-public class EditDish extends HttpServlet {
+public class RestaurantEditDish extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String itemId = request.getParameter("id");

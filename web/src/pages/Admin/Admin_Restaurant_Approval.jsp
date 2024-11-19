@@ -1,7 +1,7 @@
+<%@page import="FetchingClasses.Database"%>
 <%@page import="javax.servlet.jsp.jstl.sql.Result"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.PreparedStatement"%>
-<%@page import="Platera.Database"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
@@ -33,7 +33,7 @@
                         <li>
                             <a href="">
                                 <span class="icon"><ion-icon name="bar-chart"></ion-icon></span>
-                                <span>Dahsboard Overview</span>
+                                <span>Dashboard Overview</span>
                             </a>
                         </li>
                         <li>
@@ -54,12 +54,7 @@
                                 <span>Delivery Executive Management</span>
                             </a>
                         </li>
-                        <li class="li_logout">
-                            <a href="../AddRestaurent/AddRestaurent.html#Signin-popup">
-                                <span class="icon"><ion-icon name="power"></ion-icon></span>
-                                <span>Logout</span>
-                            </a>
-                        </li>
+                        
                     </ul>
                 </div>
             </div>
@@ -131,7 +126,7 @@
                                             String restaurant_name = rs.getString("restaurant_name");
                                             String owner_name = rs.getString("owner_name");
                                             String email = rs.getString("email");
-                                            String phone = rs.getString("phone");
+                                            String phone = rs.getString("owner_phone");
                                             String bank_acc_name = rs.getString("bank_acc_name");
                                             String bank_acc_number = rs.getString("bank_acc_number");
                                             String gst_in = rs.getString("gst_in");

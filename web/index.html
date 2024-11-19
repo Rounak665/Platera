@@ -30,7 +30,7 @@
                 <ul class="nav_list">
                     <li><a href="./index.html">Home</a></li>
                     <li><a href="./src/pages/Menu/menu.html">Menu</a></li>
-                    <li><a href="src/pages/AddRestaurent/AddRestaurent.html">Add Restaurant</a></li>
+                    <li><a href="src/pages/AddRestaurant/AddRestaurant.html">Add Restaurant</a></li>
                     <li><a href="src/pages/AddDeliveryExecutive/AddDeliveryExecutive.html">Delivery Executive</a></li>
                     <li><a href="src/pages/ContactUs/ContactUs.html">Contact Us</a></li>
                     <li><a href="src/pages/Admin/Admin_Order_Management.jsp">Admin Dashboard</a></li>
@@ -356,37 +356,7 @@
         });
     </script>
 
-     <!-- Hidden Admin Link -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        const adminLink = document.getElementById('secret-admin-link');
-
-        if (adminLink) {
-            console.log("Admin link found.");
-
-        // Listen for keydown events
-        document.addEventListener('keydown', function(event) {
-        console.log(`Key pressed: ${event.code}`);  // Log key presses for debugging
-
-        // Check if Ctrl + Alt + B (KeyB) is pressed
-        if (event.ctrlKey && event.altKey && event.code === 'KeyB') {
-            console.log("Ctrl + Alt + B detected.");
-            event.preventDefault();  // Prevent any default action the browser might take for this combination
-            adminLink.style.display = 'block';  // Reveal the admin dashboard link
-            alert('Admin Dashboard link revealed');  // Optional: Testing purpose
-        }
-        });
-
-        // Hide the link again after it's clicked
-        adminLink.addEventListener('click', function() {
-        console.log("Admin link clicked, hiding it.");
-        adminLink.style.display = 'none';  // Hide again after clicking
-        });
-        } else {
-            console.error("Admin link not found!");
-        }
-    });
-    </script>
+    
 
     
 <script src="./src/assets/script.js"></script>

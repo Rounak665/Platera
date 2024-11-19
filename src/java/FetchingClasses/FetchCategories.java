@@ -1,4 +1,4 @@
-package Platera;  // Make sure the package is correct, matching your project structure
+package FetchingClasses;  // Make sure the package is correct, matching your project structure
 
 import java.io.IOException;
 import java.sql.Connection;

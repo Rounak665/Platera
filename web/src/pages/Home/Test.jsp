@@ -1,62 +1,49 @@
-<%@ page import="java.util.*, Platera.RestaurantDAO, Platera.Restaurant" %>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Restaurant Data Fetch Test</title>
-    <style>
-        .restaurant-card {
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin: 10px;
-            width: 200px;
-        }
-        .restaurant-image {
-            width: 100%;
-            height: auto;
-        }
-        .restaurant-info {
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
-    <h1>Testing Restaurant Data Fetch</h1>
-    <%
-        // Instantiate the DAO and fetch the list of restaurants
-        RestaurantDAO restaurantDAO = new RestaurantDAO();
-        List<Restaurant> restaurants = restaurantDAO.getAllRestaurants();
+<%@ page import="FetchingClasses.LocationDAO" %>
+<%@ page import="FetchingClasses.CategoryDAO" %>
+<%@ page import="FetchingClasses.Location" %>
+<%@ page import="FetchingClasses.Category" %>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Test | Platera</title>
+    </head>
+    <body>
+        <h1>Test Page for Location and Category Fetching</h1>
 
-        // Check if restaurants are fetched
-        if (restaurants != null && !restaurants.isEmpty()) {
-    %>
-        <p>Number of restaurants fetched: <%= restaurants.size() %></p>
-
-        <!-- Loop through and display restaurant data -->
-        <div class="restaurant-slider">
+        <h2>Locations:</h2>
+        <ul>
             <%
-                for (Restaurant restaurant : restaurants) {
-            %>
-                <div class="restaurant-card">
-                    <img src="<%= request.getContextPath()%>/<%=restaurant.getImage() %>" alt="<%= restaurant.getName() %>" class="restaurant-image" />
-                    <div class="restaurant-info">
-                        <h3><%= restaurant.getName() %></h3>
-                        <p>⭐ 4.7 | ₹₹</p>
-                        <!-- Static Ratings & Price Range: Update this if dynamic values are available -->
-                        <p>Burgers, Fast Food, Rolls & Wraps</p>
-                        <!-- Static Cuisine: Update dynamically if available -->
-                        <p class="location">Location ID: <%= restaurant.getLocation() %></p>
-                    </div>
-                </div>
-            <%
+                // Debugging code for Locations
+                LocationDAO locationDAO = new LocationDAO();
+                List<Location> locations = locationDAO.getLocations();
+                if (locations != null && !locations.isEmpty()) {
+                    for (Location location : locations) {
+                        out.println("<li>" + location.getId() + ": " + location.getName() + "</li>");
+                    }
+                } else {
+                    out.println("<li>No locations found!</li>");
                 }
             %>
-        </div>
-    <%
-        } else {
-    %>
-        <p>No restaurants found or there was an error fetching data.</p>
-    <%
-        }
-    %>
-</body>
+        </ul>
+
+        <h2>Categories:</h2>
+        <ul>
+            <%
+                // Debugging code for Categories
+                CategoryDAO categoryDAO = new CategoryDAO();
+                List<Category> categories = categoryDAO.getCategories();
+                if (categories != null && !categories.isEmpty()) {
+                    for (Category category : categories) {
+                        out.println("<li>" + category.getId() + ": " + category.getName() + "</li>");
+                    }
+                } else {
+                    out.println("<li>No categories found!</li>");
+                }
+            %>
+        </ul>
+
+    </body>
 </html>

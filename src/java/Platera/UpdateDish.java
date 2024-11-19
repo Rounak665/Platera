@@ -1,5 +1,6 @@
 package Platera;
 
+import FetchingClasses.Database;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

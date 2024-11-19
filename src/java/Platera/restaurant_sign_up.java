@@ -2,8 +2,6 @@ package Platera;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Random;
 import javax.mail.Authenticator;
@@ -20,7 +18,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import oracle.jdbc.OraclePreparedStatement;
 
 @WebServlet(urlPatterns = {"/restaurant_sign_up"})
 public class restaurant_sign_up extends HttpServlet {
