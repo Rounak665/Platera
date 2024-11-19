@@ -21,7 +21,7 @@ import javax.servlet.http.Part;
 public class RestaurantAddDish extends HttpServlet {
 
     // Directory to save uploaded images relative to the root of the project (inside the web folder)
-    private static final String IMAGE_DIRECTORY = "DatabaseImages";  
+    private static final String IMAGE_DIRECTORY = "DatabaseImages/Dishes";  
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
