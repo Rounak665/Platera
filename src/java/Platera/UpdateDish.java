@@ -18,7 +18,7 @@ import javax.servlet.http.Part;
 @MultipartConfig
 public class UpdateDish extends HttpServlet {
 
-    private static final String IMAGE_DIRECTORY = "DatabaseImages"; // Directory inside 'web'
+    private static final String IMAGE_DIRECTORY = "DatabaseImages/Dishes"; // Directory inside 'web'
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

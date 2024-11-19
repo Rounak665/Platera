@@ -34,8 +34,8 @@ public class restaurant_sign_up extends HttpServlet {
         String restaurant_name = request.getParameter("restaurant_name");
         String owner_name = request.getParameter("owner_name");
         String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
-        String address = request.getParameter("address");
+        String owner_phone = request.getParameter("owner_phone");
+        String owner_address = request.getParameter("owner_address");
         String bank_account_name = request.getParameter("bank_account_name");
         String bank_account_number = request.getParameter("bank_account_number");
         String fssai_license = request.getParameter("fssai_license");
@@ -68,8 +68,8 @@ public class restaurant_sign_up extends HttpServlet {
                 session.setAttribute("restaurant_name", restaurant_name);
                 session.setAttribute("owner_name", owner_name);
                 session.setAttribute("email", email);
-                session.setAttribute("phone", phone);
-                session.setAttribute("address", address);
+                session.setAttribute("owner_phone", owner_phone);
+                session.setAttribute("owner_address", owner_address);
                 session.setAttribute("bank_account_name", bank_account_name);
                 session.setAttribute("bank_account_number", bank_account_number);
                 session.setAttribute("fssai_license", fssai_license);
