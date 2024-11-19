@@ -73,7 +73,7 @@ public class sign_in extends HttpServlet {
                                                         int customer_id = customerRs.getInt("customer_id");
                                                         session.setAttribute("customer_id", customer_id);
 //                                                        out.println("<h2>"+customer_id+ "</h2>");
-                                                        response.sendRedirect("src/pages/Home/Home.jsp");
+                                                        response.sendRedirect("src/pages/Customer/Home.jsp");
                                                     } else {
                                                         out.println("<h2>Customer ID not found!</h2>");
                                                     }

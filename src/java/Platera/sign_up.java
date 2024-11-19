@@ -90,9 +90,8 @@ public class sign_up extends HttpServlet {
                     out.println("<h1>Email sent to: " + email + "</h1>");
                     out.println("<p>An OTP has been sent to your email address. Please check your inbox.</p>");
 
-                    // Set email attribute and forward to verifyOTP page
-                    request.setAttribute("email", email);
-                    request.getRequestDispatcher("src/pages/SignUp_SignIn/verifyOTP.jsp").forward(request, response);
+                    // Set email attribute and forward to verifyOTP page                   
+                    response.sendRedirect("src/pages/Customer/CustomerVerifyOTP.jsp");
 
                 } catch (MessagingException e) {
                     // Log error message and print stack trace

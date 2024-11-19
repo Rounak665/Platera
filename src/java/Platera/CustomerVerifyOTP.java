@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet(urlPatterns = {"/verifyOTP"})
-public class VerifyOTP extends HttpServlet {
+public class CustomerVerifyOTP extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -53,7 +53,7 @@ public class VerifyOTP extends HttpServlet {
                         stmt.setString(3, password);
                         stmt.executeUpdate();
                     }
-                    response.sendRedirect("src/pages/Home/Home.jsp");
+                    response.sendRedirect("src/pages/Customer/Home.jsp");
                 } catch (SQLException e) {
                     out.println("<p>Error saving data to the database: " + e.getMessage() + "</p>");
                 }

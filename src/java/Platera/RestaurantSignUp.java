@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet(urlPatterns = {"/restaurant_sign_up"})
-public class restaurant_sign_up extends HttpServlet {
+public class RestaurantSignUp extends HttpServlet {
 
     // This method processes requests for both HTTP GET and POST methods
     @Override
@@ -110,7 +110,7 @@ public class restaurant_sign_up extends HttpServlet {
                     
 // Continue for other attributes
 
-                    request.getRequestDispatcher("src/pages/SignUp_SignIn/RestaurantVerifyOTP.jsp").forward(request, response);
+                    request.getRequestDispatcher("src/pages/Restaurant/RestaurantVerifyOTP.jsp").forward(request, response);
                 } catch (MessagingException e) {
                     // Log error message and print stack trace
                     out.println("<h1>Error sending OTP email!</h1>");
