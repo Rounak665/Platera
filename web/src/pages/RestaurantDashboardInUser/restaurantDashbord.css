@@ -1,0 +1,475 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f8fa;
+    color: #333;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #007bff;
+  }
+
+  /* Navbar */
+.navbar {
+    width: 100vw;
+    height: 40px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 50px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+    box-shadow: none;
+    color: #f8f8f8ff;
+}
+.navbar .logo {
+    color: #fff;
+    font-size: 24px;
+    display: flex;
+}
+
+.navbar .logo a img{
+    height: 60px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin: 0 15px;
+    font-size: 18px;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #F12630;
+}
+
+.navbar-icons {
+    display: flex;
+    align-items: center;
+}
+
+.profile-btn, .cart-btn {
+    background: none;
+    border: none;
+    color: #ffffff;
+    margin-left: 25px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#cart-count {
+    background-color: #ffffff;
+    color: #F12630;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-size: 14px;
+    margin-left: 8px;
+}
+/* Profile and Cart Icons */
+.profile-icon, .cart-icon {
+    cursor: pointer;
+    font-size: 20px; /* Adjust icon size */
+    margin-left: 20px; /* Space between icons */
+}
+
+/* Sliding User Section */
+.user-section {
+    position: fixed; /* Fixed positioning for sliding effect */
+    top: 0;
+    right: -50%; /* Start off-screen */
+    width: 32%; /* Half-width */
+    height: 100%;
+    background-color: #f8f8f8;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease; /* Smooth transition */
+    padding: 100px;
+    z-index: 1000; /* Ensure it’s above other content */
+}
+
+.user-profile h2 {
+    margin-bottom: 20px; /* Space below heading */
+    font-size: 28px; /* Increase font size */
+    color: #333; /* Heading color */
+}
+
+.dashboard-options {
+    list-style-type: none;
+    padding: 0;
+}
+
+.dashboard-options li {
+    padding: 15px; /* Padding for each option */
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.2s; /* Smooth transition */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.dashboard-options li:hover {
+    background-color: #e0e0e0; /* Highlight on hover */
+}
+
+/* Logout Button Styles */
+.logout-btn {
+    margin-top: 20px; /* Space above the button */
+    padding: 10px 20px; /* Padding for the button */
+    background-color: #ef1e28; /* Button color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s; /* Smooth transition */
+    width: 100%; /* Full width */
+}
+
+.logout-btn:hover {
+    background-color: #f9464f; /* Darker shade on hover */
+}
+
+/* Sliding Cart Section */
+.cart-section {
+    position: fixed; /* Fixed positioning for sliding effect */
+    top: 0;
+    right: -50%; /* Start off-screen */
+    width: 32%; /* Half-width */
+    height: 100%;
+    background-color: #f9f9f9;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease; /* Smooth transition */
+    padding: 100px;
+    z-index: 1000; /* Ensure it’s above other content */
+}
+
+/* Cart Content Styles */
+/* .cart-content {
+    
+} */
+
+.cart-content h2 {
+    margin-bottom: 20px; /* Space below heading */
+    font-size: 28px; /* Increase font size */
+    color: #333; /* Heading color */
+}
+
+.cart-items {
+    list-style-type: none; /* Remove default list style */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+    max-height: 300px; /* Set max height for scrolling */
+    overflow-y: auto; /* Enable scrolling */
+}
+
+.cart-items li {
+    padding: 15px; /* Padding for each item */
+    border-bottom: 1px solid #e0e0e0; /* Separator line */
+    display: flex; /* Use flexbox for alignment */
+    justify-content: space-between; /* Space between item and price */
+    align-items: center; /* Center items vertically */
+}
+
+.checkout-btn {
+    margin-top: 20px; /* Space above the button */
+    padding: 10px 20px; /* Padding for the button */
+    background-color: #28a745; /* Button color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s; /* Smooth transition */
+    width: 100%; /* Full width */
+}
+
+.checkout-btn:hover {
+    background-color: #218838; /* Darker shade on hover */
+}
+
+/* Close Button Styles */
+.close-btn {
+    background: none; /* No background */
+    border: none; /* No border */
+    font-size: 70px; /* Adjust size */
+    color: #333;
+    font-weight: 200; /* Close button color */
+    cursor: pointer; /* Pointer cursor */
+    position: absolute; /* Positioning */
+    top: 20px; /* Distance from top */
+    right: 20px; /* Distance from right */
+    transition: color 0.3s; /* Transition for hover effect */
+}
+
+.close-btn:hover {
+    color: #F12630; /* Change color on hover */
+}
+  
+  /* Breadcrumb */
+  .breadcrumb {
+    padding: 15px;
+    font-size: 14px;
+    background: #fff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Restaurant Header */
+  .restaurant-header {
+    width: 50%; /* Set width to 30% */
+    text-align: center;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    color: white;
+    padding: 30px 20px;
+    border-radius: 0 0 15px 15px;
+    margin: 0 auto 20px auto; /* Center horizontally */
+  }
+  
+  .restaurant-header h1 {
+    font-size: 36px;
+    margin: 0;
+  }
+  
+  .tabs {
+    margin-top: 15px;
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    margin: 0 5px;
+    border: none;
+    background: #fff;
+    color: #333;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  .tab.active {
+    background: #333;
+    color: white;
+    transform: scale(1.1);
+  }
+  
+  .tab:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.8);
+  }
+  
+  /* Restaurant Info */
+  .restaurant-info {
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 900px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .restaurant-info div {
+    margin-bottom: 10px;
+  }
+  
+  .rating {
+    font-size: 18px;
+    font-weight: bold;
+    color: #28a745;
+  }
+  
+  .cost {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  /* Deals Carousel */
+  .deals-carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    overflow: hidden;
+    background: #fff;
+    margin: 20px auto;
+    max-width: 900px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .carousel-btn {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .carousel-btn:hover {
+    background: #ff7e5f;
+  }
+  
+  .deals {
+    display: flex;
+    gap: 15px;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+  }
+  
+  .deals::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .deal {
+    background: linear-gradient(to bottom right, #fefcea, #f1da36);
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    min-width: 150px;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    transition: 0.3s;
+  }
+  
+  .deal:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+/* Menu Section Styling */
+.menu-section {
+    max-width: 900px;
+    margin: 20px auto;
+  }
+  
+  .menu-section h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Menu Items */
+  .menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+  }
+  
+  .menu-item:hover {
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Left Column - Item Details */
+  .item-details {
+    width: 70%;
+  }
+  
+  .bestseller-tag {
+    font-size: 12px;
+    font-weight: bold;
+    color: #28a745;
+    padding: 5px 10px;
+    background: #dff7df;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 5px;
+  }
+  
+  .bestseller-tag.red {
+    color: #dc3545;
+    background: #fde2e2;
+  }
+  
+  h3 {
+    font-size: 18px;
+    margin: 5px 0;
+    color: #333;
+  }
+  
+  .price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .rating {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+  }
+  
+  .description {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.5;
+  }
+  
+  /* Right Column - Item Actions */
+  .item-actions {
+    text-align: center;
+    width: 25%;
+  }
+  
+  .item-actions img {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .add-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  .add-btn:hover {
+    background: #0056b3;
+  }
+  
+  .customizable {
+    font-size: 12px;
+    color: #28a745;
+    margin-top: 5px;
+  }
+   

@@ -1,0 +1,217 @@
+/* Global Styling */
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Outfit', sans-serif;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        background-color: #f8f8f8;
+
+    }
+
+/* Scrollbar Container */
+    ::-webkit-scrollbar {
+        width: 10px; /* Width of the scrollbar */
+        height: 10px; /* Height for horizontal scrollbar */
+    }
+
+    /* Scrollbar Track */
+    ::-webkit-scrollbar-track {
+        background-color: #f1f1f1; /* Track background */
+        border-radius: 5px; /* Rounded track */
+    }
+
+    /* Scrollbar Thumb */
+    ::-webkit-scrollbar-thumb {
+        background-color: #F12630; /* Scrollbar color */
+        border-radius: 5px; /* Rounded scrollbar */
+        border: 2px solid #f1f1f1; /* Creates space around thumb */
+    }
+
+    /* Hover Effect on Scrollbar Thumb */
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #FFD04D; /* Darker shade on hover */
+    }
+  
+/* Navbar Styling */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #02020200;
+        padding: 20px 200px;
+        color: white;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        z-index: 5;
+    }
+    
+    .navbar-brand {
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .navbar-brand img {
+        width: 130px;
+        /* height: 50px; */
+    }
+    
+    .navbar-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 15px;
+    }
+    
+    .navbar-links li {
+        display: inline;
+    }
+    
+    .navbar-links a {
+        text-decoration: none;
+        color: white;
+        font-size: 18px;
+        font-weight: 500;
+        transition: color 0.3s;
+    }
+    
+    .navbar-links a:hover {
+        color: #ffd700;
+    }
+
+/* Hero Section Styling */
+    .hero {
+        height: 25vh; /* 20% of the viewport height */
+        background: linear-gradient(rgba(0, 0, 0, 0.698), rgba(0, 0, 0, 0.5)), url('./assets/hero.png') center center no-repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-align: center;
+        position: relative;
+        /* margin-top: 50px; Offset for the navbar */
+    }
+
+    .hero-content {
+        position: absolute;
+        top: 65%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .hero-content h1 {
+        font-size: 44px;
+        margin: 0;
+    }
+    
+    .hero-content p {
+        font-size: 24px;
+        margin: 5px 0 0;
+    }
+    
+/* Form Container Styling */
+    .form-container {
+        max-width: 800px;
+        margin: 20px auto; /* Adjusted for spacing below the navbar */
+        padding: 20px;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    form h2 {
+        text-align: center;
+        margin-bottom: 15px;
+        font-size: 22px;
+        color: #333;
+    }
+  
+    label {
+        display: block;
+        margin: 10px 0 5px;
+        font-size: 18px;
+        color: #555;
+    }
+    
+    input, textarea, select, button {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        box-sizing: border-box;
+        color: #555;
+    }
+    
+    input:focus, textarea:focus {
+        outline: none;
+        border-color: #007BFF;
+    }
+    
+    textarea {
+        resize: none;
+    }
+    
+    button {
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    
+    button:hover {
+        background-color: #0056b3;
+    }
+/* Layout for Fields Side by Side */
+        .cuisine-container, .price-container {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .cuisine, .price-field {
+            flex: 1;
+        }
+        
+        .cuisine select, .price-field input {
+            width: 100%;
+        }
+        
+/* Remove arrows from number input fields */
+        input[type="number"] {
+        -moz-appearance: textfield; /* For Firefox */
+        -webkit-appearance: none; /* For Chrome, Safari, Edge, Opera */
+        appearance: none; /* For modern browsers */
+    }
+    
+    input[type="number"]::-webkit-inner-spin-button, 
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none; /* Remove spin buttons */
+        margin: 0; /* Remove margin for consistency */
+    }
+    
+/* Responsive Design */
+    @media (max-width: 500px) {
+        .form-container {
+        padding: 15px;
+        }
+    
+        .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        }
+    
+        .navbar-links {
+        flex-direction: column;
+        gap: 10px;
+        }
+    }
+    
