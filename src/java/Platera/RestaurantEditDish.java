@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/EditDish")
+@WebServlet("/RestaurantEditDish")
 public class RestaurantEditDish extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,7 +32,7 @@ public class RestaurantEditDish extends HttpServlet {
 
         // Database connection and queries
         String queryMenuItem = "SELECT * FROM menu_items WHERE item_id = ?";
-        String queryCategories = "SELECT * FROM category";  // Update the table name to 'category'
+        String queryCategories = "SELECT * FROM categories";  // Update the table name to 'category'
 
         try (Connection connection = Database.getConnection();
              PreparedStatement statementMenuItem = connection.prepareStatement(queryMenuItem);
