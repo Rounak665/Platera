@@ -90,8 +90,8 @@
                     <!-- Pending Restaurants Section -->
                     <section class="pending-restaurants">
 
-                        <h1>Pending Restaurant Approvals</h1>
-
+                        <h1>Pending Delivery Executive Approvals</h1>
+                        
                         <table border="1" id="restaurant-table">
                             <thead>
                                 <tr>

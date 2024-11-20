@@ -29,15 +29,7 @@ public class RejectRestaurant extends HttpServlet {
         int request_id = Integer.parseInt(request.getParameter("request_id"));
         String email = null;  // Define email variable to store the email address
 
-        try (Connection conn = Database.getConnection()) {
-            // Delete the request directly
-            String deleteSql = "DELETE FROM restaurant_requests WHERE request_id = ?";
-            try (PreparedStatement deletePstmt = conn.prepareStatement(deleteSql)) {
-                deletePstmt.setInt(1, request_id);
-                deletePstmt.executeUpdate();
-                response.setContentType("text/html");
-                response.getWriter().println("<h2>Restaurant has been rejected successfully</h2>");
-            }
+        try (Connection conn = Database.getConnection()) {          
 
             // Retrieve email from the request record before it's deleted
             String selectSql = "SELECT email FROM restaurant_requests WHERE request_id = ?";
@@ -47,6 +39,14 @@ public class RejectRestaurant extends HttpServlet {
                 if (rs.next()) {
                     email = rs.getString("email");  // Store the retrieved email
                 }
+            }
+            
+            String deleteSql = "DELETE FROM restaurant_requests WHERE request_id = ?";
+            try (PreparedStatement deletePstmt = conn.prepareStatement(deleteSql)) {
+                deletePstmt.setInt(1, request_id);
+                deletePstmt.executeUpdate();
+                response.setContentType("text/html");
+                response.getWriter().println("<h2>Restaurant has been rejected successfully</h2>");
             }
 
         } catch (SQLException e) {
