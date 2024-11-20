@@ -9,7 +9,10 @@
 <body>
 
     <div class="container">
-        <h2>Verify OTP</h2>
+        <div class="logo">
+            <img src="assets/PlateraLogo-red.png" alt="Logo" width="50" height="50">
+        </div>
+        <h2>Check your email</h2>
         <p>An OTP has been sent to your email address: <strong>${email}</strong></p>
         <form action="verifyOTP" method="POST">
             <input type="text" name="otp" placeholder="Enter OTP" required>
