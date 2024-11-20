@@ -1,0 +1,191 @@
+/* Body styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e9ecef;
+    color: #333;
+}
+
+/* Centering the confirmation message */
+.confirmation-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.confirmation-message {
+    text-align: center;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+}
+
+h1 {
+    color: #28a745;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+button {
+    padding: 12px 30px;
+    background-color: #28a745;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #218838;
+}
+/* New button styling */
+.confirmation-message button:nth-of-type(2) {
+    background-color: #007bff; /* Different color for the Proceed to Login button */
+    margin-top: 20px; /* Adds more space between View Details and Proceed to Login buttons */
+}
+
+.confirmation-message button:nth-of-type(2):hover {
+    background-color: #0056b3; /* Darker blue when hovered */
+}
+
+/* Popup Styling */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 800px;
+    width: 90%;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    animation: popupAnimation 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.popup-content h2 {
+    color: #343a40;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.details-list {
+    display: grid;
+    grid-template-columns: 0.8fr 1fr;
+    gap: 20px;
+}
+
+.details-list .column {
+    display: flex;
+    flex-direction: column;
+}
+
+.details-list p {
+    font-size: 1rem;
+    margin: 8px 0;
+    color: #555;
+    line-height: 1.5;
+}
+
+button {
+    margin-top: 20px;
+    background-color: #dc3545;
+    align-self: center;
+}
+
+button:hover {
+    background-color: #c82333;
+}
+
+/* Popup Animation */
+@keyframes popupAnimation {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .confirmation-message {
+        padding: 20px;
+        max-width: 400px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    .popup-content {
+        max-width: 600px;
+        padding: 20px;
+    }
+
+    .details-list {
+        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+    }
+
+    .details-list p {
+        font-size: 0.9rem; /* Adjust font size for better readability on small screens */
+    }
+}
+
+/* For Mobile Devices */
+@media (max-width: 480px) {
+    .confirmation-message {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    .popup-content {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.25rem;
+    }
+
+    p {
+        font-size: 0.85rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+        padding: 10px 25px;
+    }
+}
