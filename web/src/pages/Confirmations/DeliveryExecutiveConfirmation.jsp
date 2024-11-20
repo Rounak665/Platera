@@ -2,21 +2,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%
     // Retrieve session attributes
-    HttpSession session = request.getSession(false);
+//    String name = (String) session.getAttribute("name");
+//    String email = (String) session.getAttribute("email");
+//    String phone = session.getAttribute("phone").toString();
+//    String address = (String) session.getAttribute("address");
+//    String age = session.getAttribute("age").toString();
+//    String gender = (String) session.getAttribute("gender");
+//    String aadharNumber = session.getAttribute("aadharNumber").toString();
+//    String bankAccountName = (String) session.getAttribute("bankAccountName");
+//    String bankAccountNumber = (String) session.getAttribute("bankAccountNumber");
+//    String panNumber = (String) session.getAttribute("panNumber");
+//    String drivingLicenseNumber = (String) session.getAttribute("drivingLicenseNumber");
+//    String vehicleNumber = (String) session.getAttribute("vehicleNumber");
+//    String vehicleType = (String) session.getAttribute("vehicleType");
 
-    String name = (String) session.getAttribute("name");
-    String email = (String) session.getAttribute("email");
-    String phone = session.getAttribute("phone").toString();
-    String address = (String) session.getAttribute("address");
-    String age = session.getAttribute("age").toString();
-    String gender = (String) session.getAttribute("gender");
-    String aadharNumber = session.getAttribute("aadharNumber").toString();
-    String bankAccountName = (String) session.getAttribute("bankAccountName");
-    String bankAccountNumber = (String) session.getAttribute("bankAccountNumber");
-    String panNumber = (String) session.getAttribute("panNumber");
-    String drivingLicenseNumber = (String) session.getAttribute("drivingLicenseNumber");
-    String vehicleNumber = (String) session.getAttribute("vehicleNumber");
-    String vehicleType = (String) session.getAttribute("vehicleType");
+//For debugging
+    // Static values for debugging
+    String name = "John Doe";
+    String email = "john.doe@example.com";
+    String phone = "1234567890";
+    String address = "123 Main Street, Springfield";
+    String age = "30";
+    String gender = "Male";
+    String aadharNumber = "1234-5678-9101";
+    String bankAccountName = "John's Account";
+    String bankAccountNumber = "9876543210";
+    String panNumber = "ABCDE1234F";
+    String drivingLicenseNumber = "DL123456789";
+    String vehicleNumber = "MH01AB1234";
+    String vehicleType = "Car";
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,25 +39,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Confirmation</title>
-    <link rel="stylesheet" href="Confirmation.css">
-    <script>
-        function showPopup() {
-            const popup = document.getElementById("detailsPopup");
-            popup.style.display = "flex";
-        }
-
-        function closePopup() {
-            const popup = document.getElementById("detailsPopup");
-            popup.style.display = "none";
-        }
-
-        function proceedToLogin() {
-            window.location.href = "AddDeliveryExecutive#Signin-popup";
-        }
-    </script>
+    <link rel="stylesheet" href="./Confirmation.css">
+   
 </head>
 <body>
     <div class="confirmation-container">
+        <!--Add the logo below and dont change the src value-->
+<!--        <div class="logo">
+            <img src="<%= request.getContextPath()%>/Public/images/PlateraLogo-red.png" alt="Logo" width="50" height="50">
+        </div>--> 
         <div class="confirmation-message">
             <h1>Registration Successful!</h1>
             <p>Thank you for registering! Your details have been successfully submitted. Our team will send you an email regarding the approval of your restaurant on Platera. Please stay tuned as we review your application.</p>
@@ -79,4 +84,20 @@
         </div>
     </div>
 </body>
+ <script>
+        function showPopup() {
+            const popup = document.getElementById("detailsPopup");
+            popup.style.display = "flex";
+        }
+
+        function closePopup() {
+            const popup = document.getElementById("detailsPopup");
+            popup.style.display = "none";
+        }
+
+        function proceedToLogin() {
+            window.location.href = "../AddDeliveryExecutive/AddDeliveryExecutive.html#Signin-popup";
+        }
+    </script>
 </html>
+

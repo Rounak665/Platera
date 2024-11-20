@@ -82,11 +82,11 @@ public class DeliveryExecutiveVerifyOTP extends HttpServlet {
                     int result = statement.executeUpdate();
                     if (result > 0) {
                         // If data inserted successfully, redirect to a success page or dashboard
-                        out.println("<h3>Your application has been received.<br>Further updates will be sent to your email.</h3>");
-                        out.println("<h1>Registration Successful!</h1>");
-                        out.println("<p>Your account has been created successfully.</p>");
-                        out.println("<P><a href='index.html'>Click here to go back to the landing page</a></p>");
-                        session.invalidate();  // Invalidate the session after the successful registration
+//                        out.println("<h3>Your application has been received.<br>Further updates will be sent to your email.</h3>");
+//                        out.println("<h1>Registration Successful!</h1>");
+//                        out.println("<p>Your account has been created successfully.</p>");
+//                        out.println("<P><a href='index.html'>Click here to go back to the landing page</a></p>");  
+                          response.sendRedirect("src/pages/Confirmations/DeliveryExecutiveConfirmation.jsp");
                     } else {
                         out.println("<h1>Error saving data. Please try again later.</h1>");
                         session.invalidate();  // Invalidate the session on error

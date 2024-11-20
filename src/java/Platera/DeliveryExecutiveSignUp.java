@@ -114,12 +114,8 @@ public class DeliveryExecutiveSignUp extends HttpServlet {
 
                 // Send the email
                 Transport.send(message);
-
-                // Set email attribute and forward to verifyOTP page
-                request.setAttribute("email", email);
-
-// Continue for other attributes
-                request.getRequestDispatcher("src/pages/DeliveryExecutive/DeliveryExecutiveVerifyOTP.jsp").forward(request, response);
+ 
+                response.sendRedirect("src/pages/OTPVerifications/DeliveryExecutiveVerifyOTP.jsp");
             } catch (MessagingException e) {
                 // Log error message and print stack trace
                 out.println("<h1>Error sending OTP email!</h1>");

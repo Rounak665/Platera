@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(urlPatterns = {"/sign_up"})
-public class sign_up extends HttpServlet {
+@WebServlet(urlPatterns = {"/CustomerSignUp"})
+public class CustomerSignUp extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -91,7 +91,7 @@ public class sign_up extends HttpServlet {
                     out.println("<p>An OTP has been sent to your email address. Please check your inbox.</p>");
 
                     // Set email attribute and forward to verifyOTP page                   
-                    response.sendRedirect("src/pages/Customer/CustomerVerifyOTP.jsp");
+                    response.sendRedirect("src/pages/OTPVerifications/CustomerVerifyOTP.jsp");
 
                 } catch (MessagingException e) {
                     // Log error message and print stack trace

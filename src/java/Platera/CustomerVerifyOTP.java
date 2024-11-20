@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(urlPatterns = {"/verifyOTP"})
+@WebServlet(urlPatterns = {"/CustomerVerifyOTP"})
 public class CustomerVerifyOTP extends HttpServlet {
 
     @Override
@@ -69,7 +69,7 @@ public class CustomerVerifyOTP extends HttpServlet {
                 out.println("<h1>Invalid OTP. Please try again.</h1>");
                 out.println("<p>User: " + name + "</p>");  // Print the name for debugging
                 request.setAttribute("errorMessage", "Invalid OTP. Please try again.");
-                request.getRequestDispatcher("verifyOTP.jsp").forward(request, response);
+//                request.getRequestDispatcher("verifyOTP.jsp").forward(request, response);
             }
         }
     }
