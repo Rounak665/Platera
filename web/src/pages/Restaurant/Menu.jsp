@@ -1,5 +1,5 @@
+<%@page import="FetchingClasses.Database"%>
 <%@page import="java.io.File"%>
-<%@page import="Platera.Database"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -62,7 +62,7 @@
                             </a>
                         </li>
                         <li class="li_logout">
-                            <a href="http://localhost:8080/Platera-Main/logout">
+                            <a href="src/pages/Restaurant/AddDish.jsp">
                                 <span class="icon"><ion-icon name="power"></ion-icon></span>
                                 <span>Logout</span>
                             </a>
@@ -96,7 +96,7 @@
                     <h2 class="dash-title">Menu</h2>
 
                     <div class="page-action">
-                        <button class="btn btn-main" id="add-menu-btn" onclick="location.href = 'http://localhost:8080/Platera-Main/FetchCategories'"><span class="icon"><ion-icon name="add-circle"></ion-icon></span> Add menu item</button>
+                        <button class="btn btn-main" id="add-menu-btn" onclick="location.href = './EditDish.jsp'"><span class="icon"><ion-icon name="add-circle"></ion-icon></span> Add menu item</button>
                     </div>
 
                     <section class="recent">
@@ -122,7 +122,8 @@
                                             ResultSet rs = null;
 
                                             // Get restaurant_id from session
-                                            Integer restaurantId = 101; // Replace with session attribute in production
+                                            Integer restaurantId= (Integer) session.getAttribute("restaurant_id");
+//                                            Integer restaurantId = 101; 
 
                                             if (restaurantId == null) {
                                         %>
@@ -134,7 +135,7 @@
                                             try {
                                                 String query = "SELECT mi.item_id, mi.item_name, mi.price, mi.availability, c.category_name, mi.image "
                                                         + "FROM menu_items mi "
-                                                        + "JOIN category c ON mi.category_id = c.category_id "
+                                                        + "JOIN categories c ON mi.category_id = c.category_id "
                                                         + "WHERE mi.restaurant_id = ?";
 
                                                 conn = Database.getConnection();
@@ -165,7 +166,7 @@
                                             <td><%= price%></td>
                                             <td><%= availability%></td>
                                             <td>
-                                                <form action="http://localhost:8080/Platera-Main/EditDish" method="POST">
+                                                <form action="http://localhost:8080/Platera-Main/RestaurantEditDish" method="POST">
                                                     <input type="hidden" name="id" value="<%= itemId%>">
                                                     <button type="submit" class="btn-edit">Edit</button>
                                                 </form>

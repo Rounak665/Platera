@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-@WebServlet("/UpdateDish")
+@WebServlet("/RestaurantUpdateDish")
 @MultipartConfig
-public class UpdateDish extends HttpServlet {
+public class RestaurantUpdateDish extends HttpServlet {
 
     private static final String IMAGE_DIRECTORY = "DatabaseImages/Dishes"; // Directory inside 'web'
 
