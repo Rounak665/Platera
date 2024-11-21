@@ -60,7 +60,7 @@
             <div class="sidebar-menu">
                 <ul>
                     <li>
-                        <a href="DeliveryDashboard.html">
+                        <a href="./DeliveryDashboard.jsp">
                             <span class="icon"><ion-icon name="home-sharp"></ion-icon></span>
                             <span>Home</span>
                         </a>

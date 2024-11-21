@@ -41,9 +41,8 @@ public class ApproveDeliveryExecutive extends HttpServlet {
             }
 
             String selectSql = "SELECT * FROM DELIVERY_EXECUTIVE_REQUESTS WHERE REQUEST_ID = ?";
-            String email = null; 
-            int userId = 0;
-
+            String email = null;
+            
             try (PreparedStatement selectPstmt = conn.prepareStatement(selectSql)) {
                 selectPstmt.setInt(1, request_id);
                 ResultSet rs = selectPstmt.executeQuery();
@@ -63,6 +62,7 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                     }
 
                     // Retrieve the user_id after insertion into the users table
+                    int userId = 0;
                     String userIdSql = "SELECT user_id FROM users WHERE email = ?";
                     try (PreparedStatement userIdPstmt = conn.prepareStatement(userIdSql)) {
                         userIdPstmt.setString(1, email); // Use the email from the request
@@ -79,28 +79,47 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                     }
 
                     // Insert into the delivery_executives table, using the retrieved user_id
-                    String insertDelExecSql = "INSERT INTO delivery_executives (user_id, aadhar_number, pan_number, driving_license_number, gender, age, vehicle_type, vehicle_number, bank_account_name, bank_account_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    String insertDelExecSql = "INSERT INTO delivery_executives (user_id, image) VALUES (?, ?)";
                     try (PreparedStatement insertDelExecPstmt = conn.prepareStatement(insertDelExecSql)) {
-                        insertDelExecPstmt.setInt(1, userId); 
-                        insertDelExecPstmt.setInt(2, rs.getInt("aadhar_number"));
-                        insertDelExecPstmt.setString(3, rs.getString("pan_number"));
-                        insertDelExecPstmt.setString(4, rs.getString("driving_license_number"));
-                        insertDelExecPstmt.setString(5, rs.getString("gender"));
-                        insertDelExecPstmt.setInt(6, rs.getInt("age"));
-                        insertDelExecPstmt.setString(7, rs.getString("vehicle_type"));
-                        insertDelExecPstmt.setString(8, rs.getString("vehicle_number"));
-                        insertDelExecPstmt.setString(9, rs.getString("bank_account_name"));
-                        insertDelExecPstmt.setString(10, rs.getString("bank_account_number"));
-                        insertDelExecPstmt.executeUpdate();
+                        insertDelExecPstmt.setInt(1, userId);
+                        insertDelExecPstmt.setString(2, rs.getString("image"));                      
+                        insertDelExecPstmt.executeUpdate();  
+                        
                     }
+                    
+                    int delExecId=0;
+                    String DelExecIdSql = "SELECT delivery_executive_id FROM delivery_executives WHERE user_id = ?";
+                    try (PreparedStatement DelExecIdPstmt = conn.prepareStatement(DelExecIdSql)) {
+                        DelExecIdPstmt.setInt(1, userId); // Use the email from the request
+                        ResultSet DelExecIdRs = DelExecIdPstmt.executeQuery();
+                        if (DelExecIdRs.next()) {
+                            delExecId = DelExecIdRs.getInt("delivery_executive_id"); // Retrieve the user_id
+                        }                         
+                        
+                    }
+                    String insertDelExecDocsSql = "INSERT INTO delivery_executive_documents (delivery_executive, aadhar_number, pan_number, driving_license_number, gender, age, vehicle_type, vehicle_number, bank_account_name, bank_account_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    try (PreparedStatement insertDelExecDocsPstmt = conn.prepareStatement(insertDelExecDocsSql)) {
+                        insertDelExecDocsPstmt.setInt(1, delExecId);
+                        insertDelExecDocsPstmt.setInt(2, rs.getInt("aadhar_number"));
+                        insertDelExecDocsPstmt.setString(3, rs.getString("pan_number"));
+                        insertDelExecDocsPstmt.setString(4, rs.getString("driving_license_number"));
+                        insertDelExecDocsPstmt.setString(5, rs.getString("gender"));
+                        insertDelExecDocsPstmt.setInt(6, rs.getInt("age"));
+                        insertDelExecDocsPstmt.setString(7, rs.getString("vehicle_type"));
+                        insertDelExecDocsPstmt.setString(8, rs.getString("vehicle_number"));
+                        insertDelExecDocsPstmt.setString(9, rs.getString("bank_account_name"));
+                        insertDelExecDocsPstmt.setString(10, rs.getString("bank_account_number"));
+                        insertDelExecDocsPstmt.executeUpdate();  
+                        
+                    }
+                    
 
                     // Delete the processed request
-                    String deleteSql = "DELETE FROM DELIVERY_EXECUTIVE_REQUESTS WHERE REQUEST_ID = ?";
-                    try (PreparedStatement deletePstmt = conn.prepareStatement(deleteSql)) {
-                        deletePstmt.setInt(1, request_id);
-                        deletePstmt.executeUpdate();
-                    }
-
+//                    String deleteSql = "DELETE FROM DELIVERY_EXECUTIVE_REQUESTS WHERE REQUEST_ID = ?";
+//                    try (PreparedStatement deletePstmt = conn.prepareStatement(deleteSql)) {
+//                        deletePstmt.setInt(1, request_id);
+//                        deletePstmt.executeUpdate();
+//                    }
                     response.setContentType("text/html");
                     response.getWriter().println("<h2>Delivery Executive has been approved successfully</h2>");
 
@@ -118,10 +137,10 @@ public class ApproveDeliveryExecutive extends HttpServlet {
 
     private void sendApprovalEmail(String email) {
         String subject = "Approval of Your Platera Delivery Executive Application";
-        String body = "Dear Applicant,\n\n" +
-                      "Congratulations! Your application to join Platera as a Delivery Executive has been approved.\n" +
-                      "Welcome to the Platera team. We look forward to working with you!\n\n" +
-                      "Best regards,\nThe Platera Team";
+        String body = "Dear Applicant,\n\n"
+                + "Congratulations! Your application to join Platera as a Delivery Executive has been approved.\n"
+                + "Welcome to the Platera team. We look forward to working with you!\n\n"
+                + "Best regards,\nThe Platera Team";
 
         final String username = "plateraminorproject@gmail.com";  // Use your actual Gmail account
         final String passwordEmail = "ybnwqkgdnlmlywbf"; // Use your actual Gmail App Password

@@ -122,8 +122,8 @@
                                             ResultSet rs = null;
 
                                             // Get restaurant_id from session
-                                            Integer restaurantId= (Integer) session.getAttribute("restaurant_id");
-//                                            Integer restaurantId = 101; 
+//                                            Integer restaurantId= (Integer) session.getAttribute("restaurant_id");
+                                            Integer restaurantId = 101; 
 
                                             if (restaurantId == null) {
                                         %>
