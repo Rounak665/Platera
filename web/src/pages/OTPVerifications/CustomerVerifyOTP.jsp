@@ -14,6 +14,10 @@
         </div>
         <h2>Check your email</h2>
         <p>An OTP has been sent to your email address: <strong>${email}</strong></p>
+         <!-- Message Section -->
+    <p style="color: #F12630; font-size: 0.95rem; margin-bottom: 20px;">
+        Enter the OTP within <strong>1 minute</strong>.
+    </p>
         <form action="http://localhost:8080/Platera-Main/CustomerVerifyOTP" method="POST">
             <input type="text" name="otp" placeholder="Enter OTP" required>
             <input type="hidden" name="email" value="${email}" /> <!-- Email passed as hidden input -->

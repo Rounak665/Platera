@@ -44,11 +44,11 @@
 </head>
 <body>
     <div class="confirmation-container">
-        <!--Add the logo below and dont change the src value-->
-<!--        <div class="logo">
-            <img src="<%= request.getContextPath()%>/Public/images/PlateraLogo-red.png" alt="Logo" width="50" height="50">
-        </div>--> 
         <div class="confirmation-message">
+                <!-- Add the logo below and dont change the src value-->
+       <div class="logo">
+        <img src="<%= request.getContextPath()%>/Public/images/PlateraLogo-red.png" alt="Logo" width="50" height="50">
+    </div> 
             <h1>Registration Successful!</h1>
             <p>Thank you for registering! Your details have been successfully submitted. Our team will send you an email regarding the approval of your restaurant on Platera. Please stay tuned as we review your application.</p>
             <button onclick="showPopup()">View Your Details</button>
