@@ -35,8 +35,8 @@
         <!-- Welcome Popup -->
 
 
-        <!-- loader -->
-        <div class="loader">
+         <!-- loader -->
+         <div class="loader">
             <div id="pl">
                 <div>
                     <video class="vid" src="../ContactUs/Assets/loader.mp4" autoplay muted loop></video>
@@ -94,19 +94,13 @@
                     </div>
                     <div class="social-icons">
                         <div class="logout_btn">
-                            <span class="logout">Logout</span>
-                            <span class="icon"><ion-icon name="power"></ion-icon></span>
-                        </div>
-                    </div>
-                    <div class="social-icons">
-                        <div class="logout_btn">
-                            <form action="http://localhost:8080/Platera-Main/logout" class="d-flex align-items-center">
+                            <form action="http://localhost:8080/Platera-Main/logout" class="d-flex align-items-center logout">
                                 <button type="submit" class="btn d-flex align-items-center">
+                                    <span class="ml-2">Logout</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
                                     <path d="M7.5 1v7h1V1z"></path>
                                     <path d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812"></path>
                                     </svg>
-                                    <span class="ml-2">Logout</span>
                                 </button>
                             </form>
                         </div>
@@ -176,30 +170,61 @@
                         </div>
 
                         <div class="dash-performance">
-                            <div class="dash-cards">
-                                <div class="card-single">
-                                    <span class="icon" style="color: rgb(153, 255, 1);"><ion-icon name="timer"></ion-icon></span>
-                                    <h5>50%</h5>
-                                    <p>Performance</p>
-                                </div>
-                                <div class="card-single">
-                                    <span class="icon" style="color: rgb(255, 183, 1);"><ion-icon name="trending-up-outline"></ion-icon></span>
-                                    <h5>80%</h5>
-                                    <p>Min. Performance</p>
-                                </div>
-                                <div class="card-single">
-                                    <span class="icon"><ion-icon name="podium"></ion-icon></span>
-                                    <h5>75%</h5>
-                                    <p>Avg. Performance</p>
+                            <!-- Current Order Section -->
+                            <div class="current-order">
+                                <h2><ion-icon name="receipt-outline"></ion-icon> Current Order</h2>
+                                <div class="order-details">
+                                    <div class="order-row">
+                                        <span class="icon"><ion-icon name="document-outline"></ion-icon></span>
+                                        <strong>Order #12345</strong>
+                                    </div>
+                                    <div class="order-row">
+                                        <span class="icon"><ion-icon name="restaurant-outline"></ion-icon></span>
+                                        Pizza Palace
+                                    </div>
+                                    <div class="order-row">
+                                        <span class="icon"><ion-icon name="pricetag-outline"></ion-icon></span>
+                                        $25.99
+                                    </div>
+                                    <div class="order-row">
+                                        <span class="icon"><ion-icon name="location-outline"></ion-icon></span>
+                                        123 Main Street, Cityville
+                                    </div>
+                                    <div class="order-row">
+                                        <span class="icon"><ion-icon name="checkmark-circle-outline"></ion-icon></span>
+                                        Status: <strong class="status">Accepted</strong>
+                                    </div>
                                 </div>
                             </div>
+                        
+                            <!-- Statistics Section -->
                             <div class="statistics">
-                                <h2>Your Orders</h2>
-                                <div class="legend">
-                                    <!--                              <span><span class="dot yellow"></span> Upcoming Orders</span>-->
-                                </div>                
+                                <h2><ion-icon name="list-outline"></ion-icon> Upcoming Orders</h2>
+                                <div class="yourOrders">
+                                    <div class="upcoming-order">
+                                        <h4>Order #12346</h4>
+                                        <p><ion-icon name="restaurant-outline"></ion-icon> Sushi Delight</p>
+                                        <p><ion-icon name="pricetag-outline"></ion-icon> $18.99</p>
+                                        <p><ion-icon name="location-outline"></ion-icon> 45 Elm Street</p>
+                                    </div>
+                                    <div class="upcoming-order">
+                                        <h4>Order #12347</h4>
+                                        <p><ion-icon name="restaurant-outline"></ion-icon> Burger Barn</p>
+                                        <p><ion-icon name="pricetag-outline"></ion-icon> $12.50</p>
+                                        <p><ion-icon name="location-outline"></ion-icon> 67 Oak Avenue</p>
+                                    </div>
+                                    <div class="upcoming-order">
+                                        <h4>Order #12348</h4>
+                                        <p><ion-icon name="restaurant-outline"></ion-icon> Taco Time</p>
+                                        <p><ion-icon name="pricetag-outline"></ion-icon> $22.75</p>
+                                        <p><ion-icon name="location-outline"></ion-icon> 89 Maple Lane</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        
+                        
+                        
 
                     </div>
 
@@ -282,57 +307,6 @@
                     // Save the delivery status in localStorage
                     localStorage.setItem('deliveryStatus', 'ended');
                 });
-            });
-
-
-            const ctx = document.getElementById('myChart').getContext('2d');
-            const myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                    datasets: [{
-                            label: 'This Week',
-                            data: [40, 60, 80, 20, 40, 70, 90], // Sample data
-                            borderColor: '#f4c542',
-                            borderWidth: 2,
-                            fill: false,
-                            tension: 0.4,
-                            pointBackgroundColor: '#f4c542'
-                        }, {
-                            label: 'Last Week',
-                            data: [30, 50, 60, 40, 30, 50, 70], // Sample data
-                            borderColor: '#f54242',
-                            borderWidth: 2,
-                            fill: false,
-                            tension: 0.4,
-                            pointBackgroundColor: '#f54242'
-                        }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false, // Important for fitting the canvas within the div
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 100
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false // Hide default legend as you already have custom legend in HTML
-                        },
-                        tooltip: {
-                            enabled: true, // Ensure tooltips appear
-                            backgroundColor: '#333',
-                            bodyColor: '#fff',
-                            callbacks: {
-                                label: function (context) {
-                                    return context.parsed.y + ' Orders';  // Tooltip content
-                                }
-                            }
-                        }
-                    }
-                }
             });
 
 
