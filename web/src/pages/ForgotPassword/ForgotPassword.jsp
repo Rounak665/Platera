@@ -9,22 +9,11 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="Assets/favicon.png" alt="Logo" width="50" height="50">
+            <img src="<%= request.getContextPath()%>/Public/images/PlateraLogo-red.png" alt="Logo" width="50" height="50">
         </div>
         <h2>Forgot Password</h2>
         <p>Please enter your email address. We will send a otp to your inbox.</p>
-        <%
-            String email = request.getParameter("email");
-            if (email != null && !email.isEmpty()) {
-                Random rand = new Random();
-                int otp = 100000 + rand.nextInt(900000);
-                session.setAttribute("otp", otp);
-                session.setAttribute("userEmail", email);
-                System.out.println("Sending OTP " + otp + " to " + email);
-                response.sendRedirect("verifyOtp.jsp");
-            }
-        %>
-        <form method="post">
+        <form method="post" action="">
             <input type="email" id="email" name="email" placeholder="Enter your email" />
             <button type="submit">Send OTP</button>
         </form>

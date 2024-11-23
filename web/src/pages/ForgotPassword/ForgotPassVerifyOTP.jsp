@@ -32,11 +32,11 @@
 <body>
     <div class="container">
         <div class="logo">
-            <img src="Assets/favicon.png" alt="Logo" width="50" height="50">
+            <img src="<%= request.getContextPath()%>/Public/images/PlateraLogo-red.png" alt="Logo" width="50" height="50">
         </div>
         <h2>Check your email</h2>
         <p>We've sent an otp. Please check your inbox at your registered email address.</p>
-        <form action="verifyOtp.jsp" method="POST">
+        <form action="" method="POST">
             <input type="text" id="code" name="code" placeholder="Enter code here" required />
             <button type="submit" class="btn-verify">Continue with login code</button>
         </form>
