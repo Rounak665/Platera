@@ -3,24 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Restaurant Dashboard</title>
+  <title>Platera | Discover & Order Food</title>
   <link rel="stylesheet" href="./restaurantDashbord.css">
+  <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
       <!-- Navigation Bar -->
       <header>
         <nav class="navbar">
             <div class="logo">
-                <a href="./Home.html"
-                   ><img src="./assets/image.png" alt=""
-                      /></a>
+                <a href="./Home.html"><img src="./assets/image.png" alt=""/></a>
             </div>
 
             <ul class="nav-links">
                 <li><a href="./Home.jsp">Home</a></li>
-                <li><a href="#restaurants">Restaurants</a></li>
-                <li><a href="#dishes">Dishes</a></li>
+                <li><a href="./restaurantDashboard.html">Restaurants</a></li>
+                <li><a href="#Menu">Dishes</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="navbar-icons">
@@ -38,37 +40,37 @@
         </nav>
     </header>
 
-    <div class="hero-section">
+    <!-- <div class="hero-section">
         <div class="hero-image">
             <img src="./assets/hero-section.png" alt="Hero Image" />
         </div>
-    </div>
+    </div> -->
 
   <!-- Restaurant Header -->
   <header class="restaurant-header">
-    <h1>Burger King</h1>
-    <div class="tabs">
-      <button class="tab active">Order Online</button>
-      <button class="tab">Dineout</button>
-    </div>
+    <h1>Restaurant name</h1> <!--name variable -->
+
   </header>
 
   <!-- Restaurant Info -->
   <section class="restaurant-info">
-    <h1>Burger King</h1>
-    <div class="rating">
-      ⭐ 4.3 (16K+ ratings)
+    <!-- <h1>Burger King</h1> -->
+    <div class="rating-price">
+      <span class="rating"><i class="fa-solid fa-star"></i> 4.6 (200 ratings)</span>
+      <span class="dot">•</span>
+      <span class="price">₹200 for two</span>
     </div>
-    <div class="cost">₹350 for two</div>
+
     <div class="details">
-      <span>Burgers, American</span> |
-      <span>Outlet: Esplanade</span> |
-      <span>25-30 mins</span>
+      <span class="cuisines">Burgers, American</span> <!-- cuisines -->
+      <span><i class="fa-regular fa-circle-dot"></i>Outlet: Esplanade</span> 
+      <span class>25-30 mins</span>
     </div>
   </section>
 
   <!-- Deals Carousel -->
   <section class="deals-carousel">
+    <h1>Deals for you</h1>
     <button class="carousel-btn prev">&lt;</button>
     <div class="deals">
       <div class="deal">Extra ₹25 Off</div>

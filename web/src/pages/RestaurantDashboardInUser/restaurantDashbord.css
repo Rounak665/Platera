@@ -1,6 +1,11 @@
 /* General Styles */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Outfit', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f7f8fa;
@@ -15,19 +20,21 @@ body {
   /* Navbar */
 .navbar {
     width: 100vw;
-    height: 40px;
+    height: 10px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 50px;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
-    position: absolute;
+    padding: 40px;
+    /* background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0)); */
+    background-color: #f7f7f7;
+    position: relative;
     top: 0;
     z-index: 2;
     
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
-    box-shadow: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+    /* box-shadow: none; */
     color: #f8f8f8ff;
+
 }
 .navbar .logo {
     color: #fff;
@@ -50,7 +57,8 @@ body {
 }
 
 .nav-links a {
-    color: #ffffff;
+    /* color: #ffffff; */
+    color: #333;
     text-decoration: none;
     font-weight: 500;
     transition: all 0.3s ease;
@@ -235,69 +243,85 @@ body {
   
   /* Restaurant Header */
   .restaurant-header {
-    width: 50%; /* Set width to 30% */
-    text-align: center;
-    background: linear-gradient(to right, #ff7e5f, #feb47b);
-    color: white;
-    padding: 30px 20px;
+    width: 44%; /* Set width to 30% */
+    min-width: 900px;
+    text-align: left;
+    /* background: linear-gradient(to right, #ff7e5f, #feb47b); */
+    background-color: #f7f7f7;
+    color: #161616;
+    padding: 35px 20px 10px 20px;
     border-radius: 0 0 15px 15px;
-    margin: 0 auto 20px auto; /* Center horizontally */
+    margin: 0 auto 10px auto; /* Center horizontally */
   }
   
   .restaurant-header h1 {
     font-size: 36px;
     margin: 0;
-  }
-  
-  .tabs {
-    margin-top: 15px;
-  }
-  
-  .tab {
-    padding: 10px 20px;
-    margin: 0 5px;
-    border: none;
-    background: #fff;
-    color: #333;
-    border-radius: 20px;
-    cursor: pointer;
     font-weight: bold;
-    transition: 0.3s;
-  }
-  
-  .tab.active {
-    background: #333;
-    color: white;
-    transform: scale(1.1);
-  }
-  
-  .tab:hover:not(.active) {
-    background: rgba(255, 255, 255, 0.8);
   }
   
   /* Restaurant Info */
   .restaurant-info {
     padding: 20px;
-    margin: 20px auto;
-    max-width: 900px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 10px auto;
+    margin-bottom: 30px;
+    max-width: 43%;
+    min-width: 850px;
+    background: #fdfdfd;
+    border: 1px solid #3333335a;
+    border-radius: 18px;
+    box-shadow: 0px 10px 2px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .restaurant-info div {
-    margin-bottom: 10px;
+  .restaurant-info .rating-price {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    margin: 2px auto;
+  }
+
+  .restaurant-info .rating-price .rating{
+    color: #161616;
+    font-size: 16px;
+    font-weight: 700;
+    margin-right: 5px;
+  }
+
+  .restaurant-info .rating-price .dot{
+    color: #919191a2;
+    font-size: 20px;
+    font-weight: 700;
+    margin-right: 5px;
   }
   
-  .rating {
-    font-size: 18px;
-    font-weight: bold;
-    color: #28a745;
+  .restaurant-info .rating-price .rating i{
+    color: #fdd928; 
   }
   
   .cost {
     font-size: 16px;
-    color: #555;
+    color: #161616;
+  }
+  
+  .restaurant-info .details {
+    text-align: left;
+  
+    display: flex;
+    flex-direction: column;
+    margin: 2px auto;
+  }
+  
+  .restaurant-info .details span {
+    font-size: 15px;
+    font-weight: 600;
+    color: #434343;
+    margin-bottom: 5px;
+  }
+
+  .restaurant-info .details span .fa-regular{
+    color: #161616;
+    font-size: 16px;
+    margin-right: 5px;
   }
   
   /* Deals Carousel */
@@ -308,11 +332,11 @@ body {
     gap: 10px;
     padding: 20px;
     overflow: hidden;
-    background: #fff;
+    background: #f7f7f7;
     margin: 20px auto;
-    max-width: 900px;
+    max-width: 44%;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
   }
   
   .carousel-btn {

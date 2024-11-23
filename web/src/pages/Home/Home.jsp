@@ -138,10 +138,10 @@
             <div class="cart-content">
                 <h2>Your Cart</h2>
                 <ul class="cart-items">
-                    <li>Item 1 - â¹300</li>
-                    <li>Item 2 - â¹450</li>
-                    <li>Item 3 - â¹200</li>
-                    <li>Total: â¹950</li>
+                    <li>Item 1 - ₹300</li>
+                    <li>Item 2 - ₹450</li>
+                    <li>Item 3 - ₹200</li>
+                    <li>Total: ₹950</li>
                 </ul>
                 <button class="checkout-btn">Checkout</button>
             </div>
