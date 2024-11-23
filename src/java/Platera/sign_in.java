@@ -65,15 +65,18 @@ public class sign_in extends HttpServlet {
                                             response.sendRedirect("src/pages/Admin/Admin_Order_Management.jsp");
                                             break;
                                         case 2: { // Customer
-                                            String customerSql = "SELECT customer_id FROM CUSTOMERS WHERE user_id = ?";
+                                            String customerSql = "SELECT customer_id,image FROM CUSTOMERS WHERE user_id = ?";
                                             try (PreparedStatement customerStmt = conn.prepareStatement(customerSql)) {
                                                 customerStmt.setInt(1, user_id);
                                                 try (ResultSet customerRs = customerStmt.executeQuery()) {
                                                     if (customerRs.next()) {
                                                         int customer_id = customerRs.getInt("customer_id");
+                                                        int image = customerRs.getInt("image");
+                                                        
                                                         session.setAttribute("customer_id", customer_id);
-//                                                        out.println("<h2>"+customer_id+ "</h2>");
-                                                        response.sendRedirect("src/pages/Home/Home.jsp");
+                                                        session.setAttribute("image", image);
+
+                                                        response.sendRedirect("src/pages/Customer/Home.jsp");
                                                     } else {
                                                         out.println("<h2>Customer ID not found!</h2>");
                                                     }
@@ -82,14 +85,15 @@ public class sign_in extends HttpServlet {
                                             break;
                                         }
                                         case 3: { // Restaurant Owner
-                                            String restaurantSql = "SELECT restaurant_id FROM RESTAURANTS WHERE owner_user_id = ?";
+                                            String restaurantSql = "SELECT restaurant_id,image FROM RESTAURANTS WHERE owner_user_id = ?";
                                             try (PreparedStatement restaurantStmt = conn.prepareStatement(restaurantSql)) {
                                                 restaurantStmt.setInt(1, user_id);
                                                 try (ResultSet restaurantRs = restaurantStmt.executeQuery()) {
                                                     if (restaurantRs.next()) {
                                                         int restaurant_id = restaurantRs.getInt("restaurant_id");
+                                                        
                                                         session.setAttribute("restaurant_id", restaurant_id);
-//                                                        out.println("<h2>"+restaurant_id+ "</h2>");
+
                                                         response.sendRedirect("src/pages/Restaurant/RestaurantDashboard.jsp");
                                                     } else {
                                                         out.println("<h2>Restaurant ID not found!</h2>");
@@ -99,14 +103,17 @@ public class sign_in extends HttpServlet {
                                             break;
                                         }
                                         case 4: { // Delivery Executive
-                                            String deliverySql = "SELECT delivery_executive_id FROM DELIVERY_EXECUTIVES WHERE user_id = ?";
+                                            String deliverySql = "SELECT delivery_executive_id,image FROM DELIVERY_EXECUTIVES WHERE user_id = ?";
                                             try (PreparedStatement deliveryStmt = conn.prepareStatement(deliverySql)) {
                                                 deliveryStmt.setInt(1, user_id);
                                                 try (ResultSet deliveryRs = deliveryStmt.executeQuery()) {
                                                     if (deliveryRs.next()) {
                                                         int delivery_executive_id = deliveryRs.getInt("delivery_executive_id");
+                                                        String image=deliveryRs.getString("image");
+                                                        
                                                         session.setAttribute("delivery_executive_id", delivery_executive_id);
-//                                                        out.println("<h2>"+delivery_executive_id+ "</h2>");
+                                                        session.setAttribute("image",image);
+                                                                
                                                         response.sendRedirect("src/pages/DeliveryExecutive/DeliveryDashboard.jsp");
                                                     } else {
                                                         out.println("<h2>Delivery Executive ID not found!</h2>");

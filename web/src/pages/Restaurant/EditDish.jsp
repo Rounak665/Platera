@@ -1,5 +1,6 @@
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="Platera.Category" %>
+<%@ page import="java.util.List" %>
+<%@ page import="FetchingClasses.Category" %>
+<%@ page import="FetchingClasses.CategoryDAO" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -93,23 +94,30 @@
                     <section id="edit-menu-section" class="recent">
                         <h2 class="dash-title">Edit Dish</h2>
                         <div class="activity-card pad-1">
+                            <!-- Fetch categories using CategoryDAO -->
+                            <% 
+                                CategoryDAO categoryDAO = new CategoryDAO();
+                                List<Category> categories = categoryDAO.getCategories();
+                                request.setAttribute("categories", categories);
+                            %>
+
                             <!-- Form updated for editing -->
-                            <form action="http://localhost:8080/Platera-Main/UpdateDish" id="edit-menu-form" method="POST" enctype="multipart/form-data">
+                            <form action="http://localhost:8080/Platera-Main/RestaurantUpdateDish" id="edit-menu-form" method="POST" enctype="multipart/form-data">
                                 <!-- Hidden field for item ID -->
                                 <input type="hidden" name="dish-id" value="${itemId}">
 
                                 <!-- Dish Name -->
                                 <div class="form-group">
                                     <label for="dish-name">Name</label>
-                                    <input type="text" id="menu-name" name="dish-name" class="form-control" value="${itemName}" required>
+                                    <input type="text" id="dish-name" name="dish-name" class="form-control" value="${itemName}" required>
                                 </div>
 
                                 <!-- Dish Category -->
                                 <div class="form-group">
                                     <label for="dish-category">Category</label>
-                                    <select id="menu-category" name="dish-category" class="form-control" required>
+                                    <select id="dish-category" name="dish-category" class="form-control" required>
                                         <option value="">Choose</option>
-                                        <c:forEach var="category" items="${sessionScope.categories}">
+                                        <c:forEach var="category" items="${categories}">
                                             <option value="${category.id}" ${category.id == categoryId ? "selected" : ""}>${category.name}</option>
                                         </c:forEach>
                                     </select>
@@ -118,16 +126,15 @@
                                 <!-- Dish Price -->
                                 <div class="form-group">
                                     <label for="dish-price">Price</label>
-                                    <input type="text" id="menu-price" name="dish-price" class="form-control" value="${price}" required>
+                                    <input type="text" id="dish-price" name="dish-price" class="form-control" value="${price}" required>
                                 </div>
 
                                 <!-- Dish Image -->
                                 <div class="form-group">
+                                    <p>Keep the image empty if you want to remove the image.Upload the previous image if you dont want to update the image</p>
                                     <label for="menu-image">Image</label>
                                     <input type="file" id="menu-image" name="dish-image" class="form-control">
                                     <img src="<%= request.getContextPath() + "/" + session.getAttribute("imagePath") %>" alt="Dish Image" width="100">
-
-
                                 </div>
 
                                 <!-- Availability -->
