@@ -1,7 +1,7 @@
 package Platera;
 
-import FetchingClasses.Database;
-import FetchingClasses.Category;
+import Utilities.Database;
+import Utilities.Category;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

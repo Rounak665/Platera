@@ -13,7 +13,7 @@
         </div>
         <h2>Reset Password</h2>
         <p>Please enter your new password below to reset it.</p>
-        <form method="post">
+        <form method="post" action="localhost:8080/Platera-Main/ResetPassword">
             <input type="password" id="newPassword" name="newPassword" placeholder="Enter New Password" required />
             <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm New Password" required />
     

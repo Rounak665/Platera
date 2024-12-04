@@ -1,6 +1,7 @@
 package Platera;
 
-import FetchingClasses.Database;
+import Utilities.Database;
+import Utilities.EmailUtility;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,7 +43,7 @@ public class ApproveDeliveryExecutive extends HttpServlet {
 
             String selectSql = "SELECT * FROM DELIVERY_EXECUTIVE_REQUESTS WHERE REQUEST_ID = ?";
             String email = null;
-            
+
             try (PreparedStatement selectPstmt = conn.prepareStatement(selectSql)) {
                 selectPstmt.setInt(1, request_id);
                 ResultSet rs = selectPstmt.executeQuery();
@@ -82,20 +83,20 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                     String insertDelExecSql = "INSERT INTO delivery_executives (user_id, image) VALUES (?, ?)";
                     try (PreparedStatement insertDelExecPstmt = conn.prepareStatement(insertDelExecSql)) {
                         insertDelExecPstmt.setInt(1, userId);
-                        insertDelExecPstmt.setString(2, rs.getString("image"));                      
-                        insertDelExecPstmt.executeUpdate();  
-                        
+                        insertDelExecPstmt.setString(2, rs.getString("image"));
+                        insertDelExecPstmt.executeUpdate();
+
                     }
-                    
-                    int delExecId=0;
+
+                    int delExecId = 0;
                     String DelExecIdSql = "SELECT delivery_executive_id FROM delivery_executives WHERE user_id = ?";
                     try (PreparedStatement DelExecIdPstmt = conn.prepareStatement(DelExecIdSql)) {
                         DelExecIdPstmt.setInt(1, userId); // Use the email from the request
                         ResultSet DelExecIdRs = DelExecIdPstmt.executeQuery();
                         if (DelExecIdRs.next()) {
                             delExecId = DelExecIdRs.getInt("delivery_executive_id"); // Retrieve the user_id
-                        }                         
-                        
+                        }
+
                     }
                     String insertDelExecDocsSql = "INSERT INTO delivery_executive_documents (delivery_executive, aadhar_number, pan_number, driving_license_number, gender, age, vehicle_type, vehicle_number, bank_account_name, bank_account_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     try (PreparedStatement insertDelExecDocsPstmt = conn.prepareStatement(insertDelExecDocsSql)) {
@@ -109,23 +110,27 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                         insertDelExecDocsPstmt.setString(8, rs.getString("vehicle_number"));
                         insertDelExecDocsPstmt.setString(9, rs.getString("bank_account_name"));
                         insertDelExecDocsPstmt.setString(10, rs.getString("bank_account_number"));
-                        insertDelExecDocsPstmt.executeUpdate();  
-                        
-                    }
-                    
+                        insertDelExecDocsPstmt.executeUpdate();
 
-                    // Delete the processed request
-//                    String deleteSql = "DELETE FROM DELIVERY_EXECUTIVE_REQUESTS WHERE REQUEST_ID = ?";
-//                    try (PreparedStatement deletePstmt = conn.prepareStatement(deleteSql)) {
-//                        deletePstmt.setInt(1, request_id);
-//                        deletePstmt.executeUpdate();
-//                    }
+                    }
+
+//                     Delete the processed request
+                    String deleteSql = "DELETE FROM DELIVERY_EXECUTIVE_REQUESTS WHERE REQUEST_ID = ?";
+                    try (PreparedStatement deletePstmt = conn.prepareStatement(deleteSql)) {
+                        deletePstmt.setInt(1, request_id);
+                        deletePstmt.executeUpdate();
+                    }
                     response.setContentType("text/html");
                     response.getWriter().println("<h2>Delivery Executive has been approved successfully</h2>");
 
                     // Send approval email if the email was retrieved successfully
+                    String subject = "Approval of Your Platera Delivery Executive Application";
+                    String body = "Dear Applicant,\n\n"
+                            + "Congratulations! Your application to join Platera as a Delivery Executive has been approved.\n"
+                            + "Welcome to the Platera team. We look forward to working with you!\n\n"
+                            + "Best regards,\nThe Platera Team";
                     if (email != null) {
-                        sendApprovalEmail(email);
+                        EmailUtility.sendEmail(email, subject, body);
                     }
                 }
             }
@@ -135,40 +140,4 @@ public class ApproveDeliveryExecutive extends HttpServlet {
         }
     }
 
-    private void sendApprovalEmail(String email) {
-        String subject = "Approval of Your Platera Delivery Executive Application";
-        String body = "Dear Applicant,\n\n"
-                + "Congratulations! Your application to join Platera as a Delivery Executive has been approved.\n"
-                + "Welcome to the Platera team. We look forward to working with you!\n\n"
-                + "Best regards,\nThe Platera Team";
-
-        final String username = "plateraminorproject@gmail.com";  // Use your actual Gmail account
-        final String passwordEmail = "ybnwqkgdnlmlywbf"; // Use your actual Gmail App Password
-
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-
-        Session mailSession = Session.getInstance(props, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, passwordEmail);
-            }
-        });
-
-        try {
-            Message message = new MimeMessage(mailSession);
-            message.setFrom(new InternetAddress(username));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-            message.setSubject(subject);
-            message.setText(body);
-
-            Transport.send(message);
-            LOGGER.log(Level.INFO, "Approval email sent to: " + email);
-        } catch (MessagingException e) {
-            LOGGER.log(Level.SEVERE, "Error sending approval email", e);
-        }
-    }
 }

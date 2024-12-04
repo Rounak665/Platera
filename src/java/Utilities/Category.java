@@ -1,4 +1,4 @@
-package FetchingClasses;
+package Utilities;
 
 public class Category {
     private int id;

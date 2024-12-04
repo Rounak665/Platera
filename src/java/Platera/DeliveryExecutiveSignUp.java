@@ -1,5 +1,6 @@
 package Platera;
 
+import Utilities.EmailUtility;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
@@ -34,10 +35,10 @@ public class DeliveryExecutiveSignUp extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String phoneStr = request.getParameter("phone");
-        Integer phone=Integer.parseInt(phoneStr);
+        Integer phone = Integer.parseInt(phoneStr);
         String address = request.getParameter("address");
         String ageStr = request.getParameter("age");
-        Integer age=Integer.parseInt(ageStr);
+        Integer age = Integer.parseInt(ageStr);
         String gender = request.getParameter("gender");
         String aadharNumberStr = request.getParameter("aadhar_number");
         Integer aadhar_number = Integer.parseInt(aadharNumberStr);
@@ -55,74 +56,41 @@ public class DeliveryExecutiveSignUp extends HttpServlet {
         PrintWriter out = response.getWriter();
         out.println("<p>Age: </p>" + age);
 
-        
-            // Check if passwords match
-            if (!password.equals(re_Password)) {
-                out.println("<h1>Passwords do not match!</h1>");
-                return;
-            }
-        
+        // Check if passwords match
+        if (!password.equals(re_Password)) {
+            out.println("<h1>Passwords do not match!</h1>");
+            return;
+        }
 
-            // Generate OTP
-            Random random = new Random();
-            int otp = 100000 + random.nextInt(900000);
+        // Generate OTP
+        Random random = new Random();
+        int otp = 100000 + random.nextInt(900000);
 
-            // Create session and set session attributes
-            HttpSession session = request.getSession(true);
-            session.setAttribute("otp", otp);
-            session.setAttribute("name", name);
-            session.setAttribute("email", email);
-            session.setAttribute("phone", phone);
-            session.setAttribute("address", address);
-            session.setAttribute("age", age);
-            session.setAttribute("gender", gender);
-            session.setAttribute("aadharNumber", aadhar_number);
-            session.setAttribute("bankAccountName", bank_account_name);
-            session.setAttribute("bankAccountNumber", bank_account_number);
-            session.setAttribute("panNumber", pan_number);
-            session.setAttribute("drivingLicenseNumber", driving_license_number);
-            session.setAttribute("vehicleNumber", vehicle_number);
-            session.setAttribute("vehicleType", vehicle_type);
-            session.setAttribute("password", password);
+        // Create session and set session attributes
+        HttpSession session = request.getSession(true);
+        session.setAttribute("otp", otp);
+        session.setAttribute("name", name);
+        session.setAttribute("email", email);
+        session.setAttribute("phone", phone);
+        session.setAttribute("address", address);
+        session.setAttribute("age", age);
+        session.setAttribute("gender", gender);
+        session.setAttribute("aadharNumber", aadhar_number);
+        session.setAttribute("bankAccountName", bank_account_name);
+        session.setAttribute("bankAccountNumber", bank_account_number);
+        session.setAttribute("panNumber", pan_number);
+        session.setAttribute("drivingLicenseNumber", driving_license_number);
+        session.setAttribute("vehicleNumber", vehicle_number);
+        session.setAttribute("vehicleType", vehicle_type);
+        session.setAttribute("password", password);
 
-            String subject = "Your OTP for Platera Delivery Executive Sign Up";
-            String body = "Hello " + name + ",\n\nYour OTP is: " + otp + "\n\nPlease enter this OTP to verify your email address for delivery execuitve registration.";
-
-            // Sending email
-            final String username = "plateraminorproject@gmail.com";
-            final String passwordEmail = "ybnwqkgdnlmlywbf";
-            Properties props = new Properties();
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.smtp.host", "smtp.gmail.com");
-            props.put("mail.smtp.port", "587");
-
-            Session mailSession = Session.getInstance(props, new Authenticator() {
-                @Override
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(username, passwordEmail);
-                }
-            });
-
-            try {
-
-                Message message = new MimeMessage(mailSession);
-                message.setFrom(new InternetAddress(username));
-                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-                message.setSubject(subject);
-                message.setText(body);
-
-                // Send the email
-                Transport.send(message);
- 
-                response.sendRedirect("src/pages/OTPVerifications/DeliveryExecutiveVerifyOTP.jsp");
-            } catch (MessagingException e) {
-                // Log error message and print stack trace
-                out.println("<h1>Error sending OTP email!</h1>");
-                out.println("<p>Message: " + e.getMessage() + "</p>");
-                e.printStackTrace(out);  // Optionally log this in a log file
-            }
-//        }
+        // Sending email
+        String subject = "Your OTP for Platera Delivery Executive Sign Up";
+        String body = "Hello " + name + ",\n\nYour OTP is: " + otp + "\n\nPlease enter this OTP to verify your email address for delivery execuitve registration.";
+        if (EmailUtility.sendEmail(email, subject, body)) {
+            response.sendRedirect("src/pages/OTPVerifications/DeliveryExecutiveVerifyOTP.jsp");
+        } else {
+            out.println("<h1>Error sending OTP email!</h1>");
+        }
     }
 }
-

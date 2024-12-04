@@ -1,4 +1,4 @@
-package FetchingClasses;
+package Utilities;
 
 
 import java.sql.Connection;

@@ -1,6 +1,7 @@
 package Platera;
 
-import FetchingClasses.Database;
+import Utilities.Database;
+import Utilities.EmailUtility;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -95,7 +96,7 @@ public class ApproveRestaurant extends HttpServlet {
                                 restaurantId = restaurantIdRs.getInt("restaurant_id");
                             }
                             response.setContentType("text/html");
-                            response.getWriter().println("<h2>Restaurant Id:"+restaurantId+"</h2>");
+                            response.getWriter().println("<h2>Restaurant Id:" + restaurantId + "</h2>");
 
                             String insertRestaurantDocumentsSql = "INSERT INTO restaurant_documents ( restaurant_id, gstin,bank_acc_name, bank_acc_number, fssai_lic_number, pan_number) VALUES ( ?, ?, ?, ?, ?, ?) ";
                             try (PreparedStatement insertRestaurantDocumentsPstmt = conn.prepareStatement(insertRestaurantDocumentsSql)) {
@@ -125,11 +126,15 @@ public class ApproveRestaurant extends HttpServlet {
 
                             response.setContentType("text/html");
                             response.getWriter().println("<h2>Restaurant has been approved successfully</h2>");
-                            
 
                             // Send approval email if the email was retrieved successfully
+                            String subject = "Approval of Your Platera Restaurant Application";
+                            String body = "Dear Restaurant Owner,\n\n"
+                                    + "Congratulations! Your application to register your restaurant with Platera has been approved.\n"
+                                    + "Welcome to the Platera family. We look forward to working with you!\n\n"
+                                    + "Best regards,\nThe Platera Team";
                             if (email != null) {
-                                sendApprovalEmail(email);
+                                EmailUtility.sendEmail(email, subject, body);
                             }
                         }
                     }
@@ -149,43 +154,6 @@ public class ApproveRestaurant extends HttpServlet {
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Unexpected error occurred: " + e.getMessage(), e);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unexpected error occurred.");
-        }
-    }
-
-    private void sendApprovalEmail(String email) {
-        String subject = "Approval of Your Platera Restaurant Application";
-        String body = "Dear Restaurant Owner,\n\n"
-                + "Congratulations! Your application to register your restaurant with Platera has been approved.\n"
-                + "Welcome to the Platera family. We look forward to working with you!\n\n"
-                + "Best regards,\nThe Platera Team";
-
-        final String username = "plateraminorproject@gmail.com";  // Use your actual Gmail account
-        final String passwordEmail = "ybnwqkgdnlmlywbf"; // Use your actual Gmail App Password
-
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-
-        Session mailSession = Session.getInstance(props, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, passwordEmail);
-            }
-        });
-
-        try {
-            Message message = new MimeMessage(mailSession);
-            message.setFrom(new InternetAddress(username));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-            message.setSubject(subject);
-            message.setText(body);
-
-            Transport.send(message);
-            LOGGER.log(Level.INFO, "Approval email sent to: " + email);
-        } catch (MessagingException e) {
-            LOGGER.log(Level.SEVERE, "Error sending approval email", e);
         }
     }
 }

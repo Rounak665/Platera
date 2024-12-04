@@ -1,6 +1,7 @@
 package Platera;
 
-import FetchingClasses.Database;
+import Utilities.Database;
+import Utilities.EmailUtility;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -61,8 +62,13 @@ public class RejectDeliveryExecutive extends HttpServlet {
                     response.getWriter().println("<h2>Delivery Executive application has been rejected successfully</h2>");
 
                     // Send rejection email if the email was retrieved successfully
+                    String subject = "Platera Delivery Executive Application Rejected";
+        String body = "Dear Applicant,\n\n" +
+                      "We regret to inform you that your application to join Platera as a Delivery Executive has not been approved at this time.\n" +
+                      "Thank you for your interest in joining us, and we wish you the best in your future endeavors.\n\n" +
+                      "Best regards,\nThe Platera Team";
                     if (email != null) {
-                        sendRejectionEmail(email);
+                        EmailUtility.sendEmail(email,subject,body);
                     }
                 }
             }
@@ -72,40 +78,4 @@ public class RejectDeliveryExecutive extends HttpServlet {
         }
     }
 
-    private void sendRejectionEmail(String email) {
-        String subject = "Platera Delivery Executive Application Rejected";
-        String body = "Dear Applicant,\n\n" +
-                      "We regret to inform you that your application to join Platera as a Delivery Executive has not been approved at this time.\n" +
-                      "Thank you for your interest in joining us, and we wish you the best in your future endeavors.\n\n" +
-                      "Best regards,\nThe Platera Team";
-
-        final String username = "plateraminorproject@gmail.com";  // Use your actual Gmail account
-        final String passwordEmail = "ybnwqkgdnlmlywbf"; // Use your actual Gmail App Password
-
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-
-        Session mailSession = Session.getInstance(props, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, passwordEmail);
-            }
-        });
-
-        try {
-            Message message = new MimeMessage(mailSession);
-            message.setFrom(new InternetAddress(username));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-            message.setSubject(subject);
-            message.setText(body);
-
-            Transport.send(message);
-            LOGGER.log(Level.INFO, "Rejection email sent to: " + email);
-        } catch (MessagingException e) {
-            LOGGER.log(Level.SEVERE, "Error sending rejection email", e);
-        }
-    }
 }

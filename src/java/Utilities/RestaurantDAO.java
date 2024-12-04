@@ -1,6 +1,6 @@
-package FetchingClasses;
+package Utilities;
 
-import FetchingClasses.Restaurant;
+import Utilities.Restaurant;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

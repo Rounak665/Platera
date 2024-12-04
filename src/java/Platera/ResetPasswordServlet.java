@@ -1,6 +1,6 @@
 package Platera;
 
-import FetchingClasses.Database;
+import Utilities.Database;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;

@@ -1,5 +1,6 @@
 package Platera;
 
+import Utilities.EmailUtility;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Properties;
@@ -73,46 +74,16 @@ public class RestaurantSignUp extends HttpServlet {
                 session.setAttribute("pan_card", pan_card);
                 session.setAttribute("gstin", gstin);
                 session.setAttribute("password", password);
-                session.setAttribute("user_role",3);
-
-                String subject = "Your OTP for Platera Restaurant registration";
-                String body = "Hello " + owner_name + ",\n\nYour OTP is: " + otp + "\n\nPlease enter this OTP to verify your email address for your restaurant registration.";
+                session.setAttribute("user_role", 3);
 
                 // Sending email
-                final String username = "plateraminorproject@gmail.com";  // Use your actual Gmail account
-                final String passwordEmail = "ybnwqkgdnlmlywbf"; // Use your actual Gmail App Password
-                Properties props = new Properties();
-                props.put("mail.smtp.auth", "true");
-                props.put("mail.smtp.starttls.enable", "true");
-                props.put("mail.smtp.host", "smtp.gmail.com");
-                props.put("mail.smtp.port", "587");
-
-                Session mailSession = Session.getInstance(props, new Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, passwordEmail);
-                    }
-                });
-
-                try {
-                    
-                    Message message = new MimeMessage(mailSession);
-                    message.setFrom(new InternetAddress(username));
-                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-                    message.setSubject(subject);
-                    message.setText(body);
-
-                    // Send the email
-                    Transport.send(message);
-
+                String subject = "Your OTP for Platera Restaurant registration";
+                String body = "Hello " + owner_name + ",\n\nYour OTP is: " + otp + "\n\nPlease enter this OTP to verify your email address for your restaurant registration.";
+                if (EmailUtility.sendEmail(email, subject, body)) {
                     response.sendRedirect("src/pages/OTPVerifications/RestaurantVerifyOTP.jsp");
-                } catch (MessagingException e) {
-                    // Log error message and print stack trace
+                } else {
                     out.println("<h1>Error sending OTP email!</h1>");
-                    out.println("<p>Message: " + e.getMessage() + "</p>");
-                    e.printStackTrace(out);  // Optionally log this in a log file
                 }
-
             }
 
             out.println("</body>");

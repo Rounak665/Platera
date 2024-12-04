@@ -1,5 +1,5 @@
 
-package FetchingClasses;
+package Utilities;
 
 public class Location {
     private int id;

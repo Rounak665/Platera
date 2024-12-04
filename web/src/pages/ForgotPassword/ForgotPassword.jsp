@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>Forgot Password</title>
-    <link rel="stylesheet" type="text/css" href="ForgotPassword.css">
+    <link rel="stylesheet" type="text/css" href="./ForgotPassword.css">
 </head>
 <body>
     <div class="container">
@@ -13,7 +13,7 @@
         </div>
         <h2>Forgot Password</h2>
         <p>Please enter your email address. We will send a otp to your inbox.</p>
-        <form method="post" action="">
+        <form method="post" action="http://localhost:8080/Platera-Main/ForgotPassword">
             <input type="email" id="email" name="email" placeholder="Enter your email" />
             <button type="submit">Send OTP</button>
         </form>
