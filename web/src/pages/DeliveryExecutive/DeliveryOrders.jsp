@@ -94,11 +94,18 @@
                 </div>
                 
                 <div class="social-icons">
-                    <div class="logout_btn" onclick="signout()">
-                    <span class="logout">Logout</span>
-                    <span class="icon"><ion-icon name="power"></ion-icon></span>
-                    </div>
-                </div>
+                  <div class="logout_btn">
+                      <form action="http://localhost:8080/Platera-Main/logout" class="d-flex align-items-center logout">
+                          <button type="submit" class="btn d-flex align-items-center">
+                              <span class="ml-2">Logout</span>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
+                              <path d="M7.5 1v7h1V1z"></path>
+                              <path d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812"></path>
+                              </svg>
+                          </button>
+                      </form>
+                  </div>
+              </div>
             </header>
             
             <main>

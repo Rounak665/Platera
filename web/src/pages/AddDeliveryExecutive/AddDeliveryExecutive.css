@@ -107,7 +107,7 @@ body{
     height: 100vh;
     width: 100%;
     visibility: hidden;
-    transition: 0.3s ease;
+    transition: 0.5s ease;
 }
 
 /* When activated, the popups become visible and scale up */
@@ -324,13 +324,16 @@ body{
 .popup .container {
     position: relative;
     background-color: #f1f7f5;
-    width: 1150px; /* Increased width to fit 3 columns */
-    height: auto; /* Adjust for dynamic content */
+    width: 90%; /* Adjust width to be responsive */
+    max-width: 1100px; /* Prevent exceeding screen width */
+    height: auto;
+    max-height: 90vh; /* Ensure it fits within the viewport */
+    overflow-y: auto; /* Add scroll if necessary */
     display: flex;
     align-items: center;
     flex-direction: column;
     border-radius: 10px;
-    padding: 25px;
+    padding: 20px; /* Slightly reduced padding */
 }
 
 .container .close-btn {
@@ -348,36 +351,35 @@ body{
 }
 
 .popup .container h1 {
-    font-size: 2rem;
+    font-size: 1.8rem; /* Slightly reduced */
     font-weight: 550;
     color: rgb(87, 87, 87);
 }
 
 .container .contact_form {
     width: 100%;
-    margin-top: 30px;
+    margin-top: 20px; /* Slightly reduced margin */
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 columns */
-    gap: 20px; /* Spacing between columns */
+    gap: 15px; /* Reduced gap between columns */
 }
 
 .container .input_container {
     position: relative;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem; /* Reduced margin */
     width: 100%;
     display: flex;
-    /* flex-direction: column; */
 }
 
 .container .input {
     width: 100%;
-    height: 50px;
+    height: 45px; /* Reduced height */
     border: 2px solid rgb(207, 207, 207);
     background-color: transparent;
-    padding: 0.6rem 1.2rem;
+    padding: 0.5rem 1rem; /* Adjusted padding */
     color: rgb(105, 105, 105);
     font-weight: 400;
-    font-size: 1.3rem;
+    font-size: 1.1rem; /* Slightly reduced */
     letter-spacing: 0.5px;
     outline: none;
     border-radius: 0.5rem;
@@ -394,7 +396,7 @@ body{
     transform: translateY(-50%);
     padding: 0 0.4rem;
     color: rgb(197, 197, 197);
-    font-size: 1rem;
+    font-size: 0.9rem; /* Reduced font size */
     font-weight: 300;
     pointer-events: none;
     z-index: 1000;
@@ -405,8 +407,8 @@ body{
 .container .input:focus + label,
 .container .input:valid + label {
     top: 0;
-    transform: translateY(-150%); /* Moves label above input */
-    font-size: 0.9rem;
+    transform: translateY(-150%);
+    font-size: 0.8rem; /* Slightly smaller for moved label */
     color: rgb(0, 153, 153);
 }
 
@@ -431,13 +433,13 @@ body{
 /* General styling for submit button */
 .container .btn {
     width: 100%;
-    height: 50px;
+    height: 45px; /* Reduced height */
     background: #F12630;
     outline: none;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 0.9rem; /* Reduced font size */
     color: #f8f8f8;
     font-weight: 500;
     grid-column: 1 / -1; /* Full width button spanning all columns */
@@ -457,10 +459,10 @@ body{
 
 /* Checkbox styling */
 .container .remember-forgot {
-    grid-column: 1 / -1; /* Spanning across all columns */
-    font-size: 14.5px;
+    grid-column: 1 / -1;
+    font-size: 0.85rem; /* Slightly smaller font */
     font-weight: 500;
-    margin: -15px 0 15px;
+    margin: -10px 0 15px; /* Adjusted margins */
     display: flex;
     justify-content: space-between;
 }

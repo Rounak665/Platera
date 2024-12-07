@@ -119,7 +119,7 @@
                                     <h5><%=name%></h5>
                                     <h6><span>&#9733;5.0</span><span>â¬¤1K+ Reviews</span></h6>
                                     <p>Joined June 2024</p>
-                                    <button type="button" class="btn btn-primary">  Edit  </button>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit</button>
                                 </div>
                             </div>
                             <div class="order-details">
@@ -222,15 +222,59 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        
-                        
-
                     </div>
 
                 </main>
             </div>
         </div>
+
+<!-- Edit Profile Modal -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="UpdateDeliveryExecutive" method="post" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="<%= request.getAttribute("name") %>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="<%= request.getAttribute("email") %>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="number" class="form-label">Number</label>
+                        <input type="text" class="form-control" id="number" name="number" value="<%= request.getAttribute("number") %>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <input type="text" class="form-control" id="address" name="address" value="<%= request.getAttribute("address") %>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="deliveryArea" class="form-label">Delivery Area Address</label>
+                        <input type="text" class="form-control" id="deliveryArea" name="deliveryArea" value="<%= request.getAttribute("deliveryArea") %>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="emergencyContact" class="form-label">Emergency Contact Number</label>
+                        <input type="text" class="form-control" id="emergencyContact" name="emergencyContact" value="<%= request.getAttribute("emergencyContact") %>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="profileImage" class="form-label">Profile Image</label>
+                        <input type="file" class="form-control" id="profileImage" name="profileImage">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
         <!-- Scripts  -->
 

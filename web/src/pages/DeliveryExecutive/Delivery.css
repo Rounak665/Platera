@@ -773,6 +773,120 @@ main {
     width: 100%;
 }
 
+/* Modal Styles */
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    background: #333;
+    color: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.modal-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.modal-footer .btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal-footer .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Input Fields */
+input.form-control {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px 10px;
+    font-size: 14px;
+}
+
+label.form-label {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+
+/* the below codes i made for the popup to be centred vertically and the overflow should be aut but if its not working remove the below codes */
+/* Make the modal vertically centered */
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Set a maximum height for the modal and make it scrollable */
+.custom-modal-body {
+    max-height: 70vh !important; /* 70% of the viewport height */
+    overflow-y: auto !important;  /* Enable vertical scroll if content exceeds max height */
+    padding: 1rem;
+}
+
+/* Adjust modal width for different screen sizes */
+@media (max-width: 768px) {
+    .modal-dialog {
+        width: 95%; /* Reduce width for smaller screens */
+        margin: 0 auto;
+    }
+}
+
+@media (max-height: 500px) {
+    .modal-dialog {
+        max-height: 90vh; /* Ensure the modal fits on very short screens */
+        overflow-y: auto; /* Add scrolling for the modal */
+    }
+}
+
+/* Optional: Reduce modal header/footer padding for smaller screens */
+@media (max-width: 576px) {
+    .modal-header, .modal-footer {
+        padding: 0.5rem;
+    }
+    .modal-body {
+        padding: 0.5rem;
+    }
+}
+
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .main-content {
+        margin-left: 200px;
+    }
+
+    .personal-image img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .personal-description h5 {
+        font-size: 18px;
+    }
+
+    .personal-description h6 {
+        font-size: 14px;
+    }
+
+    .dash-title {
+        font-size: 22px;
+    }
+}
+
 /* Profile container */
 .profile {
     background-color: #f8f9fa;

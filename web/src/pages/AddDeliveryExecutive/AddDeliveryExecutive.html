@@ -51,13 +51,27 @@
                     <span>Age</span>
                 </div>
                 <div class="input_container" id="gender">
-                    <select name="gender" class="input" required>
+                    <select name="gender" class="input" style="color: rgb(0, 153, 153);" required>
                         <option value="" disabled selected>Select Gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                         <option value="Others">Others</option>
                     </select>
                     <span>Gender</span>
+                </div>
+                <div class="input_container">
+                    <input type="text" name="area_address" class="input" required>
+                    <label for="area_address">Delivery Area Address</label>
+                    <span>Delivery Area Address</span>
+                </div>
+                <div class="input_container">
+                    <input type="file" name="profile_image" class="input" accept="image/*" required>
+                    <label for="profile_image" style="color: rgb(0, 153, 153);">Upload Profile Image</label>
+                </div>
+                <div class="input_container">
+                    <input type="text" name="emergency_contact" class="input" required>
+                    <label for="emergency_contact">Emergency Contact</label>
+                    <span>Emergency Contact</span>
                 </div>
                 <div class="input_container">
                     <input type="text" name="aadhar_number" class="input" required>
