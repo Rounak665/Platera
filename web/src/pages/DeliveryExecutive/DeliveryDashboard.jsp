@@ -1,4 +1,4 @@
-<%@page import="FetchingClasses.Database"%>
+<%@page import="Utilities.Database"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -17,19 +17,36 @@
         <!--Java Scriplets-->
         <%
 
-            //        Integer user_id=(Integer) session.getAttribute("user_id");
-            //        String name=(String) session.getAttribute("name");       
-            //        String email=(String) session.getAttribute("email");
-            //        Integer delivery_executive_id=(Integer) session.getAttribute("delivery_executive_id");
-            //        String image=(String) session.getAttribute("image");
-            //        String imagepath=request.getContextPath()+ '/' + image;
+                    Integer user_id=(Integer) session.getAttribute("user_id");
+                    String name=(String) session.getAttribute("name");       
+                    String email=(String) session.getAttribute("email");
+                    Integer delivery_executive_id=(Integer) session.getAttribute("delivery_executive_id");
+                    String image=(String) session.getAttribute("image");
+                    String imagepath=request.getContextPath()+ '/' + image;
+                    Integer location=0;
+                    
+                     try (Connection conn = Database.getConnection()) {
+                    String SelectSql="Select location from delivery_executives where user_id=?";
+                    try(PreparedStatement selectSqlPstmt = conn.prepareStatement(SelectSql)){
+                        selectSqlPstmt.setInt(1,user_id);
+                        ResultSet selectSqlRs = selectSqlPstmt.executeQuery();
+                        
+                        if (selectSqlRs.next()) {
+                            location = selectSqlRs.getInt("location");
+                        } else {
+                            out.println("Unexpected Error");
+                            return;
+                        }
+                        }
+                    
+                     }
             //For debugging
-            int user_id = 2;
-            String name = "Arthur Morgan";
-            String email = "ArthurMorgan1863@gmail.com";
-            int delivery_executive_id = 49;
-            String image = "DatabaseImages/Delivery_Executives/Arthur_Morgan.jpeg";
-            String imagepath = request.getContextPath() + '/' + image;
+//            int user_id = 2;
+//            String name = "Arthur Morgan";
+//            String email = "ArthurMorgan1863@gmail.com";
+//            int delivery_executive_id = 49;
+//            String image = "DatabaseImages/Delivery_Executives/Arthur_Morgan.jpeg";
+//            String imagepath = request.getContextPath() + '/' + image;
 
         %>
         <!-- Welcome Popup -->

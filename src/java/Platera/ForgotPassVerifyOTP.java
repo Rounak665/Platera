@@ -13,19 +13,21 @@ public class ForgotPassVerifyOTP extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String enteredOtp = request.getParameter("code");
+        String enteredOTP = request.getParameter("code");
         HttpSession session = request.getSession();
-        String sessionOtp = (String) session.getAttribute("otp");
+        Integer sessionOTP = (Integer) session.getAttribute("otp");
+        
         
         // Set response content type
-        response.setContentType("text/html;charset=UTF-8");
+
         
         try (PrintWriter out = response.getWriter()) {
-            if (sessionOtp != null && sessionOtp.equals(enteredOtp)) {
+            if (sessionOTP != null && sessionOTP.equals(Integer.valueOf(enteredOTP))) {
                 // OTP is correct, redirect to resetPassword.jsp
                 response.sendRedirect("src/pages/ForgotPassword/resetPassword.jsp");
             } else {
                 // OTP is incorrect
+                response.setContentType("text/html;charset=UTF-8");
                 out.println("<h1>Invalid OTP. Please try again.</h1>");
 //                request.setAttribute("errorMessage", "Invalid OTP. Please try again.");
 //                request.getRequestDispatcher("ForgotPassVerifyOTP.jsp").forward(request, response);

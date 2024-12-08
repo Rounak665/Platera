@@ -52,7 +52,6 @@ public class ResetPassword extends HttpServlet {
                 if (rowsUpdated > 0) {
                     out.println("<h1>Password updated successfully!</h1>");
                     session.invalidate();
-                    session.invalidate();
                 } else {
                     out.println("<h1>Error updating password. Please try again later.</h1>");
                 }

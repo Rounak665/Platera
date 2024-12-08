@@ -1,4 +1,4 @@
-<%@page import="FetchingClasses.Database"%>
+<%@page import="Utilities.Database"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.ArrayList"%>

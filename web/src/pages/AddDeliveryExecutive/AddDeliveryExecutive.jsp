@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<%@page import="java.util.List"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="Utilities.Location" %>
+<%@ page import="Utilities.LocationDAO" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,7 +27,7 @@
         <div class="container">
             <div class="close-btn"><ion-icon name="close-outline" class="ico"></ion-icon></div>
             <h1>Delivery Executive Registration</h1>
-            <form action="http://localhost:8080/Platera-Main/DeliveryExecutiveSignUp" id="restaurantRegistrationForm" class="contact_form" method="POST">
+            <form action="http://localhost:8080/Platera-Main/DeliveryExecutiveSignUp" id="restaurantRegistrationForm" class="contact_form" enctype="multipart/form-data" method="POST">
                 <div class="input_container">
                     <input type="text" name="name" class="input" required>
                     <label for="name">Name</label>
@@ -60,18 +63,23 @@
                     <span>Gender</span>
                 </div>
                 <div class="input_container">
-                    <input type="text" name="area_address" class="input" required>
-                    <label for="area_address">Delivery Area Address</label>
-                    <span>Delivery Area Address</span>
-                </div>
-                <div class="input_container">
                     <input type="file" name="profile_image" class="input" accept="image/*" required>
                     <label for="profile_image" style="color: rgb(0, 153, 153);">Upload Profile Image</label>
                 </div>
                 <div class="input_container">
-                    <input type="text" name="emergency_contact" class="input" required>
-                    <label for="emergency_contact">Emergency Contact</label>
-                    <span>Emergency Contact</span>
+                    <select name="location" class="input" required>
+                    <option value="" disabled selected>Select a location</option>
+                    <%
+                        LocationDAO locationDAO = new LocationDAO();
+                        List<Location> locations = locationDAO.getLocations();
+                        for (Location location : locations) {
+                    %>
+                        <option value="<%= location.getId() %>"><%= location.getName() %></option>
+                    <%
+                        }
+                    %>
+                </select>
+                    <span>Location</span>
                 </div>
                 <div class="input_container">
                     <input type="text" name="aadhar_number" class="input" required>
@@ -119,7 +127,7 @@
                     <span>Re-enter Password</span>
                 </div>
                 <div class="remember-forgot">
-                    <label><input type="checkbox" required>I agree to Platera's <b><span style="color: #F12630;"><a href="../FooterLinkPages/Terms&Conditions/Terms&Conditions.html">Terms of Service</a></span></b> & <b><span style="color: #F12630;"><a href="../FooterLinkPages/PrivacyPolicy/PrivacyPolicy.html">Privacy Policies</a></span></b></label>
+                    <label><input type="checkbox" required>I agree to Platera's <b><span style="color: #F12630;"><a href="src/pages/FooterLinkPages/Terms&Conditions/Terms&Conditions.html">Terms of Service</a></span></b> & <b><span style="color: #F12630;"><a href="../FooterLinkPages/PrivacyPolicy/PrivacyPolicy.html">Privacy Policies</a></span></b></label>
                 </div>
     
                 <button type="submit" class="btn">Register Yourself</button>

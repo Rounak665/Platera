@@ -60,13 +60,13 @@
             <div class="sidebar-menu">
                 <ul>
                     <li>
-                        <a href="./DeliveryDashboard.jsp">
+                        <a href="src/pages/DeliveryExecutive/DeliveryDashboard.jsp">
                             <span class="icon"><ion-icon name="home-sharp"></ion-icon></span>
                             <span>Home</span>
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="src/pages/DeliveryExecutive/DeliveryOrders.jsp">
                             <span class="icon"><ion-icon name="cart"></ion-icon></span>
                             <span>Orders</span>
                         </a>

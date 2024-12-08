@@ -71,7 +71,7 @@ public class RestaurantPublicInfo extends HttpServlet {
 
             // Calculate the path relative to the web folder (Platera-Main/web)
             String realPath = getServletContext().getRealPath("/");
-            String projectRoot = new File(realPath).getParentFile().getParent();  // Step back two levels to reach the Platera-Main root
+            String projectRoot = new File(realPath).getParentFile().getParent();  
             String imageDirectoryPath = projectRoot + File.separator + "web" + File.separator + IMAGE_DIRECTORY;
 
             // Create the directory if it doesn't exist

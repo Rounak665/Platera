@@ -2,22 +2,17 @@ package Platera;
 
 import Utilities.Database;
 import Utilities.EmailUtility;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
+import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ApproveDeliveryExecutive extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(ApproveDeliveryExecutive.class.getName());
+    private static final String IMAGE_DIRECTORY = "DatabaseImages/Delivery_Executives";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -52,7 +48,7 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                     email = rs.getString("email"); // Retrieve email for notification
 
                     // Insert into the users table
-                    String insertUsersSql = "INSERT INTO users(name, email, password, phone, address, user_role_id) VALUES (?, ?, ?, ?,?, 4)";
+                    String insertUsersSql = "INSERT INTO users(name, email, password, phone, address, user_role_id) VALUES (?, ?, ?, ?, ?, 4)";
                     try (PreparedStatement insertUsersPstmt = conn.prepareStatement(insertUsersSql)) {
                         insertUsersPstmt.setString(1, rs.getString("name"));
                         insertUsersPstmt.setString(2, rs.getString("email"));
@@ -66,41 +62,77 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                     int userId = 0;
                     String userIdSql = "SELECT user_id FROM users WHERE email = ?";
                     try (PreparedStatement userIdPstmt = conn.prepareStatement(userIdSql)) {
-                        userIdPstmt.setString(1, email); // Use the email from the request
+                        userIdPstmt.setString(1, email);
                         ResultSet userIdRs = userIdPstmt.executeQuery();
 
                         if (userIdRs.next()) {
-                            userId = userIdRs.getInt("user_id"); // Retrieve the user_id
+                            userId = userIdRs.getInt("user_id");
                         } else {
-                            // If user_id is not found, log an error and return
                             LOGGER.severe("User with email " + email + " does not exist in the users table.");
                             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "User does not exist.");
                             return;
                         }
                     }
 
+                    // Get the real path of the servlet
+                    String realPath = getServletContext().getRealPath("/");
+                    String projectRoot = new File(realPath).getParentFile().getParent(); // Going back two levels
+                    String imageDirectoryPath = projectRoot + File.separator + "web" + File.separator + IMAGE_DIRECTORY;
+
+                    // Create the directory if it doesn't exist
+                    File imageDirectory = new File(imageDirectoryPath);
+                    if (!imageDirectory.exists()) {
+                        imageDirectory.mkdirs();  
+                    }
+
+                    // Retrieve CLOB image data and decode it to save as a file
+                    Clob clobImage = rs.getClob("image");
+                    if (clobImage != null) {
+                        String imageBase64 = clobImage.getSubString(1, (int) clobImage.length());
+                        byte[] imageBytes = Base64.getDecoder().decode(imageBase64);
+
+                        File imageFile = new File(imageDirectoryPath + File.separator + "delivery_executive_" + userId + ".jpg");
+
+                        try (FileOutputStream fos = new FileOutputStream(imageFile)) {
+                            fos.write(imageBytes);
+                        } catch (IOException e) {
+                            LOGGER.log(Level.SEVERE, "Error saving image file: " + e.getMessage(), e);
+                            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error saving image file.");
+                            return;
+                        }
+                    }
+
                     // Insert into the delivery_executives table, using the retrieved user_id
-                    String insertDelExecSql = "INSERT INTO delivery_executives (user_id, image) VALUES (?, ?)";
+                    String insertDelExecSql = "INSERT INTO delivery_executives (user_id, image,location) VALUES (?, ?, ?)";
                     try (PreparedStatement insertDelExecPstmt = conn.prepareStatement(insertDelExecSql)) {
                         insertDelExecPstmt.setInt(1, userId);
-                        insertDelExecPstmt.setString(2, rs.getString("image"));
+                        insertDelExecPstmt.setString(2, IMAGE_DIRECTORY + File.separator + "delivery_executive_" + userId + ".jpg");
+                        insertDelExecPstmt.setInt(3, rs.getInt("location"));   
                         insertDelExecPstmt.executeUpdate();
 
+                        // Get the generated delivery_executive_id                       
                     }
+                    
+                    int deliveryExecutiveId=0;
+                    String delExecIdSql = "SELECT delivery_executive_id FROM delivery_executives WHERE user_id = ?";
+                    try (PreparedStatement delExecIdSqlPstmt = conn.prepareStatement(delExecIdSql)) {
+                        delExecIdSqlPstmt.setInt(1, userId);
+                        ResultSet delExecIdSqlRs = delExecIdSqlPstmt.executeQuery();
 
-                    int delExecId = 0;
-                    String DelExecIdSql = "SELECT delivery_executive_id FROM delivery_executives WHERE user_id = ?";
-                    try (PreparedStatement DelExecIdPstmt = conn.prepareStatement(DelExecIdSql)) {
-                        DelExecIdPstmt.setInt(1, userId); // Use the email from the request
-                        ResultSet DelExecIdRs = DelExecIdPstmt.executeQuery();
-                        if (DelExecIdRs.next()) {
-                            delExecId = DelExecIdRs.getInt("delivery_executive_id"); // Retrieve the user_id
+                        if (delExecIdSqlRs.next()) {
+                            deliveryExecutiveId = delExecIdSqlRs.getInt("delivery_executive_id");
+                        } else {
+                            LOGGER.severe("User with email " + email + " does not exist in the users table.");
+                            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "User does not exist.");
+                            return;
                         }
-
                     }
-                    String insertDelExecDocsSql = "INSERT INTO delivery_executive_documents (delivery_executive, aadhar_number, pan_number, driving_license_number, gender, age, vehicle_type, vehicle_number, bank_account_name, bank_account_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    
+
+                    // Insert into the delivery_executive_documents table, using the retrieved delivery_executive_id
+                    String insertDelExecDocsSql = "INSERT INTO delivery_executive_documents (delivery_executive_id, aadhar_number, pan_number, driving_license_number, gender, age, vehicle_type, vehicle_number, bank_account_name, bank_account_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                     try (PreparedStatement insertDelExecDocsPstmt = conn.prepareStatement(insertDelExecDocsSql)) {
-                        insertDelExecDocsPstmt.setInt(1, delExecId);
+                        insertDelExecDocsPstmt.setInt(1, deliveryExecutiveId);  // Use the generated delivery_executive_id
                         insertDelExecDocsPstmt.setInt(2, rs.getInt("aadhar_number"));
                         insertDelExecDocsPstmt.setString(3, rs.getString("pan_number"));
                         insertDelExecDocsPstmt.setString(4, rs.getString("driving_license_number"));
@@ -111,19 +143,19 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                         insertDelExecDocsPstmt.setString(9, rs.getString("bank_account_name"));
                         insertDelExecDocsPstmt.setString(10, rs.getString("bank_account_number"));
                         insertDelExecDocsPstmt.executeUpdate();
-
                     }
 
-//                     Delete the processed request
-                    String deleteSql = "DELETE FROM DELIVERY_EXECUTIVE_REQUESTS WHERE REQUEST_ID = ?";
-                    try (PreparedStatement deletePstmt = conn.prepareStatement(deleteSql)) {
-                        deletePstmt.setInt(1, request_id);
-                        deletePstmt.executeUpdate();
-                    }
+                    // Delete the processed request
+//                    String deleteSql = "DELETE FROM DELIVERY_EXECUTIVE_REQUESTS WHERE REQUEST_ID = ?";
+//                    try (PreparedStatement deletePstmt = conn.prepareStatement(deleteSql)) {
+//                        deletePstmt.setInt(1, request_id);
+//                        deletePstmt.executeUpdate();
+//                    }
+
                     response.setContentType("text/html");
                     response.getWriter().println("<h2>Delivery Executive has been approved successfully</h2>");
 
-                    // Send approval email if the email was retrieved successfully
+                    // Send approval email
                     String subject = "Approval of Your Platera Delivery Executive Application";
                     String body = "Dear Applicant,\n\n"
                             + "Congratulations! Your application to join Platera as a Delivery Executive has been approved.\n"
@@ -139,5 +171,4 @@ public class ApproveDeliveryExecutive extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error occurred: " + ex.getMessage());
         }
     }
-
 }

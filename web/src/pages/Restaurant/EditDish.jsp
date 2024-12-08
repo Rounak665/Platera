@@ -1,6 +1,6 @@
 <%@ page import="java.util.List" %>
-<%@ page import="FetchingClasses.Category" %>
-<%@ page import="FetchingClasses.CategoryDAO" %>
+<%@ page import="Utilities.Category" %>
+<%@ page import="Utilities.CategoryDAO" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">

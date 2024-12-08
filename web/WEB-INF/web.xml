@@ -12,24 +12,8 @@
         <servlet-name>Logout</servlet-name>
         <servlet-class>Platera.Logout</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>DeliveryExecutiveVerifyOTP</servlet-name>
-        <servlet-class>Platera.DeliveryExecutiveVerifyOTP</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>VerifyOTP</servlet-name>
         <url-pattern>/VerifyOTP</url-pattern>
-    </servlet-mapping>
-    <!--    <servlet>
-        <servlet-name>RestaurantVerifyOTP</servlet-name>
-        <servlet-class>Platera.RestaurantVerifyOTP</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>RestaurantVerifyOTP</servlet-name>
-        <url-pattern>/RestaurantVerifyOTP</url-pattern>
-    </servlet-mapping>-->
-    <servlet-mapping>
-        <servlet-name>DeliveryExecutiveVerifyOTP</servlet-name>
-        <url-pattern>/DeliveryExecutiveVerifyOTP</url-pattern>
     </servlet-mapping>
 </web-app>

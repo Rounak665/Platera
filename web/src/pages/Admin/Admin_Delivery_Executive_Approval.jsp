@@ -1,4 +1,4 @@
-<%@page import="FetchingClasses.Database"%>
+<%@page import="Utilities.Database"%>
 <%@page import="javax.servlet.jsp.jstl.sql.Result"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.PreparedStatement"%>
