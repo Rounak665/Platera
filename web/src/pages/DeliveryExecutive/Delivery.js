@@ -142,13 +142,13 @@ if (deliveryStatus === 'started') {
       });
 
       // Order Handling Script
-      const orders = [
-          { orderNumber: 1, date: 'June 1, 2020, 08:22 AM', price: 202.00, active: true },
-          { orderNumber: 2, date: 'June 1, 2020, 08:22 AM', price: 202.00, active: false },
-          { orderNumber: 3, date: 'June 1, 2020, 08:22 AM', price: 202.00, active: false },
-          { orderNumber: 4, date: 'June 1, 2020, 08:22 AM', price: 202.00, active: false },
-          { orderNumber: 5, date: 'June 1, 2020, 08:22 AM', price: 202.00, active: false }
-      ];
+//      const orders = [
+//          { orderNumber: 1, date: 'June 1, 2020, 08:22 AM', price: 202.00, active: true },
+//          { orderNumber: 2, date: 'June 1, 2020, 08:22 AM', price: 202.00, active: false },
+//          { orderNumber: 3, date: 'June 1, 2020, 08:22 AM', price: 202.00, active: false },
+//          { orderNumber: 4, date: 'June 1, 2020, 08:22 AM', price: 202.00, active: false },
+//          { orderNumber: 5, date: 'June 1, 2020, 08:22 AM', price: 202.00, active: false }
+//      ];
 
       let orderAccepted = false; // Tracks if the order is accepted
 
@@ -211,30 +211,30 @@ if (activeOrderSlab) {
 });
 
       // Dynamically create and append order slabs (your order data)
-      orders.forEach(order => {
-          const orderItem = document.createElement('div');
-          orderItem.classList.add('order-slab');
-
-          // Add order information to the created order slab
-          orderItem.innerHTML = `
-              <div class="order-information">
-                  <span class="order-num">Order #${order.orderNumber}</span>
-                  <span class="order-date">${order.date}</span>
-              </div>
-              <div>
-                  <span class="order-price">₹${order.price.toFixed(2)}</span>
-              </div>
-              <button class="order-button">
-                  <img src="https://img.icons8.com/ios-filled/50/000000/forward.png" alt="Go">
-              </button>
-          `;
-
-          // Attach the click event listener to each order slab
-          orderItem.addEventListener('click', handleSlabClick);
-
-          // Append the created slab to the order list
-          orderListElement.appendChild(orderItem);
-      });
+//      orders.forEach(order => {
+//          const orderItem = document.createElement('div');
+//          orderItem.classList.add('order-slab');
+//
+//          // Add order information to the created order slab
+//          orderItem.innerHTML = `
+//              <div class="order-information">
+//                  <span class="order-num">Order #${order.orderNumber}</span>
+//                  <span class="order-date">${order.date}</span>
+//              </div>
+//              <div>
+//                  <span class="order-price">₹${order.price.toFixed(2)}</span>
+//              </div>
+//              <button class="order-button">
+//                  <img src="https://img.icons8.com/ios-filled/50/000000/forward.png" alt="Go">
+//              </button>
+//          `;
+//
+//          // Attach the click event listener to each order slab
+//          orderItem.addEventListener('click', handleSlabClick);
+//
+//          // Append the created slab to the order list
+//          orderListElement.appendChild(orderItem);
+//      });
 
       // Close the popup and remove the active order-slab when the Verify button is clicked
 verifyButton.addEventListener("click", function() {
