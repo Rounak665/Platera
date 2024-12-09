@@ -1,3 +1,5 @@
+
+<%@page import="java.sql.SQLException"%>
 <%@page import="Utilities.Database"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -17,43 +19,111 @@
         <!--Java Scriplets-->
         <%
 
-                    Integer user_id=(Integer) session.getAttribute("user_id");
-                    String name=(String) session.getAttribute("name");       
-                    String email=(String) session.getAttribute("email");
-                    Integer delivery_executive_id=(Integer) session.getAttribute("delivery_executive_id");
-                    String image=(String) session.getAttribute("image");
-                    String imagepath=request.getContextPath()+ '/' + image;
-                    Integer location=0;
-                    
-                     try (Connection conn = Database.getConnection()) {
-                    String SelectSql="Select location from delivery_executives where user_id=?";
-                    try(PreparedStatement selectSqlPstmt = conn.prepareStatement(SelectSql)){
-                        selectSqlPstmt.setInt(1,user_id);
-                        ResultSet selectSqlRs = selectSqlPstmt.executeQuery();
-                        
-                        if (selectSqlRs.next()) {
-                            location = selectSqlRs.getInt("location");
-                        } else {
-                            out.println("Unexpected Error");
-                            return;
-                        }
-                        }
-                    
-                     }
+            Integer user_id = (Integer) session.getAttribute("user_id");
+            String name = (String) session.getAttribute("name");
+            String email = (String) session.getAttribute("email");
+            Integer delivery_executive_id = (Integer) session.getAttribute("delivery_executive_id");
+            String image = (String) session.getAttribute("image");
+            String imagepath = request.getContextPath() + '/' + image;
+            int location_id = 0;
+            String location = "";
+            
+            
             //For debugging
-//            int user_id = 2;
+//            int user_id = 257;
 //            String name = "Arthur Morgan";
 //            String email = "ArthurMorgan1863@gmail.com";
-//            int delivery_executive_id = 49;
+//            int delivery_executive_id = 35;
 //            String image = "DatabaseImages/Delivery_Executives/Arthur_Morgan.jpeg";
 //            String imagepath = request.getContextPath() + '/' + image;
+//            int location_id = 0;
+//            String location = "";
+
+            Connection conn = null;
+            PreparedStatement selectSqlPstmt = null;
+            PreparedStatement selectLocationPstmt = null;
+            ResultSet selectSqlRs = null;
+            ResultSet selectLocationSqlRs = null;
+
+            try {
+                // Get connection
+                conn = Database.getConnection(); // Assuming getConnection method works with Java 1.5
+
+                // First Query: Get location_id for the user
+                try {
+                    String selectSql = "SELECT location FROM delivery_executives WHERE user_id=?";
+                    selectSqlPstmt = conn.prepareStatement(selectSql);
+                    selectSqlPstmt.setInt(1, user_id); // Set parameter before executing the query
+
+                    selectSqlRs = selectSqlPstmt.executeQuery(); // Execute the query
+
+                    if (selectSqlRs.next()) {
+                        location_id = selectSqlRs.getInt("location"); // Retrieve the location_id
+                    } else {
+                        out.println("Unexpected Error: No location found for user.");
+                        return;
+                    }
+                } catch (SQLException e) {
+                    out.println("Error executing the first query: " + e.getMessage());
+                    e.printStackTrace();
+                    return; // Return after logging the error
+                }
+
+                // Second Query: Get location name based on location_id
+                try {
+                    String selectLocationSql = "SELECT location_name FROM locations WHERE location_id=?";
+                    selectLocationPstmt = conn.prepareStatement(selectLocationSql);
+                    selectLocationPstmt.setInt(1, location_id); // Set parameter before executing the query
+
+                    selectLocationSqlRs = selectLocationPstmt.executeQuery(); // Execute the query
+
+                    if (selectLocationSqlRs.next()) {
+                        location = selectLocationSqlRs.getString("location_name"); // Retrieve the location name
+                    } else {
+                        out.println("Unexpected Error: No location found for location_id.");
+                        return;
+                    }
+                } catch (SQLException e) {
+                    out.println("Error executing the second query: " + e.getMessage());
+                    e.printStackTrace();
+                    return; // Return after logging the error
+                }
+
+            } catch (SQLException e) {
+                out.println("Error connecting to the database: " + e.getMessage());
+                e.printStackTrace();
+            } finally {
+                // Close resources manually to avoid resource leak
+                try {
+                    if (selectSqlRs != null) {
+                        selectSqlRs.close();
+                    }
+                    if (selectLocationSqlRs != null) {
+                        selectLocationSqlRs.close();
+                    }
+                    if (selectSqlPstmt != null) {
+                        selectSqlPstmt.close();
+                    }
+                    if (selectLocationPstmt != null) {
+                        selectLocationPstmt.close();
+                    }
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (SQLException ex) {
+                    out.println("Error closing resources: " + ex.getMessage());
+                }
+            }
+
 
         %>
+
+
         <!-- Welcome Popup -->
 
 
-         <!-- loader -->
-         <div class="loader">
+        <!-- loader -->
+        <div class="loader">
             <div id="pl">
                 <div>
                     <video class="vid" src="../ContactUs/Assets/loader.mp4" autoplay muted loop></video>
@@ -134,7 +204,7 @@
                                 <div class="personal-image"><img src="<%=imagepath%>" alt="Your-image"></div>
                                 <div class="personal-description">
                                     <h5><%=name%></h5>
-                                    <h6><span>&#9733;5.0</span><span>â¬¤1K+ Reviews</span></h6>
+                                    <h6><span>&#9733;5.0</span><span> <%=location%> </span></h6>
                                     <p>Joined June 2024</p>
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit</button>
                                 </div>
@@ -213,7 +283,7 @@
                                     </div>
                                 </div>
                             </div>
-                        
+
                             <!-- Statistics Section -->
                             <div class="statistics">
                                 <h2><ion-icon name="list-outline"></ion-icon> Upcoming Orders</h2>
@@ -245,53 +315,53 @@
             </div>
         </div>
 
-<!-- Edit Profile Modal -->
-<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form action="UpdateDeliveryExecutive" method="post" enctype="multipart/form-data">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- Edit Profile Modal -->
+        <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="UpdateDeliveryExecutive" method="post" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" value="<%= request.getAttribute("name")%>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" value="<%= request.getAttribute("email")%>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="number" class="form-label">Number</label>
+                                <input type="text" class="form-control" id="number" name="number" value="<%= request.getAttribute("number")%>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address" name="address" value="<%= request.getAttribute("address")%>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="deliveryArea" class="form-label">Delivery Area Address</label>
+                                <input type="text" class="form-control" id="deliveryArea" name="deliveryArea" value="<%= request.getAttribute("deliveryArea")%>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="emergencyContact" class="form-label">Emergency Contact Number</label>
+                                <input type="text" class="form-control" id="emergencyContact" name="emergencyContact" value="<%= request.getAttribute("emergencyContact")%>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="profileImage" class="form-label">Profile Image</label>
+                                <input type="file" class="form-control" id="profileImage" name="profileImage">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" value="<%= request.getAttribute("name") %>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" value="<%= request.getAttribute("email") %>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="number" class="form-label">Number</label>
-                        <input type="text" class="form-control" id="number" name="number" value="<%= request.getAttribute("number") %>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" value="<%= request.getAttribute("address") %>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="deliveryArea" class="form-label">Delivery Area Address</label>
-                        <input type="text" class="form-control" id="deliveryArea" name="deliveryArea" value="<%= request.getAttribute("deliveryArea") %>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="emergencyContact" class="form-label">Emergency Contact Number</label>
-                        <input type="text" class="form-control" id="emergencyContact" name="emergencyContact" value="<%= request.getAttribute("emergencyContact") %>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="profileImage" class="form-label">Profile Image</label>
-                        <input type="file" class="form-control" id="profileImage" name="profileImage">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Update</button>
-                </div>
-            </form>
+            </div>
         </div>
-    </div>
-</div>
 
         <!-- Scripts  -->
 
