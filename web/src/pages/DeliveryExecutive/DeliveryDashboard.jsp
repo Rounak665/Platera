@@ -19,16 +19,15 @@
         <!--Java Scriplets-->
         <%
 
-            Integer user_id = (Integer) session.getAttribute("user_id");
+            int user_id = (Integer) session.getAttribute("user_id");
             String name = (String) session.getAttribute("name");
             String email = (String) session.getAttribute("email");
-            Integer delivery_executive_id = (Integer) session.getAttribute("delivery_executive_id");
+            int delivery_executive_id = (Integer) session.getAttribute("delivery_executive_id");
             String image = (String) session.getAttribute("image");
             String imagepath = request.getContextPath() + '/' + image;
             int location_id = 0;
             String location = "";
-            
-            
+
             //For debugging
 //            int user_id = 257;
 //            String name = "Arthur Morgan";
@@ -38,7 +37,6 @@
 //            String imagepath = request.getContextPath() + '/' + image;
 //            int location_id = 0;
 //            String location = "";
-
             Connection conn = null;
             PreparedStatement selectSqlPstmt = null;
             PreparedStatement selectLocationPstmt = null;
@@ -259,6 +257,84 @@
                         <div class="dash-performance">
                             <!-- Current Order Section -->
                             <div class="current-order">
+                                <%
+                                    PreparedStatement selectDeliveriesSqlPstmt = null;
+                                    ResultSet selectDeliveriesSqlRs = null;
+                                    int order_id=0;
+                                    double total_amount=0;
+                                    String address=null;
+
+                                    try {
+                                        // Get connection
+                                        conn = Database.getConnection(); // Assuming getConnection method works with Java 1.5
+
+                                        // First Query: Get location_id for the user
+                                        try {
+                                            String selectDeliveriesSql = "SELECT order_id FROM deliveries WHERE delivery_executive_id=?";
+                                            selectDeliveriesSqlPstmt = conn.prepareStatement(selectDeliveriesSql);
+                                            selectDeliveriesSqlPstmt.setInt(1, delivery_executive_id); // Set parameter before executing the query
+
+                                            selectDeliveriesSqlRs = selectDeliveriesSqlPstmt.executeQuery(); // Execute the query
+
+                                            if (selectDeliveriesSqlRs.next()) {
+                                                order_id = selectDeliveriesSqlRs.getInt("order_id"); // Retrieve the order_id
+                                            } else {
+                                                out.println("Unexpected Error: No Deliveries found for user.");
+                                                return;
+                                            }
+                                        } catch (SQLException e) {
+                                            out.println("Error executing the first query: " + e.getMessage());
+                                            e.printStackTrace();
+                                            return; // Return after logging the error
+                                        }
+                                        // Second Query: Get orders
+                                        try {
+                                            String selectOrdersSql = "SELECT * FROM orders WHERE order_id=?";
+                                            PreparedStatement selectOrdersPstmt = conn.prepareStatement(selectOrdersSql);
+                                            selectOrdersPstmt.setInt(1, order_id); // Set parameter before executing the query
+
+                                            ResultSet selectOrdersSqlRs = selectOrdersPstmt.executeQuery(); // Execute the query
+
+                                            if (selectOrdersSqlRs.next()) {
+                                                total_amount = selectOrdersSqlRs.getDouble("total_amount"); 
+                                                address=selectOrdersSqlRs.getString("address");
+                                            } else {
+                                                out.println("Unexpected Error: No orders found.");
+                                                return;
+                                            }
+                                        } catch (SQLException e) {
+                                            out.println("Error executing the second query: " + e.getMessage());
+                                            e.printStackTrace();
+                                            return; // Return after logging the error
+                                        }
+
+                                    } catch (SQLException e) {
+                                        out.println("Error connecting to the database: " + e.getMessage());
+                                        e.printStackTrace();
+                                    } finally {
+                                        // Close resources manually to avoid resource leak
+                                        try {
+                                            if (selectSqlRs != null) {
+                                                selectSqlRs.close();
+                                            }
+                                            if (selectLocationSqlRs != null) {
+                                                selectLocationSqlRs.close();
+                                            }
+                                            if (selectSqlPstmt != null) {
+                                                selectSqlPstmt.close();
+                                            }
+                                            if (selectLocationPstmt != null) {
+                                                selectLocationPstmt.close();
+                                            }
+                                            if (conn != null) {
+                                                conn.close();
+                                            }
+                                        } catch (SQLException ex) {
+                                            out.println("Error closing resources: " + ex.getMessage());
+                                        }
+                                    }
+
+                                %>
                                 <h2><ion-icon name="receipt-outline"></ion-icon> Current Order</h2>
                                 <div class="order-details">
                                     <div class="order-row">

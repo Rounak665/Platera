@@ -451,22 +451,7 @@
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="./script.js"></script>
-<!--<script>
-                        // JavaScript to show the order details section when the button is clicked
-                        document.querySelectorAll('.view-order-details').forEach(button => {
-                            button.addEventListener('click', function () {
-                                const orderId = this.getAttribute('data-order-id');
-                                const orderSection = document.getElementById(`order-details-${orderId}`);
 
-                                // Toggle visibility of the corresponding order details
-                                if (orderSection.style.display === 'none') {
-                                    orderSection.style.display = 'block';
-                                } else {
-                                    orderSection.style.display = 'none';
-                                }
-                            });
-                        });
-</script>-->
 
 </body>
 </html>
