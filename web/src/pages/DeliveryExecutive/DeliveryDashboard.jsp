@@ -18,25 +18,25 @@
 
         <!--Java Scriplets-->
         <%
-
-            int user_id = (Integer) session.getAttribute("user_id");
-            String name = (String) session.getAttribute("name");
-            String email = (String) session.getAttribute("email");
-            int delivery_executive_id = (Integer) session.getAttribute("delivery_executive_id");
-            String image = (String) session.getAttribute("image");
-            String imagepath = request.getContextPath() + '/' + image;
-            int location_id = 0;
-            String location = "";
-
-            //For debugging
-//            int user_id = 257;
-//            String name = "Arthur Morgan";
-//            String email = "ArthurMorgan1863@gmail.com";
-//            int delivery_executive_id = 35;
-//            String image = "DatabaseImages/Delivery_Executives/Arthur_Morgan.jpeg";
+            //Actual code
+//            int user_id = (Integer) session.getAttribute("user_id");
+//            String name = (String) session.getAttribute("name");
+//            String email = (String) session.getAttribute("email");
+//            int delivery_executive_id = (Integer) session.getAttribute("delivery_executive_id");
+//            String image = (String) session.getAttribute("image");
 //            String imagepath = request.getContextPath() + '/' + image;
 //            int location_id = 0;
 //            String location = "";
+
+            //For debugging
+            int user_id = 257;
+            String name = "Arthur Morgan";
+            String email = "ArthurMorgan1863@gmail.com";
+            int delivery_executive_id = 35;
+            String image = "DatabaseImages/Delivery_Executives/Arthur_Morgan.jpeg";
+            String imagepath = request.getContextPath() + '/' + image;
+            int location_id = 0;
+            String location = "";
             Connection conn = null;
             PreparedStatement selectSqlPstmt = null;
             PreparedStatement selectLocationPstmt = null;
@@ -260,9 +260,10 @@
                                 <%
                                     PreparedStatement selectDeliveriesSqlPstmt = null;
                                     ResultSet selectDeliveriesSqlRs = null;
-                                    int order_id=0;
-                                    double total_amount=0;
-                                    String address=null;
+                                    int order_id = 0;
+                                    double total_amount = 0;
+                                    String address = null;
+                                    String restaurant_name = null;
 
                                     try {
                                         // Get connection
@@ -289,15 +290,19 @@
                                         }
                                         // Second Query: Get orders
                                         try {
-                                            String selectOrdersSql = "SELECT * FROM orders WHERE order_id=?";
+                                            String selectOrdersSql = "SELECT o.total_amount as total_amount, o.address as address, r.restaurant_name as restaurant_name "
+                                                                     + "FROM orders o "
+                                                                     + "JOIN restaurants r ON o.restaurant_id = r.restaurant_id "
+                                                                     + "WHERE o.order_id = ? AND o.order_status = 'Accepted'";
                                             PreparedStatement selectOrdersPstmt = conn.prepareStatement(selectOrdersSql);
                                             selectOrdersPstmt.setInt(1, order_id); // Set parameter before executing the query
 
                                             ResultSet selectOrdersSqlRs = selectOrdersPstmt.executeQuery(); // Execute the query
 
                                             if (selectOrdersSqlRs.next()) {
-                                                total_amount = selectOrdersSqlRs.getDouble("total_amount"); 
-                                                address=selectOrdersSqlRs.getString("address");
+                                                total_amount = selectOrdersSqlRs.getDouble("total_amount");
+                                                address = selectOrdersSqlRs.getString("address");
+                                                restaurant_name = selectOrdersSqlRs.getString("restaurant_name");
                                             } else {
                                                 out.println("Unexpected Error: No orders found.");
                                                 return;
@@ -339,19 +344,19 @@
                                 <div class="order-details">
                                     <div class="order-row">
                                         <span class="icon"><ion-icon name="document-outline"></ion-icon></span>
-                                        <strong>Order #12345</strong>
+                                        <strong>Order #<%=order_id%></strong>
                                     </div>
                                     <div class="order-row">
                                         <span class="icon"><ion-icon name="restaurant-outline"></ion-icon></span>
-                                        Pizza Palace
+                                        <%=restaurant_name%>
                                     </div>
                                     <div class="order-row">
                                         <span class="icon"><ion-icon name="pricetag-outline"></ion-icon></span>
-                                        $25.99
+                                                <%=total_amount%>
                                     </div>
                                     <div class="order-row">
                                         <span class="icon"><ion-icon name="location-outline"></ion-icon></span>
-                                        123 Main Street, Cityville
+                                                <%=address%>
                                     </div>
                                     <div class="order-row">
                                         <span class="icon"><ion-icon name="checkmark-circle-outline"></ion-icon></span>
