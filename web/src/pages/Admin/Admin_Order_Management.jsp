@@ -113,7 +113,7 @@
                             PreparedStatement stmt = null;
                             ResultSet rs = null;
                             String orderSql = "SELECT o.order_id, "
-                                    + "r.name AS restaurant_name, "
+                                    + "r.restaurant_name AS restaurant_name, "
                                     + "u.name AS customer_name, "
                                     + "mi.item_name, "
                                     + "oi.quantity, "
@@ -254,7 +254,7 @@
                             PreparedStatement deliveryStmt = null;
                             ResultSet deliveryRs = null;
                             String deliveryOrderSql = "SELECT o.order_id, "
-                                    + "r.name AS restaurant_name, "
+                                    + "r.restaurant_name AS restaurant_name, "
                                     + "u.name AS customer_name, "
                                     + "mi.item_name, "
                                     + "oi.quantity, "
@@ -396,7 +396,7 @@
                             Connection deliveredConn = null;
                             PreparedStatement deliveredStmt = null;
                             ResultSet deliveredRs = null;
-                            String deliveredOrderSql = "SELECT o.order_id, r.name AS restaurant_name, u.name AS customer_name, mi.item_name, oi.quantity, oi.price, o.total_amount, o.order_status "
+                            String deliveredOrderSql = "SELECT o.order_id, r.restaurant_name AS restaurant_name, u.name AS customer_name, mi.item_name, oi.quantity, oi.price, o.total_amount, o.order_status "
                                     + "FROM orders o "
                                     + "JOIN order_items oi ON o.order_id = oi.order_id "
                                     + "JOIN menu_items mi ON oi.item_id = mi.item_id "

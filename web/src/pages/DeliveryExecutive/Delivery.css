@@ -21,55 +21,55 @@ body {
 
 /* loader */
 .loader {
-	height: 100vh;
-	width: 100%;
-	position: fixed;
-	z-index: 100000;
-	top: 0;
-	left: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	animation: fade 4s;
-	animation-fill-mode: forwards;
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    z-index: 100000;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fade 4s;
+    animation-fill-mode: forwards;
 }
 
 #pl {
-	height: 100vh;
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: #fff;
-	opacity: 1;
+    opacity: 1;
 }
 
 #pl .vid {
-	position: relative;
-	height: 300px;
-	width: 100%;
-	box-sizing: border-box;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    position: relative;
+    height: 300px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
 @keyframes fade {
-	0% {
-		opacity: 1;
-		visibility: visible;
-	}
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
 
-	50% {
-		opacity: 1;
-		visibility: visible;
-	}
+    50% {
+        opacity: 1;
+        visibility: visible;
+    }
 
-	100% {
-		opacity: 0;
-		visibility: hidden;
-	}
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
 }
 
 .header {
@@ -296,12 +296,12 @@ header {
     background-color: transparent;
     padding: .6rem 1.2rem;
     color: rgb(105, 105, 105);
-  font-weight: 400;
-  font-size: 1.3rem;
-  letter-spacing: .5px;
-  outline: none;
-  border-radius: .50rem;
-  padding-right: 50px;
+    font-weight: 400;
+    font-size: 1.3rem;
+    letter-spacing: .5px;
+    outline: none;
+    border-radius: .50rem;
+    padding-right: 50px;
 }
 
 .social-icons {
@@ -343,8 +343,8 @@ header {
 .social-icons span
 {
     margin-right: 0.5rem;
-  font-size: 1.2em;
-  color: #fff;
+    font-size: 1.2em;
+    color: #fff;
 }
 .social-icons svg{
     font-size: 1.5em;
@@ -412,8 +412,9 @@ main {
 }
 
 .order-list {
-    max-height: 400px;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
 }
 
 .order-slab {
@@ -478,27 +479,45 @@ main {
 
 .order-container{
     display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding: 30px;
-  width: 100%;
-  height: calc(100vh - 200px );
-  border: 1px solid #dedede;
-  border-radius: 8px;
-  background-color: white;
+    justify-content: center;
+    flex-direction: column;
+    padding: 30px;
+    width: 100%;
+    /*height: calc(100vh - 200px );*/
+    border: 1px solid #dedede;
+    border-radius: 8px;
+    background-color: white;
 }
 
 .delivery-order {
-    width: 100%;
-    max-width: 800px;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+    position: fixed;
+    top: 0;
+    right: -100%;   
+    width: 33%;
+    height: 100%;
+    background: white;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    transition: right 0.3s ease;
+    z-index: 100;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial', sans-serif;
-    height: calc(100vh - 100px);
-  }
+}
+.delivery-order.open {
+    right: 0; /* Move to the right of the screen when opened */
+}
+
+.view-details-btn {
+    padding: 5px 10px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.view-details-btn:hover {
+    background: #2980b9;
+}
 
 .delivered-order {
     width: 100%;
@@ -511,155 +530,206 @@ main {
     font-family: 'Arial', sans-serif;
     height: calc(100vh - 100px);
     display: none;
-  }
-  
-  .delivery-address p:nth-of-type(2){
-    display: flex;
-  }
-  .delivery-address .ico{
-    font-size: 0.9rem;
-  }
+}
 
-  .order-header h1 {
+.delivery-address p:nth-of-type(2){
+    display: flex;
+}
+.delivery-address .ico{
+    font-size: 0.9rem;
+}
+
+.order-header h1 {
     font-size: 24px;
     margin-bottom: 10px;
     color: #333;
-  }
-  
-  .order-info {
+}
+
+.order-info {
     display: flex;
     justify-content: space-between;
-  }
-  
-  .order-number h3 {
+}
+
+.order-number h3 {
     font-size: 18px;
     margin: 0;
-  }
-  
-  .order-number p {
+}
+
+.order-number p {
     font-size: 14px;
     color: #666;
-  }
-  
-  .customer-info {
+}
+
+.customer-info {
     display: flex;
     align-items: center;
-  }
-  
-  .customer-info img {
+}
+
+.customer-info img {
     border-radius: 50%;
     width: 40px;
     height: 40px;
     margin-right: 10px;
-  }
-  
-  .customer-info h4 {
+}
+
+.customer-info h4 {
     font-size: 16px;
     margin: 0;
-  }
-  
-  .customer-info p {
+}
+
+.customer-info p {
     font-size: 12px;
     color: #666;
-  }
-  
-  .order-dettails {
+}
+
+.order-detail {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
-  }
-  .detail-grid{
+    grid-template-columns: repeat(2, 1fr) !important;
+    column-gap: 40px;
+    row-gap:10px;
+}
+
+
+.detail-grid{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .order-dettails p {
+    grid-template-columns: repeat(2, 1fr) ;
+    gap: 10px;
+}
+
+.order-dettails p {
     margin: 0;
     font-size: 13px;
     color: #666;
-  }
-  
-  strong{
+}
+
+strong{
     color: black;
-  }
-  .order-item {
+}
+.order-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #ddd;
     margin-bottom: 10px;
-  }
-  
-  .order-item img {
+}
+.view-details-btn {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius:5px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.view-details-btn:hover {
+    background: #2980b9;
+}
+.order-actions button {
+    padding: 10px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.order-actions button.accept-order {
+    background: #2ecc71;
+}
+
+.order-actions button:hover {
+    opacity: 0.8;
+}
+
+.overlay.show {
+    display: block;
+}
+
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99; /* Overlay below the popup */
+}
+
+
+.order-item img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     margin-right: 10px;
-  }
-  
-  .item-price {
+}
+
+.item-price {
     font-size: 14px;
     font-weight: bold;
     color: #f39c12;
-  }
-  
-  .order-total {
+}
+
+.order-total {
     display: flex;
     justify-content: space-between;
     font-size: 16px;
     font-weight: bold;
-  }
-  
-  .total-amount {
+}
+
+.total-amount {
     color: #f39c12;
-  }
-  
-  .order-actions {
+}
+
+.order-actions {
     display: flex;
     justify-content: flex-end;
     gap: 20px;
-  }
-  
-  .reject-order {
+}
+
+.reject-order {
     background-color: #e74c3c;
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-  }
-  .handover-order {
+}
+.handover-order {
     background-color: #f39c12;
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  .accept-order {
+}
+
+.accept-order {
     background-color: #28f312;
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  .reject-order:hover {
+}
+
+.reject-order:hover {
     background-color: #c0392b;
-  }
-  
-  .accept-order:hover {
+}
+
+.accept-order:hover {
     background-color: #1aff00;
-  }
-  .handover-order:hover {
+}
+.handover-order:hover {
     background-color: #ff9d00;
-  }
+}
 
 
-  /* ------OTP POPUP------------ */
-  .popup{
+/* ------OTP POPUP------------ */
+.popup{
     position: fixed;
     z-index: 10000;
     display: flex;
@@ -685,59 +755,59 @@ main {
     width: 400px;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .otp-content {
+}
+
+.otp-content {
     padding: 20px;
     text-align: center;
-  }
-  
-  .otp-header {
+}
+
+.otp-header {
     text-align: right;
     height: 30px;
-  }
-  
-  .back-icon {
+}
+
+.back-icon {
     height: 100%;
     cursor: pointer;
     font-size: 2rem;
-  }
-  
-  .otp-icon {
+}
+
+.otp-icon {
     font-size: 3rem;
-  }
-  
- .otp-body h2 {
+}
+
+.otp-body h2 {
     margin-bottom: 10px;
-  }
-  
-  .otp-body p {
+}
+
+.otp-body p {
     color: #555;
     margin-bottom: 10px;
-  }
-  
-  .otp-timer {
+}
+
+.otp-timer {
     margin-bottom: 20px;
     color: #007BFF;
     font-size: 1.2em;
-  }
-  
-  .otp-input {
+}
+
+.otp-input {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
-  }
-  
-  .otp-input input {
+}
+
+.otp-input input {
     width: 50px;
     height: 50px;
     font-size: 2em;
     text-align: center;
     border: 1px solid #ddd;
     border-radius: 5px;
-  }
-  
-  .btn-verify {
+}
+
+.btn-verify {
     background-color: #007BFF;
     color: white;
     border: none;
@@ -745,19 +815,19 @@ main {
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
-  }
-  
-  .btn-verify:hover {
+}
+
+.btn-verify:hover {
     background-color: #0056b3;
-  }
-  .btn-verify:disabled {
+}
+.btn-verify:disabled {
     background-color: #cccccc; 
     cursor: not-allowed; 
 }
-  .otp-body a {
+.otp-body a {
     color: #007BFF;
     text-decoration: none;
-  }
+}
 
 
 /*-------- Delivery Dashboard---------------  */
@@ -1455,13 +1525,13 @@ tr:hover {
         left: 60px;
         width: calc(100% - 60px);
     }
-    
+
     .sidebar-header .logo{
         display: none;
     }
     .headerLogo{
         display: block;
-    margin: 5px auto;
+        margin: 5px auto;
     }
     .social-icons{
         margin-right: auto;
@@ -1476,7 +1546,7 @@ tr:hover {
 }
 
 @media only screen and (max-width: 860px) {
-    
+
     .dash-cards {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1575,13 +1645,13 @@ tr:hover {
     .sidebar-toggle {
         display: flex; /* Show toggle on mobile */
         align-items: center; 
-    font-size: 1.9rem;
-  justify-content: center;
+        font-size: 1.9rem;
+        justify-content: center;
     }
 
     .logout_btn {
         width: 100%;
         padding: 10px;
     }
-    
+
 }
