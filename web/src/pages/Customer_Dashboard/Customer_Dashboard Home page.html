@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platera - Customer Dashboard</title>
+    <link rel="stylesheet" href="Customer_Dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <h2>Arjun Das</h2>
+            <ul>
+                <li><a href="#Cart">Cart</a></li>
+                <li><a href="#reorder">Reorder</a></li>
+                <li><a href="#membership">Membership</a></li>
+                <li><a href="#payments">Payments</a></li>
+                <li><a href="Customer_Dashboard Settings.html">Settings</a></li>
+            </ul>
+        </aside>
+        <main class="main-content">
+            <div class="profile-header">
+                <h1>Welcome, Arjun!</h1>
+                <button>Edit Profile</button>
+            </div>
+
+            <section class="dashboard-section" id="orders">
+                <h2>Your Orders</h2>
+            
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Menu</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Total</th>
+                                <th>Payment Method</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Row 1 -->
+                            <tr class="order-row" onclick="toggleDetails(this)">
+                                <td class="menu">Order #1</td>
+                                <td><span class="status completed">Completed</span></td>
+                                <td class="date">June 1, 2020,<br> 08:22 AM</td>
+                                <td class="address"><i class="fas fa-map-marker-alt"></i> Elm Street, 23 Yogyakarta</td>
+                                <td class="total"><span>$ 5.59</span></td>
+                                <td class="payment-method">Cash</td>
+                                <td><i class="fas fa-chevron-down dropdown"></i></td>
+                            </tr>
+                            <tr class="details-row">
+                                <td colspan="7">
+                                    <div class="details-container">
+                                        <div class="order-menu">
+                                            <h4>Order Menu</h4>
+                                            <p><img src="https://via.placeholder.com/50" alt="Pizza"> Pepperoni Pizza <span>+ $5.59</span></p>
+                                            <p><img src="https://via.placeholder.com/50" alt="Burger"> Cheese Burger <span>+ $5.59</span></p>
+                                        </div>
+                                        <div class="restaurant-info">
+                                            <h4>Fast Food Resto</h4>
+                                            <p><i class="fas fa-star"></i> 5.0 | 1k+ Reviews</p>
+                                            <p>Delivery Time: <strong>10 Min</strong></p>
+                                            <p>Distance: <strong>2.5 Km</strong></p>
+                                        </div>
+                                        <div class="order-summary">
+                                        <div class="order-summary-details">
+                                            <h4>Status</h4>
+                                            <p>Completed</p>
+                                            <h4>Date</h4>
+                                            <p>June 1, 2020</p>
+                                        </div>
+                                        <div class="order-summary-details">
+                                            <h4>Bills</h4>
+                                            <p>Order #1</p>
+                                            <h4>Date Paid</h4>
+                                            <p>June 1, 2020</p>
+                                        </div>
+                                        </div>
+                                        <div class="order-amt">
+                                            <h4>Total</h4>
+                                            <p class="total-amount">$202.00</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+
+            <!-- <section class="dashboard-section" id="membership">
+                <h2>Platera Membership</h2>
+                <div class="content">
+                    <p>Become a premium member to enjoy exclusive discounts and perks!</p>
+                </div>
+            </section>
+
+            <section class="dashboard-section" id="favorites">
+                <h2>Your Favorites</h2>
+                <div class="content">
+                    <p>Save your favorite dishes and restaurants here for quick access!</p>
+                </div>
+            </section>
+
+            <section class="dashboard-section" id="payments">
+                <h2>Payment Methods</h2>
+                <div class="content">
+                    <p>Manage your payment methods for seamless checkout experiences.</p>
+                </div>
+            </section>
+
+            <section class="dashboard-section" id="addresses">
+                <h2>Saved Addresses</h2>
+                <div class="content">
+                    <p>Add and manage your delivery addresses here.</p>
+                </div>
+            </section>
+
+            <section class="dashboard-section" id="settings">
+                <h2>Account Settings</h2>
+                <div class="content">
+                    <p>Update your personal information, password, and preferences here.</p>
+                </div>
+            </section> -->
+        </main>
+    </div>
+    <script src="script.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
