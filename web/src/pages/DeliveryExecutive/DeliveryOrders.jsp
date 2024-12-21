@@ -197,7 +197,7 @@
 
                 <main>
 
-                    <div class="order-list" id="order-list">
+                    <div class="order-list" id="order-list" style="display: block;">
                         <%        // Assuming location_id has already been set
                             PreparedStatement ordersPstmt = null;
                             ResultSet ordersRs = null;
@@ -207,13 +207,15 @@
                             String ordersSql = "SELECT o.order_id, o.customer_id, u.name AS customer_name, "
                                     + "c.image AS customer_image, o.order_date, o.total_amount, "
                                     + "o.address AS customer_address, oi.item_id, m.item_name, oi.quantity, "
-                                    + "o.restaurant_id, r.restaurant_name, r.address AS restaurant_address, r.image as restaurant_image "
+                                    + "o.restaurant_id, r.restaurant_name, r.address AS restaurant_address, r.image as restaurant_image, "
+                                    + "p.payment_method, p.payment_status "
                                     + "FROM orders o "
+                                    + "LEFT JOIN payments p ON o.order_id = p.order_id "
                                     + "JOIN customers c ON o.customer_id = c.customer_id "
                                     + "JOIN users u ON c.user_id = u.user_id "
                                     + "JOIN order_items oi ON o.order_id = oi.order_id "
                                     + "JOIN menu_items m ON oi.item_id = m.item_id "
-                                    + "LEFT JOIN restaurants r ON r.restaurant_id = o.restaurant_id "
+                                    + "JOIN restaurants r ON r.restaurant_id = o.restaurant_id "
                                     + "WHERE o.location = ? AND o.order_status = 'Pending'";
 
                             ordersPstmt = conn.prepareStatement(ordersSql);
@@ -244,19 +246,20 @@
 
                                     if (currentOrder == null || currentOrder.orderId != orderId) {
                                         // Create a new OrderDetails object for a new order
-                                        currentOrder = new OrderDetails(
-                                                orderId,
-                                                ordersRs.getInt("restaurant_id"),
-                                                ordersRs.getString("restaurant_name"),
-                                                ordersRs.getString("restaurant_image"),
-                                                ordersRs.getString("restaurant_address"),
-                                                ordersRs.getInt("customer_id"),
-                                                ordersRs.getString("customer_name"),
-                                                ordersRs.getString("customer_image"),
-                                                ordersRs.getString("customer_address"),
-                                                ordersRs.getString("order_date"),
-                                                ordersRs.getDouble("total_amount")
-                                        );
+                                        currentOrder = new OrderDetails();
+                                                currentOrder.orderId=orderId;
+                                                currentOrder.restaurantId=ordersRs.getInt("restaurant_id");
+                                                currentOrder.restaurantName=ordersRs.getString("restaurant_name");
+                                                currentOrder.restaurantImage=ordersRs.getString("restaurant_image");
+                                                currentOrder.restaurantAddress=ordersRs.getString("restaurant_address");
+                                                currentOrder.customerId=ordersRs.getInt("customer_id");
+                                                currentOrder.customerName=ordersRs.getString("customer_name");
+                                                currentOrder.customerImage=ordersRs.getString("customer_image");;
+                                                currentOrder.customerAddress=ordersRs.getString("customer_address");
+                                                currentOrder.orderDate=ordersRs.getString("order_date");
+                                                currentOrder.totalAmount=ordersRs.getDouble("total_amount");
+                                                currentOrder.paymentMethod=ordersRs.getString("payment_method");
+                                                currentOrder.paymentStatus=ordersRs.getString("payment_status");
                                     }
 
                                     // Add item details to the current order with quantity
@@ -315,8 +318,8 @@
                                         <p><strong>30 Min</strong></p>
                                     </div>
                                     <div class="payment-info">
-                                        <p>Payment</p>
-                                        <p><strong>E-Wallet</strong></p>
+                                        <p>Payment Method</p>
+                                        <p><strong><%=order.paymentMethod%></strong></p>
                                     </div>
                                     <div class="distance-info">
                                         <p>Distance</p>
@@ -324,7 +327,7 @@
                                     </div>
                                     <div class="payment-status">
                                         <p>Payment Status</p>
-                                        <p><strong>Completed</strong></p>
+                                        <p><strong><%=order.paymentStatus%></strong></p>
                                     </div>
                                     <!--</div>-->
                                 </div><hr>
@@ -350,8 +353,12 @@
                                 </div>
 
                                 <div class="order-actions">
-                                    <button class="reject-order">Reject Order</button>
-                                    <button class="accept-order">Accept Order</button>
+                                    <form action="http://localhost:8080/Platera-Main/AcceptOrder" method="POST">
+                                        <input type="hidden" name="orderId" value="<%=order.orderId%>">
+                                        <input type="hidden" name="deliveryExecutiveId" value="<%=delivery_executive_id%>">
+                                        <input type="hidden" name="deliveryAddress" value="<%=order.customerAddress%>">
+                                        <button type="submit" class="accept-order">Accept Order</button>
+                                    </form>                                   
                                 </div>
 
                             </div>
@@ -448,8 +455,7 @@ document.getElementById("overlay").onclick = function () {
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-<script src="./Delivery.js"></script>
-
+<!--<script src="./Delivery.js"></script>-->
 
 </body>
 </html>
