@@ -306,10 +306,10 @@
                                 <div class="order-detail">
                                     <!--<div class="addresses">-->
                                     <div class="delivery-address">
-                                        <p><span class="icon ico">📍</span><strong style="font-size: 15px;"><%= order.customerAddress%></strong></p>
+                                        <p><span class="icon ico">🍴</span><strong style="font-size: 15px;"><%= order.restaurantAddress%></strong></p>
                                     </div>
                                     <div class="restaurant-address">
-                                        <p><span class="icon ico">🍴</span><strong style="font-size: 15px;"><%= order.restaurantAddress%></strong></p>
+                                        <p><span class="icon ico">📍</span><strong style="font-size: 15px;"><%= order.customerAddress%></strong></p>
                                     </div>
                                     <!--</div>-->
                                     <!--<div class="detail-grid">-->

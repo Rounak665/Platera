@@ -1,4 +1,4 @@
-<%@page import="FetchingClasses.Database"%>
+<%@page import="Utilities.Database"%>
 <%@page import="java.io.File"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>

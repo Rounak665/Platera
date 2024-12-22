@@ -25,7 +25,7 @@
 //            int delivery_executive_id = (Integer) session.getAttribute("delivery_executive_id");
 //            String image = (String) session.getAttribute("image");
 //            String imagepath = request.getContextPath() + '/' + image;
-//            int location_id = 0;
+//            int location_id = (Integer) session.getAttribute("location_id");
 //            String location = "";
 
             //For debugging
@@ -35,40 +35,20 @@
             int delivery_executive_id = 35;
             String image = "DatabaseImages/Delivery_Executives/Arthur_Morgan.jpeg";
             String imagepath = request.getContextPath() + '/' + image;
-            int location_id = 0;
+            int location_id = 1;
             String location = "";
+            
+            
             Connection conn = null;
-            PreparedStatement selectSqlPstmt = null;
             PreparedStatement selectLocationPstmt = null;
-            ResultSet selectSqlRs = null;
             ResultSet selectLocationSqlRs = null;
 
             try {
                 // Get connection
-                conn = Database.getConnection(); // Assuming getConnection method works with Java 1.5
+                conn = Database.getConnection(); 
 
-                // First Query: Get location_id for the user
                 try {
-                    String selectSql = "SELECT location FROM delivery_executives WHERE user_id=?";
-                    selectSqlPstmt = conn.prepareStatement(selectSql);
-                    selectSqlPstmt.setInt(1, user_id); // Set parameter before executing the query
 
-                    selectSqlRs = selectSqlPstmt.executeQuery(); // Execute the query
-
-                    if (selectSqlRs.next()) {
-                        location_id = selectSqlRs.getInt("location"); // Retrieve the location_id
-                    } else {
-                        out.println("Unexpected Error: No location found for user.");
-                        return;
-                    }
-                } catch (SQLException e) {
-                    out.println("Error executing the first query: " + e.getMessage());
-                    e.printStackTrace();
-                    return; // Return after logging the error
-                }
-
-                // Second Query: Get location name based on location_id
-                try {
                     String selectLocationSql = "SELECT location_name FROM locations WHERE location_id=?";
                     selectLocationPstmt = conn.prepareStatement(selectLocationSql);
                     selectLocationPstmt.setInt(1, location_id); // Set parameter before executing the query
@@ -93,14 +73,9 @@
             } finally {
                 // Close resources manually to avoid resource leak
                 try {
-                    if (selectSqlRs != null) {
-                        selectSqlRs.close();
-                    }
+                    
                     if (selectLocationSqlRs != null) {
                         selectLocationSqlRs.close();
-                    }
-                    if (selectSqlPstmt != null) {
-                        selectSqlPstmt.close();
                     }
                     if (selectLocationPstmt != null) {
                         selectLocationPstmt.close();
