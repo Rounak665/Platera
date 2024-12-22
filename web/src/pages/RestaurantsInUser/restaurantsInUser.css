@@ -1,15 +1,320 @@
-body {
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: "Outfit", serif;
+    scroll-behavior: smooth;
+}
+
+body {
     background-color: #f8f9fa;
 }
 
-header {
-    background-color: #ff6f61;
+/* Scrollbar Container */
+::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+    height: 10px; /* Height for horizontal scrollbar */
+}
+
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Track background */
+    border-radius: 5px; /* Rounded track */
+}
+
+/* Scrollbar Thumb */
+::-webkit-scrollbar-thumb {
+    background-color: #F12630; /* Scrollbar color */
+    border-radius: 5px; /* Rounded scrollbar */
+    border: 2px solid #f1f1f1; /* Creates space around thumb */
+}
+
+/* Hover Effect on Scrollbar Thumb */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #FFD04D; /* Darker shade on hover */
+}
+
+.navbar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 50px 200px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+    position: absolute;
+    top: 0;
+    z-index: 2;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+    box-shadow: none;
+    color: #f8f8f8ff;
+}
+
+
+#closePopupBtn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+#closePopupBtn:hover {
+    background-color: #0056b3;
+}
+
+
+/* Search Container */
+.search-container {
+    display: inline-block;
+    align-items: center;
+    margin-right: 10px; /* Space between search and location dropdown */
+}
+
+/* Search Input Styled as a Dash */
+.location-search {
+    padding: 5px 0;
+    background: none;
+    border: none;
+    border-radius: 5px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.7);
+    color: #f8f8f8;
+    width: 170px;
+    transition: width 0.3s ease;
+    outline: none;
+    padding-left: 7px;
+    font-size: 0.9rem;
+}
+
+/* Expand search input on focus */
+.location-search:focus {
+    width: 200px;
+    border-bottom: 2px solid rgba(255, 255, 255, 1);
+}
+
+/* Select Button (Arrow) */
+.select-location-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: color 0.3s ease;
+}
+
+/* Hover Effect for Button */
+.select-location-btn:hover {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Selected Location Display */
+.selected-location {
+    margin-left: 10px;
+    color: white;
+}
+
+.navbar .logo {
     color: #fff;
-    padding: 15px;
-    text-align: center;
+    font-size: 24px;
+    display: flex;
+}
+
+.navbar .logo a img{
+    height: 60px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin: 0 15px;
+    font-size: 18px;
+}
+
+.nav-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #F12630;
+}
+
+.navbar-icons {
+    display: flex;
+    align-items: center;
+}
+
+.profile-btn, .cart-btn {
+    background: none;
+    border: none;
+    color: #ffffff;
+    margin-left: 25px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+#cart-count {
+    background-color: #ffffff;
+    color: #F12630;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-size: 14px;
+    margin-left: 8px;
+}
+
+/* Profile and Cart Icons */
+.profile-icon, .cart-icon {
+    cursor: pointer;
+    font-size: 20px; /* Adjust icon size */
+    margin-left: 20px; /* Space between icons */
+}
+
+/* Sliding User Section */
+.user-section {
+    position: fixed; /* Fixed positioning for sliding effect */
+    top: 0;
+    right: -50%; /* Start off-screen */
+    width: 32%; /* Half-width */
+    height: 100%;
+    background-color: #f8f8f8;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease; /* Smooth transition */
+    padding: 100px;
+    z-index: 1000; /* Ensure it’s above other content */
+}
+
+/* User Profile Styles */
+/* .user-profile {
+    
+} */
+
+.user-profile h2 {
+    margin-bottom: 20px; /* Space below heading */
+    font-size: 28px; /* Increase font size */
+    color: #333; /* Heading color */
+}
+
+.dashboard-options {
+    list-style-type: none;
+    padding: 0;
+}
+
+.dashboard-options li {
+    padding: 15px; /* Padding for each option */
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.2s; /* Smooth transition */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.dashboard-options li:hover {
+    background-color: #e0e0e0; /* Highlight on hover */
+}
+
+/* Logout Button Styles */
+.logout-btn {
+    margin-top: 20px; /* Space above the button */
+    padding: 10px 20px; /* Padding for the button */
+    background-color: #ef1e28; /* Button color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s; /* Smooth transition */
+    width: 100%; /* Full width */
+}
+
+.logout-btn:hover {
+    background-color: #f9464f; /* Darker shade on hover */
+}
+
+/* Sliding Cart Section */
+.cart-section {
+    position: fixed; /* Fixed positioning for sliding effect */
+    top: 0;
+    right: -50%; /* Start off-screen */
+    width: 32%; /* Half-width */
+    height: 100%;
+    background-color: #f9f9f9;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease; /* Smooth transition */
+    padding: 100px;
+    z-index: 1000; /* Ensure it’s above other content */
+}
+
+/* Cart Content Styles */
+/* .cart-content {
+    
+} */
+
+.cart-content h2 {
+    margin-bottom: 20px; /* Space below heading */
+    font-size: 28px; /* Increase font size */
+    color: #333; /* Heading color */
+}
+
+.cart-items {
+    list-style-type: none; /* Remove default list style */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+    max-height: 300px; /* Set max height for scrolling */
+    overflow-y: auto; /* Enable scrolling */
+}
+
+.cart-items li {
+    padding: 15px; /* Padding for each item */
+    border-bottom: 1px solid #e0e0e0; /* Separator line */
+    display: flex; /* Use flexbox for alignment */
+    justify-content: space-between; /* Space between item and price */
+    align-items: center; /* Center items vertically */
+}
+
+.checkout-btn {
+    margin-top: 20px; /* Space above the button */
+    padding: 10px 20px; /* Padding for the button */
+    background-color: #28a745; /* Button color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s; /* Smooth transition */
+    width: 100%; /* Full width */
+}
+
+.checkout-btn:hover {
+    background-color: #218838; /* Darker shade on hover */
+}
+
+/* Close Button Styles */
+.close-btn {
+    background: none; /* No background */
+    border: none; /* No border */
+    font-size: 70px; /* Adjust size */
+    color: #333;
+    font-weight: 200; /* Close button color */
+    cursor: pointer; /* Pointer cursor */
+    position: absolute; /* Positioning */
+    top: 20px; /* Distance from top */
+    right: 20px; /* Distance from right */
+    transition: color 0.3s; /* Transition for hover effect */
+}
+
+.close-btn:hover {
+    color: #F12630; /* Change color on hover */
 }
 
 .container {

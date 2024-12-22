@@ -1,4 +1,7 @@
-<%@page import="FetchingClasses.Database"%>
+<%@page import="Utilities.MenuItems"%>
+<%@page import="Utilities.MenuItemsDAO"%>
+<%@page import="java.util.List"%>
+<%@page import="Utilities.Database"%>
 <%@page import="java.io.File"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -61,33 +64,23 @@
                                 <span>Orders</span>
                             </a>
                         </li>
-                        <li class="li_logout">
-                            <a href="src/pages/Restaurant/AddDish.jsp">
-                                <span class="icon"><ion-icon name="power"></ion-icon></span>
-                                <span>Logout</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </div>
 
             <div class="main-content">
                 <header>
-                    <div class="headerLogo">
-                        <div class="logo">
-                            <img src="../../../Public/images/logo.png" alt="">
-                        </div>
-                    </div>
                     <div class="search-wrapper">
                         <span class="icon"><ion-icon name="search"></ion-icon></span>
                         <input type="search" placeholder="Search">
                     </div>
-
                     <div class="social-icons">
-                        <div class="logout_btn" onclick="signout()">
-                            <span class="logout">Logout</span>
-                            <span class="icon"><ion-icon name="power"></ion-icon></span>
-                        </div>
+                        <a href="http://localhost:8080/Platera-Main/logout" class="logout-link">
+                            <div class="logout_btn">
+                                <span class="logout">Logout</span>
+                                <span class="icon"><ion-icon name="power"></ion-icon></span>
+                            </div>
+                        </a>
                     </div>
                 </header>
 
@@ -106,7 +99,6 @@
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
                                             <th>Image</th>
                                             <th>Name</th>
                                             <th>Category</th>
@@ -117,13 +109,11 @@
                                     </thead>
                                     <tbody id="menu-table">
                                         <%
-                                            Connection conn = null;
-                                            PreparedStatement stmt = null;
-                                            ResultSet rs = null;
+                                            MenuItemsDAO menuItemsDAO = new MenuItemsDAO();
 
                                             // Get restaurant_id from session
-//                                            Integer restaurantId= (Integer) session.getAttribute("restaurant_id");
-                                            Integer restaurantId = 101; 
+//                                            Integer restaurantId = (Integer) session.getAttribute("restaurant_id");
+                                            Integer restaurantId = 101;
 
                                             if (restaurantId == null) {
                                         %>
@@ -132,79 +122,41 @@
                                         </tr>
                                         <%
                                         } else {
-                                            try {
-                                                String query = "SELECT mi.item_id, mi.item_name, mi.price, mi.availability, c.category_name, mi.image "
-                                                        + "FROM menu_items mi "
-                                                        + "JOIN categories c ON mi.category_id = c.category_id "
-                                                        + "WHERE mi.restaurant_id = ?";
+                                            // Fetch menu items using MenuItemsDAO
+                                            List<MenuItems> menuItems = menuItemsDAO.getMenuItemsByRestaurant(restaurantId);
 
-                                                conn = Database.getConnection();
-                                                stmt = conn.prepareStatement(query);
-                                                stmt.setInt(1, restaurantId);
-                                                rs = stmt.executeQuery();
-
-                                                while (rs.next()) {
-                                                    int itemId = rs.getInt("item_id");
-                                                    String itemName = rs.getString("item_name");
-                                                    String categoryName = rs.getString("category_name");
-                                                    double price = rs.getDouble("price");
-                                                    String availability = rs.getString("availability").equalsIgnoreCase("Y") ? "Yes" : "No";
-                                                    String imagePath = rs.getString("image"); // Image path from DB
-
-//                                                        System.out.println(request.getContextPath());
-                                                    String imageDirectory = request.getContextPath() + '/' + imagePath;
-
-
+                                            if (menuItems.isEmpty()) {
                                         %>
                                         <tr>
-                                            <td><%= itemId%></td>
+                                            <td colspan="7">No menu items found.</td>
+                                        </tr>
+                                        <%
+                                        } else {
+                                            for (MenuItems item : menuItems) {
+                                                String imagePath = item.getImage();
+                                                String imageDirectory = request.getContextPath() + '/' + imagePath;
+                                                String availability = item.isAvailability() ? "Yes" : "No";
+                                        %>
+                                        <tr>
                                             <td>
-                                                <img src="<%= imageDirectory%>" alt="Dish Image" width="50">                                              
+                                                <img src="<%= imageDirectory%>" alt="Dish Image" width="50">
                                             </td>
-                                            <td><%= itemName%></td>
-                                            <td><%= categoryName%></td>
-                                            <td><%= price%></td>
+                                            <td><%= item.getItemName()%></td>
+                                            <td><%= item.getCategoryName()%></td>
+                                            <td><%= item.getPrice()%></td>
                                             <td><%= availability%></td>
                                             <td>
                                                 <form action="http://localhost:8080/Platera-Main/RestaurantEditDish" method="POST">
-                                                    <input type="hidden" name="id" value="<%= itemId%>">
+                                                    <input type="hidden" name="id" value="<%= item.getItemId()%>">
                                                     <button type="submit" class="btn-edit">Edit</button>
                                                 </form>
                                                 <form action="http://localhost:8080/Platera-Main/DeleteDish" method="POST" onsubmit="return confirm('Are you sure you want to delete this dish?');">
-                                                    <input type="hidden" name="id" value="<%= itemId%>">
+                                                    <input type="hidden" name="id" value="<%= item.getItemId()%>">
                                                     <button type="submit" class="btn-delete">Delete</button>
                                                 </form>
                                             </td>
-
-                                        </tr>
-
-                                        <%
-                                            }
-                                        } catch (SQLException e) {
-                                            e.printStackTrace();
-                                        %>
-                                        <tr>
-                                            <td colspan="7">An error occurred while fetching menu items.</td>
                                         </tr>
                                         <%
-                                                } finally {
-                                                    if (rs != null) {
-                                                        try {
-                                                            rs.close();
-                                                        } catch (SQLException ignored) {
-                                                        }
-                                                    }
-                                                    if (stmt != null) {
-                                                        try {
-                                                            stmt.close();
-                                                        } catch (SQLException ignored) {
-                                                        }
-                                                    }
-                                                    if (conn != null) {
-                                                        try {
-                                                            conn.close();
-                                                        } catch (SQLException ignored) {
-                                                        }
                                                     }
                                                 }
                                             }
@@ -214,10 +166,6 @@
                             </div>
                         </div>
                     </section>
-
-
-
-
 
                 </main>
             </div>
@@ -239,12 +187,6 @@
                                                     document.querySelector(".sidebar .close-btn").addEventListener("click", function () {
                                                         document.querySelector(".sidebar").classList.remove("activate");
                                                     });
-
-                                                    function signout() {
-                                                        localStorage.removeItem('authtoken');
-                                                        localStorage.removeItem('admin');
-                                                        window.location.href = '../AddRestaurent/AddRestaurent.html#Signin-popup';
-                                                    }
         </script>
 
 

@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<%@page import="java.sql.SQLException"%>
+<%@page import="Utilities.Database"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Utilities.RestaurantDAO" %>
@@ -16,7 +20,7 @@
             crossorigin="anonymous"
             />
         <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon" />
-        <link rel="stylesheet" href="./style.css" />
+        
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -30,10 +34,84 @@
             href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
             rel="stylesheet"
             />
+        <link rel="stylesheet" href="./style.css" />
     </head>
     <body>
+        <%
+            //Actual code
+//            int user_id = (Integer) session.getAttribute("user_id");
+//            String name = (String) session.getAttribute("name");
+//            String email = (String) session.getAttribute("email");
+//            int customer_id = (Integer) session.getAttribute("customer_id");
+//            String image = (String) session.getAttribute("image");
+//            String imagepath = request.getContextPath() + '/' + image;
+//            int location_id = (Integer) session.getAttribute("location_id");
+//            String location = "";
+
+            //For debugging
+            int user_id = 257;
+            String name = "Arthur Morgan";
+            String email = "ArthurMorgan1863@gmail.com";
+            int customer_id = 30;
+            String image = "DatabaseImages/Delivery_Executives/Arthur_Morgan.jpeg";
+            String imagepath = request.getContextPath() + '/' + image;
+            int location_id = 1;
+            String location = "";
+            
+            
+            Connection conn = null;
+            PreparedStatement selectLocationPstmt = null;
+            ResultSet selectLocationSqlRs = null;
+
+            try {
+                // Get connection
+                conn = Database.getConnection(); 
+
+                try {
+
+                    String selectLocationSql = "SELECT location_name FROM locations WHERE location_id=?";
+                    selectLocationPstmt = conn.prepareStatement(selectLocationSql);
+                    selectLocationPstmt.setInt(1, location_id); // Set parameter before executing the query
+
+                    selectLocationSqlRs = selectLocationPstmt.executeQuery(); // Execute the query
+
+                    if (selectLocationSqlRs.next()) {
+                        location = selectLocationSqlRs.getString("location_name"); // Retrieve the location name
+                    } else {
+                        out.println("Unexpected Error: No location found for location_id.");
+                        return;
+                    }
+                } catch (SQLException e) {
+                    out.println("Error executing the second query: " + e.getMessage());
+                    e.printStackTrace();
+                    return; // Return after logging the error
+                }
+
+            } catch (SQLException e) {
+                out.println("Error connecting to the database: " + e.getMessage());
+                e.printStackTrace();
+            } finally {
+                // Close resources manually to avoid resource leak
+                try {
+                    
+                    if (selectLocationSqlRs != null) {
+                        selectLocationSqlRs.close();
+                    }
+                    if (selectLocationPstmt != null) {
+                        selectLocationPstmt.close();
+                    }
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (SQLException ex) {
+                    out.println("Error closing resources: " + ex.getMessage());
+                }
+            }
+
+
+        %>
         <!-- Welcome Popup -->
-        <c:if test="${sessionScope.welcomePopup == false}">
+ <!--       <c:if test="${sessionScope.welcomePopup == false}">
             <div class="welcome-popup" id="welcomePopup">
                 <div class="popup-content">
                     <h3>Welcome, ${name}!</h3>
@@ -45,7 +123,7 @@
             <%
                 session.setAttribute("welcomePopup", true);
             %>
-        </c:if>
+        </c:if> --!>
 
 
         <!-- Navigation Bar -->
@@ -62,7 +140,7 @@
                         id="location-search"
                         class="location-search"
                         placeholder="Search for a location..."
-                        />
+                        /> 
                     <button class="select-location-btn" onclick="selectLocation()">
                         &#x2192;
                     </button>
@@ -254,11 +332,12 @@
                     <%
                         // Instantiate the DAO and fetch the list of restaurants
                         RestaurantDAO restaurantDAO = new RestaurantDAO();
-                        List<Restaurant> restaurants = restaurantDAO.getAllRestaurants();
+                        List<Restaurant> restaurants = restaurantDAO.getRestaurantsByLocation(location_id);
 
                         if (restaurants != null && !restaurants.isEmpty()) {
                             for (Restaurant restaurant : restaurants) {
                     %>
+                    <a href="http://localhost:8080/Platera-Main/src/pages/RestaurantDashboardInUser/restaurantDashboard.jsp?restaurantId=<%= restaurant.getRestaurantId() %>" class="restaurant-card-link">
                     <div class="restaurant-card">
                         <img
                             src="<%= request.getContextPath()%>/<%= restaurant.getImage()%>"
@@ -267,11 +346,12 @@
                             />
                         <div class="restaurant-info">
                             <h3><%= restaurant.getName()%></h3>
-                            <p>⭐ 4.7 | ₹<%= restaurant.getMinPrice()%>- ₹<%= restaurant.getMaxPrice()%></p> 
-                            <p>Burgers, Fast Food, Rolls & Wraps</p> 
+                            <p>⭐<%=restaurant.getRating()%> | ₹<%= restaurant.getMinPrice()%>- ₹<%= restaurant.getMaxPrice()%></p> 
+                            <p><%=restaurant.getCategory1()%>, <%=restaurant.getCategory2()%>, <%=restaurant.getCategory3()%></p> 
                             <p class="location"><%= restaurant.getLocation()%></p>                        
                         </div>
                     </div>
+                    </a>
                     <%
                         }
                     } else {

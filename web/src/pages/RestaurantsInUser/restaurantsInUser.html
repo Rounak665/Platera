@@ -5,11 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurants Near You | Platera</title>
     <link rel="stylesheet" href="./restaurantsInUser.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body>
+<body>        
+    <!-- Navigation Bar -->
     <header>
-        <h1>Restaurants Near You</h1>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="./Home.html"><img src="./assets/PlateraLogo-red.png" alt=""/></a>
+            </div>
+            <div class="search-container">
+                <input
+                    type="text"
+                    id="location-search"
+                    class="location-search"
+                    placeholder="Search for a location..."
+                    />
+                <button class="select-location-btn" onclick="selectLocation()">
+                    &#x2192;
+                </button>
+                <!-- Arrow button -->
+            </div>
+
+            <span id="selected-location" class="selected-location"
+                  >Selected Location: None</span
+            >
+
+            <ul class="nav-links">
+                <li><a href="../Customer/Home.jsp">Home</a></li>
+                <li><a href="#restaurants">Restaurants</a></li>
+                <li><a href="#dishes">Dishes</a></li>
+                <li><a href="#contact">Contact</a></li>
+
+            </ul>
+            <div class="navbar-icons">
+                <!-- <button class="profile-btn" onclick="toggleProfileModal()"><i class="fas fa-user"></i></button>
+                  <button class="cart-btn" onclick="toggleCartModal()"><i class="fas fa-shopping-cart"></i><span id="cart-count">0</span></button> -->
+
+                <div class="profile-icon" id="profileIcon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <!-- Profile Icon -->
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+            </div>
+        </nav>
     </header>
+        <h1>Restaurants Near You</h1>
     <div class="container">
         <div class="search-bar">
             <input type="text" id="location-input" placeholder="Enter your location...">
@@ -57,6 +103,49 @@
                 grid.innerHTML = '<p>Please enter a location.</p>';
             }
         }
+
+        // Toggle Modals
+        function toggleProfileModal() {
+            const modal = document.getElementById("profileModal");
+            modal.style.display = modal.style.display === "flex" ? "none" : "flex";
+        }
+
+        function toggleCartModal() {
+            const modal = document.getElementById("cartModal");
+            modal.style.display = modal.style.display === "flex" ? "none" : "flex";
+        }
+
+        // Cart Functionality
+        let cart = [];
+        function addToCart(itemName, price) {
+            cart.push({ name: itemName, price });
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const cartCount = document.getElementById("cart-count");
+            cartCount.textContent = cart.length;
+
+            const cartItems = document.getElementById("cart-items");
+            const cartTotal = document.getElementById("cart-total");
+            cartItems.innerHTML = cart.map(item => `<li>${item.name} - $${item.price.toFixed(2)}</li>`).join('');
+            cartTotal.textContent = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
+        }
+
+        // Close modals on outside click
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("profileModal")) toggleProfileModal();
+            if (event.target == document.getElementById("cartModal")) toggleCartModal();
+        };
+
+        // Close modals on Escape key
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                if (document.getElementById("profileModal").style.display === "flex") toggleProfileModal();
+                if (document.getElementById("cartModal").style.display === "flex") toggleCartModal();
+            }
+        });
     </script>
+
 </body>
 </html>
