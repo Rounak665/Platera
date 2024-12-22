@@ -1,7 +1,5 @@
 package Utilities;
 
-
-
 public class Restaurant {
 
     private int restaurantId;
@@ -12,21 +10,28 @@ public class Restaurant {
     private String location; // Updated to store location_name
     private double minPrice;
     private double maxPrice;
+    private double rating;
+    private String category1;
+    private String category2;
+    private String category3;
 
     // Constructor
     public Restaurant() {
-    // Initialize with default values or leave it empty
-    this.restaurantId = 0;
-    this.name = "";
-    this.address = "";
-    this.phone = "";
-    this.image = "";
-    this.location = "";
-    this.minPrice = 0.0;
-    this.maxPrice = 0.0;
-}
+        // Initialize with default values or leave it empty
+//        this.restaurantId = 0;
+//        this.name = "";
+//        this.address = "";
+//        this.phone = "";
+//        this.image = "";
+//        this.location = "";
+//        this.minPrice = 0.0;
+//        this.maxPrice = 0.0;
+//        this.rating = 0.0;
+//        this.category1 = "";
+//        this.category2 = "";
+//        this.category3 = "";
+    }
 
-    
     // Getters and Setters
     public int getRestaurantId() {
         return restaurantId;
@@ -68,11 +73,11 @@ public class Restaurant {
         this.image = image;
     }
 
-    public String getLocation() { // Added getter for locationName
+    public String getLocation() {
         return location;
     }
 
-    public void setLocation(String location) { // Added setter for locationName
+    public void setLocation(String location) {
         this.location = location;
     }
 
@@ -92,6 +97,39 @@ public class Restaurant {
         this.maxPrice = maxPrice;
     }
 
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = Math.round(rating * 10) / 10.0;
+    }
+
+    // Getters and Setters for categories
+    public String getCategory1() {
+        return category1;
+    }
+
+    public void setCategory1(String category1) {
+        this.category1 = category1;
+    }
+
+    public String getCategory2() {
+        return category2;
+    }
+
+    public void setCategory2(String category2) {
+        this.category2 = category2;
+    }
+
+    public String getCategory3() {
+        return category3;
+    }
+
+    public void setCategory3(String category3) {
+        this.category3 = category3;
+    }
+
     // Calculate Price Range
     public String getPriceRange() {
         if (minPrice == maxPrice) {
@@ -100,18 +138,26 @@ public class Restaurant {
         return "₹" + (int) minPrice + " - ₹" + (int) maxPrice;
     }
 
+    public double getPriceForTwo() {
+        return 4 * minPrice; // Calculate capped price for two
+    }
+
     // toString method for debugging
     @Override
     public String toString() {
-        return "Restaurant{" +
-                "restaurantId=" + restaurantId +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", phone='" + phone + '\'' +
-                ", image='" + image + '\'' +
-                ", locationName='" + location + '\'' +
-                ", minPrice=" + minPrice +
-                ", maxPrice=" + maxPrice +
-                '}';
+        return "Restaurant{"
+                + "restaurantId=" + restaurantId
+                + ", name='" + name + '\''
+                + ", address='" + address + '\''
+                + ", phone='" + phone + '\''
+                + ", image='" + image + '\''
+                + ", location='" + location + '\''
+                + ", minPrice=" + minPrice
+                + ", maxPrice=" + maxPrice
+                + ", rating=" + rating
+                + ", category1='" + category1 + '\''
+                + ", category2='" + category2 + '\''
+                + ", category3='" + category3 + '\''
+                + '}';
     }
 }

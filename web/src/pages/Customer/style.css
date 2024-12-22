@@ -630,7 +630,14 @@
 .restaurant-slider::-webkit-scrollbar {
     display: none; /* Chrome, Safari, and Opera */
 }
-
+.restaurant-card-link {
+    display: block;
+    text-decoration: none; /* Remove default underline */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Hide overflowed content */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for hover effects */
+}
 /* Restaurant Card */
 .restaurant-card {
     background: #fff;

@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const deliveredOrderSection = document.querySelector('.delivered-order');
     
     // Initially hide the delivery and delivered order sections
-    deliveryOrderSection.style.display = 'none';
-    deliveredOrderSection.style.display = 'none';
+//    deliveryOrderSection.style.display = 'none';
+//    deliveredOrderSection.style.display = 'none';
 
     // Function to remove active class from all order slabs
     function removeActiveClass() {

@@ -65,16 +65,18 @@ public class sign_in extends HttpServlet {
                                             response.sendRedirect("src/pages/Admin/Admin_Order_Management.jsp");
                                             break;
                                         case 2: { // Customer
-                                            String customerSql = "SELECT customer_id,image FROM CUSTOMERS WHERE user_id = ?";
+                                            String customerSql = "SELECT customer_id,image,location_id FROM CUSTOMERS WHERE user_id = ?";
                                             try (PreparedStatement customerStmt = conn.prepareStatement(customerSql)) {
                                                 customerStmt.setInt(1, user_id);
                                                 try (ResultSet customerRs = customerStmt.executeQuery()) {
                                                     if (customerRs.next()) {
                                                         int customer_id = customerRs.getInt("customer_id");
                                                         int image = customerRs.getInt("image");
+                                                        int location = customerRs.getInt("location_id");
                                                         
                                                         session.setAttribute("customer_id", customer_id);
                                                         session.setAttribute("image", image);
+                                                        session.setAttribute("location_id", location);
 
                                                         response.sendRedirect("src/pages/Customer/Home.jsp");
                                                     } else {
@@ -103,16 +105,18 @@ public class sign_in extends HttpServlet {
                                             break;
                                         }
                                         case 4: { // Delivery Executive
-                                            String deliverySql = "SELECT delivery_executive_id,image FROM DELIVERY_EXECUTIVES WHERE user_id = ?";
+                                            String deliverySql = "SELECT delivery_executive_id,image,location FROM DELIVERY_EXECUTIVES WHERE user_id = ?";
                                             try (PreparedStatement deliveryStmt = conn.prepareStatement(deliverySql)) {
                                                 deliveryStmt.setInt(1, user_id);
                                                 try (ResultSet deliveryRs = deliveryStmt.executeQuery()) {
                                                     if (deliveryRs.next()) {
                                                         int delivery_executive_id = deliveryRs.getInt("delivery_executive_id");
                                                         String image=deliveryRs.getString("image");
+                                                        int location=deliveryRs.getInt("location");
                                                         
                                                         session.setAttribute("delivery_executive_id", delivery_executive_id);
                                                         session.setAttribute("image",image);
+                                                        session.setAttribute("location_id", location);
                                                                 
                                                         response.sendRedirect("src/pages/DeliveryExecutive/DeliveryDashboard.jsp");
                                                     } else {
