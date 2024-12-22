@@ -62,7 +62,7 @@
                         id="location-search"
                         class="location-search"
                         placeholder="Search for a location..."
-                        />
+                        /> 
                     <button class="select-location-btn" onclick="selectLocation()">
                         &#x2192;
                     </button>
