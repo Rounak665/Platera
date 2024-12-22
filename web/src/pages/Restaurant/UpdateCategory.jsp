@@ -1,3 +1,7 @@
+<%@page import="Utilities.CategoryDAO"%>
+<%@page import="Utilities.Category"%>
+<%@ page import="java.util.List" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,24 +83,61 @@
                 </div>
             </header>
 
-            <main>
-                    <h2 class="dash-title">Add Category</h2>
-                    <section class="recent">
-                        <div class="activity-card pad-1">
-                            <form id="add-category-form">
-                                <div class="form-group">
-                                    <label for="category-name">Category Name</label>
-                                    <input type="text" id="category-name" class="form-control" placeholder="Category name" required>
-                                </div>
-                            
-                                <div class="form-group">
-                                    <button type="submit" id="submit-category" class="btn btn-main">Submit</button>
-                                </div>
-                            </form>
-                        </div>
-                    </section>
-            </main>
+
+
+<%
+    // Fetch the categories from the database
+    CategoryDAO categoryDAO = new CategoryDAO();
+    List<Category> categories = categoryDAO.getCategories();
+    session.setAttribute("categories", categories);
+%>
+
+<main>
+    <h2 class="dash-title">Add Category</h2>
+    <section class="recent">
+        <div class="activity-card pad-1">
+            <form id="add-category-form" action="http://localhost:8080/Platera-Main/RestaurantUpdateCategories" method="post">
+                <!-- Category Dropdown 1 -->
+                <div class="form-group">
+                    <label for="category-1">Category 1</label>
+                    <select id="category-1" name="category-1" class="form-control" required>
+                        <option value="">Choose Category 1</option>
+                        <c:forEach var="category" items="${sessionScope.categories}">
+                            <option value="${category.id}">${category.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+
+                <!-- Category Dropdown 2 -->
+                <div class="form-group">
+                    <label for="category-2">Category 2</label>
+                    <select id="category-2" name="category-2" class="form-control" required>
+                        <option value="">Choose Category 2</option>
+                        <c:forEach var="category" items="${sessionScope.categories}">
+                            <option value="${category.id}">${category.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+
+                <!-- Category Dropdown 3 -->
+                <div class="form-group">
+                    <label for="category-3">Category 3</label>
+                    <select id="category-3" name="category-3" class="form-control" required>
+                        <option value="">Choose Category 3</option>
+                        <c:forEach var="category" items="${sessionScope.categories}">
+                            <option value="${category.id}">${category.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" id="submit-category" class="btn btn-main">Submit</button>
+                </div>
+            </form>
         </div>
+    </section>
+</main>
+
     </div>
 
     <!-- Scripts  -->
@@ -119,38 +160,6 @@ document.querySelector(".sidebar .close-btn").addEventListener("click", function
 });
     </script>
 
-    <script>
-         document.addEventListener('DOMContentLoaded', () => {
-    const categoryNameInput = document.getElementById('category-name');
-    const form = document.getElementById('add-category-form');
 
-    form.addEventListener('submit', (event) => {
-        // Prevent default form submission
-        event.preventDefault();
-
-        // Check if the input is valid
-        if (!categoryNameInput.checkValidity()) {
-            // If the input is invalid (empty), the browser will show the validation message
-            return;
-        }
-
-        const name = categoryNameInput.value.trim();
-
-        // Add to local storage
-        const categories = JSON.parse(localStorage.getItem('categories')) || []; // Load existing categories
-        const newCategory = {
-            id: categories.length + 1, // Simple ID generation
-            name: name
-        };
-        categories.push(newCategory);
-        localStorage.setItem('categories', JSON.stringify(categories)); // Save back to local storage
-
-        // Redirect back to the Category page
-        window.location.href = 'Category.html';
-    });
-});
-
-
-    </script>
 </body>
 </html>

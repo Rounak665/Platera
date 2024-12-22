@@ -317,6 +317,12 @@ header {
     margin-left: 5px;
     margin-right: 10px;
 }
+.logout-link {
+    text-decoration: none; /* Remove underline */
+    display: inline-flex; /* Align the items horizontally */
+    align-items: center; /* Center the items vertically */
+    transition: opacity 0.3s ease; /* Smooth transition effect */
+}
 .logout_btn{
     width: 100%;
     height: 100%;
@@ -325,7 +331,7 @@ header {
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    padding: 20px;
+    padding: 10px;
     color: #fff;
 }
 .logout_btn:hover{
@@ -675,6 +681,31 @@ tr:hover {
     color: white;
     border: none;
 }
+    .food-ready-btn {
+        background-color: #4CAF50; /* Green background */
+        color: white; /* White text */
+        border: none; /* No border */
+        padding: 10px 20px; /* Padding inside the button */
+        font-size: 16px; /* Text size */
+        cursor: pointer; /* Cursor on hover */
+        border-radius: 5px; /* Rounded corners */
+        transition: background-color 0.3s; /* Smooth transition for background color */
+    }
+
+    /* Hover effect */
+    .food-ready-btn:hover {
+        background-color: #45a049; /* Slightly darker green */
+    }
+
+    /* Active state */
+    .food-ready-btn:active {
+        background-color: #388e3c; /* Even darker green when clicked */
+    }
+
+    /* Optional: Add some margin between the button and the cell */
+    td button {
+        margin: 5px;
+    }
 
 .btn-delete:hover {
     background-color: #d32f2f;

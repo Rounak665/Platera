@@ -79,8 +79,6 @@
                 }
             }
 
-            // Output the review count for debugging or display
-            out.println("Number of reviews for restaurant ID " + restaurantId + ": " + reviewCount);
         %>
 
         <!-- Navigation Bar -->

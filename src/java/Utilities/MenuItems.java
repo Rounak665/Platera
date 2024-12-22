@@ -1,12 +1,23 @@
 package Utilities;
 
 public class MenuItems {
+
     private int itemId;
     private String itemName;
     private double price;
     private String image;
     private String categoryName; // New field for category name
     private int restaurantId;
+    private boolean availability;
+
+    // Getters and Setters
+    public boolean isAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(boolean availability) {
+        this.availability = availability;
+    }
 
     // Constructor
     public MenuItems() {
@@ -65,13 +76,13 @@ public class MenuItems {
     // toString method for debugging
     @Override
     public String toString() {
-        return "MenuItems{" +
-                "itemId=" + itemId +
-                ", itemName='" + itemName + '\'' +
-                ", price=" + price +
-                ", image='" + image + '\'' +
-                ", categoryName='" + categoryName + '\'' +
-                ", restaurantId=" + restaurantId +
-                '}';
+        return "MenuItems{"
+                + "itemId=" + itemId
+                + ", itemName='" + itemName + '\''
+                + ", price=" + price
+                + ", image='" + image + '\''
+                + ", categoryName='" + categoryName + '\''
+                + ", restaurantId=" + restaurantId
+                + '}';
     }
 }
