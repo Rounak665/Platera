@@ -3,149 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurants Near You | Platera</title>
+    <title>Responsive Navbar</title>
     <link rel="stylesheet" href="./restaurantsInUser.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body>        
-    <!-- Navigation Bar -->
+<body>
     <header>
         <nav class="navbar">
-            <div class="logo">
-                <a href="./Home.html"><img src="./assets/PlateraLogo-red.png" alt=""/></a>
+            <div class="nav-left">
+                <img src="./assets/PlateraLogo-red.png" alt="Logo" class="logo">
+                <div class="search-container">
+                    <input
+                        type="text"
+                        id="location-search"
+                        class="location-search"
+                        placeholder="Search for a location..."
+                        /> 
+                    <button class="select-location-btn" onclick="selectLocation()">
+                        &#x2192;
+                    </button>
+                    <!-- Arrow button -->
+                </div>
+                <span id="selected-location" class="selected-location">Selected Location: None</span>
             </div>
-            <div class="search-container">
-                <input
-                    type="text"
-                    id="location-search"
-                    class="location-search"
-                    placeholder="Search for a location..."
-                    />
-                <button class="select-location-btn" onclick="selectLocation()">
-                    &#x2192;
-                </button>
-                <!-- Arrow button -->
-            </div>
-
-            <span id="selected-location" class="selected-location"
-                  >Selected Location: None</span
-            >
-
             <ul class="nav-links">
-                <li><a href="../Customer/Home.jsp">Home</a></li>
+                <li><a href="#home">Home</a></li>
                 <li><a href="#restaurants">Restaurants</a></li>
-                <li><a href="#dishes">Dishes</a></li>
-                <li><a href="#contact">Contact</a></li>
-
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#contact">Contact Us</a></li>
             </ul>
-            <div class="navbar-icons">
-                <!-- <button class="profile-btn" onclick="toggleProfileModal()"><i class="fas fa-user"></i></button>
-                  <button class="cart-btn" onclick="toggleCartModal()"><i class="fas fa-shopping-cart"></i><span id="cart-count">0</span></button> -->
-
-                <div class="profile-icon" id="profileIcon">
-                    <i class="fas fa-user"></i>
-                </div>
-                <!-- Profile Icon -->
-                <div class="cart-icon" id="cartIcon">
-                    <i class="fas fa-shopping-cart"></i>
-                </div>
+            <div class="nav-icons">
+                <i class="profile-icon fa-solid" id="profile-icon">&#128100;</i>
+                <i class="cart-icon fa-solid" id="cart-icon">&#128722;</i>
+            </div>
+            <div class="hamburger-menu" id="hamburger-menu">
+                <i class="fa-solid fa-bars"></i>
             </div>
         </nav>
+        <section class="side-section profile-section" id="profile-section">
+            <button class="close-btn" id="profile-close-btn">&times;</button>
+            <p>Profile Section</p>
+        </section>
+        <section class="side-section cart-section" id="cart-section">
+            <button class="close-btn" id="cart-close-btn">&times;</button>
+            <p>Cart Section</p>
+        </section>
     </header>
-        <h1>Restaurants Near You</h1>
-    <div class="container">
-        <div class="search-bar">
-            <input type="text" id="location-input" placeholder="Enter your location...">
-            <button onclick="fetchRestaurants()">Search</button>
+
+    <section class="banner">
+        <div class="banner-content">
+            <h2>Best restaurants Near You</h2>
+            <div class="search-bar">
+                <select id="search-category">
+                    <option value="restaurants">Restaurants</option>
+                    <option value="dishes">Dishes</option>
+                </select>
+                <input type="text" id="search-input" placeholder="Search for restaurants or dishes..." />
+                <button id="search-button">Search</button>
+            </div>
         </div>
-        <div class="restaurants-grid" id="restaurants-grid">
-            <!-- Restaurant cards will be dynamically added here -->
+    </section>
+    
+    <section class="restaurants-section">
+        <h2>Popular Restaurants</h2>
+        <div class="restaurants-container">
+            <!-- Restaurant Card 1 -->
+            <div class="restaurant-card">
+                <img src="./assets/product1.png" alt="Restaurant 1" />
+                <h3>Restaurant 1</h3>
+                <p>Type: Italian</p>
+                <p>Location: New York, NY</p>
+                <p>Rating: ★★★★☆</p>
+            </div>
+            <!-- Restaurant Card 2 -->
+            <div class="restaurant-card">
+                <img src="./assets/product2.png" alt="Restaurant 2" />                <h3>Restaurant 2</h3>
+                <p>Type: Mexican</p>
+                <p>Location: Los Angeles, CA</p>
+                <p>Rating: ★★★☆☆</p>
+            </div>
+            <!-- Restaurant Card 3 -->
+            <div class="restaurant-card">
+                <img src="./assets/product3.png" alt="Restaurant 3" />                <h3>Restaurant 3</h3>
+                <p>Type: Chinese</p>
+                <p>Location: Chicago, IL</p>
+                <p>Rating: ★★★★★</p>
+            </div>
+            <!-- Restaurant Card 4 -->
+            <div class="restaurant-card">
+                <img src="./assets/product4.png" alt="Restaurant 4" />                <h3>Restaurant 4</h3>
+                <p>Type: Indian</p>
+                <p>Location: San Francisco, CA</p>
+                <p>Rating: ★★★★☆</p>
+            </div>
+            <!-- Restaurant Card 5 -->
+            <div class="restaurant-card">
+                <img src="./assets/product5.png" alt="Restaurant 5" />                <h3>Restaurant 5</h3>
+                <p>Type: Thai</p>
+                <p>Location: Miami, FL</p>
+                <p>Rating: ★★★★☆</p>
+            </div>
+            <!-- Restaurant Card 6 -->
+            <div class="restaurant-card">
+                <img src="./assets/product6.avif" alt="Restaurant 6" />                <h3>Restaurant 6</h3>
+                <p>Type: French</p>
+                <p>Location: Boston, MA</p>
+                <p>Rating: ★★★★☆</p>
+            </div>
         </div>
-    </div>
+    </section>
+    
 
-    <script>
-        const restaurants = [
-            { name: 'Pizza Palace', location: 'Kolkata', rating: '4.5', image: 'https://via.placeholder.com/250x150' },
-            { name: 'Burger Bistro', location: 'Kolkata', rating: '4.2', image: 'https://via.placeholder.com/250x150' },
-            { name: 'Sushi Spot', location: 'Kolkata', rating: '4.8', image: 'https://via.placeholder.com/250x150' },
-            { name: 'Taco Town', location: 'Kolkata', rating: '4.3', image: 'https://via.placeholder.com/250x150' },
-        ];
-
-        function fetchRestaurants() {
-            const location = document.getElementById('location-input').value.trim();
-            const grid = document.getElementById('restaurants-grid');
-            grid.innerHTML = '';
-
-            if (location) {
-                const filteredRestaurants = restaurants.filter(r => r.location.toLowerCase() === location.toLowerCase());
-                
-                if (filteredRestaurants.length > 0) {
-                    filteredRestaurants.forEach(restaurant => {
-                        const card = document.createElement('div');
-                        card.className = 'restaurant-card';
-                        card.innerHTML = `
-                            <img src="${restaurant.image}" alt="${restaurant.name}">
-                            <div class="info">
-                                <h3>${restaurant.name}</h3>
-                                <p>${restaurant.location}</p>
-                                <p class="rating">⭐ ${restaurant.rating}</p>
-                            </div>
-                        `;
-                        grid.appendChild(card);
-                    });
-                } else {
-                    grid.innerHTML = '<p>No restaurants found near your location.</p>';
-                }
-            } else {
-                grid.innerHTML = '<p>Please enter a location.</p>';
-            }
-        }
-
-        // Toggle Modals
-        function toggleProfileModal() {
-            const modal = document.getElementById("profileModal");
-            modal.style.display = modal.style.display === "flex" ? "none" : "flex";
-        }
-
-        function toggleCartModal() {
-            const modal = document.getElementById("cartModal");
-            modal.style.display = modal.style.display === "flex" ? "none" : "flex";
-        }
-
-        // Cart Functionality
-        let cart = [];
-        function addToCart(itemName, price) {
-            cart.push({ name: itemName, price });
-            updateCartDisplay();
-        }
-
-        function updateCartDisplay() {
-            const cartCount = document.getElementById("cart-count");
-            cartCount.textContent = cart.length;
-
-            const cartItems = document.getElementById("cart-items");
-            const cartTotal = document.getElementById("cart-total");
-            cartItems.innerHTML = cart.map(item => `<li>${item.name} - $${item.price.toFixed(2)}</li>`).join('');
-            cartTotal.textContent = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
-        }
-
-        // Close modals on outside click
-        window.onclick = function(event) {
-            if (event.target == document.getElementById("profileModal")) toggleProfileModal();
-            if (event.target == document.getElementById("cartModal")) toggleCartModal();
-        };
-
-        // Close modals on Escape key
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "Escape") {
-                if (document.getElementById("profileModal").style.display === "flex") toggleProfileModal();
-                if (document.getElementById("cartModal").style.display === "flex") toggleCartModal();
-            }
-        });
-    </script>
-
+    <script src="./restaurantsInUser.js"></script>
 </body>
 </html>

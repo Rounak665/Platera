@@ -147,9 +147,7 @@
                     <!-- Arrow button -->
                 </div>
 
-                <span id="selected-location" class="selected-location"
-                      >Selected Location: None</span
-                >
+                <span id="selected-location" class="selected-location">Selected Location: None</span>
 
                 <ul class="nav-links">
                     <li><a href="./Home.jsp">Home</a></li>
