@@ -209,18 +209,90 @@
 
         <!-- Sliding Cart Section -->
         <section class="cart-section" id="cartSection">
-            <button class="close-btn" id="closeCartSection">&times;</button>
-            <!-- Close Button -->
-            <div class="cart-content">
-                <h2>Your Cart</h2>
-                <ul class="cart-items">
-                    <li>Item 1 - ₹300</li>
-                    <li>Item 2 - ₹450</li>
-                    <li>Item 3 - ₹200</li>
-                    <li>Total: ₹950</li>
-                </ul>
-                <button class="checkout-btn">Checkout</button>
+            <!-- Cart section -->
+            <div class="cart-container checkout"> 
+                <div class="cart-header">
+                    Cart
+                    <span class="close-btn" id="closeCartSectionCheckout">&times;</span>
+                </div>
+                <div class="cart-items">
+                    <div class="cart-item">
+                        <input type="text" class="cart-item-image" value="avocado-salad.jpg" disabled>
+                        
+                        <div class="cart-item-details">
+                            <input type="text" class="cart-item-name" value="Avocado Salad" disabled>
+                            <input type="text" class="cart-item-price" value="₹12.00" disabled>
+                        </div>
+                        <div class="price">
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn substract">-</button>
+                                <input type="text" class="quantity-number" value="2" disabled>
+                                <button class="quantity-btn add">+</button>
+                            </div>
+                            <input type="text" class="total-price" value="₹24.00" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="promo-code">
+                    <input type="text" placeholder="Promo Code">
+                    <button>Apply</button>
+                </div>
+                <div class="cart-summary">
+                    <div><span>Subtotal</span><input type="text" class="subtotal" value="₹70.00" disabled></div>
+                    <div><span>Delivery</span><input type="text" class="delivery_charges" value="₹30" disabled></div>
+                    <div><span>Total</span><input type="text" class="total" value="₹73.50" disabled></div>
+                </div>
+                <button class="checkout-btn">CHECKOUT</button>
             </div>
+
+            <!-- Checkout Scetion -->
+
+            <div class="cart-container paynow" style="display: none;">
+                <div class="cart-header">
+                    <span class="back-btn" id="backToCheckout"><b>&#8592;</b></span>
+                    Checkout
+                    <span class="close-btn" id="closeCartSectionPaynow">&times;</span>
+                </div>
+        
+                <div class="payment-options">
+                    <div class="payment-option">
+                        <input type="radio" name="payment" id="debit-credit" checked>
+                        <label for="debit-credit">
+                            <img src="https://img.icons8.com/color/48/visa.png" alt="Visa"> Debit/Credit card
+                        </label>
+                    </div>
+        
+                    <div class="payment-option">
+                        <input type="radio" name="payment" id="net-banking">
+                        <label for="net-banking">
+                            <img src="https://img.icons8.com/color/48/bank.png" alt="Bank"> Net banking
+                        </label>
+                    </div>
+        
+                    <div class="payment-option">
+                        <input type="radio" name="payment" id="cash-on-delivery">
+                        <label for="cash-on-delivery">
+                            <img src="https://img.icons8.com/color/48/cash.png" alt="Cash on Delivery"> Cash on Delivery
+                        </label>
+                    </div>                    
+        
+                    <div class="payment-option">
+                        <input type="radio" name="payment" id="google-pay">
+                        <label for="google-pay">
+                            <img src="https://img.icons8.com/color/48/google-pay.png" alt="Google Pay"> Google pay
+                        </label>
+                    </div>
+                </div>
+        
+                <div class="cart-summary">
+                    <div><span>Subtotal</span><input type="text" class="subtotal" value="₹70.00" disabled></div>
+                    <div><span>Delivery</span><input type="text" class="delivery_charges" value="₹30" disabled></div>
+                    <div><span>Total</span><input type="text" class="total" value="₹73.50" disabled></div>
+                </div>
+        
+                <button class="pay-btn">Pay Now</button>
+            </div>
+
         </section>
 
         <!-- Profile Modal -->

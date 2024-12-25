@@ -70,69 +70,66 @@
             </div>
 
             <main class="main-content">
-                <div class="cart-container checkout">
+                <div class="cart-container checkout"> 
                     <div class="cart-header">
                         Cart
                         <span class="close">&times;</span>
                     </div>
                     <div class="cart-items">
+                        <!-- Example of a dynamically generated cart item -->
                         <div class="cart-item">
-                            <img src="avocado-salad.jpg" alt="Avocado Salad">
+                            <!-- Replace img tag with an input field for the image URL -->
+                            <input type="text" class="cart-item-image" value="avocado-salad.jpg" disabled>
+                            
                             <div class="cart-item-details">
-                                <h4>Avocado Salad</h4>
-                                <p>$12.00</p>
+                                <!-- Replace h4 with an input field for the item name -->
+                                <input type="text" class="cart-item-name" value="Avocado Salad" disabled>
+                                
+                                <!-- Replace price p with an input field for the item price -->
+                                <input type="text" class="cart-item-price" value="₹12.00" disabled>
                             </div>
                             <div class="price">
-                            <div class="cart-item-quantity">
-                                <button class="quantity-btn">-</button>
-                                <span class="quantity-number">2</span>
-                                <button class="quantity-btn">+</button>
-                            </div>                            
-                            <p>$24.00</p>
+                                <div class="cart-item-quantity">
+                                    <button class="quantity-btn substract">-</button>
+                                    <input type="text" class="quantity-number" value="2" disabled>
+                                    <button class="quantity-btn add">+</button>
+                                </div>
+                                <!-- Replace total price with an input field -->
+                                <input type="text" class="total-price" value="₹24.00" disabled>
                             </div>
                         </div>
-                        <div class="cart-item">
-                            <img src="fruits-salad.jpg" alt="Fruits Salad">
+                
+                        <!-- Repeat for other items -->
+                        <!-- <div class="cart-item">
+                            <input type="text" class="cart-item-image" value="fruits-salad.jpg" disabled>
                             <div class="cart-item-details">
-                                <h4>Fruits Salad</h4>
-                                <p>$11.00</p>
+                                <input type="text" class="cart-item-name" value="Fruits Salad" disabled>
+                                <input type="text" class="cart-item-price" value="₹11.00" disabled>
                             </div>
                             <div class="price">
-                            <div class="cart-item-quantity">
-                                <button class="quantity-btn">-</button>
-                                <span class="quantity-number">2</span>
-                                <button class="quantity-btn">+</button>
-                            </div>                            
-                            <p>$22.00</p>
+                                <div class="cart-item-quantity">
+                                    <button class="quantity-btn">-</button>
+                                    <input type="text" class="quantity-number" value="2" disabled>
+                                    <button class="quantity-btn">+</button>
+                                </div>
+                                <input type="text" class="total-price" value="₹22.00" disabled>
                             </div>
-                        </div>
-                        <div class="cart-item">
-                            <img src="cucumber-salad.jpg" alt="Cucumber Salad">
-                            <div class="cart-item-details">
-                                <h4>Cucumber Salad</h4>
-                                <p>$12.00</p>
-                            </div>
-                            <div class="price">
-                            <div class="cart-item-quantity">
-                                <button class="quantity-btn">-</button>
-                                <span class="quantity-number">2</span>
-                                <button class="quantity-btn">+</button>
-                            </div>                            
-                            <p>$24.00</p>
-                            </div>
-                        </div>
-                        <div class="promo-code">
-                            <input type="text" placeholder="Promo Code">
-                            <button>Apply</button>
-                        </div>
+                        </div> -->
+                
+                        <!-- Add more items similarly -->
+                    </div>
+                    <div class="promo-code">
+                        <input type="text" placeholder="Promo Code">
+                        <button>Apply</button>
                     </div>
                     <div class="cart-summary">
-                        <div><span>Subtotal</span><span>$70.00</span></div>
-                        <div><span>Delivery</span><span>$3.50</span></div>
-                        <div class="total"><span>Total</span><span>$73.50</span></div>
+                        <div><span>Subtotal</span><input type="text" class="subtotal" value="₹70.00" disabled></div>
+                        <div><span>Delivery</span><input type="text" class="delivery_charges" value="₹30" disabled></div>
+                        <div><span>Total</span><input type="text" class="total" value="₹73.50" disabled></div>
                     </div>
                     <button class="checkout-button">CHECKOUT</button>
                 </div>
+                
 
 
 
@@ -172,21 +169,10 @@
                         </div>
                     </div>
             
-                    <div class="summary">
-                        <div class="summary-row">
-                            <span>Subtotal</span>
-                            <span>$59.87</span>
-                        </div>
-            
-                        <div class="summary-row">
-                            <span>Delivery</span>
-                            <span>$12.43</span>
-                        </div>
-            
-                        <div class="summary-row">
-                            <span>Total</span>
-                            <span>$72.30</span>
-                        </div>
+                    <div class="cart-summary">
+                        <div><span>Subtotal</span><input type="text" class="subtotal" value="₹70.00" disabled></div>
+                        <div><span>Delivery</span><input type="text" class="delivery_charges" value="₹30" disabled></div>
+                        <div><span>Total</span><input type="text" class="total" value="₹73.50" disabled></div>
                     </div>
             
                     <button class="pay-btn">Pay Now</button>

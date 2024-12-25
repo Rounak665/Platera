@@ -25,21 +25,143 @@ function toggleCartModal() {
 }
 
 // Cart Functionality
-let cart = [];
-function addToCart(itemName, price) {
-    cart.push({ name: itemName, price });
-    updateCartDisplay();
+// let cart = [];
+// function addToCart(itemName, price) {
+//     cart.push({ name: itemName, price });
+//     updateCartDisplay();
+// }
+
+// function updateCartDisplay() {
+//     const cartCount = document.getElementById("cart-count");
+//     cartCount.textContent = cart.length;
+
+//     const cartItems = document.getElementById("cart-items");
+//     const cartTotal = document.getElementById("cart-total");
+//     cartItems.innerHTML = cart.map(item => `<li>${item.name} - $${item.price.toFixed(2)}</li>`).join('');
+//     cartTotal.textContent = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
+// }
+
+// -------------------Cart Section Script-------------------
+function toggleDetails(row) {
+    // Toggle the background color
+    row.classList.toggle('active');
+    // Find the next row (details row)
+    const nextRow = row.nextElementSibling;
+    nextRow.classList.toggle('show');
+    // Toggle the dropdown icon
+    const icon = row.querySelector('.dropdown');
+    icon.classList.toggle('rotate');
+  }
+  
+  // checkout to paynow transfer
+  const checkoutButton = document.querySelector('.checkout-btn');
+  if (checkoutButton) {
+      checkoutButton.addEventListener('click', function () {
+          // Hide the cart checkout container
+          document.querySelector('.checkout').style.display = 'none';
+  
+          // Show the payment checkout container
+          document.querySelector('.paynow').style.display = 'block';
+      });
+  }
+
+//   Paynow to checkout
+  const backToCheckoutButton = document.getElementById("backToCheckout");
+if (backToCheckoutButton) {
+    backToCheckoutButton.addEventListener("click", function () {
+        // Hide the payment checkout container
+        document.querySelector('.paynow').style.display = 'none';
+
+        // Show the cart checkout container
+        document.querySelector('.checkout').style.display = 'block';
+    });
 }
 
-function updateCartDisplay() {
-    const cartCount = document.getElementById("cart-count");
-    cartCount.textContent = cart.length;
-
-    const cartItems = document.getElementById("cart-items");
-    const cartTotal = document.getElementById("cart-total");
-    cartItems.innerHTML = cart.map(item => `<li>${item.name} - $${item.price.toFixed(2)}</li>`).join('');
-    cartTotal.textContent = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
-}
+  
+  // cart quantity and total price update
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    const deliveryChargesInput = document.querySelector(".checkout .delivery_charges"); // Delivery charges in checkout
+    const subtotalInputCheckout = document.querySelector(".checkout .subtotal"); // Subtotal in checkout
+    const totalInputCheckout = document.querySelector(".checkout .total"); // Total in checkout
+  
+    const subtotalInputPaynow = document.querySelector(".paynow .subtotal"); // Subtotal in paynow
+    const totalInputPaynow = document.querySelector(".paynow .total"); // Total in paynow
+    const deliveryChargesInputPaynow = document.querySelector(".paynow .delivery_charges"); // Delivery charges in paynow
+  
+    // Function to update the cart summary for the checkout and sync it with paynow
+    const updateCartSummary = () => {
+        let subtotal = 0;
+  
+        // Loop through all visible cart items and sum up their total prices
+        document.querySelectorAll(".checkout .cart-item").forEach(cartItem => {
+            const totalPriceInput = cartItem.querySelector(".total-price");
+            if (cartItem.style.display !== "none") {
+                const totalPrice = parseFloat(totalPriceInput.value.replace("₹", ""));
+                subtotal += totalPrice;
+            }
+        });
+  
+        // Update subtotal in checkout
+        subtotalInputCheckout.value = `₹${subtotal.toFixed(2)}`;
+  
+        // Calculate total (subtotal + delivery charges)
+        const deliveryCharges = parseFloat(deliveryChargesInput.value.replace("₹", ""));
+        const total = subtotal + deliveryCharges;
+  
+        // Update total in checkout
+        totalInputCheckout.value = `₹${total.toFixed(2)}`;
+  
+        // Sync the values with the paynow section
+        subtotalInputPaynow.value = subtotalInputCheckout.value;
+        totalInputPaynow.value = totalInputCheckout.value;
+        deliveryChargesInputPaynow.value = deliveryChargesInput.value;
+    };
+  
+    // Add event listeners to quantity buttons
+    document.querySelectorAll(".checkout .quantity-btn").forEach(button => {
+        button.addEventListener("click", () => {
+            const cartItem = button.closest(".cart-item"); // Find the parent cart item
+            const quantityInput = cartItem.querySelector(".quantity-number"); // Quantity display
+            const priceInput = cartItem.querySelector(".cart-item-price"); // Price per item
+            const totalPriceInput = cartItem.querySelector(".total-price"); // Total price display
+  
+            // Parse values
+            let quantity = parseInt(quantityInput.value);
+            const price = parseFloat(priceInput.value.replace("₹", ""));
+  
+            // Check which button was clicked
+            if (button.textContent === "+") {
+                // Increase quantity
+                quantity += 1;
+                quantityInput.value = quantity;
+  
+                // Update total price for the item
+                const newTotal = (price * quantity).toFixed(2);
+                totalPriceInput.value = `₹${newTotal}`;
+            } else if (button.textContent === "-") {
+                // Decrease quantity
+                if (quantity > 1) {
+                    quantity -= 1;
+                    quantityInput.value = quantity;
+  
+                    // Update total price for the item
+                    const newTotal = (price * quantity).toFixed(2);
+                    totalPriceInput.value = `₹${newTotal}`;
+                } else {
+                    // Hide the cart item if quantity is less than 1
+                    cartItem.style.display = "none";
+                }
+            }
+  
+            // Update cart summary (subtotal and total) and sync
+            updateCartSummary();
+        });
+    });
+  
+    // Initial calculation of the cart summary (in case page loads with pre-filled values)
+    updateCartSummary();
+  });
 
 // Close modals on outside click
 window.onclick = function(event) {
@@ -147,7 +269,8 @@ const closeUserSection = document.getElementById('closeUserSection');
 
 const cartIcon = document.getElementById('cartIcon');
 const cartSection = document.getElementById('cartSection');
-const closeCartSection = document.getElementById('closeCartSection');
+const closeCartSectionCheckout = document.getElementById("closeCartSectionCheckout");
+const closeCartSectionPaynow = document.getElementById("closeCartSectionPaynow");
 
 profileIcon.addEventListener('click', () => {
     if (userSection.style.right === '0%') {
@@ -168,12 +291,16 @@ cartIcon.addEventListener('click', () => {
 });
 
 // Close buttons functionality
-closeUserSection.addEventListener('click', () => {
-    userSection.style.right = '-50%'; // Slide out user section
-});
+if (closeCartSectionCheckout) {
+    closeCartSectionCheckout.addEventListener("click", () => {
+        document.getElementById("cartSection").style.right = "-50%";
+    });
+}
 
-closeCartSection.addEventListener('click', () => {
-    cartSection.style.right = '-50%'; // Slide out cart section
-});
+if (closeCartSectionPaynow) {
+    closeCartSectionPaynow.addEventListener("click", () => {
+        document.getElementById("cartSection").style.right = "-50%";
+    });
+}
 
 

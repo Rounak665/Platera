@@ -38,14 +38,95 @@ if (checkoutButton) {
         document.querySelector('.paynow').style.display = 'block';
     });
 }
-// Optional: Add functionality to close the containers
-document.querySelectorAll('.close').forEach(closeButton => {
-  closeButton.addEventListener('click', function () {
-      // Hide both containers
-      document.querySelector('.checkout').style.display = 'none';
-      document.querySelector('.paynow').style.display = 'none';
+
+// cart quantity and total price update
+
+document.addEventListener("DOMContentLoaded", () => {
+  const deliveryChargesInput = document.querySelector(".checkout .delivery_charges"); // Delivery charges in checkout
+  const subtotalInputCheckout = document.querySelector(".checkout .subtotal"); // Subtotal in checkout
+  const totalInputCheckout = document.querySelector(".checkout .total"); // Total in checkout
+
+  const subtotalInputPaynow = document.querySelector(".paynow .subtotal"); // Subtotal in paynow
+  const totalInputPaynow = document.querySelector(".paynow .total"); // Total in paynow
+  const deliveryChargesInputPaynow = document.querySelector(".paynow .delivery_charges"); // Delivery charges in paynow
+
+  // Function to update the cart summary for the checkout and sync it with paynow
+  const updateCartSummary = () => {
+      let subtotal = 0;
+
+      // Loop through all visible cart items and sum up their total prices
+      document.querySelectorAll(".checkout .cart-item").forEach(cartItem => {
+          const totalPriceInput = cartItem.querySelector(".total-price");
+          if (cartItem.style.display !== "none") {
+              const totalPrice = parseFloat(totalPriceInput.value.replace("₹", ""));
+              subtotal += totalPrice;
+          }
+      });
+
+      // Update subtotal in checkout
+      subtotalInputCheckout.value = `₹${subtotal.toFixed(2)}`;
+
+      // Calculate total (subtotal + delivery charges)
+      const deliveryCharges = parseFloat(deliveryChargesInput.value.replace("₹", ""));
+      const total = subtotal + deliveryCharges;
+
+      // Update total in checkout
+      totalInputCheckout.value = `₹${total.toFixed(2)}`;
+
+      // Sync the values with the paynow section
+      subtotalInputPaynow.value = subtotalInputCheckout.value;
+      totalInputPaynow.value = totalInputCheckout.value;
+      deliveryChargesInputPaynow.value = deliveryChargesInput.value;
+  };
+
+  // Add event listeners to quantity buttons
+  document.querySelectorAll(".checkout .quantity-btn").forEach(button => {
+      button.addEventListener("click", () => {
+          const cartItem = button.closest(".cart-item"); // Find the parent cart item
+          const quantityInput = cartItem.querySelector(".quantity-number"); // Quantity display
+          const priceInput = cartItem.querySelector(".cart-item-price"); // Price per item
+          const totalPriceInput = cartItem.querySelector(".total-price"); // Total price display
+
+          // Parse values
+          let quantity = parseInt(quantityInput.value);
+          const price = parseFloat(priceInput.value.replace("₹", ""));
+
+          // Check which button was clicked
+          if (button.textContent === "+") {
+              // Increase quantity
+              quantity += 1;
+              quantityInput.value = quantity;
+
+              // Update total price for the item
+              const newTotal = (price * quantity).toFixed(2);
+              totalPriceInput.value = `₹${newTotal}`;
+          } else if (button.textContent === "-") {
+              // Decrease quantity
+              if (quantity > 1) {
+                  quantity -= 1;
+                  quantityInput.value = quantity;
+
+                  // Update total price for the item
+                  const newTotal = (price * quantity).toFixed(2);
+                  totalPriceInput.value = `₹${newTotal}`;
+              } else {
+                  // Hide the cart item if quantity is less than 1
+                  cartItem.style.display = "none";
+              }
+          }
+
+          // Update cart summary (subtotal and total) and sync
+          updateCartSummary();
+      });
   });
+
+  // Initial calculation of the cart summary (in case page loads with pre-filled values)
+  updateCartSummary();
 });
+
+
+
+
 
 
 
