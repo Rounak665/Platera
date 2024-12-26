@@ -335,7 +335,7 @@ form input{
   background-color: transparent;
   outline: none;
   border: none;
-  color: rgb(255, 255, 255);
+/*  color: rgb(255, 255, 255);*/
 }
 form button{
   background-color: transparent;

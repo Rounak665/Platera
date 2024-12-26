@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -30,7 +30,7 @@
         <p>All <span>Platera</span> Payments are asured by <a href="">Salford <span>payments bank</span><sup>TM</sup></a></p>
       </header>
       <h1>Checkout</h1>
-      <p class="price"><span>Your Total is</span>  ₹99.00</p>  
+      <p class="price"><span>Your Total is</span>  â¹99.00</p>  
       <div class="items">
         <div class="item">
           <span>Item 1</span>
@@ -87,7 +87,7 @@
           </div>
           <div class="form-row">
             <input type="text" placeholder="MM/YY" maxlength="5" required>
-            <input type="text" placeholder="CVC" maxlength="3" required>
+            <input type="text" placeholder="CVV" maxlength="3" required>
           </div>
           <div class="form-group">
             <label for="cardName">Name on card</label>

@@ -294,15 +294,11 @@
                                     } finally {
                                         // Close resources manually to avoid resource leak
                                         try {
-                                            if (selectSqlRs != null) {
-                                                selectSqlRs.close();
-                                            }
+
                                             if (selectLocationSqlRs != null) {
                                                 selectLocationSqlRs.close();
                                             }
-                                            if (selectSqlPstmt != null) {
-                                                selectSqlPstmt.close();
-                                            }
+
                                             if (selectLocationPstmt != null) {
                                                 selectLocationPstmt.close();
                                             }
@@ -342,7 +338,7 @@
 
                             <!-- Statistics Section -->
                             <div class="statistics">
-                                <h2><ion-icon name="list-outline"></ion-icon> Upcoming Orders</h2>
+                                <h2><ion-icon name="list-outline"></ion-icon> Delivered Orders</h2>
                                 <div class="yourOrders">
                                     <div class="upcoming-order">
                                         <h4>Order #12346</h4>

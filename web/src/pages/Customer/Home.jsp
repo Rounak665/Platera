@@ -210,7 +210,7 @@
         <!-- Sliding Cart Section -->
         <section class="cart-section" id="cartSection">
             <!-- Cart section -->
-            <div class="cart-container checkout"> 
+            <div class="cart-container checkout" > 
                 <div class="cart-header">
                     Cart
                     <span class="close-btn" id="closeCartSectionCheckout">&times;</span>
