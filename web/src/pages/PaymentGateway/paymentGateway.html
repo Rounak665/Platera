@@ -10,6 +10,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+  <nav-bar class="navbar">
+    <div class="navbar-logo">
+      <img src="./Assets/PlateraLogo-red.png" alt="Platera Logo" class="logo" width="150">
+    </div>
+  </nav-bar>
+
+  
   <!-- Back to Home Button -->
   <a href="index.html" id="backButton" title="Go back">
     &#8592; Back
@@ -20,27 +27,35 @@
     <!-- Left Section: Product Summary -->
     <div class="product-summary">
       <header>
-        <p>All Payments are asured by <a href="">Salford<sup>TM</sup></a></p>
+        <p>All <span>Platera</span> Payments are asured by <a href="">Salford <span>payments bank</span><sup>TM</sup></a></p>
       </header>
       <h1>Checkout</h1>
-      <p class="price">$99.00 <span>/ per month</span></p>
+      <p class="price"><span>Your Total is</span>  ₹99.00</p>  
       <div class="items">
         <div class="item">
-          <span>Premium Onboarding</span>
+          <span>Item 1</span>
           <span>$900.00</span>
         </div>
         <div class="item">
-          <span>Advanced</span>
+          <span>Item 2</span>
+          <span>$200.00</span>
+        </div>
+        <div class="item">
+          <span>Discounts</span>
           <span>$99.00</span>
         </div>
         <div class="item">
-          <span>Super Bonus Product</span>
-          <span>$99.00</span>
+          <span>CGST</span>
+          <span>$10.00</span>
         </div>
-      </div>
+        <div class="item">
+          <span>SGST</span>
+          <span>$10.00</span>
+        </div>
+      </div>  
       <hr>
       <div class="total">
-        <span>Total Due Today</span>
+        <span>Total is</span>
         <span>$99.00</span>
       </div>
     </div>
@@ -127,14 +142,88 @@
 
         <button type="submit" class="submit-button">Submit Payment</button>
       </form>
-      <footer>
+      <div class="footer">
         <p>
-          By confirming your subscription, you allow this website to charge your card in accordance with their terms.
+          <span>&copy; 2023 Salford Payments. All rights reserved.</span>
         </p>
-      </footer>
+      </div>
     </div>
   </div>
+  <section id="blank-section">
 
+  </section>
+  <footer>
+    <div class="container_footer">
+        <div class="row">
+            <div class="col">
+                <img src="./assets/PlateraLogo-red.png" alt="" />
+                <p>
+                    Platera delivers delicious meals from your favorite local
+                    restaurants straight to your door, combining speed and convenience
+                    with every order. From quick bites to gourmet dishes, enjoy a
+                    world of flavors anytime, anywhere!
+                </p>
+            </div>
+            <div class="col">
+                <h3>
+                    Office
+                    <div class="underline"><span></span></div>
+                </h3>
+                <p>ITFL Road</p>
+                <p>Whitefield, Bangalore</p>
+                <p>Karnatak, PIN 568629, INDIA</p>
+                <p class="email_id">support@platera.in</p>
+                <h4>+91 - 1234567891</h4>
+            </div>
+            <div class="col">
+                <h3>
+                    Links
+                    <div class="underline"><span></span></div>
+                </h3>
+                <ul>
+                    <li>
+                        <a
+                            href="../FooterLinkPages/Terms&Conditions/Terms&Conditions.html"
+                            >Terms & Conditions</a
+                        >
+                    </li>
+                    <li>
+                        <a href="../FooterLinkPages/PrivacyPolicy/PrivacyPolicy.html"
+                           >Privacy Policy</a
+                        >
+                    </li>
+                    <li><a href="../FooterLinkPages/Help/Help.html">Help</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <h3>
+                    Newsletter
+                    <div class="underline"><span></span></div>
+                </h3>
+                <form>
+                    <img id="mail" src="./Public/images/mail.png" alt="" />
+                    <input
+                        type="email"
+                        name=""
+                        id=""
+                        placeholder="Enter Your Email Address"
+                        />
+                    <button type="submit">
+                        <img id="send" src="./Public/images/send.png" alt="" />
+                    </button>
+                </form>
+                <div class="social_icon">
+                    <i class="fa-brands fa-facebook"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-pinterest"></i>
+                    <i class="fa-brands fa-x-twitter"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <p class="copyright">Platera @2024 - All Rights Reserved</p>
+</footer>
   <script src="./paymentGateway.js"></script>
 </body>
 </html>
