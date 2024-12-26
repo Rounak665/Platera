@@ -2,132 +2,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Category Images</title>
+    <meta charset="UTF-8">
+    <title>Place Order Test</title>
     <style>
-        .image-gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
         }
-        .image-item {
-            text-align: center;
-            margin: 10px;
+        .container {
+            max-width: 600px;
+            margin: auto;
         }
-        .image-item img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border: 2px solid #ccc;
+        .order-form {
+            padding: 15px;
+            border: 1px solid #ddd;
             border-radius: 10px;
+            background-color: #f9f9f9;
         }
-        .image-item p {
-            margin-top: 5px;
-            font-weight: bold;
-            font-size: 14px;
+        .order-form button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .order-form button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <h1>Category Images</h1>
-    <div class="image-gallery">
-        <!-- Explicitly written for each category -->
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Appetizer.jpeg" alt="Appetizer">
-            <p>Appetizers</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/MainCourse.jpg" alt="Main Course">
-            <p>Main Course</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Desserts.jpg" alt="Desserts">
-            <p>Desserts</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Drinks.jpg" alt="Drinks">
-            <p>Drinks</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Vegetarian.jpeg" alt="Vegetarian">
-            <p>Vegetarian</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Vegan.jpeg" alt="Vegan">
-            <p>Vegan</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/GlutenFree.jpg" alt="Gluten Free">
-            <p>Gluten Free</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/SeaFood.jpeg" alt="Seafood">
-            <p>Seafood</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Italian.jpeg" alt="Italian">
-            <p>Italian</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Chinese.jpeg" alt="Chinese">
-            <p>Chinese</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Mexican.jpeg" alt="Mexican">
-            <p>Mexican</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Indian.jpg" alt="Indian">
-            <p>Indian</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Japanese.jpeg" alt="Japanese">
-            <p>Japanese</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Barbecue.jpg" alt="Barbecue">
-            <p>Barbecue</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Healthy.jpeg" alt="Healthy">
-            <p>Healthy</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Salad.jpeg" alt="Salads">
-            <p>Salads</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Pasta.jpg" alt="Pasta">
-            <p>Pasta</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Pizza.jpeg" alt="Pizza">
-            <p>Pizza</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Sandwich.jpeg" alt="Sandwich">
-            <p>Sandwiches</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Burgers.jpeg" alt="Burgers">
-            <p>Burgers</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Soup.jpg" alt="Soup">
-            <p>Soup</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Steaks.jpeg" alt="Steaks">
-            <p>Steaks</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Sushi.jpg" alt="Sushi">
-            <p>Sushi</p>
-        </div>
-        <div class="image-item">
-            <img src="<%= request.getContextPath() %>/DatabaseImages/Categories/Tacos.jpeg" alt="Tacos">
-            <p>Tacos</p>
-        </div>
+    <div class="container">
+        <h1>Place Order Test</h1>
+        
+        <!-- Order Placement Form -->
+        <form class="order-form" action="http://localhost:8080/Platera-Main/PlaceOrder" method="POST">
+            <!-- Hidden input for customer ID -->
+            <input type="hidden" name="customer_id" value="30">
+            
+            <!-- Place Order Button -->
+            <button type="submit">Place Order</button>
+        </form>
     </div>
 </body>
 </html>

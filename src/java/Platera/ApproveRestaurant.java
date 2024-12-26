@@ -75,7 +75,7 @@ public class ApproveRestaurant extends HttpServlet {
                         }
 
                         // Now insert into the restaurants table
-                        String insertRestaurantSql = "INSERT INTO restaurants (name, owner_user_id, phone, address, image,location_id, min_price, max_price) VALUES (?, ?, ?, ?, ?, ?, ?, ? )";
+                        String insertRestaurantSql = "INSERT INTO restaurants (restaurant_name, owner_user_id, phone, address, image,location_id, min_price, max_price) VALUES (?, ?, ?, ?, ?, ?, ?, ? )";
                         try (PreparedStatement insertRestaurantPstmt = conn.prepareStatement(insertRestaurantSql)) {
                             insertRestaurantPstmt.setString(1, rs.getString("restaurant_name"));
                             insertRestaurantPstmt.setInt(2, userId);

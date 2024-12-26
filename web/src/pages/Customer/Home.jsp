@@ -1,3 +1,5 @@
+<%@page import="Utilities.CartDAO"%>
+<%@page import="Utilities.Cart"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="Utilities.Database"%>
 <%@page import="java.sql.ResultSet"%>
@@ -20,7 +22,7 @@
             crossorigin="anonymous"
             />
         <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon" />
-        
+
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -57,15 +59,14 @@
             String imagepath = request.getContextPath() + '/' + image;
             int location_id = 1;
             String location = "";
-            
-            
+
             Connection conn = null;
             PreparedStatement selectLocationPstmt = null;
             ResultSet selectLocationSqlRs = null;
 
             try {
                 // Get connection
-                conn = Database.getConnection(); 
+                conn = Database.getConnection();
 
                 try {
 
@@ -93,7 +94,7 @@
             } finally {
                 // Close resources manually to avoid resource leak
                 try {
-                    
+
                     if (selectLocationSqlRs != null) {
                         selectLocationSqlRs.close();
                     }
@@ -111,17 +112,16 @@
 
         %>
         <!-- Welcome Popup -->
- <!--       <c:if test="${sessionScope.welcomePopup == false}">
-            <div class="welcome-popup" id="welcomePopup">
-                <div class="popup-content">
-                    <h3>Welcome, ${name}!</h3>
-                    <p>Thanks for visiting our website.</p>
-                    <button id="closePopupBtn">Close</button>
-                </div>
-            </div>
+        <!--       <c:if test="${sessionScope.welcomePopup == false}">
+                   <div class="welcome-popup" id="welcomePopup">
+                       <div class="popup-content">
+                           <h3>Welcome, ${name}!</h3>
+                           <p>Thanks for visiting our website.</p>
+                           <button id="closePopupBtn">Close</button>
+                       </div>
+                   </div>
             <%-- Set the attribute to true after displaying the popup --%>
-            <%
-                session.setAttribute("welcomePopup", true);
+            <%                session.setAttribute("welcomePopup", true);
             %>
         </c:if> --!>
 
@@ -216,34 +216,70 @@
                     <span class="close-btn" id="closeCartSectionCheckout">&times;</span>
                 </div>
                 <div class="cart-items">
+                    <%
+                        // Replace with the actual user/customer ID fetched from the session or request
+                        CartDAO cartDAO = new CartDAO();
+                        List<Cart> cartItems = cartDAO.getCartItems(customer_id);
+                        double promotion = 0;
+
+                        for (Cart cart : cartItems) {
+                    %>
+
                     <div class="cart-item">
-                        <input type="text" class="cart-item-image" value="avocado-salad.jpg" disabled>
-                        
+                        <img src="<%=request.getContextPath()%>/<%= cart.getItemImage()%>" alt="<%= cart.getItemName()%>" class="cart-item-image">
+
                         <div class="cart-item-details">
-                            <input type="text" class="cart-item-name" value="Avocado Salad" disabled>
-                            <input type="text" class="cart-item-price" value="₹12.00" disabled>
+                            <p class="cart-item-name"><%= cart.getItemName()%></p>
+                            <p class="cart-item-price" >₹<%=cart.getItemPrice()%></p>
                         </div>
                         <div class="price">
                             <div class="cart-item-quantity">
-                                <button class="quantity-btn substract">-</button>
-                                <input type="text" class="quantity-number" value="2" disabled>
-                                <button class="quantity-btn add">+</button>
+                                <form action="http://localhost:8080/Platera-Main/UpdateCartQuantity" method="POST">
+                                    <input type="hidden" name="cart_id" value="<%= cart.getCartId()%>">
+                                    <button type="submit" name="action" value="subtract" class="quantity-btn subtract">-</button>
+                                    <input type="text" name="quantity" class="quantity-number" value="<%= cart.getQuantity()%>" disabled>
+                                    <button type="submit" name="action" value="add" class="quantity-btn add">+</button>
+                                </form>
                             </div>
-                            <input type="text" class="total-price" value="₹24.00" disabled>
+                            <p class="total-price">₹<%=cart.getItemPrice() * cart.getQuantity()%></p>
                         </div>
                     </div>
+                    <%
+                            promotion = cart.getCouponDiscount();
+                        }
+                    %>
                 </div>
                 <div class="promo-code">
-                    <input type="text" placeholder="Promo Code">
-                    <button>Apply</button>
+                    <form action="http://localhost:8080/Platera-Main/ApplyCoupon" method="post">
+                        <input type="text" name="coupon_code" placeholder="Promo Code">
+                        <button type="submit">Apply</button>
+                    </form>
                 </div>
                 <div class="cart-summary">
-                    <div><span>Subtotal</span><input type="text" class="subtotal" value="₹70.00" disabled></div>
-                    <div><span>Delivery</span><input type="text" class="delivery_charges" value="₹30" disabled></div>
-                    <div><span>Total</span><input type="text" class="total" value="₹73.50" disabled></div>
+                    <%
+                        // Calculate subtotal and total
+                        double subtotal = 0;
+                        for (Cart cart : cartItems) {
+                            subtotal += cart.getItemPrice() * cart.getQuantity();
+                        }
+
+                        // Apply delivery charges conditionally
+                        double deliveryCharges = (subtotal < 199) ? 30 : 0;  // Delivery charges are 30 if subtotal is less than 199
+
+                        // Calculate total
+                        double total = subtotal + deliveryCharges-promotion;
+                    %>
+
+                    <div><span>Subtotal</span><p  class="subtotal">₹<%=subtotal%></p></div>
+                    <div><span>Delivery</span><p class="delivery_charges">+₹<%=deliveryCharges%></p></div>
+                    <div><span>Promotions</span><p class="delivery_charges">-₹<%=promotion%></p></div>
+                    <div><span>Total</span><p  class="total">₹<%=total%></p></div>
                 </div>
+
                 <button class="checkout-btn">CHECKOUT</button>
+
             </div>
+
 
             <!-- Checkout Scetion -->
 
@@ -253,44 +289,40 @@
                     Checkout
                     <span class="close-btn" id="closeCartSectionPaynow">&times;</span>
                 </div>
-        
-                <div class="payment-options">
-                    <div class="payment-option">
-                        <input type="radio" name="payment" id="debit-credit" checked>
-                        <label for="debit-credit">
-                            <img src="https://img.icons8.com/color/48/visa.png" alt="Visa"> Debit/Credit card
-                        </label>
+                <form action="Checkout">
+                    <div class="payment-options">
+                        <div class="payment-option">
+                            <input type="radio" name="payment" id="debit-credit" checked>
+                            <label for="debit-credit">
+                                <img src="https://img.icons8.com/color/48/visa.png" alt="Visa"> Debit/Credit card
+                            </label>
+                        </div>
+
+                        <div class="payment-option">
+                            <input type="radio" name="payment" id="net-banking" value="Net Banking">
+                            <label for="net-banking">
+                                <img src="https://img.icons8.com/color/48/bank.png" alt="Bank"> Net banking
+                            </label>
+                        </div>
+
+                        <div class="payment-option">
+                            <input type="radio" name="payment" id="cash-on-delivery">
+                            <label for="cash-on-delivery">
+                                <img src="https://img.icons8.com/color/48/cash.png" alt="Cash on Delivery"> Cash on Delivery
+                            </label>
+                        </div>                    
+
                     </div>
-        
-                    <div class="payment-option">
-                        <input type="radio" name="payment" id="net-banking">
-                        <label for="net-banking">
-                            <img src="https://img.icons8.com/color/48/bank.png" alt="Bank"> Net banking
-                        </label>
+
+                    <div class="cart-summary">
+                        <div><span>Subtotal</span><p  class="subtotal">₹<%=subtotal%></p></div>
+                        <div><span>Delivery</span><p class="delivery_charges">+₹<%=deliveryCharges%></p></div>
+                        <div><span>Promotions</span><p class="delivery_charges">-₹<%=promotion%></p></div>
+                        <div><span>Total</span><p  class="total">₹<%=total%></p></div>
                     </div>
-        
-                    <div class="payment-option">
-                        <input type="radio" name="payment" id="cash-on-delivery">
-                        <label for="cash-on-delivery">
-                            <img src="https://img.icons8.com/color/48/cash.png" alt="Cash on Delivery"> Cash on Delivery
-                        </label>
-                    </div>                    
-        
-                    <div class="payment-option">
-                        <input type="radio" name="payment" id="google-pay">
-                        <label for="google-pay">
-                            <img src="https://img.icons8.com/color/48/google-pay.png" alt="Google Pay"> Google pay
-                        </label>
-                    </div>
-                </div>
-        
-                <div class="cart-summary">
-                    <div><span>Subtotal</span><input type="text" class="subtotal" value="₹70.00" disabled></div>
-                    <div><span>Delivery</span><input type="text" class="delivery_charges" value="₹30" disabled></div>
-                    <div><span>Total</span><input type="text" class="total" value="₹73.50" disabled></div>
-                </div>
-        
-                <button class="pay-btn">Pay Now</button>
+
+                    <button class="pay-btn">Pay Now</button>
+                </form>
             </div>
 
         </section>
@@ -407,20 +439,20 @@
                         if (restaurants != null && !restaurants.isEmpty()) {
                             for (Restaurant restaurant : restaurants) {
                     %>
-                    <a href="http://localhost:8080/Platera-Main/src/pages/RestaurantDashboardInUser/restaurantDashboard.jsp?restaurantId=<%= restaurant.getRestaurantId() %>" class="restaurant-card-link">
-                    <div class="restaurant-card">
-                        <img
-                            src="<%= request.getContextPath()%>/<%= restaurant.getImage()%>"
-                            alt="<%= restaurant.getName()%>"
-                            class="restaurant-image"
-                            />
-                        <div class="restaurant-info">
-                            <h3><%= restaurant.getName()%></h3>
-                            <p>⭐<%=restaurant.getRating()%> | ₹<%= restaurant.getMinPrice()%>- ₹<%= restaurant.getMaxPrice()%></p> 
-                            <p><%=restaurant.getCategory1()%>, <%=restaurant.getCategory2()%>, <%=restaurant.getCategory3()%></p> 
-                            <p class="location"><%= restaurant.getLocation()%></p>                        
+                    <a href="http://localhost:8080/Platera-Main/src/pages/RestaurantDashboardInUser/restaurantDashboard.jsp?restaurantId=<%= restaurant.getRestaurantId()%>" class="restaurant-card-link">
+                        <div class="restaurant-card">
+                            <img
+                                src="<%= request.getContextPath()%>/<%= restaurant.getImage()%>"
+                                alt="<%= restaurant.getName()%>"
+                                class="restaurant-image"
+                                />
+                            <div class="restaurant-info">
+                                <h3><%= restaurant.getName()%></h3>
+                                <p>⭐<%=restaurant.getRating()%> | ₹<%= restaurant.getMinPrice()%>- ₹<%= restaurant.getMaxPrice()%></p> 
+                                <p><%=restaurant.getCategory1()%>, <%=restaurant.getCategory2()%>, <%=restaurant.getCategory3()%></p> 
+                                <p class="location"><%= restaurant.getLocation()%></p>                        
+                            </div>
                         </div>
-                    </div>
                     </a>
                     <%
                         }
@@ -433,7 +465,7 @@
                     <%-- Dynamic Content Ends --%>
                 </div>
 
-               
+
 
                 <button class="slide-btn next-btn" onclick="moveSlider(1)">
                     &#10095;
@@ -524,7 +556,29 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"
         ></script>
+        <script>
+                    if (window.location.hash === '#cartSection') {
+                        var cartSection = document.querySelector('.cart-section');
 
+                        // Disable transition temporarily for instant effect
+                        cartSection.style.transition = 'none'; // Disable transition
+                        cartSection.style.position = 'absolute';
+
+                        // Set the cart section's position instantly to make it appear
+                        cartSection.style.right = '0%';
+
+                        // Set visibility and opacity for smooth future transitions
+                        cartSection.style.visibility = 'visible';
+                        cartSection.style.opacity = '1';
+
+                        // Re-enable the transition after a short delay to ensure smooth animation for future interactions
+                        setTimeout(function () {
+                            cartSection.style.transition = 'right 0.3s ease'; // Re-enable smooth transition
+                        }, 10); // Short delay to re-enable transition without noticeable flicker
+                    }
+                    };
+        </script>
         <script src="script.js"></script>
+
     </body>
 </html>

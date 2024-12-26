@@ -470,14 +470,14 @@
     text-align: center;
 }
 
-.promo-code {
+/*.promo-code {
     display: flex;
     align-items: center;
     margin: 15px 0;
     padding: 0 20px;
 }
 
-.promo-code input {
+.promo-code form input {
     flex: 1;
     padding: 10px;
     border: 1px solid #ddd;
@@ -485,7 +485,7 @@
     font-size: 14px;
 }
 
-.promo-code button {
+.promo-code form button {
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -494,6 +494,61 @@
     margin-left: 10px;
     cursor: pointer;
     font-size: 14px;
+}*/
+.promo-code {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    padding: 0 20px;
+    background-color: #f9f9f9; /* Subtle background */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow */
+}
+
+.promo-code form {
+    display: flex;
+    width: 100%;
+    gap: 10px; /* Gap between input and button */
+}
+
+.promo-code form input {
+    flex: 1;
+    padding: 12px 15px; /* Improved padding for better spacing */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    color: #333; /* Ensure the text color is visible */
+    background-color: #fff; /* Ensure input field background is white */
+    transition: border-color 0.3s ease;
+}
+
+.promo-code form input::placeholder {
+    color: #bbb; /* Lighter color for the placeholder */
+}
+
+.promo-code form input:focus {
+    border-color: #4CAF50; /* Focus effect on input */
+}
+
+.promo-code form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    white-space: nowrap; /* Prevent button text from wrapping */
+}
+
+.promo-code form button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.promo-code form button:focus {
+    outline: none;
 }
 
 .cart-summary {
@@ -547,7 +602,7 @@
     padding: 20px;
   }
   
-  .payment-option {
+.payment-option {
     display: flex;
     align-items: center;
     padding: 10px;
@@ -556,23 +611,42 @@
     margin-bottom: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
-  }
+    gap: 10px; /* Adds space between the radio button and the rest */
+}
+
+.payment-option input[type="radio"] {
+    margin-right: 20px; /* Removes default margin */
+    width: 15px; /* Adjust size if needed */
+    height: 15px; /* Adjust size if needed */
+}
+
+.payment-option label {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Adds space between the image and text */
+}
+
+.payment-option img {
+    width: 40px; /* Adjust size as needed */
+    height: auto;
+}
+
   
   .payment-option:hover {
     border-color: #4caf50;
     background: #f1fdf4;
   }
   
-  .payment-option input {
+/*  .payment-option input {
     margin-right: 10px;
-  }
+  }*/
   
-  .payment-option label {
+/*  .payment-option label {
     display: flex;
     align-items: center;
     font-size: 16px;
     color: #333;
-  }
+  }*/
   
   .payment-option img {
     width: 24px;
