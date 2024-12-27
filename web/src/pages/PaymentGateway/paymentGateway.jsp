@@ -30,7 +30,7 @@
         <p>All <span>Platera</span> Payments are asured by <a href="">Salford <span>payments bank</span><sup>TM</sup></a></p>
       </header>
       <h1>Checkout</h1>
-      <p class="price"><span>Your Total is</span>  â¹99.00</p>  
+      <p class="price"><span>Your Total is</span> ₹99.00</p>
       <div class="items">
         <div class="item">
           <span>Item 1</span>
@@ -83,15 +83,15 @@
         <div id="cardDetails" class="payment-details">
           <div class="form-group">
             <label for="cardNumber">Card Information</label>
-            <input type="text" id="cardNumber" placeholder="1234 1234 1234 1234" maxlength="16" required>
+            <input name="cardNumber" type="text" id="cardNumber" placeholder="1234 1234 1234 1234" maxlength="16" required>
           </div>
           <div class="form-row">
-            <input type="text" placeholder="MM/YY" maxlength="5" required>
-            <input type="text" placeholder="CVV" maxlength="3" required>
+            <input name="cardExpiry" type="text" placeholder="MM/YY" maxlength="5" required>
+            <input name="cardCvv" type="text" placeholder="CVV" maxlength="3" required>
           </div>
           <div class="form-group">
             <label for="cardName">Name on card</label>
-            <input type="text" id="cardName" placeholder="John Doe" required>
+            <input name="cardName" type="text" id="cardName" placeholder="John Doe" required>
           </div>
         </div>
 
@@ -99,19 +99,19 @@
         <div id="codDetails" class="payment-details" style="display: none;">
           <div class="form-group">
             <label for="codName">Full Name</label>
-            <input type="text" id="codName" placeholder="John Doe" required>
+            <input name="codName" type="text" id="codName" placeholder="John Doe" required>
           </div>
           <div class="form-group address">
             <label for="codAddress">Saved Address</label>
-            <textarea id="codAddress" placeholder="Enter your address" required></textarea>
+            <textarea name="savedAddress" id="codAddress" placeholder="Enter your address" required disabled>1st bye lane, nimta, kolkata-49</textarea>
           </div>
           <div class="form-group address">
-            <label for="codAddress">Address</label>
-            <textarea id="codAddress" placeholder="Enter your address" required></textarea>
+            <label for="codAddress">Enter a new Address</label>
+            <textarea name="codAddress" id="codAddress" placeholder="Enter your address" required></textarea>
           </div>
           <div class="form-group">
             <label for="codPhone">Phone Number</label>
-            <input type="text" id="codPhone" placeholder="(123) 456-7890" maxlength="14" required>
+            <input name="codPhone" type="text" id="codPhone" placeholder="(123) 456-7890" maxlength="14" required>
           </div>
         </div>
 
@@ -128,15 +128,15 @@
           </div>
           <div class="form-group">
             <label for="accountHolderName">Account Holder's Name</label>
-            <input type="text" id="accountHolderName" placeholder="John Doe" required>
+            <input name="accountHolderName" type="text" id="accountHolderName" placeholder="John Doe" required>
           </div>
           <div class="form-group">
             <label for="accountNumber">Account Number</label>
-            <input type="text" id="accountNumber" placeholder="123456789012" maxlength="12" required>
+            <input name="accountNumber" type="text" id="accountNumber" placeholder="123456789012" maxlength="12" required>
           </div>
           <div class="form-group">
             <label for="ifscCode">IFSC Code</label>
-            <input type="text" id="ifscCode" placeholder="SBIN0001234" maxlength="11" required>
+            <input name="ifscCode" type="text" id="ifscCode" placeholder="SBIN0001234" maxlength="11" required>
           </div>
         </div>
 
@@ -195,7 +195,7 @@
                     <li><a href="../FooterLinkPages/Help/Help.html">Help</a></li>
                 </ul>
             </div>
-            <div class="col">
+            <div class="col promotion">
                 <h3>
                     Newsletter
                     <div class="underline"><span></span></div>
@@ -203,6 +203,7 @@
                 <form>
                     <img id="mail" src="./Public/images/mail.png" alt="" />
                     <input
+                        id="newsletter-email"
                         type="email"
                         name=""
                         id=""
