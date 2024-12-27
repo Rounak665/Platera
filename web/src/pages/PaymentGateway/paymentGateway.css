@@ -296,6 +296,9 @@ footer .col img{
   margin-bottom: 40px;
   position: relative;
 }
+#newsletter-email::placeholder{
+    color: #f4f4f4
+}
 .email_id{
   width: fit-content;
   border-bottom: 1px solid rgb(255, 255, 255);
