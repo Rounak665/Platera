@@ -1,3 +1,4 @@
+<%@page import="Utilities.OrderDetailsDAO"%>
 <%@page import="Utilities.OrderItem"%>
 <%@page import="Utilities.OrderDetails"%>
 <%@page import="java.util.List"%>
@@ -38,7 +39,7 @@
             String image = "DatabaseImages/Delivery_Executives/Arthur_Morgan.jpeg";
             String imagepath = request.getContextPath() + '/' + image;
         %>
-        
+
         <%
             Connection conn = null;
             PreparedStatement selectLocationDetailsPstmt = null;
@@ -197,94 +198,29 @@
 
                 <main>
 
+
+                    <%    // Fetch the orders using OrderDetailsDAO
+                        OrderDetailsDAO orderDetailsDAO = new OrderDetailsDAO();
+                        List<OrderDetails> orderDetailsList = null;
+
+                        orderDetailsList = orderDetailsDAO.getOrdersByLocation(location_id);
+
+
+                    %>
+
                     <div class="order-list" id="order-list" style="display: block;">
-                        <%        // Assuming location_id has already been set
-                            PreparedStatement ordersPstmt = null;
-                            ResultSet ordersRs = null;
-
-                            // Query to fetch all orders with the same location
-                            conn = Database.getConnection();
-                            String ordersSql = "SELECT o.order_id, o.customer_id, u.name AS customer_name, "
-                                    + "c.image AS customer_image, o.order_date, o.total_amount, "
-                                    + "o.address AS customer_address, oi.item_id, m.item_name, oi.quantity, "
-                                    + "o.restaurant_id, r.restaurant_name, r.address AS restaurant_address, r.image as restaurant_image, "
-                                    + "p.payment_method, p.payment_status "
-                                    + "FROM orders o "
-                                    + "LEFT JOIN payments p ON o.order_id = p.order_id "
-                                    + "JOIN customers c ON o.customer_id = c.customer_id "
-                                    + "JOIN users u ON c.user_id = u.user_id "
-                                    + "JOIN order_items oi ON o.order_id = oi.order_id "
-                                    + "JOIN menu_items m ON oi.item_id = m.item_id "
-                                    + "JOIN restaurants r ON r.restaurant_id = o.restaurant_id "
-                                    + "WHERE o.location = ? AND o.order_status IN ('Pending', 'Ready')";
-
-                            ordersPstmt = conn.prepareStatement(ordersSql);
-                            ordersPstmt.setInt(1, location_id); // location_id already available
-
-                            List<OrderDetails> orderDetailsList = new ArrayList<OrderDetails>();  // List to store OrderDetails objects
-                            int currentOrderId = -1;
-                            OrderDetails currentOrder = null;
-
-                            try {
-                                ordersRs = ordersPstmt.executeQuery();
-
-                                // Check if orders exist
-                                boolean hasOrders = false;
-
-                                while (ordersRs.next()) {
-                                    hasOrders = true;
-
-                                    int orderId = ordersRs.getInt("order_id");
-
-                                    // When a new order is encountered, save the previous order's details
-                                    if (orderId != currentOrderId && currentOrderId != -1) {
-                                        orderDetailsList.add(currentOrder);  // Add the completed order to the list
-                                    }
-
-                                    // Update order-level details for the current order
-                                    currentOrderId = orderId;
-
-                                    if (currentOrder == null || currentOrder.orderId != orderId) {
-                                        // Create a new OrderDetails object for a new order
-                                        currentOrder = new OrderDetails();
-                                                currentOrder.orderId=orderId;
-                                                currentOrder.restaurantId=ordersRs.getInt("restaurant_id");
-                                                currentOrder.restaurantName=ordersRs.getString("restaurant_name");
-                                                currentOrder.restaurantImage=ordersRs.getString("restaurant_image");
-                                                currentOrder.restaurantAddress=ordersRs.getString("restaurant_address");
-                                                currentOrder.customerId=ordersRs.getInt("customer_id");
-                                                currentOrder.customerName=ordersRs.getString("customer_name");
-                                                currentOrder.customerImage=ordersRs.getString("customer_image");;
-                                                currentOrder.customerAddress=ordersRs.getString("customer_address");
-                                                currentOrder.orderDate=ordersRs.getString("order_date");
-                                                currentOrder.totalAmount=ordersRs.getDouble("total_amount");
-                                                currentOrder.paymentMethod=ordersRs.getString("payment_method");
-                                                currentOrder.paymentStatus=ordersRs.getString("payment_status");
-                                    }
-
-                                    // Add item details to the current order with quantity
-                                    int itemId = ordersRs.getInt("item_id");
-                                    String itemName = ordersRs.getString("item_name");
-                                    int quantity = ordersRs.getInt("quantity");
-                                    currentOrder.addItem(itemId, itemName, quantity);
-                                }
-
-                                // Add the last order's details to the list
-                                if (currentOrder != null) {
-                                    orderDetailsList.add(currentOrder);
-                                }
-
-                                // Now you can display the orders or process the orderDetailsList
+                        <%        if (orderDetailsList != null && !orderDetailsList.isEmpty()) {
+                                // Loop through the list of orders
                                 for (OrderDetails order : orderDetailsList) {
                         %>
                         <!-- Order List Item -->
                         <div class="order-item">
-                            <p>Order #<%= order.orderId%></p>
-                            <button class="view-details-btn" onclick="showOrderDetails(<%= order.orderId%>)">View Details</button>
+                            <p>Order #<%= order.getOrderId()%></p>
+                            <button class="view-details-btn" onclick="showOrderDetails(<%= order.getOrderId()%>)">View Details</button>
                         </div>
 
                         <!-- Order Details Popup Section (Hidden by default) -->
-                        <section class="delivery-order" id="order-<%= order.orderId%>"  >
+                        <section class="delivery-order" id="order-<%= order.getOrderId()%>">
                             <div class="order-header">
                                 <h1>Order Details</h1>
                             </div>
@@ -292,34 +228,30 @@
                             <div class="order-container">
                                 <div class="order-info">
                                     <div class="order-number">
-                                        <h3>Order #<%= order.orderId%></h3>
-                                        <!--<p>Order</p>-->
+                                        <h3>Order #<%= order.getOrderId()%></h3>
                                     </div>
                                     <div class="customer-info">
-                                        <img src="<%= request.getContextPath() + "/" + order.customerImage%>" alt="Customer">
+                                        <img src="<%= request.getContextPath() + "/" + order.getCustomerImage()%>" alt="Customer">
                                         <div>
-                                            <h4><%= order.customerName%></h4>
+                                            <h4><%= order.getCustomerName()%></h4>
                                         </div>
                                     </div>
                                 </div><hr>
 
                                 <div class="order-detail">
-                                    <!--<div class="addresses">-->
                                     <div class="delivery-address">
-                                        <p><span class="icon ico">🍴</span><strong style="font-size: 15px;"><%= order.restaurantAddress%></strong></p>
+                                        <p><span class="icon ico">🍴</span><strong style="font-size: 15px;"><%= order.getRestaurantAddress()%></strong></p>
                                     </div>
                                     <div class="restaurant-address">
-                                        <p><span class="icon ico">📍</span><strong style="font-size: 15px;"><%= order.customerAddress%></strong></p>
+                                        <p><span class="icon ico">📍</span><strong style="font-size: 15px;"><%= order.getCustomerAddress()%></strong></p>
                                     </div>
-                                    <!--</div>-->
-                                    <!--<div class="detail-grid">-->
                                     <div class="estimation-info">
                                         <p>Estimation Time</p>
                                         <p><strong>30 Min</strong></p>
                                     </div>
                                     <div class="payment-info">
                                         <p>Payment Method</p>
-                                        <p><strong><%=order.paymentMethod%></strong></p>
+                                        <p><strong><%= order.getPaymentMethod()%></strong></p>
                                     </div>
                                     <div class="distance-info">
                                         <p>Distance</p>
@@ -327,80 +259,55 @@
                                     </div>
                                     <div class="payment-status">
                                         <p>Payment Status</p>
-                                        <p><strong><%=order.paymentStatus%></strong></p>
+                                        <p><strong><%= order.getPaymentStatus()%></strong></p>
                                     </div>
-                                    <!--</div>-->
                                 </div><hr>
 
                                 <div class="order-items">
                                     <%
                                         // Display all items for the order using the items list in OrderDetails
-                                        for (OrderItem item : order.getItems()) {
-                                            String itemName = item.getItemName();
-                                            int quantity = item.getQuantity();
+                                        List<OrderItem> items = order.getItems(); // Assuming getItems() returns a list of OrderItem
+                                        if (items != null && !items.isEmpty()) {
+                                            for (OrderItem item : items) {
+                                                String itemName = item.getItemName();
+                                                int quantity = item.getQuantity();
                                     %>
                                     <div class="order-item">
-                                        <p><%= itemName%> (x<%= quantity%>)</p> <!-- Display item name and quantity -->
+                                        <p><img src="<%=request.getContextPath()%>/<%=item.getImage()%>" alt="<%= item.getItemName()%>"><%= itemName%> (x<%= quantity%>)</p> <!-- Display item name and quantity -->
                                     </div>
                                     <%
+                                            }
                                         }
                                     %>
                                 </div>
 
                                 <div class="order-total">
                                     <p>Total</p>
-                                    <p class="total-amount">₹<%= order.totalAmount%></p>
+                                    <p class="total-amount">₹<%= order.getTotalAmount()%></p>
                                 </div>
 
                                 <div class="order-actions">
                                     <form action="http://localhost:8080/Platera-Main/AcceptOrder" method="POST">
-                                        <input type="hidden" name="orderId" value="<%=order.orderId%>">
-                                        <input type="hidden" name="deliveryExecutiveId" value="<%=delivery_executive_id%>">
-                                        <input type="hidden" name="deliveryAddress" value="<%=order.customerAddress%>">
+                                        <input type="hidden" name="orderId" value="<%= order.getOrderId()%>">
+                                        <input type="hidden" name="deliveryExecutiveId" value="<%= delivery_executive_id%>">
+                                        <input type="hidden" name="deliveryAddress" value="<%= order.getCustomerAddress()%>">
                                         <button type="submit" class="accept-order">Accept Order</button>
                                     </form>                                   
                                 </div>
-
                             </div>
                         </section>
                         <%
                             }
-
-                            // If no orders were found for the given location
-                            if (!hasOrders) {
+                        } else {
                         %>
                         <p>No pending orders available for this location.</p>
                         <%
-                                }
-                            } catch (SQLException e) {
-                                out.println("Error fetching orders: " + e.getMessage());
-                                e.printStackTrace();
-                            } finally {
-                                // Close resources
-                                if (ordersRs != null) {
-                                    try {
-                                        ordersRs.close();
-                                    } catch (SQLException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                if (ordersPstmt != null) {
-                                    try {
-                                        ordersPstmt.close();
-                                    } catch (SQLException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                                if (conn != null) {
-                                    try {
-                                        conn.close();
-                                    } catch (SQLException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
                             }
                         %>
                     </div>
+
+
+
                     <div id="overlay" class="overlay"></div>
             </div>
         </main>
@@ -411,39 +318,39 @@
 
 <!-- Scripts  -->
 <script>
- // JavaScript function to display order details on button click
-function showOrderDetails(orderId) {
-    const orderDetails = document.getElementById("order-" + orderId);
-    const overlay = document.getElementById("overlay");
+    // JavaScript function to display order details on button click
+    function showOrderDetails(orderId) {
+        const orderDetails = document.getElementById("order-" + orderId);
+        const overlay = document.getElementById("overlay");
 
-    // Check if the orderDetails div is already open
-    if (orderDetails.style.right === "0px") {
-        orderDetails.style.right = "-100%";  // Slide out
-        overlay.style.display = "block";  // Hide overlay
-    } else {
-        // Hide all other open orders first
-        const openOrder = document.querySelector(".delivery-order.open");
-        if (openOrder) {
-            openOrder.style.right = "-100%";
-            openOrder.classList.remove("open");
+        // Check if the orderDetails div is already open
+        if (orderDetails.style.right === "0px") {
+            orderDetails.style.right = "-100%";  // Slide out
+            overlay.style.display = "block";  // Hide overlay
+        } else {
+            // Hide all other open orders first
+            const openOrder = document.querySelector(".delivery-order.open");
+            if (openOrder) {
+                openOrder.style.right = "-100%";
+                openOrder.classList.remove("open");
+            }
+
+            // Open the selected order's details
+            orderDetails.style.right = "0";  // Slide in
+            orderDetails.classList.add("open");
+            overlay.style.display = "block";  // Show overlay
         }
-
-        // Open the selected order's details
-        orderDetails.style.right = "0";  // Slide in
-        orderDetails.classList.add("open");
-        overlay.style.display = "block";  // Show overlay
     }
-}
 
 // Close the details section if the overlay is clicked
-document.getElementById("overlay").onclick = function () {
-    const openOrder = document.querySelector(".delivery-order.open");
-    if (openOrder) {
-        openOrder.style.right = "-100%";  // Slide out
-        openOrder.classList.remove("open");
-        document.getElementById("overlay").style.display = "none";  // Hide overlay
+    document.getElementById("overlay").onclick = function () {
+        const openOrder = document.querySelector(".delivery-order.open");
+        if (openOrder) {
+            openOrder.style.right = "-100%";  // Slide out
+            openOrder.classList.remove("open");
+            document.getElementById("overlay").style.display = "none";  // Hide overlay
+        }
     }
-}
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
