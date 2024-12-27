@@ -68,3 +68,37 @@ document.addEventListener("DOMContentLoaded", function () {
         removeActiveClass();
     });
 });
+
+
+
+// -------------------Delivery dashboard codes-------------------
+
+document.querySelector("#menu").addEventListener("click", function () {
+    document.querySelector(".sidebar").classList.add("activate");
+});
+
+document.querySelector(".sidebar .close-btn").addEventListener("click", function () {
+    document.querySelector(".sidebar").classList.remove("activate");
+});
+
+function toggleDetailsGeneral(row) {
+    // Toggle the background color
+    row.classList.toggle('active');
+    // Find the next row (details row)
+    const nextRow = row.nextElementSibling;
+    nextRow.classList.toggle('show');
+    // Toggle the dropdown icon
+    const icon = row.querySelector('.dropdown');
+    icon.classList.toggle('rotate');
+}
+
+function toggleCurrentOrderDetails(row) {
+    // Toggle the background color
+    row.classList.toggle('active');
+    // Find the next sibling (details row)
+    const nextRow = row.closest('.current-order').querySelector('.details-row');
+    nextRow.classList.toggle('show');
+    // Toggle the dropdown icon
+    const icon = row.querySelector('.dropdown-current');
+    icon.classList.toggle('rotate');
+}

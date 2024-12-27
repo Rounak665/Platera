@@ -354,7 +354,7 @@ header {
 main {
     margin-top: 60px;
     background: #f1f5f9;
-    height: calc(100vh - 60px);
+    /* height: calc(100vh - 60px); */
     padding: 1rem 3rem;
 }
 
@@ -839,94 +839,134 @@ strong{
     align-items: stretch; /* Ensures both columns have the same height */
     justify-content: center;
     margin-top: 30px;
-    height: 77vh;
     width: 100%;
+    flex-direction: column;
 }
 
-/* Modal Styles */
+/* General Modal Styling */
 .modal-content {
-    border-radius: 10px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    overflow: hidden;
 }
 
+/* Header */
 .modal-header {
-    background: #333;
+    background: #4e73df;
     color: #fff;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    padding: 1rem 1.5rem;
+    border-bottom: 3px solid #375a7f;
 }
 
 .modal-title {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
+    color: #fefefe;
 }
 
-.modal-footer .btn-primary {
-    background-color: #007bff;
-    border: none;
-    color: #fff;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
+/* Body */
+.modal-body {
+    padding: 2rem;
 }
 
-.modal-footer .btn-primary:hover {
-    background-color: #0056b3;
+.row .col-md-6 {
+    margin-bottom: 1.5rem;
 }
 
 /* Input Fields */
-input.form-control {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 8px 10px;
+input.form-control, select.form-control, textarea.form-control {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px 15px;
     font-size: 14px;
+    transition: border-color 0.3s ease;
 }
 
+input.form-control:focus, select.form-control:focus, textarea.form-control:focus {
+    border-color: #4e73df;
+    box-shadow: 0 0 5px rgba(78, 115, 223, 0.5);
+}
+
+/* Label */
 label.form-label {
     font-weight: bold;
     font-size: 14px;
-    margin-bottom: 5px;
+    color: #333;
 }
 
+/* File Input */
+.file-input {
+    padding: 8px 12px;
+}
 
-/* the below codes i made for the popup to be centred vertically and the overflow should be aut but if its not working remove the below codes */
-/* Make the modal vertically centered */
-.modal-dialog-centered {
+/* Image Preview */
+.preview-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 10px;
 }
 
-/* Set a maximum height for the modal and make it scrollable */
-.custom-modal-body {
-    max-height: 70vh !important; /* 70% of the viewport height */
-    overflow-y: auto !important;  /* Enable vertical scroll if content exceeds max height */
-    padding: 1rem;
+.preview-container img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
 }
 
-/* Adjust modal width for different screen sizes */
+/* Footer */
+.modal-footer {
+    background: #f1f1f1;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-footer .btn-primary {
+    background-color: #4e73df;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.modal-footer .btn-primary:hover {
+    background-color: #375a7f;
+}
+
+.modal-footer .btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.modal-footer .btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
     .modal-dialog {
-        width: 95%; /* Reduce width for smaller screens */
+        width: 100%;
         margin: 0 auto;
     }
-}
 
-@media (max-height: 500px) {
-    .modal-dialog {
-        max-height: 90vh; /* Ensure the modal fits on very short screens */
-        overflow-y: auto; /* Add scrolling for the modal */
-    }
-}
-
-/* Optional: Reduce modal header/footer padding for smaller screens */
-@media (max-width: 576px) {
-    .modal-header, .modal-footer {
-        padding: 0.5rem;
-    }
     .modal-body {
-        padding: 0.5rem;
+        padding: 1rem;
+    }
+
+    .modal-footer {
+        padding: 0.75rem 1rem;
     }
 }
+
 
 
 /* Responsive Design */
@@ -958,205 +998,205 @@ label.form-label {
 }
 
 /* Profile container */
+/* Profile Container */
 .profile {
     background-color: #f8f9fa;
     padding: 20px;
-    max-width: 550px;
-    height: 100%;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: column;
+    flex-direction: row; /* Horizontal layout */
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+/* Personal Details */
+.personal-details {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
     align-items: center;
-    justify-content: center;
-    gap: 2rem;
+    flex: 2; /* Take more space in the layout */
 }
 
-.personal-details{
-    width: 100%;
-    display: flex;
-
-}
 .personal-image {
-    width: 300px;
-    height: 150px;
-    margin-right: 20px;
-    overflow: hidden; 
-    border-radius: 8px; 
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
+
 .personal-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover; 
+    object-fit: cover;
 }
 
-.personal-description{
+.personal-description {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    width: 100%;
+    justify-content: space-between;
+}
+
+.personal-description h5 {
+    color: #333;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.personal-description h6 {
+    color: #777;
+    font-size: 1rem;
+    margin: 5px 0;
 }
 
 .personal-description p {
-    color: var(--text-grey);
+    color: #555;
     font-size: 0.9rem;
+    margin: 5px 0;
+}
+
+.personal-description button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.personal-description button:hover {
+    background: #0056b3;
+}
+
+/* Order Details */
+.order-details {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex: 2; /* Take space equally */
+    justify-content: space-evenly;
+}
+
+.order-card {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px 15px;
+    text-align: center;
+    min-width: 100px; /* Compact design */
+    flex: 1;
+}
+
+.order-card span {
+    font-size: 2rem;
+    display: block;
     margin-bottom: 5px;
 }
 
-.personal-description h5{
-    color: var(--color-dark);
-    font-size: 1.7rem;
-}
-.personal-description h6{
-    color: var(--text-grey);
-    font-size: 1.1rem;
-    margin-top: 10px;
-}
-.personal-description h6 span{
-    margin-right: 10px;
+.order-card h5 {
+    font-size: 1.4rem;
+    color: #333;
+    margin: 5px 0;
 }
 
-.order-details{
-    display: flex;
-    width: 100%;
-    gap: 1rem;
-}
-.order-cards{
-    background: transparent;
-    border-radius: 7px;
-    border: 1px solid #7D7D7D;
-    padding: 1rem 1rem;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 120px;
+.order-card p {
+    font-size: 0.8rem;
+    color: #777;
+    margin: 0;
 }
 
-.order-cards span {
-    font-size: 1.5rem;
-    color: #ff0000;
-}
-.order-cards .icon {
-    font-size: 2rem; /* Icon size */
-    margin-right: 0.2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.order-cards p {
-    color: var(--text-grey);
-    font-size: 1rem;
-    margin-bottom: 0;
+/* Earnings Section */
+.earning {
+    flex: 3; /* Take more space for earning */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background: #ffffff;
 }
 
-.order-cards h5{
-    color: var(--color-dark);
-    font-size: 1.7rem;
-    margin-top: 10px;
-    margin-bottom: 0;
-}
-
-
-.earning{
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    border-radius: 7px;
-    border: 1px solid #7D7D7D;
-    padding: 10px;
-}
 .earning-details {
     display: flex;
-    width: 100%;
-    justify-content: space-between; /* Create space between the left and right sides */
-    align-items: center; /* Align items vertically in the center */
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .details-left {
     display: flex;
     align-items: center;
-}
-
-.earning-details p {
-    color: var(--text-grey);
-    font-size: 0.8rem;
-    margin-bottom: 0;
-}
-
-.earning-details h5 {
-    color: black;
-    font-size: 1.7rem;
-    margin-bottom: 0;
-}
-
-.earning-details span {
-    font-size: 2.3rem;
-    color: #fff;
-    background-color: #00c206;
-    width: 50px;
-    margin: 10px;
-    border-radius: 8px;
-}
-
-.details-right {
-    display: flex;
     gap: 10px;
-    justify-content: flex-end;
-    align-items: center;
 }
 
-.end-delivery {
-    background-color: #e74c3c;
+.details-left span {
+    font-size: 2rem;
     color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: none;
-}
-
-.start-delivery {
-    background-color: #19f312;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-
-
-.distance-details{
+    background: #00c206;
+    width: 50px;
+    height: 50px;
     display: flex;
-    width: 100%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.details-left p {
+    font-size: 0.8rem;
+    color: #777;
+    margin: 0;
+}
+
+.details-left h5 {
+    font-size: 1.4rem;
+    margin: 0;
+    color: #333;
+}
+
+.details-right button {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.details-right .start-delivery {
+    background: #19f312;
+    color: white;
+}
+
+.details-right .end-delivery {
+    background: #e74c3c;
+    color: white;
+}
+
+.distance-details {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    text-align: center;
     flex-direction: column;
 }
 
-.distance-head{
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
-}
-.distance-values{
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
+.distance-details span {
+    font-size: 0.8rem;
+    color: #777;
+    margin: 0 20px;
 }
 
-.distance-head span {
-    color: var(--text-grey);
-    font-size: 0.8rem;
-    margin-bottom: 0;
-}
 .distance-values span {
     font-size: 1rem;
     font-weight: 600;
-    margin-bottom: 0;
+    color: #333;
+    margin: 0 30px;
 }
 
 /* Dash Performance */
@@ -1164,8 +1204,8 @@ label.form-label {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 700px;
 }
+
 
 /* Current Order Styling */
 .current-order {
@@ -1203,6 +1243,73 @@ label.form-label {
 .status {
     color: #27ae60;
 }
+
+.current-order .order-row {
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.current-order .order-row:hover {
+    background: #fcf7ee;
+}
+
+.current-order .order-row.active {
+    background: #ffb300; /* Yellow Background */
+    color: #fff;
+}
+
+.current-order .dropdown {
+    margin-left: auto;
+    transition: transform 0.3s ease;
+}
+
+.current-order .dropdown.rotate {
+    transform: rotate(180deg);
+}
+
+/* Hidden Details Row */
+.current-order .details-row {
+    display: none;
+    background: #fffaf0;
+    padding: 20px;
+    border-top: 1px solid #eee;
+}
+
+.current-order .details-row.show {
+    display: block;
+}
+
+.current-order .details-container {
+    display: flex;
+    gap: 20px;
+}
+
+.current-order .order-menu, 
+.current-order .restaurant-info, 
+.current-order .order-summary {
+    flex: 1;
+}
+
+.current-order .order-menu h4,
+.current-order .restaurant-info h4,
+.current-order .order-summary h4 {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.current-order .order-menu img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.current-order .total-amount {
+    font-size: 20px;
+    font-weight: bold;
+    color: #00ff11;
+}
+
 
 /* Statistics Section */
 .statistics {
@@ -1247,6 +1354,156 @@ label.form-label {
 .upcoming-order .icon {
     color: #3498db;
     font-size: 18px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+thead{
+  background: #f4f4f4;
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+td .dropdown{
+  background-color: #ececec;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #f0f0f0;
+  border-radius: 10px;
+}
+
+th {
+  font-weight: bold;
+  color: #333;
+}
+
+tr.order-row {
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+tr.order-row:hover{
+  background: #fcf7ee;
+}
+
+tr.order-row.active {
+  background: #ffb300; /* Yellow Background */
+  color: #fff;
+}
+
+.status {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.completed {
+  color: #6a972c;
+  background: #eff7e1;
+}
+
+.address i {
+  margin-right: 5px;
+  color: #f2c94c;
+}
+
+.dropdown {
+  transition: transform 0.3s ease;
+}
+
+.dropdown.rotate {
+  transform: rotate(180deg);
+}
+
+/* Hidden Details Row */
+tr.details-row {
+  display: none;
+  background: #fffaf0;
+}
+
+tr.details-row:hover{
+  background: #f7f3eb;
+}
+
+tr.details-row.show {
+  display: table-row;
+}
+
+.details-container {
+  display: flex;
+  /* justify-content: space-between; */
+  padding: 20px;
+  gap: 20px;
+}
+
+.order-menu{
+  padding-right: 20px;
+  border-right: 1px solid #cfcfcf;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.restaurant-info{
+  padding-right: 20px;
+  border-right: 1px solid #cfcfcf;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.order-summary{
+  padding-right: 20px;
+  border-right: 1px solid #cfcfcf;
+  display: flex;
+  gap: 30px;
+}
+
+.order-summary-details{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.order-menu h4, .restaurant-info h4, .order-summary p {
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.order-menu p, .restaurant-info p, .order-summary h4, .order-amt h4{
+  margin: 5px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.order-menu img {
+  vertical-align: middle;
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+}
+
+.total-amount {
+  font-weight: bold;
+  font-size: 20px;
+  color: #00ff11;
+  margin-top: 20px;
 }
 
 /* General Styling */

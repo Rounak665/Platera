@@ -174,29 +174,37 @@
 
                         <div class="profile">
                             <div class="personal-details">
-                                <div class="personal-image"><img src="<%=imagepath%>" alt="Your-image"></div>
+                                <div class="personal-image">
+                                    <img src="<%=imagepath%>" alt="Your-image">
+                                </div>
                                 <div class="personal-description">
                                     <h5><%=name%></h5>
-                                    <h6><span>&#9733;5.0</span><span> <%=location%> </span></h6>
+                                    <h6><span>&#9733; 5.0</span><span><%=location%></span></h6>
                                     <p>Joined June 2024</p>
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit</button>
                                 </div>
                             </div>
                             <div class="order-details">
-                                <div class="order-cards">
-                                    <span class="icon" style="color: rgb(0, 200, 0);"><ion-icon name="checkmark-done-outline"></ion-icon></span>
+                                <div class="order-card">
+                                    <span class="icon" style="color: rgb(0, 200, 0);">
+                                        <ion-icon name="checkmark-done-outline"></ion-icon>
+                                    </span>
                                     <h5>932</h5>
-                                    <p>Finish Order</p>
+                                    <p>Finished Orders</p>
                                 </div>
-                                <div class="order-cards">
-                                    <span class="icon" style="color: rgb(255, 140, 0);"><ion-icon name="checkmark-circle"></ion-icon></span>
+                                <div class="order-card">
+                                    <span class="icon" style="color: rgb(255, 140, 0);">
+                                        <ion-icon name="checkmark-circle"></ion-icon>
+                                    </span>
                                     <h5>1032</h5>
-                                    <p>Order Delivered</p>
+                                    <p>Delivered Orders</p>
                                 </div>
-                                <div class="order-cards">
-                                    <span class="icon" style="color: rgb(255, 0, 0);"><ion-icon name="close-circle"></ion-icon></span>
+                                <div class="order-card">
+                                    <span class="icon" style="color: rgb(255, 0, 0);">
+                                        <ion-icon name="close-circle"></ion-icon>
+                                    </span>
                                     <h5>103</h5>
-                                    <p>Order Canceled</p>
+                                    <p>Cancelled Orders</p>
                                 </div>
                             </div>
                             <div class="earning">
@@ -205,7 +213,7 @@
                                         <span class="icon"><ion-icon name="wallet-outline"></ion-icon></span>
                                         <div>
                                             <p>Today's Earnings</p>
-                                            <h5>â¹2,530</h5>
+                                            <h5>₹2,530</h5>
                                         </div>
                                     </div>
                                     <div class="details-right">
@@ -213,7 +221,7 @@
                                         <button class="end-delivery">Call it a Day</button>
                                     </div>
                                 </div>
-                                <hr>
+                                <hr />
                                 <div class="distance-details">
                                     <div class="distance-head">
                                         <span>Total Trip</span>
@@ -222,100 +230,23 @@
                                     </div>
                                     <div class="distance-values">
                                         <span>15</span>
-                                        <span>15Km</span>
+                                        <span>15 Km</span>
                                         <span>90 Min</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
 
                         <div class="dash-performance">
                             <!-- Current Order Section -->
                             <div class="current-order">
-                                <%
-                                    PreparedStatement selectDeliveriesSqlPstmt = null;
-                                    ResultSet selectDeliveriesSqlRs = null;
-                                    int order_id = 0;
-                                    double total_amount = 0;
-                                    String address = null;
-                                    String restaurant_name = null;
-
-                                    try {
-                                        // Get connection
-                                        conn = Database.getConnection(); // Assuming getConnection method works with Java 1.5
-
-                                        // First Query: Get location_id for the user
-                                        try {
-                                            String selectDeliveriesSql = "SELECT order_id FROM deliveries WHERE delivery_executive_id=?";
-                                            selectDeliveriesSqlPstmt = conn.prepareStatement(selectDeliveriesSql);
-                                            selectDeliveriesSqlPstmt.setInt(1, delivery_executive_id); // Set parameter before executing the query
-
-                                            selectDeliveriesSqlRs = selectDeliveriesSqlPstmt.executeQuery(); // Execute the query
-
-                                            if (selectDeliveriesSqlRs.next()) {
-                                                order_id = selectDeliveriesSqlRs.getInt("order_id"); // Retrieve the order_id
-                                            } else {
-                                                out.println("Unexpected Error: No Deliveries found for user.");
-                                                return;
-                                            }
-                                        } catch (SQLException e) {
-                                            out.println("Error executing the first query: " + e.getMessage());
-                                            e.printStackTrace();
-                                            return; // Return after logging the error
-                                        }
-                                        // Second Query: Get orders
-                                        try {
-                                            String selectOrdersSql = "SELECT o.total_amount as total_amount, o.address as address, r.restaurant_name as restaurant_name "
-                                                                     + "FROM orders o "
-                                                                     + "JOIN restaurants r ON o.restaurant_id = r.restaurant_id "
-                                                                     + "WHERE o.order_id = ? AND o.order_status = 'Accepted'";
-                                            PreparedStatement selectOrdersPstmt = conn.prepareStatement(selectOrdersSql);
-                                            selectOrdersPstmt.setInt(1, order_id); // Set parameter before executing the query
-
-                                            ResultSet selectOrdersSqlRs = selectOrdersPstmt.executeQuery(); // Execute the query
-
-                                            if (selectOrdersSqlRs.next()) {
-                                                total_amount = selectOrdersSqlRs.getDouble("total_amount");
-                                                address = selectOrdersSqlRs.getString("address");
-                                                restaurant_name = selectOrdersSqlRs.getString("restaurant_name");
-                                            } else {
-                                                out.println("Unexpected Error: No orders found.");
-                                                return;
-                                            }
-                                        } catch (SQLException e) {
-                                            out.println("Error executing the second query: " + e.getMessage());
-                                            e.printStackTrace();
-                                            return; // Return after logging the error
-                                        }
-
-                                    } catch (SQLException e) {
-                                        out.println("Error connecting to the database: " + e.getMessage());
-                                        e.printStackTrace();
-                                    } finally {
-                                        // Close resources manually to avoid resource leak
-                                        try {
-
-                                            if (selectLocationSqlRs != null) {
-                                                selectLocationSqlRs.close();
-                                            }
-
-                                            if (selectLocationPstmt != null) {
-                                                selectLocationPstmt.close();
-                                            }
-                                            if (conn != null) {
-                                                conn.close();
-                                            }
-                                        } catch (SQLException ex) {
-                                            out.println("Error closing resources: " + ex.getMessage());
-                                        }
-                                    }
-
-                                %>
                                 <h2><ion-icon name="receipt-outline"></ion-icon> Current Order</h2>
-                                <div class="order-details">
+                                <div class="order-details" onclick="toggleCurrentOrderDetails(this)">
                                     <div class="order-row">
                                         <span class="icon"><ion-icon name="document-outline"></ion-icon></span>
                                         <strong>Order #<%=order_id%></strong>
+                                        <span class="arrow"><i class="fas fa-chevron-down dropdown-current"></i></span>
                                     </div>
                                     <div class="order-row">
                                         <span class="icon"><ion-icon name="restaurant-outline"></ion-icon></span>
@@ -323,41 +254,130 @@
                                     </div>
                                     <div class="order-row">
                                         <span class="icon"><ion-icon name="pricetag-outline"></ion-icon></span>
-                                                <%=total_amount%>
+                                        <%=total_amount%>
                                     </div>
                                     <div class="order-row">
                                         <span class="icon"><ion-icon name="location-outline"></ion-icon></span>
-                                                <%=address%>
+                                        <%=address%>
                                     </div>
                                     <div class="order-row">
                                         <span class="icon"><ion-icon name="checkmark-circle-outline"></ion-icon></span>
                                         Status: <strong class="status">Accepted</strong>
                                     </div>
                                 </div>
+                                <div class="details-row">
+                                    <div class="details-container">
+                                        <div class="order-menu">
+                                            <h4>Order Menu</h4>
+                                            <p><img src="https://via.placeholder.com/50" alt="Pizza"> Pepperoni Pizza <span>+ $5.59</span></p>
+                                            <p><img src="https://via.placeholder.com/50" alt="Burger"> Cheese Burger <span>+ $5.59</span></p>
+                                        </div>
+                                        <div class="restaurant-info">
+                                            <h4>Fast Food Resto</h4>
+                                            <p><i class="fas fa-star"></i> 5.0 | 1k+ Reviews</p>
+                                            <p>Delivery Time: <strong>10 Min</strong></p>
+                                            <p>Distance: <strong>2.5 Km</strong></p>
+                                        </div>
+                                        <div class="order-summary">
+                                            <div class="order-summary-details">
+                                                <span>
+                                                    <h4>Status</h4>
+                                                    <p>Completed</p>
+                                                </span>
+                                                <span>
+                                                    <h4>Date</h4>
+                                                    <p>June 1, 2020</p>
+                                                </span>
+                                            </div>
+                                            <div class="order-summary-details">
+                                                <span>
+                                                    <h4>Bills</h4>
+                                                    <p>Order #<%=order_id%></p>
+                                                </span>
+                                                <span>
+                                                    <h4>Date Paid</h4>
+                                                    <p>June 1, 2020</p>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="order-amt">
+                                            <h4>Total</h4>
+                                            <p class="total-amount">$202.00</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            
 
                             <!-- Statistics Section -->
                             <div class="statistics">
                                 <h2><ion-icon name="list-outline"></ion-icon> Delivered Orders</h2>
                                 <div class="yourOrders">
-                                    <div class="upcoming-order">
-                                        <h4>Order #12346</h4>
-                                        <p><ion-icon name="restaurant-outline"></ion-icon> Sushi Delight</p>
-                                        <p><ion-icon name="pricetag-outline"></ion-icon> $18.99</p>
-                                        <p><ion-icon name="location-outline"></ion-icon> 45 Elm Street</p>
-                                    </div>
-                                    <div class="upcoming-order">
-                                        <h4>Order #12347</h4>
-                                        <p><ion-icon name="restaurant-outline"></ion-icon> Burger Barn</p>
-                                        <p><ion-icon name="pricetag-outline"></ion-icon> $12.50</p>
-                                        <p><ion-icon name="location-outline"></ion-icon> 67 Oak Avenue</p>
-                                    </div>
-                                    <div class="upcoming-order">
-                                        <h4>Order #12348</h4>
-                                        <p><ion-icon name="restaurant-outline"></ion-icon> Taco Time</p>
-                                        <p><ion-icon name="pricetag-outline"></ion-icon> $22.75</p>
-                                        <p><ion-icon name="location-outline"></ion-icon> 89 Maple Lane</p>
-                                    </div>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Menu</th>
+                                                <th>Status</th>
+                                                <th>Date</th>
+                                                <th>Address</th>
+                                                <th>Total</th>
+                                                <th>Payment Method</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Row 1 -->
+                                            <tr class="order-row" onclick="toggleDetailsGeneral(this)">
+                                                <td class="menu">Order #1</td>
+                                                <td><span class="status completed">Completed</span></td>
+                                                <td class="date">June 1, 2020,<br> 08:22 AM</td>
+                                                <td class="address"><i class="fas fa-map-marker-alt"></i> Elm Street, 23 Yogyakarta</td>
+                                                <td class="total"><span>$ 5.59</span></td>
+                                                <td class="payment-method">Cash</td>
+                                                <td class="arrow"><i class="fas fa-chevron-down dropdown"></i></td>
+                                            </tr>
+                                            <tr class="details-row">
+                                                <td colspan="7">
+                                                    <div class="details-container">
+                                                        <div class="order-menu">
+                                                            <h4>Order Menu</h4>
+                                                            <p><img src="https://via.placeholder.com/50" alt="Pizza"> Pepperoni Pizza <span>+ $5.59</span></p>
+                                                            <p><img src="https://via.placeholder.com/50" alt="Burger"> Cheese Burger <span>+ $5.59</span></p>
+                                                        </div>
+                                                        <div class="restaurant-info">
+                                                            <h4>Fast Food Resto</h4>
+                                                            <p><i class="fas fa-star"></i> 5.0 | 1k+ Reviews</p>
+                                                            <p>Delivery Time: <strong>10 Min</strong></p>
+                                                            <p>Distance: <strong>2.5 Km</strong></p>
+                                                        </div>
+                                                        <div class="order-summary">
+                                                            <div class="order-summary-details">
+                                                                <span>
+                                                                <h4>Status</h4>
+                                                                <p>Completed</p>
+                                                                </span>
+                                                                <span>
+                                                                <h4>Date</h4>
+                                                                <p>June 1, 2020</p></span>
+                                                            </div>
+                                                            <div class="order-summary-details">
+                                                                <span>
+                                                                <h4>Bills</h4>
+                                                                <p>Order #1</p></span>
+                                                                <span>
+                                                                <h4>Date Paid</h4>
+                                                                <p>June 1, 2020</p></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="order-amt">
+                                                            <h4>Total</h4>
+                                                            <p class="total-amount">$202.00</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -369,7 +389,7 @@
 
         <!-- Edit Profile Modal -->
         <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
                 <div class="modal-content">
                     <form action="UpdateDeliveryExecutive" method="post" enctype="multipart/form-data">
                         <div class="modal-header">
@@ -377,38 +397,61 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" value="<%= request.getAttribute("name")%>">
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" value="<%= request.getAttribute("email")%>">
-                            </div>
-                            <div class="mb-3">
-                                <label for="number" class="form-label">Number</label>
-                                <input type="text" class="form-control" id="number" name="number" value="<%= request.getAttribute("number")%>">
-                            </div>
-                            <div class="mb-3">
-                                <label for="address" class="form-label">Address</label>
-                                <input type="text" class="form-control" id="address" name="address" value="<%= request.getAttribute("address")%>">
-                            </div>
-                            <div class="mb-3">
-                                <label for="deliveryArea" class="form-label">Delivery Area Address</label>
-                                <input type="text" class="form-control" id="deliveryArea" name="deliveryArea" value="<%= request.getAttribute("deliveryArea")%>">
-                            </div>
-                            <div class="mb-3">
-                                <label for="emergencyContact" class="form-label">Emergency Contact Number</label>
-                                <input type="text" class="form-control" id="emergencyContact" name="emergencyContact" value="<%= request.getAttribute("emergencyContact")%>">
-                            </div>
-                            <div class="mb-3">
-                                <label for="profileImage" class="form-label">Profile Image</label>
-                                <input type="file" class="form-control" id="profileImage" name="profileImage">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name" value="<%= request.getAttribute("name")%>" placeholder="Enter your full name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" value="<%= request.getAttribute("email")%>" placeholder="Enter your email address">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="number" class="form-label">Number</label>
+                                        <input type="text" class="form-control" id="number" name="number" value="<%= request.getAttribute("number")%>" placeholder="Enter your phone number">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="address" class="form-label">Address</label>
+                                        <input type="text" class="form-control" id="address" name="address" value="<%= request.getAttribute("address")%>" placeholder="Enter your address">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="deliveryArea" class="form-label">Delivery Area Address</label>
+                                        <input type="text" class="form-control" id="deliveryArea" name="deliveryArea" value="<%= request.getAttribute("deliveryArea")%>" placeholder="Enter delivery area">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="emergencyContact" class="form-label">Emergency Contact Number</label>
+                                        <input type="text" class="form-control" id="emergencyContact" name="emergencyContact" value="<%= request.getAttribute("emergencyContact")%>" placeholder="Enter emergency contact">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="profileImage" class="form-label">Profile Image</label>
+                                        <input type="file" class="form-control file-input" id="profileImage" name="profileImage">
+                                        <small class="form-text text-muted">Choose a clear, professional image.</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 d-flex align-items-center">
+                                    <div class="preview-container">
+                                        <img id="previewImage" src="https://via.placeholder.com/100" alt="Profile Preview" class="img-thumbnail">
+                                        <small class="form-text text-muted">Preview your profile image here.</small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
                         </div>
                     </form>
                 </div>
@@ -426,6 +469,6 @@
         <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-        <script src="Delivery.js"></script>
+        <script src="script.js"></script>
     </body>
 </html>
