@@ -7,25 +7,9 @@
         <link rel="stylesheet" href="./paymentGateway.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <style>
-            .addresses {
-                display: flex;
-                align-items: center;
-                gap: 10px; /* Adds spacing between elements */
-            }
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-            .address-label {
-                display: inline-flex;
-                width: 100%;
-                align-items: center; /* Ensures the text aligns vertically with the radio button */
-            }
-
-            #savedAddressDisplay {
-                font-size: 14px; /* Optional: Adjust text size for clarity */
-            }
-
-        </style>
 
     </head>
     <body>
@@ -107,23 +91,6 @@
                     </div>
                 </div>
 
-                <!-- COD Form -->
-                <div id="codDetails" class="payment-details" style="display: none;">
-                    
-                </div>
-
-                <script>
-                    document.querySelectorAll('input[name="addressOption"]').forEach((input) => {
-                        input.addEventListener("change", function () {
-                            const newAddressContainer = document.getElementById("newAddressContainer");
-                            if (this.value === "saved") {
-                                newAddressContainer.style.display = "none";
-                            } else {
-                                newAddressContainer.style.display = "block";
-                            }
-                        });
-                    });
-                </script>
 
 
                 <div id="netBankingDetails" class="payment-details" style="display: none;">

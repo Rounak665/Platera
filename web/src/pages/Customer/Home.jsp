@@ -1,3 +1,5 @@
+<%@page import="Utilities.CustomerDAO"%>
+<%@page import="Utilities.Customer"%>
 <%@page import="Utilities.CartDAO"%>
 <%@page import="Utilities.Cart"%>
 <%@page import="java.sql.SQLException"%>
@@ -40,90 +42,52 @@
     </head>
     <body>
         <%
-            //Actual code
-//            int user_id = (Integer) session.getAttribute("user_id");
-//            String name = (String) session.getAttribute("name");
-//            String email = (String) session.getAttribute("email");
-//            int customer_id = (Integer) session.getAttribute("customer_id");
-//            String image = (String) session.getAttribute("image");
-//            String imagepath = request.getContextPath() + '/' + image;
-//            int location_id = (Integer) session.getAttribute("location_id");
-//            String location = "";
+            // Retrieve user_id from the session
 
-            //For debugging
-            int user_id = 257;
-            String name = "Arthur Morgan";
-            String email = "ArthurMorgan1863@gmail.com";
-            int customer_id = 30;
-            String image = "DatabaseImages/Delivery_Executives/Arthur_Morgan.jpeg";
-            String imagepath = request.getContextPath() + '/' + image;
-            int location_id = 1;
+            //    int user_id = (Integer) session.getAttribute("user_id");
+            int user_id = 201;
+
+            // Initialize necessary variables
+            String name = "";
+            String email = "";
+            int customer_id = 0;
+            String image = "";
+            String imagepath = "";
+            int location_id = 0;
             String location = "";
+            String address = "";
+            String phone = "";
 
-            Connection conn = null;
-            PreparedStatement selectLocationPstmt = null;
-            ResultSet selectLocationSqlRs = null;
-
-            try {
-                // Get connection
-                conn = Database.getConnection();
-
-                try {
-
-                    String selectLocationSql = "SELECT location_name FROM locations WHERE location_id=?";
-                    selectLocationPstmt = conn.prepareStatement(selectLocationSql);
-                    selectLocationPstmt.setInt(1, location_id); // Set parameter before executing the query
-
-                    selectLocationSqlRs = selectLocationPstmt.executeQuery(); // Execute the query
-
-                    if (selectLocationSqlRs.next()) {
-                        location = selectLocationSqlRs.getString("location_name"); // Retrieve the location name
-                    } else {
-                        out.println("Unexpected Error: No location found for location_id.");
-                        return;
-                    }
-                } catch (SQLException e) {
-                    out.println("Error executing the second query: " + e.getMessage());
-                    e.printStackTrace();
-                    return; // Return after logging the error
-                }
-
-            } catch (SQLException e) {
-                out.println("Error connecting to the database: " + e.getMessage());
-                e.printStackTrace();
-            } finally {
-                // Close resources manually to avoid resource leak
-                try {
-
-                    if (selectLocationSqlRs != null) {
-                        selectLocationSqlRs.close();
-                    }
-                    if (selectLocationPstmt != null) {
-                        selectLocationPstmt.close();
-                    }
-                    if (conn != null) {
-                        conn.close();
-                    }
-                } catch (SQLException ex) {
-                    out.println("Error closing resources: " + ex.getMessage());
-                }
+            Customer customer = CustomerDAO.getCustomerByUserId(user_id);
+            if (customer != null) {
+                customer_id = customer.getCustomerId();
+                name = customer.getFullName();
+                email = customer.getEmail();
+                image = customer.getImage();
+                location_id = customer.getLocationId();
+                location = customer.getLocation();
+                address = customer.getAddress();
+                phone = customer.getPhone();
             }
 
+            // Create image path based on the image file path retrieved
+            imagepath = request.getContextPath() + '/' + image;
 
         %>
+
         <!-- Welcome Popup -->
-        <!--       <c:if test="${sessionScope.welcomePopup == false}">
-                   <div class="welcome-popup" id="welcomePopup">
-                       <div class="popup-content">
-                           <h3>Welcome, ${name}!</h3>
-                           <p>Thanks for visiting our website.</p>
-                           <button id="closePopupBtn">Close</button>
-                       </div>
-                   </div>
+        <c:if test="${sessionScope.welcomePopup == false}">
+            <div class="welcome-popup" id="welcomePopup">
+                <div class="popup-content">
+                    <h3>Welcome, ${name}!</h3>
+                    <p>Thanks for visiting our website.</p>
+                    <button id="closePopupBtn">Close</button>
+                </div>
+            </div>
             <%-- Set the attribute to true after displaying the popup --%>
             <%                session.setAttribute("welcomePopup", true);
             %>
-        </c:if> --!>
+        </c:if> 
 
 
         <!-- Navigation Bar -->
@@ -267,7 +231,7 @@
                         double deliveryCharges = (subtotal < 199) ? 30 : 0;  // Delivery charges are 30 if subtotal is less than 199
 
                         // Calculate total
-                        double total = subtotal + deliveryCharges-promotion;
+                        double total = subtotal + deliveryCharges - promotion;
                     %>
 
                     <div><span>Subtotal</span><p  class="subtotal">₹<%=subtotal%></p></div>

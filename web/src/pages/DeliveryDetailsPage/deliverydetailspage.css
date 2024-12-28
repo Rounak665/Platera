@@ -123,3 +123,36 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+.address-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.address-group input[type="radio"] {
+    margin-right: 10px;
+}
+
+.address-label {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    display: inline-block;
+}
+
+#email-confirmation {
+    margin-right: 10px;
+}
+
+.input-group.checkbox-group {
+    display: flex;
+    align-items: center;
+}
+.checkbox-group input{
+    width:2%;
+    margin-right: 10px;
+    margin-bottom: 7px;
+}
+.address-input{
+    margin-bottom:25px;
+}
