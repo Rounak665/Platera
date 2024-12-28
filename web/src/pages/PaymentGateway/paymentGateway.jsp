@@ -29,17 +29,10 @@
 
     </head>
     <body>
-    <nav-bar class="navbar">
-        <div class="navbar-logo">
-            <img src="./Assets/PlateraLogo-red.png" alt="Platera Logo" class="logo" width="150">
-        </div>
-    </nav-bar>
-
-
-    <!-- Back to Home Button -->
-    <a href="index.html" id="backButton" title="Go back">
-        &#8592; Back
-    </a>
+    <nav class="navbar">
+        <div class="logo"><a href=""><img src="./Assets/PlateraLogo-red.png" alt="" width="150px"></a></div>
+        <button class="back-button" onclick="goBack()">Back</button>
+    </nav>
 
 
     <div class="container">
@@ -116,35 +109,7 @@
 
                 <!-- COD Form -->
                 <div id="codDetails" class="payment-details" style="display: none;">
-                    <div class="form-group">
-                        <label for="codName">Full Name</label>
-                        <input name="codName" type="text" id="codName" placeholder="John Doe" required>
-                    </div>
-                    <div class="form-group address">
-                        <label>Address</label>
-                        <div class="addresses">
-                            <label class="address-label">
-                                <input type="radio" name="addressOption" value="saved" checked>
-                                Use Saved Address
-                            </label>
-                            <span id="savedAddressDisplay">1st bye lane, nimta, kolkata-49</span>
-                        </div>
-                        <div class="addresses">
-                            <label class="address-label">
-                                <input type="radio" name="addressOption" value="new">
-                                Enter New Address
-                            </label>
-                        </div>
-
-                    </div>
-                    <div class="form-group address" id="newAddressContainer" style="display: none;">
-                        <label for="codAddress">New Address</label>
-                        <textarea name="codAddress" id="codAddress" placeholder="Enter your address"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="codPhone">Phone Number</label>
-                        <input name="codPhone" type="text" id="codPhone" placeholder="(123) 456-7890" maxlength="14" required>
-                    </div>
+                    
                 </div>
 
                 <script>
@@ -186,7 +151,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="submit-button">Submit Payment</button>
+                <button type="submit" class="submit-button">Place Order</button>
             </form>
             <div class="footer">
                 <p>
