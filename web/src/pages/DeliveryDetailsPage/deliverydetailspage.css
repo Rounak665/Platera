@@ -71,6 +71,7 @@ h3 {
     color: #333;
 }
 
+
 .input-group {
     margin-bottom: 15px;
 }
@@ -109,17 +110,45 @@ h3 {
     font-size: 14px;
 }
 
+.checkbox-group {
+    margin-bottom: 15px;
+}
+
+.checkbox-group input {
+    margin-right: 5px;
+}
+
+.checkbox-group label {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Custom checkbox styles */
+input[type="checkbox"]:checked {
+    accent-color: #F12630;
+}
+
+input[type="radio"]:checked {
+    accent-color: #F12630;
+}
+
+#accept-emails{
+    padding: 10px;
+}
+
 button {
     width: 100%;
     padding: 10px;
-    background-color: #007BFF;
+    background-color: #F12630;
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.2s ease-in-out;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #FFD04D;
+    color: #000000;
 }
