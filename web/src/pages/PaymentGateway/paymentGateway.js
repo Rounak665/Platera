@@ -30,3 +30,7 @@ netBankingMethod.addEventListener('click', () => {
   netBankingMethod.classList.add('active');
   netBankingDetails.style.display = 'block';
 });
+
+function goBack(){
+  window.location.href = "../DeliveryDetailsPage/deliverydetailspage.jsp";
+}
