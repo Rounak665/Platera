@@ -43,7 +43,8 @@
                 <input type="checkbox" id="accept-emails" name="accept-emails">
                 <label for="accept-emails">I accept to receive emails</label>
             </div>
-            <button type="submit" url="../PaymentGateway/paymentGateway.jsp">Submit</button>
+        <button type="submit" onclick="redirect()">Submit</button>
+            
         </form>
     </div>
 
@@ -66,9 +67,13 @@
         savedAddressInput.disabled = true;
         newAddressInput.disabled = true;
 
+        function redirect() {
+            window.location.href = "../PaymentGateway/paymentGateway.jsp";
+        }
+
         // Function to go back to the previous page
         function goBack() {
-        window.history.back();
+            window.location.href = "../Customer/Home.jsp";
         }
     </script>
 </body>
