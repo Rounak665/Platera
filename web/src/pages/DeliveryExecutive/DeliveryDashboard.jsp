@@ -255,13 +255,13 @@
                                         ordersList = ordersDAO.getAcceptedOrdersByDeliveryExecutiveId(delivery_executive_id);
 
                                         if (ordersList.isEmpty()) {
-                                            out.println("No orders found for the delivery executive.");
+                                            out.println("No current order found.");
                                             return;
                                         }
 
                                         Orders currentOrder = ordersList.get(0); // Assuming we are displaying the first order for simplicity
 
-                                        // Fetch the restaurantId from the current order
+                                       
                                         int restaurantId = currentOrder.getRestaurantId();
 
                                         // Use RestaurantDAO to get restaurant details including reviews and rating
@@ -333,7 +333,7 @@
                                         </div>
                                         <div class="order-row">
                                             <span class="icon"><ion-icon name="location-outline"></ion-icon></span>
-                                                    <%= currentOrder.getAddress()%>
+                                                    <%= currentOrder.getCustomerAddress()%>
                                         </div>
                                         <div class="order-row">
                                             <span class="icon"><ion-icon name="checkmark-circle-outline"></ion-icon></span>
@@ -344,12 +344,12 @@
                                     <div class="details-row">
                                         <div class="details-container">
                                             <div class="order-menu">
-                                                <h4>Order Menu</h4>
+                                                <h4>Items</h4>
                                                 <%
                                                     // You can loop through the order items list from the current order object
                                                     for (OrderItem item : currentOrder.getOrderItems()) {
                                                 %>
-                                                <p><img src="<%=request.getContextPath()%>/<%=item.getImage()%>" alt="<%= item.getItemName()%>"> <%= item.getItemName()%> (x<%=item.getQuantity()%>)</p>
+                                                <p><img src="<%=request.getContextPath()%>/<%=item.getImage()%>" alt="<%= item.getItemName()%> image"> <%= item.getItemName()%> (x<%=item.getQuantity()%>)</p>
                                                     <%
                                                         }
                                                     %>
@@ -359,10 +359,17 @@
                                                 <h4><%= currentOrder.getRestaurantName()%></h4>
 
                                                 <!-- Display restaurant rating dynamically -->
-                                                <p><i class="fas fa-star"></i> <%= restaurant.getRating()%> | <%= reviewCount%> Reviews</p> <!-- Display the review count -->
+                                                <p><i class="fas fa-star"></i> <%= restaurant.getRating()%> | <%= reviewCount%> Reviews</p>
 
                                                 <p>Delivery Time: <strong>30 Min</strong></p>
-                                                <p>Address: <strong><%= currentOrder.getRestaurantAddress()%></strong></p>
+                                                <p>
+                                                    <span class="icon"><ion-icon name="location-outline"></ion-icon></span>
+                                                    Address: <strong><%= currentOrder.getRestaurantAddress()%></strong>
+                                                </p>
+                                                <p>
+                                                    <span class="icon"><ion-icon name="call-outline"></ion-icon></span>
+                                                    Phone: <strong><%= currentOrder.getRestaurantPhone()%></strong>
+                                                </p>
                                             </div>
 
                                             <div class="order-summary">
@@ -374,6 +381,13 @@
                                                     <span>
                                                         <h4>Date Paid</h4>
                                                         <p><%= currentOrder.getPaymentDate()%></p>
+                                                    </span>
+                                                    <span>
+                                                        <h4>Customer Phone</h4>
+                                                        <p>
+                                                            <span class="icon"><ion-icon name="call-outline"></ion-icon></span>
+                                                                    <%= currentOrder.getCustomerPhone()%>
+                                                        </p>
                                                     </span>
                                                 </div>
                                             </div>
@@ -406,24 +420,89 @@
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th>Menu</th>
+                                                <th>Order</th>
                                                 <th>Status</th>
                                                 <th>Date</th>
                                                 <th>Address</th>
                                                 <th>Total</th>
                                                 <th>Payment Method</th>
-                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <!-- Row 1 -->
+                                            <%
+                                                ordersDAO = new OrdersDAO();
+                                                List<Orders> completedOrdersList = null;
+
+                                                try {
+                                                    // Fetch completed orders using OrdersDAO
+                                                    completedOrdersList = ordersDAO.getCompletedOrdersByDeliveryExecutiveId(delivery_executive_id);
+
+                                                    if (completedOrdersList.isEmpty()) {
+                                                        out.println("<tr><td colspan='7'>No completed orders found.</td></tr>");
+                                                    } else {
+                                                        for (Orders order : completedOrdersList) {
+                                                            int restaurantId = order.getRestaurantId();
+
+                                        // Use RestaurantDAO to get restaurant details including reviews and rating
+                                        RestaurantDAO restaurantDAO = new RestaurantDAO();
+                                        Restaurant restaurant = restaurantDAO.getRestaurantById(restaurantId); // Fetch restaurant details by ID
+
+                                        // Initialize the review count variable
+                                        int reviewCount = 0;
+
+                                        // Database connection setup
+                                        String query = "SELECT COUNT(*) AS review_count FROM reviews WHERE restaurant_id = ?";
+
+                                        // Establish the database connection and execute the query
+                                        Connection con = null;
+                                        PreparedStatement ps = null;
+                                        ResultSet rs = null;
+
+                                        try {
+                                            // Get the connection
+                                            con = Database.getConnection();
+
+                                            // Prepare the query
+                                            ps = con.prepareStatement(query);
+                                            ps.setInt(1, restaurantId);
+
+                                            // Execute the query
+                                            rs = ps.executeQuery();
+
+                                            // Retrieve the review count
+                                            if (rs.next()) {
+                                                reviewCount = rs.getInt("review_count");
+                                            }
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        } finally {
+                                            // Close the ResultSet, PreparedStatement, and Connection
+                                            try {
+                                                if (rs != null) {
+                                                    rs.close();
+                                                }
+                                                if (ps != null) {
+                                                    ps.close();
+                                                }
+                                                if (con != null) {
+                                                    con.close();
+                                                }
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                            %>
+                                            <!-- Dynamic Order Row -->
                                             <tr class="order-row" onclick="toggleDetailsGeneral(this)">
-                                                <td class="menu">Order #1</td>
+                                                <td class="menu">Order #<%= order.getOrderId()%></td>
                                                 <td><span class="status completed">Completed</span></td>
-                                                <td class="date">June 1, 2020,<br> 08:22 AM</td>
-                                                <td class="address"><i class="fas fa-map-marker-alt"></i> Elm Street, 23 Yogyakarta</td>
-                                                <td class="total"><span>$ 5.59</span></td>
-                                                <td class="payment-method">Cash</td>
+                                                <td class="date"><%= order.getOrderDate()%></td>
+                                                <td class="address">
+                                                    <i class="fas fa-map-marker-alt"></i> 
+                                                    <%= order.getCustomerAddress()%>
+                                                </td>
+                                                <td class="total"><span>₹<%= order.getTotalAmount()%></span></td>
+                                                <td class="payment-method"><%= order.getPaymentMethod()%></td>
                                                 <td class="arrow"><i class="fas fa-chevron-down dropdown"></i></td>
                                             </tr>
                                             <tr class="details-row">
@@ -431,14 +510,18 @@
                                                     <div class="details-container">
                                                         <div class="order-menu">
                                                             <h4>Order Menu</h4>
-                                                            <p><img src="https://via.placeholder.com/50" alt="Pizza"> Pepperoni Pizza <span>+ $5.59</span></p>
-                                                            <p><img src="https://via.placeholder.com/50" alt="Burger"> Cheese Burger <span>+ $5.59</span></p>
+                                                            <%
+                                                                for (OrderItem item : order.getOrderItems()) {
+                                                            %>
+                                                            <p><img src="<%=request.getContextPath()%>/<%= item.getImage()%>" alt="<%= item.getItemName()%> image"> <%= item.getItemName()%> (x<%= item.getQuantity()%>) </p>
+                                                            <%
+                                                                }
+                                                            %>
                                                         </div>
                                                         <div class="restaurant-info">
-                                                            <h4>Fast Food Resto</h4>
-                                                            <p><i class="fas fa-star"></i> 5.0 | 1k+ Reviews</p>
-                                                            <p>Delivery Time: <strong>10 Min</strong></p>
-                                                            <p>Distance: <strong>2.5 Km</strong></p>
+                                                            <h4><%= order.getRestaurantName()%></h4>
+                                                            <p><i class="fas fa-star"></i> <%=restaurant.getRating()%> | <%=reviewCount%> Reviews</p>
+                                                            <p>Delivery Time: <strong>30 Min</strong></p>
                                                         </div>
                                                         <div class="order-summary">
                                                             <div class="order-summary-details">
@@ -448,27 +531,36 @@
                                                                 </span>
                                                                 <span>
                                                                     <h4>Date</h4>
-                                                                    <p>June 1, 2020</p></span>
+                                                                    <p><%=order.getOrderDate()%></p>
+                                                                </span>
                                                             </div>
                                                             <div class="order-summary-details">
-                                                                <span>
-                                                                    <h4>Bills</h4>
-                                                                    <p>Order #1</p></span>
+
                                                                 <span>
                                                                     <h4>Date Paid</h4>
-                                                                    <p>June 1, 2020</p></span>
+                                                                    <p><%= order.getPaymentDate()%></p>
+                                                                </span>
                                                             </div>
                                                         </div>
                                                         <div class="order-amt">
                                                             <h4>Total</h4>
-                                                            <p class="total-amount">$202.00</p>
+                                                            <p class="total-amount">₹<%= order.getTotalAmount()%></p>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
+                                            <%
+                                                        }
+                                                    }
+                                                } catch (Exception e) {
+                                                    out.println("<tr><td colspan='7'>Error: " + e.getMessage() + "</td></tr>");
+                                                    e.printStackTrace();
+                                                }
+                                            %>
                                         </tbody>
                                     </table>
                                 </div>
+
                             </div>
                         </div>
                     </div>
