@@ -31,7 +31,7 @@
     <body>
     <nav class="navbar">
         <div class="logo"><a href=""><img src="./Assets/PlateraLogo-red.png" alt="" width="150px"></a></div>
-        <button class="back-button" onclick="goBack()">Back</button>
+        <button class="back-button" onClick="goBack()">Back</button>
     </nav>
 
 
@@ -236,6 +236,11 @@
         <hr />
         <p class="copyright">Platera @2024 - All Rights Reserved</p>
     </footer>
+        <script>
+            function goBack(){
+                window.location.href = "../DeliveryDetailsPage/deliverydetailspage.jsp";
+            }
+        </script>
     <script src="./paymentGateway.js"></script>
 </body>
 </html>
