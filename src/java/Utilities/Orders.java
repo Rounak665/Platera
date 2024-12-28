@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Orders {
+
     private int orderId;
     private double totalAmount;
     private String address;
@@ -18,17 +19,37 @@ public class Orders {
     private String paymentStatus;
     private String paymentDate;
     private Double amountPayable;
-      private List<OrderItem> orderItems = new ArrayList<>();
+    private List<OrderItem> orderItems = new ArrayList<>();
     private int restaurantId;
+    private String restaurantPhone;
+    private String customerPhone;
+    private String orderStatus;
+    private String orderDate;
 
     // Getters and Setters
-
     public int getOrderId() {
         return orderId;
     }
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
+    }
+
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public String getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
     }
 
     public double getTotalAmount() {
@@ -39,22 +60,22 @@ public class Orders {
         this.totalAmount = totalAmount;
     }
 
-    public String getAddress() {
+    public String getCustomerAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setCustomerAddress(String address) {
         this.address = address;
     }
 
-        public void setRestaurantId(int restaurantId) {
-        this.restaurantId=restaurantId;
+    public void setRestaurantId(int restaurantId) {
+        this.restaurantId = restaurantId;
     }
-        
-    public int getRestaurantId(){
+
+    public int getRestaurantId() {
         return restaurantId;
     }
-    
+
     public String getRestaurantName() {
         return restaurantName;
     }
@@ -69,6 +90,24 @@ public class Orders {
 
     public void setRestaurantAddress(String restaurantAddress) {
         this.restaurantAddress = restaurantAddress;
+    }
+
+    // Getter and Setter for Restaurant Phone
+    public String getRestaurantPhone() {
+        return restaurantPhone;
+    }
+
+    public void setRestaurantPhone(String restaurantPhone) {
+        this.restaurantPhone = restaurantPhone;
+    }
+
+// Getter and Setter for Customer Phone
+    public String getCustomerPhone() {
+        return customerPhone;
+    }
+
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
     }
 
     public String getPaymentMethod() {
@@ -102,7 +141,8 @@ public class Orders {
     public void setAmountPayable(Double amountPayable) {
         this.amountPayable = amountPayable;
     }
-     public void addOrderItem(OrderItem item) {
+
+    public void addOrderItem(OrderItem item) {
         this.orderItems.add(item);
     }
 
@@ -113,17 +153,17 @@ public class Orders {
     // Optional: Add a toString method for easier debugging
     @Override
     public String toString() {
-        return "Orders{" +
-                "orderId=" + orderId +
-                ", totalAmount=" + totalAmount +
-                ", address='" + address + '\'' +
-                ", restaurantName='" + restaurantName + '\'' +
-                ", restaurantAddress='" + restaurantAddress + '\'' +
-                ", paymentMethod='" + paymentMethod + '\'' +
-                ", paymentStatus='" + paymentStatus + '\'' +
-                ", paymentDate='" + paymentDate + '\'' +
-                ", amountPayable=" + amountPayable +
-                '}';
+        return "Orders{"
+                + "orderId=" + orderId
+                + ", totalAmount=" + totalAmount
+                + ", address='" + address + '\''
+                + ", restaurantName='" + restaurantName + '\''
+                + ", restaurantAddress='" + restaurantAddress + '\''
+                + ", paymentMethod='" + paymentMethod + '\''
+                + ", paymentStatus='" + paymentStatus + '\''
+                + ", paymentDate='" + paymentDate + '\''
+                + ", amountPayable=" + amountPayable
+                + '}';
     }
 
 }
