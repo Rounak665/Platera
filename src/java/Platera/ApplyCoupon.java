@@ -18,12 +18,13 @@ public class ApplyCoupon extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Integer customerId = (Integer) session.getAttribute("customer_id");
-//        Integer customerId = 30;
+
+        String customerIdStr = request.getParameter("customerId");
+
+        Integer customerId = Integer.parseInt(customerIdStr);
 
         if (customerId == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("src/pages/login/login.html");
             return;
         }
 
@@ -47,7 +48,7 @@ public class ApplyCoupon extends HttpServlet {
                             int rowsUpdated = updateStmt.executeUpdate();
 
                             if (rowsUpdated > 0) {
-                                response.getWriter().println("Coupon applied successfully! Discount: ₹" + discount);
+                                response.sendRedirect("src/pages/Customer/Home.jsp#cartSection");
                             } else {
                                 response.getWriter().println("Failed to apply coupon.");
                             }
