@@ -1,4 +1,6 @@
 
+<%@page import="Utilities.DeliveryExecutiveDAO"%>
+<%@page import="Utilities.DeliveryExecutive"%>
 <%@page import="Utilities.Restaurant"%>
 <%@page import="Utilities.RestaurantDAO"%>
 <%@page import="Utilities.Orders"%>
@@ -24,77 +26,28 @@
 
         <!--Java Scriplets-->
         <%
-            //Actual code
-//            int user_id = (Integer) session.getAttribute("user_id");
-//            String name = (String) session.getAttribute("name");
-//            String email = (String) session.getAttribute("email");
-//            int delivery_executive_id = (Integer) session.getAttribute("delivery_executive_id");
-//            String image = (String) session.getAttribute("image");
-//            String imagepath = request.getContextPath() + '/' + image;
-//            int location_id = (Integer) session.getAttribute("location_id");
-//            String location = "";
-
-            //For debugging
+            // Simulate session attributes for debugging
+//    int user_id = (Integer) session.getAttribute("user_id");
             int user_id = 257;
-            String name = "Arthur Morgan";
-            String email = "ArthurMorgan1863@gmail.com";
-            int delivery_executive_id = 35;
-            String image = "DatabaseImages/Delivery_Executives/Arthur_Morgan.jpeg";
-            String imagepath = request.getContextPath() + '/' + image;
-            int location_id = 1;
-            String location = "";
 
-            Connection conn = null;
-            PreparedStatement selectLocationPstmt = null;
-            ResultSet selectLocationSqlRs = null;
+            DeliveryExecutive deliveryExecutive = null;
 
-            try {
-                // Get connection
-                conn = Database.getConnection();
+            deliveryExecutive = DeliveryExecutiveDAO.getDeliveryExecutiveByUserId(user_id);
 
-                try {
-
-                    String selectLocationSql = "SELECT location_name FROM locations WHERE location_id=?";
-                    selectLocationPstmt = conn.prepareStatement(selectLocationSql);
-                    selectLocationPstmt.setInt(1, location_id); // Set parameter before executing the query
-
-                    selectLocationSqlRs = selectLocationPstmt.executeQuery(); // Execute the query
-
-                    if (selectLocationSqlRs.next()) {
-                        location = selectLocationSqlRs.getString("location_name"); // Retrieve the location name
-                    } else {
-                        out.println("Unexpected Error: No location found for location_id.");
-                        return;
-                    }
-                } catch (SQLException e) {
-                    out.println("Error executing the second query: " + e.getMessage());
-                    e.printStackTrace();
-                    return; // Return after logging the error
-                }
-
-            } catch (SQLException e) {
-                out.println("Error connecting to the database: " + e.getMessage());
-                e.printStackTrace();
-            } finally {
-                // Close resources manually to avoid resource leak
-                try {
-
-                    if (selectLocationSqlRs != null) {
-                        selectLocationSqlRs.close();
-                    }
-                    if (selectLocationPstmt != null) {
-                        selectLocationPstmt.close();
-                    }
-                    if (conn != null) {
-                        conn.close();
-                    }
-                } catch (SQLException ex) {
-                    out.println("Error closing resources: " + ex.getMessage());
-                }
-            }
+            int executiveId = deliveryExecutive.getExecutiveId();
+            String name = deliveryExecutive.getFullName();
+            String phone = deliveryExecutive.getPhone();
+            String address = deliveryExecutive.getAddress();
+            String vehicleType = deliveryExecutive.getVehicleType();
+            String vehicleNumber = deliveryExecutive.getVehicleNumber();
+            int locationId = deliveryExecutive.getLocationId();
+            String locationName = deliveryExecutive.getLocation();
+            String imagePath = request.getContextPath() + '/' + deliveryExecutive.getImage();
+            String executiveStatus = deliveryExecutive.getStatus();
 
 
         %>
+
 
 
         <!-- Welcome Popup -->
@@ -180,11 +133,11 @@
                         <div class="profile">
                             <div class="personal-details">
                                 <div class="personal-image">
-                                    <img src="<%=imagepath%>" alt="Your-image">
+                                    <img src="<%=imagePath%>" alt="Your-image">
                                 </div>
                                 <div class="personal-description">
                                     <h5><%=name%></h5>
-                                    <h6><span>&#9733; 5.0</span><span><%=location%></span></h6>
+                                    <h6><span>&#9733; 5.0</span><span><%=locationName%></span></h6>
                                     <p>Joined June 2024</p>
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit</button>
                                 </div>
@@ -222,9 +175,28 @@
                                         </div>
                                     </div>
                                     <div class="details-right">
-                                        <button class="start-delivery">Ready to Deliver</button>
-                                        <button class="end-delivery">Call it a Day</button>
+                                        <%
+                                            if ("Y".equals(executiveStatus)) {
+                                        %>
+                                        <form action="http://localhost:8080/Platera-Main/UpdateExecutiveStatus" method="post">
+                                            <input type="hidden" name="executive_id" value="<%= executiveId%>">
+                                            <input type="hidden" name="executive_status" value="N">
+                                            <button class="end-delivery" type="submit">Call it a Day</button>
+                                        </form>
+                                        <%
+                                        } else if ("N".equals(executiveStatus)) {
+                                        %>
+                                        <form action="http://localhost:8080/Platera-Main/UpdateExecutiveStatus" method="post">
+                                            <input type="hidden" name="executive_id" value="<%= executiveId%>">
+                                            <input type="hidden" name="executive_status" value="Y">
+                                            <button class="start-delivery" type="submit">Ready to Deliver</button>
+                                        </form>
+                                        <%
+                                            }
+                                        %>
                                     </div>
+
+
                                 </div>
                                 <hr />
                                 <div class="distance-details">
@@ -252,7 +224,7 @@
 
                                     try {
                                         // Fetch orders using OrdersDAO
-                                        ordersList = ordersDAO.getAcceptedOrdersByDeliveryExecutiveId(delivery_executive_id);
+                                        ordersList = ordersDAO.getAcceptedOrdersByDeliveryExecutiveId(executiveId);
 
                                         if (ordersList.isEmpty()) {
                                             out.println("No current order found.");
@@ -261,7 +233,6 @@
 
                                         Orders currentOrder = ordersList.get(0); // Assuming we are displaying the first order for simplicity
 
-                                       
                                         int restaurantId = currentOrder.getRestaurantId();
 
                                         // Use RestaurantDAO to get restaurant details including reviews and rating
@@ -435,7 +406,7 @@
 
                                                 try {
                                                     // Fetch completed orders using OrdersDAO
-                                                    completedOrdersList = ordersDAO.getCompletedOrdersByDeliveryExecutiveId(delivery_executive_id);
+                                                    completedOrdersList = ordersDAO.getCompletedOrdersByDeliveryExecutiveId(executiveId);
 
                                                     if (completedOrdersList.isEmpty()) {
                                                         out.println("<tr><td colspan='7'>No completed orders found.</td></tr>");
@@ -443,54 +414,54 @@
                                                         for (Orders order : completedOrdersList) {
                                                             int restaurantId = order.getRestaurantId();
 
-                                        // Use RestaurantDAO to get restaurant details including reviews and rating
-                                        RestaurantDAO restaurantDAO = new RestaurantDAO();
-                                        Restaurant restaurant = restaurantDAO.getRestaurantById(restaurantId); // Fetch restaurant details by ID
+                                                            // Use RestaurantDAO to get restaurant details including reviews and rating
+                                                            RestaurantDAO restaurantDAO = new RestaurantDAO();
+                                                            Restaurant restaurant = restaurantDAO.getRestaurantById(restaurantId); // Fetch restaurant details by ID
 
-                                        // Initialize the review count variable
-                                        int reviewCount = 0;
+                                                            // Initialize the review count variable
+                                                            int reviewCount = 0;
 
-                                        // Database connection setup
-                                        String query = "SELECT COUNT(*) AS review_count FROM reviews WHERE restaurant_id = ?";
+                                                            // Database connection setup
+                                                            String query = "SELECT COUNT(*) AS review_count FROM reviews WHERE restaurant_id = ?";
 
-                                        // Establish the database connection and execute the query
-                                        Connection con = null;
-                                        PreparedStatement ps = null;
-                                        ResultSet rs = null;
+                                                            // Establish the database connection and execute the query
+                                                            Connection con = null;
+                                                            PreparedStatement ps = null;
+                                                            ResultSet rs = null;
 
-                                        try {
-                                            // Get the connection
-                                            con = Database.getConnection();
+                                                            try {
+                                                                // Get the connection
+                                                                con = Database.getConnection();
 
-                                            // Prepare the query
-                                            ps = con.prepareStatement(query);
-                                            ps.setInt(1, restaurantId);
+                                                                // Prepare the query
+                                                                ps = con.prepareStatement(query);
+                                                                ps.setInt(1, restaurantId);
 
-                                            // Execute the query
-                                            rs = ps.executeQuery();
+                                                                // Execute the query
+                                                                rs = ps.executeQuery();
 
-                                            // Retrieve the review count
-                                            if (rs.next()) {
-                                                reviewCount = rs.getInt("review_count");
-                                            }
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        } finally {
-                                            // Close the ResultSet, PreparedStatement, and Connection
-                                            try {
-                                                if (rs != null) {
-                                                    rs.close();
-                                                }
-                                                if (ps != null) {
-                                                    ps.close();
-                                                }
-                                                if (con != null) {
-                                                    con.close();
-                                                }
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
+                                                                // Retrieve the review count
+                                                                if (rs.next()) {
+                                                                    reviewCount = rs.getInt("review_count");
+                                                                }
+                                                            } catch (Exception e) {
+                                                                e.printStackTrace();
+                                                            } finally {
+                                                                // Close the ResultSet, PreparedStatement, and Connection
+                                                                try {
+                                                                    if (rs != null) {
+                                                                        rs.close();
+                                                                    }
+                                                                    if (ps != null) {
+                                                                        ps.close();
+                                                                    }
+                                                                    if (con != null) {
+                                                                        con.close();
+                                                                    }
+                                                                } catch (Exception e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                            }
                                             %>
                                             <!-- Dynamic Order Row -->
                                             <tr class="order-row" onclick="toggleDetailsGeneral(this)">
@@ -514,9 +485,9 @@
                                                                 for (OrderItem item : order.getOrderItems()) {
                                                             %>
                                                             <p><img src="<%=request.getContextPath()%>/<%= item.getImage()%>" alt="<%= item.getItemName()%> image"> <%= item.getItemName()%> (x<%= item.getQuantity()%>) </p>
-                                                            <%
-                                                                }
-                                                            %>
+                                                                <%
+                                                                    }
+                                                                %>
                                                         </div>
                                                         <div class="restaurant-info">
                                                             <h4><%= order.getRestaurantName()%></h4>

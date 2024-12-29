@@ -1,3 +1,5 @@
+<%@page import="Utilities.DeliveryExecutiveDAO"%>
+<%@page import="Utilities.DeliveryExecutive"%>
 <%@page import="Utilities.OrderDetailsDAO"%>
 <%@page import="Utilities.OrderItem"%>
 <%@page import="Utilities.OrderDetails"%>
@@ -22,77 +24,25 @@
 
 
         <%
-
-            // Integer user_id = (Integer) session.getAttribute("user_id");
-            //            String name = (String) session.getAttribute("name");
-            //            String email = (String) session.getAttribute("email");
-            //            Integer delivery_executive_id = (Integer) session.getAttribute("delivery_executive_id");
-            //            String image = (String) session.getAttribute("image");
-            //            String imagepath = request.getContextPath() + '/' + image;
-            //            int location_id = 0;
-            //            String location = "";
-            //For debugging
+            // Simulate session attributes for debugging
+//    int user_id = (Integer) session.getAttribute("user_id");
             int user_id = 257;
-            String name = "Arthur Morgan";
-            String email = "ArthurMorgan1863@gmail.com";
-            int delivery_executive_id = 35;
-            String image = "DatabaseImages/Delivery_Executives/Arthur_Morgan.jpeg";
-            String imagepath = request.getContextPath() + '/' + image;
-        %>
 
-        <%
-            Connection conn = null;
-            PreparedStatement selectLocationDetailsPstmt = null;
-            ResultSet selectLocationDetailsRs = null;
-            String location_name = null;
-            int location_id = 1;
+            DeliveryExecutive deliveryExecutive = null;
 
-            try {
-                // Get connection
-                conn = Database.getConnection(); // Assuming getConnection method works with Java 1.5
+            deliveryExecutive = DeliveryExecutiveDAO.getDeliveryExecutiveByUserId(user_id);
 
-                try {
-                    // Single query using JOIN to fetch location_name and location_id directly
-                    String selectLocationDetailsSql = "SELECT l.location_id, l.location_name "
-                            + "FROM delivery_executives de "
-                            + "JOIN locations l ON de.location = l.location_id "
-                            + "WHERE de.user_id = ?";
-                    selectLocationDetailsPstmt = conn.prepareStatement(selectLocationDetailsSql);
-                    selectLocationDetailsPstmt.setInt(1, user_id); // Set the user_id parameter
+            int executiveId = deliveryExecutive.getExecutiveId();
+            String name = deliveryExecutive.getFullName();
+            String phone = deliveryExecutive.getPhone();
+            String address = deliveryExecutive.getAddress();
+            String vehicleType = deliveryExecutive.getVehicleType();
+            String vehicleNumber = deliveryExecutive.getVehicleNumber();
+            int locationId = deliveryExecutive.getLocationId();
+            String locationName = deliveryExecutive.getLocation();
+            String imagePath = request.getContextPath() + '/' + deliveryExecutive.getImage();
+            String executiveStatus = deliveryExecutive.getStatus();
 
-                    selectLocationDetailsRs = selectLocationDetailsPstmt.executeQuery(); // Execute the query
-
-                    if (selectLocationDetailsRs.next()) {
-                        location_id = selectLocationDetailsRs.getInt("location_id");
-                        location_name = selectLocationDetailsRs.getString("location_name");
-                    } else {
-                        out.println("Unexpected Error: No location found for user.");
-                        return;
-                    }
-                } catch (SQLException e) {
-                    out.println("Error executing the query: " + e.getMessage());
-                    e.printStackTrace();
-                    return; // Return after logging the error
-                }
-            } catch (SQLException e) {
-                out.println("Error connecting to the database: " + e.getMessage());
-                e.printStackTrace();
-            } finally {
-                // Close resources manually to avoid resource leaks
-                try {
-                    if (selectLocationDetailsRs != null) {
-                        selectLocationDetailsRs.close();
-                    }
-                    if (selectLocationDetailsPstmt != null) {
-                        selectLocationDetailsPstmt.close();
-                    }
-                    if (conn != null) {
-                        conn.close();
-                    }
-                } catch (SQLException ex) {
-                    out.println("Error closing resources: " + ex.getMessage());
-                }
-            }
 
         %>
 
@@ -199,17 +149,17 @@
                 <main>
 
 
-                    <%    // Fetch the orders using OrderDetailsDAO
-                        OrderDetailsDAO orderDetailsDAO = new OrderDetailsDAO();
-                        List<OrderDetails> orderDetailsList = null;
-
-                        orderDetailsList = orderDetailsDAO.getOrdersByLocation(location_id);
-
-
+                    <%                        if ("Y".equals(executiveStatus)) {
                     %>
-
                     <div class="order-list" id="order-list" style="display: block;">
-                        <%        if (orderDetailsList != null && !orderDetailsList.isEmpty()) {
+                        <%
+                            // Fetch the orders using OrderDetailsDAO
+                            OrderDetailsDAO orderDetailsDAO = new OrderDetailsDAO();
+                            List<OrderDetails> orderDetailsList = null;
+
+                            orderDetailsList = orderDetailsDAO.getOrdersByLocation(locationId);
+
+                            if (orderDetailsList != null && !orderDetailsList.isEmpty()) {
                                 // Loop through the list of orders
                                 for (OrderDetails order : orderDetailsList) {
                         %>
@@ -236,7 +186,8 @@
                                             <h4><%= order.getCustomerName()%></h4>
                                         </div>
                                     </div>
-                                </div><hr>
+                                </div>
+                                <hr>
 
                                 <div class="order-detail">
                                     <div class="delivery-address">
@@ -261,7 +212,8 @@
                                         <p>Payment Status</p>
                                         <p><strong><%= order.getPaymentStatus()%></strong></p>
                                     </div>
-                                </div><hr>
+                                </div>
+                                <hr>
 
                                 <div class="order-items">
                                     <%
@@ -273,7 +225,7 @@
                                                 int quantity = item.getQuantity();
                                     %>
                                     <div class="order-item">
-                                        <p><img src="<%=request.getContextPath()%>/<%=item.getImage()%>" alt="<%= item.getItemName()%>"><%= itemName%> (x<%= quantity%>)</p> <!-- Display item name and quantity -->
+                                        <p><img src="<%= request.getContextPath()%>/<%= item.getImage()%>" alt="<%= item.getItemName()%>"><%= itemName%> (x<%= quantity%>)</p>
                                     </div>
                                     <%
                                             }
@@ -289,10 +241,10 @@
                                 <div class="order-actions">
                                     <form action="http://localhost:8080/Platera-Main/AcceptOrder" method="POST">
                                         <input type="hidden" name="orderId" value="<%= order.getOrderId()%>">
-                                        <input type="hidden" name="deliveryExecutiveId" value="<%= delivery_executive_id%>">
+                                        <input type="hidden" name="deliveryExecutiveId" value="<%= executiveId%>">
                                         <input type="hidden" name="deliveryAddress" value="<%= order.getCustomerAddress()%>">
                                         <button type="submit" class="accept-order">Accept Order</button>
-                                    </form>                                   
+                                    </form>
                                 </div>
                             </div>
                         </section>
@@ -305,6 +257,14 @@
                             }
                         %>
                     </div>
+                    <%
+                    } else {
+                    %>
+                    <p>Please press on the "Ready to Deliver" button on the dashboard page to view available orders.</p>
+                    <%
+                        }
+                    %>
+
 
 
 
