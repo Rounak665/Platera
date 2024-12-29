@@ -1,3 +1,6 @@
+<%@page import="Utilities.Cart"%>
+<%@page import="java.util.List"%>
+<%@page import="Utilities.CartDAO"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
     <head>
@@ -13,6 +16,27 @@
 
     </head>
     <body>
+        <%
+        // Retrieve session attributes
+           Integer customer_id = (Integer) session.getAttribute("customerId");
+//            int customer_id = 30;
+            // Replace with the actual user/customer ID fetched from the session or request
+            CartDAO cartDAO = new CartDAO();
+            List<Cart> cartItems = cartDAO.getCartItems(customer_id);
+            double promotion = 0;
+            // Calculate subtotal and total
+            double subtotal = 0;
+            for (Cart cart : cartItems) {
+                subtotal += cart.getItemPrice() * cart.getQuantity();
+                promotion = cart.getCouponDiscount();
+            }
+
+            // Apply delivery charges conditionally
+            double deliveryCharges = (subtotal < 199) ? 30 : 0;  // Delivery charges are 30 if subtotal is less than 199
+
+            // Calculate total
+            double total = subtotal + deliveryCharges - promotion;
+        %>
         <nav class="navbar">
             <div class="logo"><a href=""><img src="./Assets/PlateraLogo-red.png" alt="" width="150px"></a></div>
             <button class="back-button" onClick="goBack()">Back</button>
@@ -26,33 +50,25 @@
                     <p>All <span>Platera</span> Payments are asured by <a href="">Salford <span>payments bank</span><sup>TM</sup></a></p>
                 </header>
                 <h1>Checkout</h1>
-                <p class="price"><span>Your Total is</span> ₹99.00</p>
+                <p class="price"><span>Your Total is</span> ₹<%=total%></p>
                 <div class="items">
                     <div class="item">
-                        <span>Item 1</span>
-                        <span>$900.00</span>
+                        <span>Subtotal</span>
+                        <span>₹<%=subtotal%></span>
                     </div>
                     <div class="item">
-                        <span>Item 2</span>
-                        <span>$200.00</span>
+                        <span>Delivery</span>
+                        <span>-₹<%=deliveryCharges%></span>
                     </div>
                     <div class="item">
                         <span>Discounts</span>
-                        <span>$99.00</span>
-                    </div>
-                    <div class="item">
-                        <span>CGST</span>
-                        <span>$10.00</span>
-                    </div>
-                    <div class="item">
-                        <span>SGST</span>
-                        <span>$10.00</span>
+                        <span>-₹<%=promotion%></span>
                     </div>
                 </div>  
                 <hr>
                 <div class="total">
                     <span>Total is</span>
-                    <span>$99.00</span>
+                    <span>₹<%=total%></span>
                 </div>
             </div>
 
@@ -119,7 +135,7 @@
                             <input name="ifscCode" type="text" id="ifscCode" placeholder="SBIN0001234" maxlength="11" required>
                         </div>
                         <button type="submit" class="submit-button">Place Order</button>
-                        </form>
+                    </form>
                 </div>
 
 

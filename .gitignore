@@ -4,3 +4,4 @@ dist/Platera.war
 /nbproject/
 /src/java/Platera/Database.java
 
+src/java/Utilities/Database.java
