@@ -1,50 +1,12 @@
-* {
-    margin: 0;
+*{
     padding: 0;
+    margin: 0;
     box-sizing: border-box;
-    font-family: "Outfit", serif;
-    scroll-behavior: smooth;
 }
 
 body {
-    background-color: #f8f8f8;
+    font-family: 'Outfit', sans-serif;
 }
-
-/* Scrollbar Container */
-::-webkit-scrollbar {
-    width: 10px; /* Width of the scrollbar */
-    height: 10px; /* Height for horizontal scrollbar */
-}
-
-/* Scrollbar Track */
-::-webkit-scrollbar-track {
-    background-color: #f1f1f1; /* Track background */
-    border-radius: 5px; /* Rounded track */
-}
-
-/* Scrollbar Thumb */
-::-webkit-scrollbar-thumb {
-    background-color: #F12630; /* Scrollbar color */
-    border-radius: 5px; /* Rounded scrollbar */
-    border: 2px solid #f1f1f1; /* Creates space around thumb */
-}
-
-/* Hover Effect on Scrollbar Thumb */
-::-webkit-scrollbar-thumb:hover {
-    background-color: #FFD04D; /* Darker shade on hover */
-}
-
-/*
-
-    #F12630 RED
-    #FFD04D YELLOW
-    
-*/
-
-.nav-links #active a{
-    color: #F12630;
-}
-
 .navbar {
     width: 100%;
     display: flex;
@@ -152,61 +114,6 @@ body {
     color: #000;
 }
 
-/* Search Input Styled as a Dash */
-.location-search {
-    padding: 5px 0;
-    background: none;
-    border: none;
-    border-radius: 5px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.7);
-    color: #f8f8f8;
-    width: 170px;
-    transition: width 0.3s ease;
-    outline: none;
-    padding-left: 7px;
-    font-size: 0.9rem;
-}
-
-/* Expand search input on focus */
-.location-search:focus {
-    width: 200px;
-    background-color: transparent;
-    border-radius: 5px;
-    border-bottom: 2px solid rgba(255, 255, 255, 1);
-}
-
-.location-search::placeholder {
-    color: #f8f8f8;
-    opacity: 1; /* Firefox */
-  }
-  
-.location-search::-ms-input-placeholder { /* Edge 12 -18 */
-    color: #f8f8f8;
-}
-
-/* Select Button (Arrow) */
-.select-location-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-    margin-left: 8px;
-    transition: color 0.3s ease;
-}
-
-/* Hover Effect for Button */
-.select-location-btn:hover {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-/* Selected Location Display */
-.selected-location {
-    margin-left: 10px;
-    color: white;
-}
-
-
 
 /* Breakpoints for responsiveness */
 
@@ -292,7 +199,6 @@ body {
         margin-top: 10px;
     }
 }
-
 
 /* General Banner Styling (Same as before) */
 .banner {
@@ -500,101 +406,128 @@ body {
     }
 }
 
-/* Restaurant Section Styling */
-.restaurants-section {
-    padding: 50px 100px;
+.dishes {
+    padding: 20px;
     text-align: center;
 }
-
-.restaurants-section h2 {
-    font-size: 2.5em;
-    margin-bottom: 30px;
+.dishes h2 {
+    margin-bottom: 20px;
 }
-
-/* Container for Restaurant Cards */
-.restaurants-container {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr); /* 6 cards per row */
-    gap: 30px;
-    justify-items: center;
+.carousel-container {
+    position: relative;
+    width: 60%;
+    margin: 0 auto;
 }
-
-/* Restaurant Card Styling */
-.restaurant-card {
-    width: 100%;
-    max-width: 250px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    text-align: left;
+.dishes, .cuisines, .popular-dishes {
     padding: 20px;
+    text-align: center;
 }
-
-.restaurant-card img {
+.dishes h2, .cuisines h2, .popular-dishes h2 {
+    margin-bottom: 20px;
+}
+.cuisine-list, .dish-cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.carousel-track {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+}
+.carousel-slide{
+    margin: 10px;
+    text-align: center;
+    width: 200px;
+}
+.cuisine, .dish-card {
+    margin: 10px;
+    text-align: center;
+    width: 260px;
+}
+.dish-card{
+    margin: 10px;
+    text-align: left;
+    width: 260px;
+}
+.carousel-slide img, .cuisine img, .dish-card img {
     width: 100%;
-    height: 150px;
+    height: auto;
     object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 15px;
 }
-
-.restaurant-card h3 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
+.carousel-button, .add-to-cart, .view-cart {
+    padding: 10px;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
 }
-
-.restaurant-card p {
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    font-size: 24px;
+    z-index: 1;
+}
+.carousel-button.prev {
+    left: 10px;
+}
+.carousel-button.next {
+    right: 10px;
+}
+.add-to-cart {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+}
+.view-cart {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+}
+.dish-card p {
     margin: 5px 0;
-    font-size: 1em;
-    color: #666;
 }
 
-/* Responsive Design */
+/* Media Queries */
 @media (max-width: 1200px) {
-    .restaurants-container {
-        grid-template-columns: repeat(4, 1fr); /* 4 cards per row */
+    .carousel-slide, .cuisine, .dish-card {
+        width: 180px;
+    }
+    .hero .search-bar {
+        width: 90%;
     }
 }
 
 @media (max-width: 992px) {
-    .restaurants-container {
-        grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+    .carousel-slide, .cuisine, .dish-card {
+        width: 160px;
+    }
+    .hero .search-bar {
+        width: 100%;
     }
 }
 
 @media (max-width: 768px) {
-    .restaurants-container {
-        grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+    .carousel-slide, .cuisine, .dish-card {
+        width: 140px;
+    }
+    .navbar a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+    .hero .search-bar {
+        width: 100%;
     }
 }
 
 @media (max-width: 576px) {
-    .restaurants-container {
+    .carousel-slide, .cuisine, .dish-card {
         width: 100%;
-        display: grid;
-        grid-template-columns: 1fr; /* 1 card per row on small screens */
     }
-    
-    .restaurants-section{
-        padding: 50px 20px;
-    }
-    .restaurant-card {
-        width: 100%; /* Card takes full width on mobile */
-        padding: 20px;
-        text-align: center;
-    }
-
-    .restaurant-card img {
-        height: 200px; /* Adjust image height for smaller screens */
-    }
-
-    .restaurant-card h3 {
-        font-size: 1.2em;
-    }
-
-    .restaurant-card p {
-        font-size: 0.9em;
+    .hero .search-bar {
+        width: 100%;
     }
 }
