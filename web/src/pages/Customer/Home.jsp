@@ -525,7 +525,7 @@
         ></script>
         <script>
                     if (window.location.hash === '#cartSection') {
-                        var cartSection = document.querySelector('.cart-section');
+                        let cartSection = document.querySelector('.cart-section');
 
                         // Disable transition temporarily for instant effect
                         cartSection.style.transition = 'none'; // Disable transition
