@@ -19,6 +19,7 @@
         <title>Delivery Executive Dashboard Overview</title>
         <link rel="stylesheet" href="Delivery.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     </head>
     <body>
 
@@ -109,6 +110,56 @@
             </div>
         </div>     
 
+        <!-- Two step Verification -->
+
+        <div id="security-section" class="security-container" style="display: none;">
+            <div class="security-card">
+                <span class="sec-close-btn" id="closeSecuritySection">&times;</span>
+              <div class="security-header">
+                <i class="fas fa-lock lock-icon"></i>
+                <h2>Two-factor Authentication</h2>
+              </div>
+              <p class="security-description">
+                Enhance your security by setting up two-factor authentication (2FA) using an authenticator app or SMS on your mobile phone.
+              </p>
+          
+              <div class="security-option">
+                <div class="security-descripton">
+                <label class="option-title">
+                  <span>Authenticator App</span> <span class="option-subtitle">TOTP</span>
+                </label>
+                <p class="option-description">
+                  Receive a temporary one-time passcode using an app.
+                </p>
+              </div>
+                <label class="switch">
+                  <input type="checkbox" id="authenticator-toggle" />
+                  <span class="slider round"></span>
+                </label>
+              </div>
+          
+              <div class="security-option">
+                <div class="security-descripton">
+                <label class="option-title">
+                  <span>Text Message</span> <span class="option-subtitle">SMS</span>
+                </label>
+                <p class="option-description">
+                  Get a one-time passcode through text message.
+                </p>
+              </div>
+                <label class="switch">
+                  <input type="checkbox" id="sms-toggle" checked />
+                  <span class="slider round"></span>
+                </label>
+              </div>
+          
+              <div class="security-footer">
+                <button id="cancel-btn" class="btn cancel-btn">Cancel</button>
+                <button id="save-btn" class="btn save-btn">Save changes</button>
+              </div>
+            </div>
+          </div>
+
         <div>
 
             <div class="sidebar">
@@ -146,6 +197,94 @@
                 </div>
             </div>
 
+
+            <!-- sliding profile settings -->
+
+            <section class="setting-section" id="setSection">
+                <div class="setting-container" id="settingContainer">
+                    <span class="close-btn" id="closeSetSection">&times;</span>
+                    <div class="setting-header">
+                        Profile Setttings
+                    </div>
+                    <ul class="setting-options">
+                        <li id="editProfile"><i class="fas fa-user-edit"></i> Edit your profile</li>
+                        <li><i class="fas fa-key"></i> Change Password</li>
+                        <li id="setSecure"><i class="fas fa-shield-alt"></i> Security</li>
+                        <li><i class="fas fa-file-alt"></i> <a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><i class="fas fa-file-contract"></i> <a href="terms-conditions.html">Terms and Conditions</a></li>
+                    </ul>
+                </div>
+
+                <!-- edit section -->
+                <div class="modal-content" id="modalContent" style="display: none;">
+                    <span class="close-btn" id="closeEditSection">&times;</span>
+                    <form action="UpdateDeliveryExecutive" method="post" enctype="multipart/form-data">
+                        <div class="modal-header">
+                            Edit Profile
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="profileImage" class="form-label">Profile Image</label>
+                                        <input type="file" class="form-control file-input" id="profileImage" name="profileImage">
+                                        <small class="form-text text-muted">Choose a clear, professional image.</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 d-flex align-items-center">
+                                    <div class="preview-container">
+                                        <img id="previewImage" src="https://via.placeholder.com/100" alt="Profile Preview" class="img-thumbnail">
+                                        <small class="form-text text-muted">Preview your profile image here.</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name" value="<%= request.getAttribute("name")%>" placeholder="Enter your full name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" value="<%= request.getAttribute("email")%>" placeholder="Enter your email address">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="number" class="form-label">Number</label>
+                                        <input type="text" class="form-control" id="number" name="number" value="<%= request.getAttribute("number")%>" placeholder="Enter your phone number">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="address" class="form-label">Address</label>
+                                        <input type="text" class="form-control" id="address" name="address" value="<%= request.getAttribute("address")%>" placeholder="Enter your address">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="deliveryArea" class="form-label">Delivery Area Address</label>
+                                        <input type="text" class="form-control" id="deliveryArea" name="deliveryArea" value="<%= request.getAttribute("deliveryArea")%>" placeholder="Enter delivery area">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="emergencyContact" class="form-label">Emergency Contact</label>
+                                        <input type="text" class="form-control" id="emergencyContact" name="emergencyContact" value="<%= request.getAttribute("emergencyContact")%>" placeholder="Enter emergency contact">
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="cancelModal" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- main content -->
             <div class="main-content">
                 <header>
                     <div class="headerLogo">
@@ -183,10 +322,12 @@
                                     <img src="<%=imagepath%>" alt="Your-image">
                                 </div>
                                 <div class="personal-description">
-                                    <h5><%=name%></h5>
+                                    <div class="description-header">
+                                        <h5><%=name%></h5>
+                                    </div>
                                     <h6><span>&#9733; 5.0</span><span><%=location%></span></h6>
                                     <p>Joined June 2024</p>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit</button>
+                                    <button type="button" class="btn btn-primary" id="setIcon" style="display: flex;justify-content: center;gap: 10px;padding: 5px !important;"><i class="fas fa-cog settings-icon" style="margin-top: 9px;"></i><p style="font-size: 20px;color: white;">Settings</p></button>
                                 </div>
                             </div>
                             <div class="order-details">
@@ -569,76 +710,6 @@
             </div>
         </div>
 
-        <!-- Edit Profile Modal -->
-        <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <form action="UpdateDeliveryExecutive" method="post" enctype="multipart/form-data">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="name" name="name" value="<%= request.getAttribute("name")%>" placeholder="Enter your full name">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email" name="email" value="<%= request.getAttribute("email")%>" placeholder="Enter your email address">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="number" class="form-label">Number</label>
-                                        <input type="text" class="form-control" id="number" name="number" value="<%= request.getAttribute("number")%>" placeholder="Enter your phone number">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="address" class="form-label">Address</label>
-                                        <input type="text" class="form-control" id="address" name="address" value="<%= request.getAttribute("address")%>" placeholder="Enter your address">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="deliveryArea" class="form-label">Delivery Area Address</label>
-                                        <input type="text" class="form-control" id="deliveryArea" name="deliveryArea" value="<%= request.getAttribute("deliveryArea")%>" placeholder="Enter delivery area">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="emergencyContact" class="form-label">Emergency Contact Number</label>
-                                        <input type="text" class="form-control" id="emergencyContact" name="emergencyContact" value="<%= request.getAttribute("emergencyContact")%>" placeholder="Enter emergency contact">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="profileImage" class="form-label">Profile Image</label>
-                                        <input type="file" class="form-control file-input" id="profileImage" name="profileImage">
-                                        <small class="form-text text-muted">Choose a clear, professional image.</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 d-flex align-items-center">
-                                    <div class="preview-container">
-                                        <img id="previewImage" src="https://via.placeholder.com/100" alt="Profile Preview" class="img-thumbnail">
-                                        <small class="form-text text-muted">Preview your profile image here.</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
 
         <!-- Scripts  -->
 
