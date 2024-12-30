@@ -98,7 +98,7 @@
                        ><img src="./assets/PlateraLogo-red.png" alt=""
                           /></a>
                 </div>
-                <div class="search-container">
+<!--                <div class="search-container">
                     <input
                         type="text"
                         id="location-search"
@@ -108,13 +108,13 @@
                     <button class="select-location-btn" onclick="selectLocation()">
                         &#x2192;
                     </button>
-                    <!-- Arrow button -->
+                    
                 </div>
 
-                <span id="selected-location" class="selected-location">Selected Location: None</span>
+                <span id="selected-location" class="selected-location">Selected Location: None</span>-->
 
                 <ul class="nav-links">
-                    <li><a href="./Home.jsp">Home</a></li>
+                    <li id="active"><a href="./Home.jsp">Home</a></li>
                     <li><a href="#restaurants">Restaurants</a></li>
                     <li><a href="#dishes">Dishes</a></li>
                     <li><a href="#contact">Contact</a></li>
