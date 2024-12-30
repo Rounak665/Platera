@@ -84,6 +84,10 @@
     color: #666;
 }
 
+.nav-links #active a{
+    color: #F12630;
+}
+
 /* Navbar */
 
 .navbar {
@@ -181,8 +185,13 @@
 }
 
 .nav-links {
+    text-align: center;
     display: flex;
     list-style: none;
+}
+
+.nav-links ul{
+    padding: 0;
 }
 
 .nav-links li {

@@ -1,24 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Utilities;
 
 public class DeliveryExecutive {
     private int executiveId;
     private int userId;
     private String fullName;
+    private String email; // Added email
     private String phone;
     private String address;
     private String vehicleType;
-    private String vehicleNumber; // New field
+    private String vehicleNumber;
     private int locationId;
     private String location;
-    private String image; // New field
-    private String status; // New field
+    private String image;
+    private String status;
 
-    // Getters and Setters
+    // Getter and Setter for executiveId
     public int getExecutiveId() {
         return executiveId;
     }
@@ -27,6 +24,7 @@ public class DeliveryExecutive {
         this.executiveId = executiveId;
     }
 
+    // Getter and Setter for userId
     public int getUserId() {
         return userId;
     }
@@ -35,6 +33,7 @@ public class DeliveryExecutive {
         this.userId = userId;
     }
 
+    // Getter and Setter for fullName
     public String getFullName() {
         return fullName;
     }
@@ -43,6 +42,16 @@ public class DeliveryExecutive {
         this.fullName = fullName;
     }
 
+    // Getter and Setter for email
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    // Getter and Setter for phone
     public String getPhone() {
         return phone;
     }
@@ -51,6 +60,7 @@ public class DeliveryExecutive {
         this.phone = phone;
     }
 
+    // Getter and Setter for address
     public String getAddress() {
         return address;
     }
@@ -59,6 +69,7 @@ public class DeliveryExecutive {
         this.address = address;
     }
 
+    // Getter and Setter for vehicleType
     public String getVehicleType() {
         return vehicleType;
     }
@@ -67,6 +78,7 @@ public class DeliveryExecutive {
         this.vehicleType = vehicleType;
     }
 
+    // Getter and Setter for vehicleNumber
     public String getVehicleNumber() {
         return vehicleNumber;
     }
@@ -75,6 +87,7 @@ public class DeliveryExecutive {
         this.vehicleNumber = vehicleNumber;
     }
 
+    // Getter and Setter for locationId
     public int getLocationId() {
         return locationId;
     }
@@ -83,6 +96,7 @@ public class DeliveryExecutive {
         this.locationId = locationId;
     }
 
+    // Getter and Setter for location
     public String getLocation() {
         return location;
     }
@@ -91,6 +105,7 @@ public class DeliveryExecutive {
         this.location = location;
     }
 
+    // Getter and Setter for image
     public String getImage() {
         return image;
     }
@@ -99,6 +114,7 @@ public class DeliveryExecutive {
         this.image = image;
     }
 
+    // Getter and Setter for status
     public String getStatus() {
         return status;
     }
@@ -107,3 +123,4 @@ public class DeliveryExecutive {
         this.status = status;
     }
 }
+

@@ -8,10 +8,10 @@ public class DeliveryExecutiveDAO {
     // Get delivery executive by executive_id
     public static DeliveryExecutive getDeliveryExecutiveById(int executiveId) throws SQLException {
         Connection conn = Utilities.Database.getConnection();
-        String query = "SELECT d.executive_id, u.name, u.phone, u.address, dd.vehicle_type, dd.vehicle_number, d.location_id, l.location_name, d.image, d.status " +
+        String query = "SELECT d.executive_id, u.name, u.email, u.phone, u.address, dd.vehicle_type, dd.vehicle_number, d.location as location_id, l.location_name, d.image, d.status " +
                        "FROM delivery_executives d " +
                        "LEFT JOIN users u ON u.user_id = d.user_id " +
-                       "LEFT JOIN locations l ON d.location_id = l.location_id " +
+                       "LEFT JOIN locations l ON d.location = l.location_id " +
                        "LEFT JOIN delivery_executive_documents dd ON dd.delivery_executive_id = d.delivery_executive_id " +
                        "WHERE d.executive_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -21,6 +21,7 @@ public class DeliveryExecutiveDAO {
                 DeliveryExecutive executive = new DeliveryExecutive();
                 executive.setExecutiveId(rs.getInt("executive_id"));
                 executive.setFullName(rs.getString("name"));
+                executive.setEmail(rs.getString("email"));
                 executive.setPhone(rs.getString("phone"));
                 executive.setAddress(rs.getString("address"));
                 executive.setVehicleType(rs.getString("vehicle_type"));
@@ -38,10 +39,10 @@ public class DeliveryExecutiveDAO {
     // Get delivery executive by user_id
     public static DeliveryExecutive getDeliveryExecutiveByUserId(int userId) throws SQLException {
         Connection conn = Utilities.Database.getConnection();
-        String query = "SELECT d.executive_id, u.name, u.phone, u.address, dd.vehicle_type, dd.vehicle_number, d.location_id, l.location_name, d.image, d.status " +
+        String query = "SELECT d.delivery_executive_id, u.name, u.email, u.phone, u.address, dd.vehicle_type, dd.vehicle_number, d.location as location_id, l.location_name, d.image, d.status " +
                        "FROM delivery_executives d " +
                        "LEFT JOIN users u ON u.user_id = d.user_id " +
-                       "LEFT JOIN locations l ON d.location_id = l.location_id " +
+                       "LEFT JOIN locations l ON d.location = l.location_id " +
                        "LEFT JOIN delivery_executive_documents dd ON dd.delivery_executive_id = d.delivery_executive_id " +
                        "WHERE u.user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -49,8 +50,9 @@ public class DeliveryExecutiveDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 DeliveryExecutive executive = new DeliveryExecutive();
-                executive.setExecutiveId(rs.getInt("executive_id"));
+                executive.setExecutiveId(rs.getInt("delivery_executive_id"));
                 executive.setFullName(rs.getString("name"));
+                executive.setEmail(rs.getString("email"));
                 executive.setPhone(rs.getString("phone"));
                 executive.setAddress(rs.getString("address"));
                 executive.setVehicleType(rs.getString("vehicle_type"));
@@ -68,10 +70,10 @@ public class DeliveryExecutiveDAO {
     // Get all delivery executives
     public static List<DeliveryExecutive> getAllDeliveryExecutives() throws SQLException {
         Connection conn = Utilities.Database.getConnection();
-        String query = "SELECT d.executive_id, u.name, u.phone, u.address, dd.vehicle_type, dd.vehicle_number, d.location_id, l.location_name, d.image, d.status " +
+        String query = "SELECT d.executive_id, u.name, u.email, u.phone, u.address, dd.vehicle_type, dd.vehicle_number, d.location as location_id, l.location_name, d.image, d.status " +
                        "FROM delivery_executives d " +
                        "LEFT JOIN users u ON u.user_id = d.user_id " +
-                       "LEFT JOIN locations l ON d.location_id = l.location_id " +
+                       "LEFT JOIN locations l ON d.location = l.location_id " +
                        "LEFT JOIN delivery_executive_documents dd ON dd.delivery_executive_id = d.delivery_executive_id";
         List<DeliveryExecutive> executives = new ArrayList<>();
         try (Statement stmt = conn.createStatement()) {
@@ -80,6 +82,7 @@ public class DeliveryExecutiveDAO {
                 DeliveryExecutive executive = new DeliveryExecutive();
                 executive.setExecutiveId(rs.getInt("executive_id"));
                 executive.setFullName(rs.getString("name"));
+                executive.setEmail(rs.getString("email"));
                 executive.setPhone(rs.getString("phone"));
                 executive.setAddress(rs.getString("address"));
                 executive.setVehicleType(rs.getString("vehicle_type"));

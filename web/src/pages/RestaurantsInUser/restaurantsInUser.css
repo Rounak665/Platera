@@ -41,6 +41,10 @@ body {
     
 */
 
+.nav-links #active a{
+    color: #F12630;
+}
+
 .navbar {
     width: 100%;
     display: flex;

@@ -98,7 +98,7 @@
                        ><img src="./assets/PlateraLogo-red.png" alt=""
                           /></a>
                 </div>
-                <div class="search-container">
+<!--                <div class="search-container">
                     <input
                         type="text"
                         id="location-search"
@@ -108,13 +108,13 @@
                     <button class="select-location-btn" onclick="selectLocation()">
                         &#x2192;
                     </button>
-                    <!-- Arrow button -->
+                    
                 </div>
 
-                <span id="selected-location" class="selected-location">Selected Location: None</span>
+                <span id="selected-location" class="selected-location">Selected Location: None</span>-->
 
                 <ul class="nav-links">
-                    <li><a href="./Home.jsp">Home</a></li>
+                    <li id="active"><a href="./Home.jsp">Home</a></li>
                     <li><a href="#restaurants">Restaurants</a></li>
                     <li><a href="#dishes">Dishes</a></li>
                     <li><a href="#contact">Contact</a></li>
@@ -216,6 +216,7 @@
                 <div class="promo-code">
                     <form action="http://localhost:8080/Platera-Main/ApplyCoupon" method="post">
                         <input type="text" name="coupon_code" placeholder="Promo Code">
+                        <input type="number" name="customerId" value="<%=customer_id%>" hidden>
                         <button type="submit">Apply</button>
                     </form>
                 </div>
@@ -253,24 +254,24 @@
                     Checkout
                     <span class="close-btn" id="closeCartSectionPaynow">&times;</span>
                 </div>
-                <form action="Checkout">
+                <form action="http://localhost:8080/Platera-Main/Checkout" method="post">
                     <div class="payment-options">
                         <div class="payment-option">
-                            <input type="radio" name="payment" id="debit-credit" checked>
+                            <input type="radio" name="payment" id="debit-credit" value="cards" checked>
                             <label for="debit-credit">
                                 <img src="https://img.icons8.com/color/48/visa.png" alt="Visa"> Debit/Credit card
                             </label>
                         </div>
 
                         <div class="payment-option">
-                            <input type="radio" name="payment" id="net-banking" value="Net Banking">
+                            <input type="radio" name="payment" id="net-banking" value="netBanking">
                             <label for="net-banking">
                                 <img src="https://img.icons8.com/color/48/bank.png" alt="Bank"> Net banking
                             </label>
                         </div>
 
                         <div class="payment-option">
-                            <input type="radio" name="payment" id="cash-on-delivery">
+                            <input type="radio" name="payment" id="cash-on-delivery" value="cod">
                             <label for="cash-on-delivery">
                                 <img src="https://img.icons8.com/color/48/cash.png" alt="Cash on Delivery"> Cash on Delivery
                             </label>
@@ -540,7 +541,7 @@
                             cartSection.style.transition = 'right 0.3s ease'; // Re-enable smooth transition
                         }, 10); // Short delay to re-enable transition without noticeable flicker
                     }
-                    };
+                    
         </script>
         <script src="script.js"></script>
 
