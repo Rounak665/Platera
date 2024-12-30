@@ -492,7 +492,28 @@
 
                                             <div class="order-amt">
                                                 <h4>Total</h4>
-                                                <p class="total-amount">₹<%= currentOrder.getTotalAmount()%></p>
+                                                <p class="total-amount" style="margin-bottom: 50px;">₹<%= currentOrder.getTotalAmount()%></p>
+                                                <div class="details-right">
+                                                    <%
+                                                        if ("Y".equals(executiveStatus)) {
+                                                    %>
+                                                    <form action="http://localhost:8080/Platera-Main/UpdateExecutiveStatus" method="post">
+                                                        <input type="hidden" name="executive_id" value="<%= executiveId %>">
+                                                        <input type="hidden" name="executive_status" value="N">
+                                                        <button class="delivered-button" type="submit">Delivered</button>
+                                                    </form>
+                                                    <%
+                                                        } else if ("N".equals(executiveStatus)) {
+                                                    %>
+                                                    <form action="http://localhost:8080/Platera-Main/UpdateExecutiveStatus" method="post">
+                                                        <input type="hidden" name="executive_id" value="<%= executiveId %>">
+                                                        <input type="hidden" name="executive_status" value="Y">
+                                                        <button class="pickedup-button" type="submit">Pickedup</button>
+                                                    </form>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -337,7 +337,7 @@
     position: fixed; 
     top: 0;
     right: -50%;
-    width: 26%; 
+    width: 400px; 
     height: 100%;
     background-color: #f9f9f9;
     box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
@@ -349,7 +349,6 @@
 
 .cart-container {
     width: 100%;
-    max-width: 400px;
     background-color: white;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
