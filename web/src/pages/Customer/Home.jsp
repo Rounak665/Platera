@@ -543,9 +543,58 @@
                             cartSection.style.transition = 'right 0.3s ease'; // Re-enable smooth transition
                         }, 10); // Short delay to re-enable transition without noticeable flicker
                     }
-                    
+                    // JavaScript to handle the sliding effect for user and cart sections
+const profileIcon = document.getElementById('profileIcon');
+const userSection = document.getElementById('userSection');
+const closeUserSection = document.getElementById('closeUserSection');
+
+const cartIcon = document.getElementById('cartIcon');
+const cartSection = document.getElementById('cartSection');
+const closeCartSectionCheckout = document.getElementById("closeCartSectionCheckout");
+const closeCartSectionPaynow = document.getElementById("closeCartSectionPaynow");
+
+profileIcon.addEventListener('click', () => {
+    if (userSection.style.right === '0%') {
+        userSection.style.right = '-50%'; // Slide out user section
+    } else {
+        userSection.style.right = '0%'; // Slide in user section
+        cartSection.style.right = '-50%'; // Ensure cart is hidden
+    }
+});
+
+cartIcon.addEventListener('click', () => {
+    if (cartSection.style.right === '0%') {
+        cartSection.style.right = '-50%'; // Slide out cart section
+    } else {
+        cartSection.style.right = '0%'; // Slide in cart section
+        userSection.style.right = '-50%'; // Ensure user section is hidden
+    }
+});
+
+// Close buttons functionality
+if (closeCartSectionCheckout) {
+    closeCartSectionCheckout.addEventListener("click", () => {
+        document.getElementById("cartSection").style.right = "-50%";
+    });
+}
+
+if (closeCartSectionPaynow) {
+    closeCartSectionPaynow.addEventListener("click", () => {
+        document.getElementById("cartSection").style.right = "-50%";
+    });
+}
+window.onload = function() {
+    // Check if the URL contains the hash for the cart section
+    if (window.location.hash === '#cartSection') {
+        // Slide in the cart section
+        document.querySelector('.cart-section').style.right = '0%';
+        // Ensure user section is hidden
+        document.querySelector('.user-section').style.right = '-50%';
+    }
+};
+
         </script>
-        <script src="script.js"></script>
+        <script src="./script.js"></script>
 
     </body>
 </html>
