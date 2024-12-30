@@ -5,10 +5,10 @@ import java.util.*;
 
 public class CustomerDAO {
 
-    // Get customer by customer_id (including location details)
+    // Get customer by customer_id (including location and two-step verification details)
     public static Customer getCustomerById(int customerId) throws SQLException {
         Connection conn = Utilities.Database.getConnection();
-        String query = "SELECT c.customer_id, u.name, u.phone, u.address, c.location_id, l.location_name, u.email " +
+        String query = "SELECT c.customer_id, u.name, u.phone, u.address, c.location_id, l.location_name, u.email, u.two_step_verification " +
                        "FROM customers c " +
                        "LEFT JOIN users u ON u.user_id = c.user_id " +
                        "LEFT JOIN locations l ON c.location_id = l.location_id " +
@@ -25,16 +25,17 @@ public class CustomerDAO {
                 customer.setLocationId(rs.getInt("location_id"));
                 customer.setLocation(rs.getString("location_name"));
                 customer.setEmail(rs.getString("email"));
+                customer.setTwoStepVerification("Y".equalsIgnoreCase(rs.getString("two_step_verification"))); 
                 return customer;
             }
         }
-        return null;  // Return null if no customer found for the given customer_id
+        return null; // Return null if no customer found for the given customer_id
     }
 
-    // Get customer by user_id (including location details)
+    // Get customer by user_id (including location and two-step verification details)
     public static Customer getCustomerByUserId(int userId) throws SQLException {
         Connection conn = Utilities.Database.getConnection();
-        String query = "SELECT c.customer_id, u.name, u.phone, u.address, c.location_id, l.location_name, u.email " +
+        String query = "SELECT c.customer_id, u.name, u.phone, u.address, c.location_id, l.location_name, u.email, u.two_step_verification " +
                        "FROM customers c " +
                        "LEFT JOIN users u ON u.user_id = c.user_id " +
                        "LEFT JOIN locations l ON c.location_id = l.location_id " +
@@ -51,16 +52,17 @@ public class CustomerDAO {
                 customer.setLocationId(rs.getInt("location_id"));
                 customer.setLocation(rs.getString("location_name"));
                 customer.setEmail(rs.getString("email"));
+                customer.setTwoStepVerification("Y".equalsIgnoreCase(rs.getString("two_step_verification"))); 
                 return customer;
             }
         }
-        return null;  // Return null if no customer found for the given user_id
+        return null; // Return null if no customer found for the given user_id
     }
 
-    // Get all customers (including location details)
+    // Get all customers (including location and two-step verification details)
     public static List<Customer> getAllCustomers() throws SQLException {
         Connection conn = Utilities.Database.getConnection();
-        String query = "SELECT c.customer_id, u.name, u.phone, u.address, c.location_id, l.location_name, u.email " +
+        String query = "SELECT c.customer_id, u.name, u.phone, u.address, c.location_id, l.location_name, u.email, u.two_step_verification " +
                        "FROM customers c " +
                        "LEFT JOIN users u ON u.user_id = c.user_id " +
                        "LEFT JOIN locations l ON c.location_id = l.location_id";
@@ -76,20 +78,21 @@ public class CustomerDAO {
                 customer.setLocationId(rs.getInt("location_id"));
                 customer.setLocation(rs.getString("location_name"));
                 customer.setEmail(rs.getString("email"));
+                customer.setTwoStepVerification("Y".equalsIgnoreCase(rs.getString("two_step_verification"))); 
                 customers.add(customer);
             }
         }
         return customers;
     }
 
-
-    // Update an existing customer (including location_id)
+    // Update an existing customer (including location_id and two-step verification)
     public static boolean updateCustomer(Customer customer) throws SQLException {
         Connection conn = Utilities.Database.getConnection();
-        String query = "UPDATE customers SET location_id = ? WHERE customer_id = ?";
+        String query = "UPDATE customers SET location_id = ?, two_step_verification = ? WHERE customer_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, customer.getLocationId());  // Update location_id here
-            stmt.setInt(2, customer.getCustomerId());
+            stmt.setInt(1, customer.getLocationId());
+            stmt.setString(2, customer.isTwoStepVerification() ? "Y" : "N");
+            stmt.setInt(3, customer.getCustomerId());
             return stmt.executeUpdate() > 0;
         }
     }

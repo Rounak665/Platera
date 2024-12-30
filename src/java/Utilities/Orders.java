@@ -134,14 +134,6 @@ public class Orders {
         this.paymentDate = paymentDate;
     }
 
-    public Double getAmountPayable() {
-        return amountPayable;
-    }
-
-    public void setAmountPayable(Double amountPayable) {
-        this.amountPayable = amountPayable;
-    }
-
     public void addOrderItem(OrderItem item) {
         this.orderItems.add(item);
     }

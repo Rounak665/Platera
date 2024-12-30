@@ -14,7 +14,7 @@ public class OrdersDAO {
         List<Orders> ordersList = new ArrayList<>();
         String query = "SELECT o.order_id, o.total_amount AS total_amount, o.address AS customer_address, o.order_status, o.order_date, "
                 + "r.restaurant_id,r.restaurant_name AS restaurant_name, r.address AS restaurant_address,r.phone as restaurant_phone, "
-                + "p.payment_method, p.payment_status, p.payment_date, p.amount, "
+                + "p.payment_method, p.payment_status, p.payment_date, "
                 + "oi.item_id, m.item_name, oi.quantity, m.image,o.phone as customer_phone "
                 + "FROM orders o "
                 + "JOIN restaurants r ON o.restaurant_id = r.restaurant_id "
@@ -57,7 +57,6 @@ public class OrdersDAO {
                     currentOrder.setPaymentMethod(rs.getString("payment_method"));
                     currentOrder.setPaymentStatus(rs.getString("payment_status"));
                     currentOrder.setPaymentDate(rs.getString("payment_date"));
-                    currentOrder.setAmountPayable(rs.getDouble("amount"));
 
                     currentOrderId = orderId;  // Update current order id
                 }
@@ -91,7 +90,7 @@ public class OrdersDAO {
         List<Orders> ordersList = new ArrayList<>();
         String query = "SELECT o.order_id, o.total_amount AS total_amount, o.address AS customer_address, o.order_status, o.order_date, "
                 + "r.restaurant_id,r.restaurant_name AS restaurant_name, r.address AS restaurant_address,r.phone as restaurant_phone, "
-                + "p.payment_method, p.payment_status, p.payment_date, p.amount, "
+                + "p.payment_method, p.payment_status, p.payment_date, "
                 + "oi.item_id, m.item_name, oi.quantity, m.image,o.phone as customer_phone "
                 + "FROM orders o "
                 + "JOIN restaurants r ON o.restaurant_id = r.restaurant_id "
@@ -133,7 +132,6 @@ public class OrdersDAO {
                     currentOrder.setPaymentMethod(rs.getString("payment_method"));
                     currentOrder.setPaymentStatus(rs.getString("payment_status"));
                     currentOrder.setPaymentDate(rs.getString("payment_date"));
-                    currentOrder.setAmountPayable(rs.getDouble("amount"));
 
                     currentOrderId = orderId;  // Update current order id
                 }
@@ -167,7 +165,7 @@ public class OrdersDAO {
         List<Orders> ordersList = new ArrayList<>();
         String query = "SELECT o.order_id, o.total_amount AS total_amount, o.address AS customer_address, o.order_status, o.order_date, "
                 + "r.restaurant_id,r.restaurant_name AS restaurant_name, r.address AS restaurant_address,r.phone as restaurant_phone, "
-                + "p.payment_method, p.payment_status, p.payment_date, p.amount, "
+                + "p.payment_method, p.payment_status, p.payment_date, "
                 + "oi.item_id, m.item_name, oi.quantity, m.image,o.phone as customer_phone "
                 + "FROM orders o "
                 + "JOIN restaurants r ON o.restaurant_id = r.restaurant_id "
@@ -210,7 +208,6 @@ public class OrdersDAO {
                     currentOrder.setPaymentMethod(rs.getString("payment_method"));
                     currentOrder.setPaymentStatus(rs.getString("payment_status"));
                     currentOrder.setPaymentDate(rs.getString("payment_date"));
-                    currentOrder.setAmountPayable(rs.getDouble("amount"));
 
                     currentOrderId = orderId;  // Update current order id
                 }

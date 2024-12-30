@@ -8,12 +8,13 @@ public class DeliveryExecutiveDAO {
     // Get delivery executive by executive_id
     public static DeliveryExecutive getDeliveryExecutiveById(int executiveId) throws SQLException {
         Connection conn = Utilities.Database.getConnection();
-        String query = "SELECT d.executive_id, u.name, u.email, u.phone, u.address, dd.vehicle_type, dd.vehicle_number, d.location as location_id, l.location_name, d.image, d.status " +
-                       "FROM delivery_executives d " +
-                       "LEFT JOIN users u ON u.user_id = d.user_id " +
-                       "LEFT JOIN locations l ON d.location = l.location_id " +
-                       "LEFT JOIN delivery_executive_documents dd ON dd.delivery_executive_id = d.delivery_executive_id " +
-                       "WHERE d.executive_id = ?";
+        String query = "SELECT d.executive_id, u.name, u.email, u.phone, u.address, dd.vehicle_type, dd.vehicle_number, "
+                + "d.location as location_id, l.location_name, d.image, d.status, u.two_step_verification "
+                + "FROM delivery_executives d "
+                + "LEFT JOIN users u ON u.user_id = d.user_id "
+                + "LEFT JOIN locations l ON d.location = l.location_id "
+                + "LEFT JOIN delivery_executive_documents dd ON dd.delivery_executive_id = d.delivery_executive_id "
+                + "WHERE d.executive_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, executiveId);
             ResultSet rs = stmt.executeQuery();
@@ -30,6 +31,7 @@ public class DeliveryExecutiveDAO {
                 executive.setLocation(rs.getString("location_name"));
                 executive.setImage(rs.getString("image"));
                 executive.setStatus(rs.getString("status"));
+                executive.setTwoStepVerification("Y".equalsIgnoreCase(rs.getString("two_step_verification"))); 
                 return executive;
             }
         }
@@ -39,12 +41,13 @@ public class DeliveryExecutiveDAO {
     // Get delivery executive by user_id
     public static DeliveryExecutive getDeliveryExecutiveByUserId(int userId) throws SQLException {
         Connection conn = Utilities.Database.getConnection();
-        String query = "SELECT d.delivery_executive_id, u.name, u.email, u.phone, u.address, dd.vehicle_type, dd.vehicle_number, d.location as location_id, l.location_name, d.image, d.status " +
-                       "FROM delivery_executives d " +
-                       "LEFT JOIN users u ON u.user_id = d.user_id " +
-                       "LEFT JOIN locations l ON d.location = l.location_id " +
-                       "LEFT JOIN delivery_executive_documents dd ON dd.delivery_executive_id = d.delivery_executive_id " +
-                       "WHERE u.user_id = ?";
+        String query = "SELECT d.delivery_executive_id, u.name, u.email, u.phone, u.address, dd.vehicle_type, dd.vehicle_number, "
+                + "d.location as location_id, l.location_name, d.image, d.status, u.two_step_verification "
+                + "FROM delivery_executives d "
+                + "LEFT JOIN users u ON u.user_id = d.user_id "
+                + "LEFT JOIN locations l ON d.location = l.location_id "
+                + "LEFT JOIN delivery_executive_documents dd ON dd.delivery_executive_id = d.delivery_executive_id "
+                + "WHERE u.user_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
@@ -61,6 +64,7 @@ public class DeliveryExecutiveDAO {
                 executive.setLocation(rs.getString("location_name"));
                 executive.setImage(rs.getString("image"));
                 executive.setStatus(rs.getString("status"));
+                executive.setTwoStepVerification("Y".equalsIgnoreCase(rs.getString("two_step_verification"))); // Map 'Y'/'N' to boolean
                 return executive;
             }
         }
@@ -70,11 +74,12 @@ public class DeliveryExecutiveDAO {
     // Get all delivery executives
     public static List<DeliveryExecutive> getAllDeliveryExecutives() throws SQLException {
         Connection conn = Utilities.Database.getConnection();
-        String query = "SELECT d.executive_id, u.name, u.email, u.phone, u.address, dd.vehicle_type, dd.vehicle_number, d.location as location_id, l.location_name, d.image, d.status " +
-                       "FROM delivery_executives d " +
-                       "LEFT JOIN users u ON u.user_id = d.user_id " +
-                       "LEFT JOIN locations l ON d.location = l.location_id " +
-                       "LEFT JOIN delivery_executive_documents dd ON dd.delivery_executive_id = d.delivery_executive_id";
+        String query = "SELECT d.executive_id, u.name, u.email, u.phone, u.address, dd.vehicle_type, dd.vehicle_number, "
+                + "d.location as location_id, l.location_name, d.image, d.status, u.two_step_verification "
+                + "FROM delivery_executives d "
+                + "LEFT JOIN users u ON u.user_id = d.user_id "
+                + "LEFT JOIN locations l ON d.location = l.location_id "
+                + "LEFT JOIN delivery_executive_documents dd ON dd.delivery_executive_id = d.delivery_executive_id";
         List<DeliveryExecutive> executives = new ArrayList<>();
         try (Statement stmt = conn.createStatement()) {
             ResultSet rs = stmt.executeQuery(query);
@@ -91,14 +96,16 @@ public class DeliveryExecutiveDAO {
                 executive.setLocation(rs.getString("location_name"));
                 executive.setImage(rs.getString("image"));
                 executive.setStatus(rs.getString("status"));
+                executive.setTwoStepVerification("Y".equalsIgnoreCase(rs.getString("two_step_verification"))); // Map 'Y'/'N' to boolean
                 executives.add(executive);
             }
         }
         return executives;
     }
 
-    // Save a new delivery executive
-    public static boolean saveDeliveryExecutive(DeliveryExecutive executive) throws SQLException {
+
+// Save a new delivery executive
+public static boolean saveDeliveryExecutive(DeliveryExecutive executive) throws SQLException {
         Connection conn = Utilities.Database.getConnection();
         String query = "INSERT INTO delivery_executives (user_id, vehicle_type, location_id, image, status) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {

@@ -1,4 +1,3 @@
-
 package Utilities;
 
 public class DeliveryExecutive {
@@ -14,6 +13,7 @@ public class DeliveryExecutive {
     private String location;
     private String image;
     private String status;
+    private boolean twoStepVerification; // Added field
 
     // Getter and Setter for executiveId
     public int getExecutiveId() {
@@ -122,5 +122,13 @@ public class DeliveryExecutive {
     public void setStatus(String status) {
         this.status = status;
     }
-}
 
+    // Getter and Setter for twoStepVerification
+    public boolean isTwoStepVerification() {
+        return twoStepVerification;
+    }
+
+    public void setTwoStepVerification(boolean twoStepVerification) {
+        this.twoStepVerification = twoStepVerification;
+    }
+}

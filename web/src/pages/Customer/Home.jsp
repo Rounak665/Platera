@@ -57,6 +57,7 @@
             String location = "";
             String address = "";
             String phone = "";
+            boolean twoFA;
 
             Customer customer = CustomerDAO.getCustomerByUserId(user_id);
             if (customer != null) {
@@ -68,6 +69,7 @@
                 location = customer.getLocation();
                 address = customer.getAddress();
                 phone = customer.getPhone();
+                twoFA=customer.isTwoStepVerification();
             }
 
             // Create image path based on the image file path retrieved

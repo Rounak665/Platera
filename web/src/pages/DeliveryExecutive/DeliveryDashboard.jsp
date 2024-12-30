@@ -45,6 +45,7 @@
             String locationName = deliveryExecutive.getLocation();
             String imagePath = request.getContextPath() + '/' + deliveryExecutive.getImage();
             String executiveStatus = deliveryExecutive.getStatus();
+            boolean twoFA = deliveryExecutive.isTwoStepVerification();
 
 
         %>
@@ -68,50 +69,37 @@
         <div id="security-section" class="security-container" style="display: none;">
             <div class="security-card">
                 <span class="sec-close-btn" id="closeSecuritySection">&times;</span>
-              <div class="security-header">
-                <i class="fas fa-lock lock-icon"></i>
-                <h2>Two-factor Authentication</h2>
-              </div>
-              <p class="security-description">
-                Enhance your security by setting up two-factor authentication (2FA) using an authenticator app or SMS on your mobile phone.
-              </p>
-          
-              <div class="security-option">
-                <div class="security-descripton">
-                <label class="option-title">
-                  <span>Authenticator App</span> <span class="option-subtitle">TOTP</span>
-                </label>
-                <p class="option-description">
-                  Receive a temporary one-time passcode using an app.
+                <div class="security-header">
+                    <i class="fas fa-lock lock-icon"></i>
+                    <h2>Two-factor Authentication</h2>
+                </div>
+                <p class="security-description">
+                    Enhance your security by setting up two-factor authentication (2FA) on your registered email.
                 </p>
-              </div>
-                <label class="switch">
-                  <input type="checkbox" id="authenticator-toggle" />
-                  <span class="slider round"></span>
-                </label>
-              </div>
-          
-              <div class="security-option">
-                <div class="security-descripton">
-                <label class="option-title">
-                  <span>Text Message</span> <span class="option-subtitle">SMS</span>
-                </label>
-                <p class="option-description">
-                  Get a one-time passcode through text message.
-                </p>
-              </div>
-                <label class="switch">
-                  <input type="checkbox" id="sms-toggle" checked />
-                  <span class="slider round"></span>
-                </label>
-              </div>
-          
-              <div class="security-footer">
-                <button id="cancel-btn" class="btn cancel-btn">Cancel</button>
-                <button id="save-btn" class="btn save-btn">Save changes</button>
-              </div>
+                <form id="twoFAForm" method="post" action="<%= request.getContextPath()%>/updateTwoFA">
+                    <div class="security-option">
+                        <div class="security-description">
+                            <label class="option-title">
+                                <span>Text Message</span> <span class="option-subtitle">EMAIL</span>
+                            </label>
+                            <p class="option-description">
+                                Get a one-time passcode through email.
+                            </p>
+                        </div>
+                        <label class="switch">
+                            <!-- Dynamically set the 'checked' attribute based on the 'twoFA' variable -->
+                            <input type="checkbox" id="email-toggle" name="twoFA" <%= twoFA ? "checked" : ""%> />
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="security-footer">
+                        <button type="button" id="cancel-btn" class="btn cancel-btn">Cancel</button>
+                        <button type="submit" id="save-btn" class="btn save-btn">Save changes</button>
+                    </div>
+                </form>
             </div>
-          </div>
+        </div>
+
 
         <div>
 
@@ -226,7 +214,7 @@
                                         <input type="text" class="form-control" id="emergencyContact" name="emergencyContact" value="<%= request.getAttribute("emergencyContact")%>" placeholder="Enter emergency contact">
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -439,7 +427,7 @@
                                         </div>
                                         <div class="order-row">
                                             <span class="icon"><ion-icon name="pricetag-outline"></ion-icon></span>
-                                                    <%= currentOrder.getAmountPayable()%>
+                                                    <%= currentOrder.getTotalAmount()%>
                                         </div>
                                         <div class="order-row">
                                             <span class="icon"><ion-icon name="location-outline"></ion-icon></span>
@@ -504,7 +492,7 @@
 
                                             <div class="order-amt">
                                                 <h4>Total</h4>
-                                                <p class="total-amount">₹<%= currentOrder.getAmountPayable()%></p>
+                                                <p class="total-amount">₹<%= currentOrder.getTotalAmount()%></p>
                                             </div>
                                         </div>
                                     </div>

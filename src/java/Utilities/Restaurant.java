@@ -14,6 +14,10 @@ public class Restaurant {
     private String category1;
     private String category2;
     private String category3;
+    private String ownerPhone;
+    private String ownerAddress;
+    private String ownerEmail;
+    private boolean twoStepVerification;
 
     // Constructor
     public Restaurant() {
@@ -140,6 +144,38 @@ public class Restaurant {
 
     public double getPriceForTwo() {
         return 4 * minPrice; // Calculate capped price for two
+    }
+
+    public String getOwnerPhone() {
+        return ownerPhone;
+    }
+
+    public void setOwnerPhone(String ownerPhone) {
+        this.ownerPhone = ownerPhone;
+    }
+
+    public String getOwnerAddress() {
+        return ownerAddress;
+    }
+
+    public void setOwnerAddress(String ownerAddress) {
+        this.ownerAddress = ownerAddress;
+    }
+
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
+
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
+    }
+
+    public boolean isTwoStepVerification() {
+        return twoStepVerification;
+    }
+
+    public void setTwoStepVerification(boolean twoStepVerification) {
+        this.twoStepVerification = twoStepVerification;
     }
 
     // toString method for debugging

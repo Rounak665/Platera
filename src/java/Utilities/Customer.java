@@ -9,9 +9,10 @@ public class Customer {
     private String address;
     private int locationId;
     private String location;
-    private String image;  // Add the image field
+    private String image; // Add the image field
+    private boolean twoStepVerification; // Add the two-step verification field
 
-    // Getters and setters for the other fields...
+    // Getter and Setter for image
     public String getImage() {
         return image;
     }
@@ -20,7 +21,7 @@ public class Customer {
         this.image = image;
     }
 
-    // Existing getters and setters for customerId, fullName, email, etc.
+    // Getter and Setter for customerId
     public int getCustomerId() {
         return customerId;
     }
@@ -29,6 +30,7 @@ public class Customer {
         this.customerId = customerId;
     }
 
+    // Getter and Setter for fullName
     public String getFullName() {
         return fullName;
     }
@@ -37,6 +39,16 @@ public class Customer {
         this.fullName = fullName;
     }
 
+    // Getter and Setter for email
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    // Getter and Setter for phone
     public String getPhone() {
         return phone;
     }
@@ -45,6 +57,7 @@ public class Customer {
         this.phone = phone;
     }
 
+    // Getter and Setter for address
     public String getAddress() {
         return address;
     }
@@ -53,6 +66,7 @@ public class Customer {
         this.address = address;
     }
 
+    // Getter and Setter for locationId
     public int getLocationId() {
         return locationId;
     }
@@ -61,6 +75,7 @@ public class Customer {
         this.locationId = locationId;
     }
 
+    // Getter and Setter for location
     public String getLocation() {
         return location;
     }
@@ -69,11 +84,12 @@ public class Customer {
         this.location = location;
     }
 
-    public String getEmail() {
-        return email;
+    // Getter and Setter for twoStepVerification
+    public boolean isTwoStepVerification() {
+        return twoStepVerification;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setTwoStepVerification(boolean twoStepVerification) {
+        this.twoStepVerification = twoStepVerification;
     }
 }
