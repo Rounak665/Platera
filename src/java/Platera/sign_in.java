@@ -44,7 +44,7 @@ public class sign_in extends HttpServlet {
                         // Create or get session, store user_id, user_role_id and welcomePopup flag
                         HttpSession session = request.getSession(true);
                         session.setAttribute("user_id", user_id);
-                        session.setAttribute("welcomePopup", true);  // Set welcome popup flag
+                        session.setAttribute("welcomePopup", false);  // Set welcome popup flag
                         session.setAttribute("user_role_id", userRoleId);  // Store user role in session
 
                         // If two_step_verification is 'Y', generate OTP, send email, and store in session

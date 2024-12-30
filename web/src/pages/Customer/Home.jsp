@@ -43,8 +43,6 @@
     <body>
         <%
             // Retrieve user_id from the session
-
-            //    int user_id = (Integer) session.getAttribute("user_id");
             int user_id = 201;
 
             // Initialize necessary variables
@@ -69,7 +67,7 @@
                 location = customer.getLocation();
                 address = customer.getAddress();
                 phone = customer.getPhone();
-                twoFA=customer.isTwoStepVerification();
+                twoFA = customer.isTwoStepVerification();
             }
 
             // Create image path based on the image file path retrieved
@@ -81,15 +79,17 @@
         <c:if test="${sessionScope.welcomePopup == false}">
             <div class="welcome-popup" id="welcomePopup">
                 <div class="popup-content">
-                    <h3>Welcome, ${name}!</h3>
+                    <h3>Welcome, <%=name%>!</h3>
                     <p>Thanks for visiting our website.</p>
                     <button id="closePopupBtn">Close</button>
                 </div>
             </div>
+
             <%-- Set the attribute to true after displaying the popup --%>
-            <%                session.setAttribute("welcomePopup", true);
+            <%
+                session.setAttribute("welcomePopup", true);
             %>
-        </c:if> 
+        </c:if>
 
 
         <!-- Navigation Bar -->
@@ -100,20 +100,20 @@
                        ><img src="./assets/PlateraLogo-red.png" alt=""
                           /></a>
                 </div>
-<!--                <div class="search-container">
-                    <input
-                        type="text"
-                        id="location-search"
-                        class="location-search"
-                        placeholder="Search for a location..."
-                        /> 
-                    <button class="select-location-btn" onclick="selectLocation()">
-                        &#x2192;
-                    </button>
-                    
-                </div>
-
-                <span id="selected-location" class="selected-location">Selected Location: None</span>-->
+                <!--                <div class="search-container">
+                                    <input
+                                        type="text"
+                                        id="location-search"
+                                        class="location-search"
+                                        placeholder="Search for a location..."
+                                        /> 
+                                    <button class="select-location-btn" onclick="selectLocation()">
+                                        &#x2192;
+                                    </button>
+                                    
+                                </div>
+                
+                                <span id="selected-location" class="selected-location">Selected Location: None</span>-->
 
                 <ul class="nav-links">
                     <li id="active"><a href="./Home.jsp">Home</a></li>
@@ -544,54 +544,54 @@
                         }, 10); // Short delay to re-enable transition without noticeable flicker
                     }
                     // JavaScript to handle the sliding effect for user and cart sections
-const profileIcon = document.getElementById('profileIcon');
-const userSection = document.getElementById('userSection');
-const closeUserSection = document.getElementById('closeUserSection');
+                    const profileIcon = document.getElementById('profileIcon');
+                    const userSection = document.getElementById('userSection');
+                    const closeUserSection = document.getElementById('closeUserSection');
 
-const cartIcon = document.getElementById('cartIcon');
-const cartSection = document.getElementById('cartSection');
-const closeCartSectionCheckout = document.getElementById("closeCartSectionCheckout");
-const closeCartSectionPaynow = document.getElementById("closeCartSectionPaynow");
+                    const cartIcon = document.getElementById('cartIcon');
+                    const cartSection = document.getElementById('cartSection');
+                    const closeCartSectionCheckout = document.getElementById("closeCartSectionCheckout");
+                    const closeCartSectionPaynow = document.getElementById("closeCartSectionPaynow");
 
-profileIcon.addEventListener('click', () => {
-    if (userSection.style.right === '0%') {
-        userSection.style.right = '-50%'; // Slide out user section
-    } else {
-        userSection.style.right = '0%'; // Slide in user section
-        cartSection.style.right = '-50%'; // Ensure cart is hidden
-    }
-});
+                    profileIcon.addEventListener('click', () => {
+                        if (userSection.style.right === '0%') {
+                            userSection.style.right = '-50%'; // Slide out user section
+                        } else {
+                            userSection.style.right = '0%'; // Slide in user section
+                            cartSection.style.right = '-50%'; // Ensure cart is hidden
+                        }
+                    });
 
-cartIcon.addEventListener('click', () => {
-    if (cartSection.style.right === '0%') {
-        cartSection.style.right = '-50%'; // Slide out cart section
-    } else {
-        cartSection.style.right = '0%'; // Slide in cart section
-        userSection.style.right = '-50%'; // Ensure user section is hidden
-    }
-});
+                    cartIcon.addEventListener('click', () => {
+                        if (cartSection.style.right === '0%') {
+                            cartSection.style.right = '-50%'; // Slide out cart section
+                        } else {
+                            cartSection.style.right = '0%'; // Slide in cart section
+                            userSection.style.right = '-50%'; // Ensure user section is hidden
+                        }
+                    });
 
 // Close buttons functionality
-if (closeCartSectionCheckout) {
-    closeCartSectionCheckout.addEventListener("click", () => {
-        document.getElementById("cartSection").style.right = "-50%";
-    });
-}
+                    if (closeCartSectionCheckout) {
+                        closeCartSectionCheckout.addEventListener("click", () => {
+                            document.getElementById("cartSection").style.right = "-50%";
+                        });
+                    }
 
-if (closeCartSectionPaynow) {
-    closeCartSectionPaynow.addEventListener("click", () => {
-        document.getElementById("cartSection").style.right = "-50%";
-    });
-}
-window.onload = function() {
-    // Check if the URL contains the hash for the cart section
-    if (window.location.hash === '#cartSection') {
-        // Slide in the cart section
-        document.querySelector('.cart-section').style.right = '0%';
-        // Ensure user section is hidden
-        document.querySelector('.user-section').style.right = '-50%';
-    }
-};
+                    if (closeCartSectionPaynow) {
+                        closeCartSectionPaynow.addEventListener("click", () => {
+                            document.getElementById("cartSection").style.right = "-50%";
+                        });
+                    }
+                    window.onload = function () {
+                        // Check if the URL contains the hash for the cart section
+                        if (window.location.hash === '#cartSection') {
+                            // Slide in the cart section
+                            document.querySelector('.cart-section').style.right = '0%';
+                            // Ensure user section is hidden
+                            document.querySelector('.user-section').style.right = '-50%';
+                        }
+                    };
 
         </script>
         <script src="./script.js"></script>

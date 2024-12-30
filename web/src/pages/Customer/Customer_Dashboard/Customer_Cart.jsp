@@ -1,3 +1,5 @@
+<%@page import="Utilities.CustomerDAO"%>
+<%@page import="Utilities.Customer"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,6 +11,39 @@
 
     </head>
     <body>
+                <%
+            // Retrieve user_id from the session
+            int user_id = 201;
+
+            // Initialize necessary variables
+            String name = "";
+            String email = "";
+            int customer_id = 0;
+            String image = "";
+            String imagepath = "";
+            int location_id = 0;
+            String location = "";
+            String address = "";
+            String phone = "";
+            boolean twoFA;
+
+            Customer customer = CustomerDAO.getCustomerByUserId(user_id);
+            if (customer != null) {
+                customer_id = customer.getCustomerId();
+                name = customer.getFullName();
+                email = customer.getEmail();
+                image = customer.getImage();
+                location_id = customer.getLocationId();
+                location = customer.getLocation();
+                address = customer.getAddress();
+                phone = customer.getPhone();
+                twoFA = customer.isTwoStepVerification();
+            }
+
+            // Create image path based on the image file path retrieved
+            imagepath = request.getContextPath() + '/' + image;
+
+        %>
         <div class="dashboard-container">
             <aside class="sidebar">
                 <div class="sidebar-toggle menu" id="menu">
