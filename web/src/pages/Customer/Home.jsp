@@ -541,7 +541,7 @@
                             cartSection.style.transition = 'right 0.3s ease'; // Re-enable smooth transition
                         }, 10); // Short delay to re-enable transition without noticeable flicker
                     }
-                    };
+                    
         </script>
         <script src="script.js"></script>
 
