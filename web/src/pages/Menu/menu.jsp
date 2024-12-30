@@ -70,11 +70,11 @@
     <div class="dishes">
         <h2>Our Dishes</h2>
         <div class="carousel-container">
-            <button class="carousel-button prev">❮</button>
+            <button class="carousel-button prev"><i class="fa-solid fa-angle-left"></i></button>
             <div class="carousel-track-container">
                 <ul class="carousel-track">
                     <li class="carousel-slide">
-                        <img src="https://via.placeholder.com/200x150" alt="Dish 1">
+                        <img src="./Assets/product1.png" alt="Dish 1">
                         <h3>Dish 1</h3>
                     </li>
                     <li class="carousel-slide">
@@ -91,7 +91,7 @@
                     </li>
                 </ul>
             </div>
-            <button class="carousel-button next">❯</button>
+            <button class="carousel-button next"><i class="fa-solid fa-angle-right"></i></button>
         </div>
     </div>
 
