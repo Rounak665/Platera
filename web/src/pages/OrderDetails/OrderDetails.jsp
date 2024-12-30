@@ -44,12 +44,15 @@
         </nav>
         <div class="container">
             <h2>Order Details</h2>
-            <form id="userDetailsForm">
+            <form id="userDetailsForm" action="http://localhost:8080/Platera-Main/OrderDetails" method="post">
+                <input type="hidden" name="customerId" value="<%=customer_id%>">
+                <input type="hidden" name="locationId" value="<%=location_id%>">
                 <div class="input-group">
                     <label for="full-name">Payment Method</label>
                     <input type="text" id="payment-method" name="payment-method" 
-                           placeholder="<%= request.getParameter("payment") != null ? request.getParameter("payment") : "No payment method selected"%>" 
-                           disabled class="grayed-out">
+                           value="<%= request.getParameter("payment") != null ? request.getParameter("payment") : "No payment method selected"%>" 
+                           readonly class="grayed-out">
+
                     <p class="grayed-text">If you want to change the payment method then go to the previous page</p>
                 </div>
 
@@ -67,7 +70,7 @@
                     <input type="radio" id="saved-address-radio" name="addressRadio" value="saved-address"  checked>
                     <label for="saved-address-radio" class="address-label">Saved Address</label>
                 </div>
-                <input type="text" id="saved-address" class="address-input" value="<%= address != null ? address : "No saved address"%>" readonly>
+                <input type="text" id="saved-address" name="saved-address" class="address-input" value="<%= address != null ? address : "No saved address"%>" readonly>
                 <p class="grayed-text" id="saved-address-caution" style="margin-bottom: 25px;">If you have no saved address then select  new address</p>
 
 
@@ -76,7 +79,7 @@
                     <input type="radio" id="new-address-radio" name="addressRadio" value="new-address">
                     <label for="new-address-radio" class="address-label">New Address</label>
                 </div>
-                <input type="text" id="new-address" class="address-input" placeholder="Enter new address" style="display: none; margin-bottom: 5px;">
+                <input type="text" id="new-address" name="new-address" class="address-input" placeholder="Enter new address" style="display: none; margin-bottom: 5px;">
                 <p class="grayed-text" id="new-address-caution" style="display: none; margin-bottom: 25px;">If you have no saved address then this address will be new saved address</p>
 
                 <!-- Confirmation Email -->

@@ -32,5 +32,5 @@ netBankingMethod.addEventListener('click', () => {
 });
 
 function goBack(){
-  window.location.href = "../DeliveryDetailsPage/deliverydetailspage.jsp";
+  window.location.href = "../OrderDetails/OrderDetails.jsp";
 }
