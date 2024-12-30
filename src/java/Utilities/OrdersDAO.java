@@ -22,8 +22,8 @@ public class OrdersDAO {
                 + "LEFT JOIN deliveries d ON o.order_id = d.order_id "
                 + "JOIN order_items oi ON o.order_id = oi.order_id "
                 + "JOIN menu_items m ON oi.item_id = m.item_id "
-                + "WHERE d.delivery_executive_id = ? AND o.order_status = 'Accepted' "
-                + "ORDER BY o.order_id";
+                + "WHERE d.delivery_executive_id = ? AND o.order_status IN ('Accepted', 'Cooked', 'Picked Up') "
+                + "ORDER BY o.order_date DESC";
 
         try (Connection conn = Database.getConnection(); // Initialize connection locally
                 PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -97,8 +97,8 @@ public class OrdersDAO {
                 + "LEFT JOIN payments p ON o.order_id = p.order_id "
                 + "JOIN order_items oi ON o.order_id = oi.order_id "
                 + "JOIN menu_items m ON oi.item_id = m.item_id "
-                + "WHERE o.customer_id = ? AND o.order_status = 'Accepted' "
-                + "ORDER BY o.order_id";
+                + "WHERE o.customer_id = ? "
+                + "ORDER BY o.order_date DESC";
 
         try (Connection conn = Database.getConnection(); // Initialize connection locally
                 PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -174,7 +174,7 @@ public class OrdersDAO {
                 + "JOIN order_items oi ON o.order_id = oi.order_id "
                 + "JOIN menu_items m ON oi.item_id = m.item_id "
                 + "WHERE d.delivery_executive_id = ? AND o.order_status = 'Delivered' "
-                + "ORDER BY o.order_id";
+                + "ORDER BY o.order_date DESC";
 
         try (Connection conn = Database.getConnection(); // Initialize connection locally
                 PreparedStatement pstmt = conn.prepareStatement(query)) {

@@ -524,6 +524,34 @@ tr.details-row.show {
 .form-col{
   width: 100%;
 }
+.styled-dropdown {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.styled-dropdown:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.styled-dropdown option {
+    padding: 10px;
+    background: #f9f9f9;
+    color: #333;
+}
+
+.styled-dropdown option:hover {
+    background: #f1f1f1;
+}
+
 
 .form-row label {
     font-size: 14px;
@@ -1351,6 +1379,7 @@ textarea {
   }
 
 }
+
   
 
 

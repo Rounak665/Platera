@@ -353,10 +353,15 @@
                                         // Fetch orders using OrdersDAO
                                         ordersList = ordersDAO.getAcceptedOrdersByDeliveryExecutiveId(executiveId);
 
-                                        if (ordersList.isEmpty()) {
-                                            out.println("No current order found.");
-                                            return;
+                                        if ("N".equals(executiveStatus)) {
+                                            out.println("Press Ready to Deliver to see current orders.");
                                         }
+                                        else{
+                                        // Check if there are no orders in the list
+                                        if (ordersList.isEmpty() && "Y".equals(executiveStatus)) {
+                                            out.println("No current order found.");
+                                        }
+                                        
 
                                         Orders currentOrder = ordersList.get(0); // Assuming we are displaying the first order for simplicity
 
@@ -435,7 +440,7 @@
                                         </div>
                                         <div class="order-row">
                                             <span class="icon"><ion-icon name="checkmark-circle-outline"></ion-icon></span>
-                                            Status: <strong class="status">Accepted</strong>
+                                            Status: <strong class="status"><%=currentOrder.getOrderStatus()%></strong>
                                         </div>
                                     </div>
 
@@ -495,24 +500,29 @@
                                                 <p class="total-amount" style="margin-bottom: 50px;">₹<%= currentOrder.getTotalAmount()%></p>
                                                 <div class="details-right">
                                                     <%
-                                                        if ("Y".equals(executiveStatus)) {
+                                                        // Directly using the getter in the equals method
+                                                        if ("Cooked".equals(currentOrder.getOrderStatus()) || "Accepted".equals(currentOrder.getOrderStatus())) {
                                                     %>
-                                                    <form action="http://localhost:8080/Platera-Main/UpdateExecutiveStatus" method="post">
-                                                        <input type="hidden" name="executive_id" value="<%= executiveId %>">
-                                                        <input type="hidden" name="executive_status" value="N">
-                                                        <button class="delivered-button" type="submit">Delivered</button>
+                                                    <form action="http://localhost:8080/Platera-Main/UpdateOrderStatus" method="post" onsubmit="return confirmHandover()">
+                                                        <input type="hidden" name="order_id" value="<%= currentOrder.getOrderId()%>">
+                                                        <input type="hidden" name="order_status" value="Picked Up">                                                     
+                                                        <button class="pickedup-button" type="submit">Picked up</button>
+
                                                     </form>
                                                     <%
-                                                        } else if ("N".equals(executiveStatus)) {
+                                                    } else if ("Picked Up".equals(currentOrder.getOrderStatus())) {
                                                     %>
-                                                    <form action="http://localhost:8080/Platera-Main/UpdateExecutiveStatus" method="post">
-                                                        <input type="hidden" name="executive_id" value="<%= executiveId %>">
-                                                        <input type="hidden" name="executive_status" value="Y">
-                                                        <button class="pickedup-button" type="submit">Pickedup</button>
+                                                    <form action="http://localhost:8080/Platera-Main/UpdateOrderStatus" method="post" onsubmit="return confirmPickup()">
+                                                        <input type="hidden" name="order_id" value="<%= currentOrder.getOrderId()%>">                                                       
+                                                        <input type="hidden" name="executive_status" value="Delivered">
+                                                        <button class="delivered-button" type="submit">Handover</button>
                                                     </form>
                                                     <%
                                                         }
                                                     %>
+
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -520,9 +530,8 @@
 
                                 </div>
 
-                                <%
+                                <%}
                                     } catch (Exception e) {
-                                        out.println("Error: " + e.getMessage());
                                         e.printStackTrace();
                                     }
                                 %>
@@ -690,7 +699,15 @@
 
 
         <!-- Scripts  -->
+        <script>
+            function confirmHandover() {
+                return confirm("Are you sure you want to hand over the order?");
+            }
 
+            function confirmPickup() {
+                return confirm("Are you sure you want to mark the order as picked up?");
+            }
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
