@@ -15,7 +15,7 @@ public class Database {
             throw new SQLException("Oracle JDBC Driver not found.", e);
         }
 
-        String url = "jdbc:oracle:thin:@Arjun:1521:arjun";
+        String url = "jdbc:oracle:thin:@Rounak:1521:orcl";
         String user = "ROUNAK";
         String password = "CHAKRABORTY";
         return DriverManager.getConnection(url, user, password);
