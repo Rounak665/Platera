@@ -29,7 +29,7 @@
         <%
             // Simulate session attributes for debugging
 //    int user_id = (Integer) session.getAttribute("user_id");
-            int user_id = 257;
+            int user_id = 282;
 
             DeliveryExecutive deliveryExecutive = null;
 
@@ -153,6 +153,15 @@
                         <li id="setSecure"><i class="fas fa-shield-alt"></i> Security</li>
                         <li><i class="fas fa-file-alt"></i> <a href="privacy-policy.html">Privacy Policy</a></li>
                         <li><i class="fas fa-file-contract"></i> <a href="terms-conditions.html">Terms and Conditions</a></li>
+                        <li id="delete-acc">
+                            <i class="fas fa-trash-alt"></i>
+                            <form action="http://localhost:8080/Platera-Main/DeleteUser" method="POST" onsubmit="return confirmDelete()">
+                                <input type="hidden" name="userId" value="<%=user_id%>">
+                                <button type="submit" class="delete-btn">
+                                    <span>Delete Account</span>
+                                </button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
 
@@ -355,65 +364,63 @@
 
                                         if ("N".equals(executiveStatus)) {
                                             out.println("Press Ready to Deliver to see current orders.");
-                                        }
-                                        else{
-                                        // Check if there are no orders in the list
-                                        if (ordersList.isEmpty() && "Y".equals(executiveStatus)) {
-                                            out.println("No current order found.");
-                                        }
-                                        
-
-                                        Orders currentOrder = ordersList.get(0); // Assuming we are displaying the first order for simplicity
-
-                                        int restaurantId = currentOrder.getRestaurantId();
-
-                                        RestaurantDAO restaurantDAO = new RestaurantDAO();
-                                        Restaurant restaurant = restaurantDAO.getRestaurantById(restaurantId); // Fetch restaurant details by ID
-
-                                        // Initialize the review count variable
-                                        int reviewCount = 0;
-
-                                        // Database connection setup
-                                        String query = "SELECT COUNT(*) AS review_count FROM reviews WHERE restaurant_id = ?";
-
-                                        // Establish the database connection and execute the query
-                                        Connection con = null;
-                                        PreparedStatement ps = null;
-                                        ResultSet rs = null;
-
-                                        try {
-                                            // Get the connection
-                                            con = Database.getConnection();
-
-                                            // Prepare the query
-                                            ps = con.prepareStatement(query);
-                                            ps.setInt(1, restaurantId);
-
-                                            // Execute the query
-                                            rs = ps.executeQuery();
-
-                                            // Retrieve the review count
-                                            if (rs.next()) {
-                                                reviewCount = rs.getInt("review_count");
+                                        } else {
+                                            // Check if there are no orders in the list
+                                            if (ordersList.isEmpty() && "Y".equals(executiveStatus)) {
+                                                out.println("No current order found.");
                                             }
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        } finally {
-                                            // Close the ResultSet, PreparedStatement, and Connection
+
+                                            Orders currentOrder = ordersList.get(0); // Assuming we are displaying the first order for simplicity
+
+                                            int restaurantId = currentOrder.getRestaurantId();
+
+                                            RestaurantDAO restaurantDAO = new RestaurantDAO();
+                                            Restaurant restaurant = restaurantDAO.getRestaurantById(restaurantId); // Fetch restaurant details by ID
+
+                                            // Initialize the review count variable
+                                            int reviewCount = 0;
+
+                                            // Database connection setup
+                                            String query = "SELECT COUNT(*) AS review_count FROM reviews WHERE restaurant_id = ?";
+
+                                            // Establish the database connection and execute the query
+                                            Connection con = null;
+                                            PreparedStatement ps = null;
+                                            ResultSet rs = null;
+
                                             try {
-                                                if (rs != null) {
-                                                    rs.close();
-                                                }
-                                                if (ps != null) {
-                                                    ps.close();
-                                                }
-                                                if (con != null) {
-                                                    con.close();
+                                                // Get the connection
+                                                con = Database.getConnection();
+
+                                                // Prepare the query
+                                                ps = con.prepareStatement(query);
+                                                ps.setInt(1, restaurantId);
+
+                                                // Execute the query
+                                                rs = ps.executeQuery();
+
+                                                // Retrieve the review count
+                                                if (rs.next()) {
+                                                    reviewCount = rs.getInt("review_count");
                                                 }
                                             } catch (Exception e) {
                                                 e.printStackTrace();
+                                            } finally {
+                                                // Close the ResultSet, PreparedStatement, and Connection
+                                                try {
+                                                    if (rs != null) {
+                                                        rs.close();
+                                                    }
+                                                    if (ps != null) {
+                                                        ps.close();
+                                                    }
+                                                    if (con != null) {
+                                                        con.close();
+                                                    }
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                }
                                             }
-                                        }
                                 %>
 
                                 <!-- Displaying the current order details -->
@@ -705,6 +712,12 @@
 
             function confirmPickup() {
                 return confirm("Are you sure you want to mark the order as picked up?");
+            }
+        </script>
+        <script>
+            // Confirmation for deleting account
+            function confirmDelete() {
+                return confirm("Are you sure you want to delete your account? This action cannot be undone.");
             }
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

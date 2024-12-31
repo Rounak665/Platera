@@ -141,6 +141,8 @@ form button {
     cursor: pointer;
 }
 
+
+
 form button:hover {
     background-color: #555;
 }
@@ -212,6 +214,31 @@ form p a:hover {
     padding: 10px 20px;
     text-decoration: none;
     display: block;
+}
+#delete-acc form {
+    margin: 0;
+    padding: 0;
+}
+
+#delete-acc .delete-btn {
+    background: none;
+    border: none !important;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    text-align: left;
+    font-size: 16px;
+    color: inherit;
+}
+
+#delete-acc .delete-btn i {
+    margin-right: 10px;
+}
+
+/* Optional: style for hover effect */
+#delete-acc .delete-btn:hover {
+    background-color: #f1f1f1;
 }
 
 /* Media Query for Mobile Devices */
