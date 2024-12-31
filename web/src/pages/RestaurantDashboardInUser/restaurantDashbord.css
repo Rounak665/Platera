@@ -262,6 +262,9 @@ body {
   
   /* Restaurant Info */
   .restaurant-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 20px;
     margin: 10px auto;
     margin-bottom: 30px;
@@ -271,6 +274,11 @@ body {
     border: 1px solid #3333335a;
     border-radius: 18px;
     box-shadow: 0px 10px 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .restaurant-details {
+    flex: 1;
+    margin-right: 20px;
   }
   
   .restaurant-info .rating-price {
@@ -317,73 +325,107 @@ body {
     color: #434343;
     margin-bottom: 5px;
   }
+  .phone, .address{
+    display: flex;
+    align-items: center;
+  } 
+
+  .phone i, .address i{
+    color: #161616;
+    font-size: 16px;
+    margin-right: 5px;
+  }
 
   .restaurant-info .details span .fa-regular{
     color: #161616;
     font-size: 16px;
     margin-right: 5px;
   }
-  
-  /* Deals Carousel */
-  .deals-carousel {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 20px;
-    overflow: hidden;
-    background: #f7f7f7;
-    margin: 20px auto;
-    max-width: 44%;
+  .restaurant-image {
+    flex: 0 0 200px; /* Adjust the width of the image container as needed */
+}
+
+.restaurant-image img {
+    width: 100%;
+    height: auto;
     border-radius: 10px;
-    /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); */
-  }
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
   
-  .carousel-btn {
-    background: #333;
-    color: white;
-    border: none;
-    padding: 10px;
-    font-size: 18px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  
-  .carousel-btn:hover {
-    background: #ff7e5f;
-  }
-  
-  .deals {
-    display: flex;
-    gap: 15px;
-    overflow-x: scroll;
-    scroll-behavior: smooth;
-  }
-  
-  .deals::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .deal {
-    background: linear-gradient(to bottom right, #fefcea, #f1da36);
-    padding: 15px;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-    min-width: 150px;
-    cursor: pointer;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
-    transition: 0.3s;
-  }
-  
-  .deal:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
-  }
-  
+  /* Deals Slider Carousel */
+.deals-slider-carousel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.deals-slider-carousel h1 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.deals-slider {
+  width: 70%; 
+  height: 100px ; 
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+.deals-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.deal-slide {
+  display: flex;
+  flex: 0 0 auto;
+  width: 300px;
+  margin-right: 20px;
+  padding: 5px;
+  scroll-snap-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.138);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* .deal-slide:hover {
+  transform: scale(1.05);
+} */
+
+.deal-slide img {
+  width: 70px;
+  object-fit: cover;
+  height: auto;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.offer-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  text-align: left;
+  padding: 10px;
+}
+.offer-text h4 {
+  font-size: 16px;
+  font-weight: 900;
+  color: #333;
+  /* padding: 10px; */
+}
+
+
 /* Menu Section Styling */
 .menu-section {
     max-width: 900px;

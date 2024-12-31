@@ -1,4 +1,4 @@
-<%@page import="Utilities.Database"%>
+<!-- <%@page import="Utilities.Database"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -7,7 +7,7 @@
 <%@page import="Utilities.Restaurant"%>
 <%@page import="java.util.List"%>
 <%@page import="Utilities.RestaurantDAO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -124,29 +124,53 @@
         <!-- Restaurant Info -->
         <section class="restaurant-info">
             <!-- <h1>Burger King</h1> -->
-            <div class="rating-price">
-                <span class="rating">⭐<%=restaurant.getRating()%> (<%=reviewCount%> ratings)</span>
-                <span class="dot"></span>
-                <span class="price">₹<%=restaurant.getPriceForTwo()%> for two</span>
+            <div class="restaurant-details">
+                <div class="rating-price">
+                    <span class="rating">⭐<%=restaurant.getRating()%> (<%=reviewCount%> ratings)</span>
+                    <span class="dot"></span>
+                    <span class="price">₹<%=restaurant.getPriceForTwo()%> for two</span>
+
+                </div>
+                <div class="details">
+                    <span class="cuisines"><%=restaurant.getCategory1()%>, <%=restaurant.getCategory2()%>, <%=restaurant.getCategory3()%></span> <!-- cuisines -->
+                    <span><i class="fa-regular fa-circle-dot"></i>Outlet: <%=restaurant.getLocation()%></span> 
+                    <span class>25-30 mins</span>
+                    <span class="phone"><i class="fa-solid fa-phone"></i><%=restaurant.getPhoneNumber()%></span>
+                    <span class="address"><i class="fa-solid fa-location-dot"></i><%=restaurant.getAddress()%></span>
+                </div>
             </div>
 
-            <div class="details">
-                <span class="cuisines"><%=restaurant.getCategory1()%>, <%=restaurant.getCategory2()%>, <%=restaurant.getCategory3()%></span> <!-- cuisines -->
-                <span><i class="fa-regular fa-circle-dot"></i>Outlet: <%=restaurant.getLocation()%></span> 
-                <span class>25-30 mins</span>
+            <div class="restaurant-image">
+                <img src="./assets/product1.png" alt="Restaurant Image">
             </div>
         </section>
 
-        <!-- Deals Carousel -->
-        <section class="deals-carousel">
+        <!-- Deals Slider Carousel -->
+        <section class="deals-slider-carousel">
             <h1>Deals for you</h1>
-            <button class="carousel-btn prev">&lt;</button>
-            <div class="deals">
-                <div class="deal">Extra ₹25 Off</div>
-                <div class="deal">Items At ₹99</div>
-                <div class="deal">Deal of Day</div>
+            <div class="deals-slider">
+                <div class="deal-slide">
+                    <img src="./assets/d07196b25b85d1fd9951e10c255ab737.avif" alt="Deal 1">
+                    <div class="offer-text">
+                        <h4>Extra ₹25 Off</h4>
+                        <p>Use code: DEAL25</p>
+                    </div>
+                </div>
+                <div class="deal-slide">
+                    <img src="./assets/deal2.png" alt="Deal 2">
+                    <div class="offer-text">
+                        <h4>Extra ₹25 Off</h4>
+                        <p>Use code: DEAL25</p>
+                    </div>
+                </div>
+                <div class="deal-slide">
+                    <img src="./assets/deal3.png" alt="Deal 3">
+                    <div class="offer-text">
+                        <h4>Extra ₹25 Off</h4>
+                        <p>Use code: DEAL25</p>
+                    </div>
+                </div>
             </div>
-            <button class="carousel-btn next">&gt;</button>
         </section>
 
         <%
