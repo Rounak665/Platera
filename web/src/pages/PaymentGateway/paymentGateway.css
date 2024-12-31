@@ -1,15 +1,15 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Outfit', sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Outfit', sans-serif;
 }
 
 /* General Styling */
 body {
   background-color: #f7f7f7;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
@@ -58,34 +58,40 @@ body {
   border-radius: 18px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  /* outline: 2px solid blue; Debugging line */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  margin: 20px auto; /* Center with margin */
 }
 
-.product-summary,
-.payment-form {
+.product-summary, .payment-form {
   padding: 30px;
   width: 50%;
   box-sizing: border-box;
+  /* outline: 2px solid green; Debugging line */
 }
 
-
 .product-summary {
-  background: #f9f9f9;
+  height: 100%;
+  border-right: 1px solid #ddd;
+  background: #fff;
   border-right: 1px solid #ddd;
 }
 
-.product-summary header a{
+.product-summary header a {
   text-decoration: none;
-  color: #44baff; 
+  color: #44baff;
 }
 
-.product-summary header p span{
-  color: #F12630;                           
+.product-summary header p span {
+  color: #F12630;
 }
 
-.product-summary header p a span{
+.product-summary header p a span {
   font-size: 10px;
   color: #44baff;
 }
+
 .product-summary h1 {
   margin-top: 10px;
   color: #333;
@@ -116,7 +122,7 @@ body {
   color: #333;
 }
 
-form label{
+form label {
   margin-bottom: 10px;
 }
 
@@ -124,10 +130,11 @@ form label{
   text-align: center;
 }
 
-.payment-form header a{
+.payment-form header a {
   text-decoration: none;
 }
-.payment-form header a img{
+
+.payment-form header a img {
   width: 100px;
   height: auto;
   margin: 0 auto;
@@ -143,7 +150,7 @@ form label{
 .method {
   padding: 10px 20px;
   background: #eee;
-  border-radius: 5px; 
+  border-radius: 5px;
   border: 1px solid #ddd;
   flex: 1;
   margin: 0 5px;
@@ -159,21 +166,22 @@ form label{
   margin-bottom: 20px;
 }
 
-.form-group #cardNumber{
+.form-group #cardNumber {
   margin: 0;
 }
 
-.form-group #codName{
+.form-group #codName {
   margin: 0;
 }
 
-.form-group #codPhone{
+.form-group #codPhone {
   margin: 0;
 }
 
-.form-group #codAddress{
+.form-group #codAddress {
   margin: 0;
 }
+
 input {
   width: 100%;
   padding: 10px;
@@ -205,6 +213,7 @@ input {
 .submit-button:hover {
   background-color: #0056b3;
 }
+
 .payment-methods {
   display: flex;
   justify-content: space-between;
@@ -245,35 +254,37 @@ textarea {
   height: 80px;
 }
 
-label{
+label {
   color: #333;
 }
 
-.footer P{
+.footer P {
   margin-top: 10px;
   text-align: center;
   font-size: 10px;
 }
 
-#blank-section{
+#blank-section {
   width: 100%;
   height: 80px;
 }
+
 /* Footer section */
-footer{
+footer {
   width: 100%;
   position: relative;
   bottom: 0;
   z-index: 1;
-  /* right: 100; */
   background-color: rgb(38, 38, 38);
   color: rgb(255, 255, 255);
   padding: 100px 0 30px 0;
   border-top-left-radius: 125px;
   font-size: 13px;
   line-height: 20px;
+  outline: 2px solid purple; /* Debugging line */
 }
-footer .row{
+
+footer .row {
   width: 85%;
   margin: auto;
   display: flex;
@@ -281,43 +292,54 @@ footer .row{
   justify-content: space-between;
   flex-wrap: wrap;
 }
-footer .col{
+
+footer .col {
   flex-basis: 25%;
   padding: 10px;
 }
-.col:nth-child(2), .col:nth-child(3){
+
+.col:nth-child(2),
+.col:nth-child(3) {
   flex-basis: 15%;
 }
-footer .col img{
+
+footer .col img {
   width: 200px;
   margin-bottom: 20px;
 }
-.col h3{
+
+.col h3 {
   width: fit-content;
   margin-bottom: 40px;
   position: relative;
 }
-#newsletter-email::placeholder{
-    color: #f4f4f4
+
+#newsletter-email::placeholder {
+  color: #f4f4f4;
 }
-.email_id{
+
+.email_id {
   width: fit-content;
   border-bottom: 1px solid rgb(255, 255, 255);
   margin: 20px 0;
 }
-footer .col ul li{
+
+footer .col ul li {
   list-style: none;
   margin-bottom: 12px;
 }
-footer .col ul li a{
+
+footer .col ul li a {
   text-decoration: none;
   color: #f4f4f4;
 }
-footer .col ul li a:hover{
+
+footer .col ul li a:hover {
   color: #FFD04D;
   transition: 0.3s;
 }
-footer .row .col form{
+
+footer .row .col form {
   padding-bottom: 15px;
   display: flex;
   align-items: center;
@@ -325,29 +347,33 @@ footer .row .col form{
   border-bottom: 1px solid rgb(255, 255, 255);
   margin-bottom: 50px;
 }
-form #mail{
+
+form #mail {
   width: 18px;
   margin-right: 10px;
   margin-bottom: 0;
 }
-form #send{
+
+form #send {
   width: 18px;
   margin-bottom: 0;
 }
-form input{
+
+form input {
   width: 100%;
   background-color: transparent;
   outline: none;
   border: none;
-/*  color: rgb(255, 255, 255);*/
 }
-form button{
+
+form button {
   background-color: transparent;
   border: none;
   outline: none;
   cursor: pointer;
 }
-.social_icon .fa-brands{
+
+.social_icon .fa-brands {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -357,18 +383,21 @@ form button{
   color: black;
   background-color: #f4f4f4;
   margin-right: 15px;
-  cursor: ponter;
+  cursor: pointer;
 }
-footer hr{
+
+footer hr {
   width: 90%;
   border: 0;
   border-bottom: 1px solid #f4f4f4;
   margin: 20px auto;
 }
-footer p.copyright{
+
+footer p.copyright {
   text-align: center;
 }
-.underline{
+
+.underline {
   width: 100%;
   height: 2px;
   background-color: #767676;
@@ -378,7 +407,8 @@ footer p.copyright{
   left: 0;
   overflow: hidden;
 }
-.underline span{
+
+.underline span {
   width: 15px;
   height: 100%;
   background-color: #f4f4f4;
@@ -388,16 +418,23 @@ footer p.copyright{
   left: 10px;
   animation: moving 2s linear infinite;
 }
-#logout-btn{
+
+#logout-btn {
   position: absolute;
   right: 30px;
 }
 
-@keyframes moving{
-  0%{
-      left: -20px;
-  }    
-  100%{
-      left: 100%;
+.fa-solid{
+  color: #f1f1f1;
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+@keyframes moving {
+  0% {
+    left: -20px;
+  }
+  100% {
+    left: 100%;
   }
 }

@@ -105,9 +105,17 @@
                             <label for="cardName">Name on card</label>
                             <input name="cardName" type="text" id="cardName" placeholder="John Doe" required>
                         </div>
+                        <button type="submit" class="submit-button">Place Order</button>
                     </div>
-                    <button type="submit" class="submit-button">Place Order</button>
+                    
                 </form>
+
+                <!-- COD Payment Details -->
+                <div id="codDetails" class="payment-details" style="display: none;">
+                    <form action="http://localhost:8080/Platera-Main/PaymentConfirmation" method="post">
+                        <button type="submit" class="submit-button">Place Order</button>
+                    </form>
+                </div>
 
 
                 <div id="netBankingDetails" class="payment-details" style="display: none;">
@@ -198,7 +206,7 @@
                             <div class="underline"><span></span></div>
                         </h3>
                         <form>
-                            <img id="mail" src="./Public/images/mail.png" alt="" />
+                            <i class="fa-solid fa-envelope"></i>
                             <input
                                 id="newsletter-email"
                                 type="email"
@@ -207,7 +215,7 @@
                                 placeholder="Enter Your Email Address"
                                 />
                             <button type="submit">
-                                <img id="send" src="./Public/images/send.png" alt="" />
+                                <i class="fa-solid fa-arrow-right"></i>
                             </button>
                         </form>
                         <div class="social_icon">
@@ -223,6 +231,7 @@
             <p class="copyright">Platera @2024 - All Rights Reserved</p>
         </footer>
         <script>
+            
             function goBack() {
                 window.location.href = "../DeliveryDetailsPage/deliverydetailspage.jsp";
             }
