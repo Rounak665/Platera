@@ -163,7 +163,7 @@
                         </button>
                     </form>
                     <li>Hi, ${sessionScope.name}!</li>
-                    <li>Profile Settings</li>
+                    <li><a href="./CustomerDashboard/CustomerProfile.jsp">Profile Settings</a></li>
                     <li>Order History</li>
                     <li>Favorites</li>
                     <li>Logout</li>

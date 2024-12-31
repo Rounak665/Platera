@@ -1,3 +1,10 @@
+<%@page import="Utilities.Restaurant"%>
+<%@page import="Utilities.RestaurantDAO"%>
+<%@page import="Utilities.OrderItem"%>
+<%@page import="Utilities.OrdersDAO"%>
+<%@page import="Utilities.Orders"%>
+<%@page import="Utilities.Orders"%>
+<%@page import="java.util.List"%>
 <%@page import="Utilities.CustomerDAO"%>
 <%@page import="Utilities.Customer"%>
 <!DOCTYPE html>
@@ -47,37 +54,37 @@
 
         %>
         <div class="dashboard-container">
-        <aside class="sidebar">
-            <div class="sidebar-toggle menu" id="menu">
-                <ion-icon name="menu"></ion-icon>
-            </div>
-            <div class="sidebar-toggle close-btn">
-                <ion-icon name="close-outline" class="ico"></ion-icon>
-            </div>
-            <div class="sidebar-header">
-                <div class="logo">
-                    <img src="<%=request.getContextPath()%>/Public/images/logo.png" alt="Logo">
+            <aside class="sidebar">
+                <div class="sidebar-toggle menu" id="menu">
+                    <ion-icon name="menu"></ion-icon>
                 </div>
-            </div>
-            <div class="sidebar-menu">
-                <ul>
-                    <li>
-                        <a href="./Customer_Settings.jsp">
-                            <span class="icon"><ion-icon name="person"></ion-icon></span>
-                            <span>Account</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="./Customer_Order.jsp">
-                            <span class="icon"><ion-icon name="receipt-outline"></ion-icon></span>
-                            <span>Orders</span>
-                        </a>
-                    </li>
+                <div class="sidebar-toggle close-btn">
+                    <ion-icon name="close-outline" class="ico"></ion-icon>
+                </div>
+                <div class="sidebar-header">
+                    <div class="logo">
+                        <img src="<%=request.getContextPath()%>/Public/images/logo.png" alt="Logo">
+                    </div>
+                </div>
+                <div class="sidebar-menu">
+                    <ul>
+                        <li>
+                            <a href="./CustomerProfile.jsp">
+                                <span class="icon"><ion-icon name="person"></ion-icon></span>
+                                <span>Account</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="./CustomerOrder.jsp">
+                                <span class="icon"><ion-icon name="receipt-outline"></ion-icon></span>
+                                <span>Orders</span>
+                            </a>
+                        </li>
 
 
-                </ul>
-            </div>
-        </aside>
+                    </ul>
+                </div>
+            </aside>
 
             <div class="content">
                 <div class="profile-header">
@@ -107,14 +114,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- Row 1 -->
+                                    <%
+                                        // Fetch the orders for the given customer using the customer ID
+                                        OrdersDAO ordersDAO = new OrdersDAO();
+                                        List<Orders> orders = ordersDAO.getOrdersByCustomerId(customer_id);
+
+                                        // Loop through each order and display it in the table
+                                        for (Orders currentOrder : orders) {
+                                            int restaurantId = currentOrder.getRestaurantId();
+                                            RestaurantDAO restaurantDAO = new RestaurantDAO();
+                                            Restaurant restaurant = restaurantDAO.getRestaurantById(restaurantId); // Fetch restaurant details
+                                            double rating = restaurant.getRating(); // Get the rating from the Restaurant object
+                                    %>
                                     <tr class="order-row" onclick="toggleDetails(this)">
-                                        <td class="menu">Order #1</td>
-                                        <td><span class="status completed">Completed</span></td>
-                                        <td class="date">June 1, 2020,<br> 08:22 AM</td>
-                                        <td class="address"><i class="fas fa-map-marker-alt"></i> Elm Street, 23 Yogyakarta</td>
-                                        <td class="total"><span>$ 5.59</span></td>
-                                        <td class="payment-method">Cash</td>
+                                        <td class="menu">Order #<%= currentOrder.getOrderId()%></td>
+                                        <td><span class="status <%= currentOrder.getOrderStatus().toLowerCase()%>"><%= currentOrder.getOrderStatus()%></span></td>
+                                        <td class="date"><%= currentOrder.getOrderDate()%></td>
+                                        <td class="address"><i class="fas fa-map-marker-alt"></i> <%= currentOrder.getCustomerAddress()%></td>
+                                        <td class="total"><span>$ <%= currentOrder.getTotalAmount()%></span></td>
+                                        <td class="payment-method"><%= currentOrder.getPaymentMethod()%></td>
                                         <td class="arrow"><i class="fas fa-chevron-down dropdown"></i></td>
                                     </tr>
                                     <tr class="details-row">
@@ -122,12 +140,19 @@
                                             <div class="details-container">
                                                 <div class="order-menu">
                                                     <h4>Order Menu</h4>
-                                                    <p><img src="https://via.placeholder.com/50" alt="Pizza"> Pepperoni Pizza <span>+ $5.59</span></p>
-                                                    <p><img src="https://via.placeholder.com/50" alt="Burger"> Cheese Burger <span>+ $5.59</span></p>
+                                                    <%
+                                                        // Loop through each order item and display it
+                                                        for (OrderItem item : currentOrder.getOrderItems()) {
+                                                    %>
+                                                    <p><img src="<%= request.getContextPath() + "/" + item.getImage()%>" alt="<%= item.getItemName()%>"> <%= item.getItemName()%> (x<%= item.getQuantity()%>)</p>
+                                                        <%
+                                                            }
+                                                        %>
                                                 </div>
                                                 <div class="restaurant-info">
-                                                    <h4>Fast Food Resto</h4>
-                                                    <p><i class="fas fa-star"></i> 5.0 | 1k+ Reviews</p>
+                                                    <h4><%= currentOrder.getRestaurantName()%></h4>
+                                                    <!-- Displaying dynamic restaurant rating -->
+                                                    <p><i class="fas fa-star"></i> <%= rating%> </p>
                                                     <p>Delivery Time: <strong>10 Min</strong></p>
                                                     <p>Distance: <strong>2.5 Km</strong></p>
                                                 </div>
@@ -135,30 +160,39 @@
                                                     <div class="order-summary-details">
                                                         <span>
                                                             <h4>Status</h4>
-                                                            <p>Completed</p>
+                                                            <p><%= currentOrder.getOrderStatus()%></p>
                                                         </span>
                                                         <span>
                                                             <h4>Date</h4>
-                                                            <p>June 1, 2020</p></span>
+                                                            <p><%= currentOrder.getOrderDate()%></p>
+                                                        </span>
                                                     </div>
                                                     <div class="order-summary-details">
                                                         <span>
                                                             <h4>Bills</h4>
-                                                            <p>Order #1</p></span>
+                                                            <p>Order #<%= currentOrder.getOrderId()%></p>
+                                                        </span>
                                                         <span>
                                                             <h4>Date Paid</h4>
-                                                            <p>June 1, 2020</p></span>
+                                                            <p><%= currentOrder.getPaymentDate()%></p>
+                                                        </span>
                                                     </div>
                                                 </div>
                                                 <div class="order-amt">
                                                     <h4>Total</h4>
-                                                    <p class="total-amount">$202.00</p>
+                                                    <p class="total-amount">$<%= currentOrder.getTotalAmount()%></p>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
+                                    <%
+                                        }
+                                    %>
                                 </tbody>
+
+
                             </table>
+
                         </div>
                     </section>
 

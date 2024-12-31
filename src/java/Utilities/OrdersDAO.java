@@ -89,19 +89,20 @@ public class OrdersDAO {
 
         List<Orders> ordersList = new ArrayList<>();
         String query = "SELECT o.order_id, o.total_amount AS total_amount, o.address AS customer_address, o.order_status, o.order_date, "
-                + "r.restaurant_id,r.restaurant_name AS restaurant_name, r.address AS restaurant_address,r.phone as restaurant_phone, "
+                + "r.restaurant_id, r.restaurant_name AS restaurant_name, r.address AS restaurant_address, r.phone as restaurant_phone, "
                 + "p.payment_method, p.payment_status, p.payment_date, "
-                + "oi.item_id, m.item_name, oi.quantity, m.image,o.phone as customer_phone "
+                + "oi.item_id, m.item_name, oi.quantity, m.image, o.phone as customer_phone "
                 + "FROM orders o "
-                + "JOIN restaurants r ON o.restaurant_id = r.restaurant_id "
+                + "LEFT JOIN restaurants r ON o.restaurant_id = r.restaurant_id "
                 + "LEFT JOIN payments p ON o.order_id = p.order_id "
-                + "JOIN order_items oi ON o.order_id = oi.order_id "
-                + "JOIN menu_items m ON oi.item_id = m.item_id "
+                + "LEFT JOIN order_items oi ON o.order_id = oi.order_id "
+                + "LEFT JOIN menu_items m ON oi.item_id = m.item_id "
                 + "WHERE o.customer_id = ? "
                 + "ORDER BY o.order_date DESC";
 
         try (Connection conn = Database.getConnection(); // Initialize connection locally
                 PreparedStatement pstmt = conn.prepareStatement(query)) {
+
             pstmt.setInt(1, customerId);
             ResultSet rs = pstmt.executeQuery();
 
@@ -113,8 +114,9 @@ public class OrdersDAO {
 
                 // Check if we have a new order
                 if (orderId != currentOrderId) {
+                    // If we already have a current order, add it to the list
                     if (currentOrder != null) {
-                        ordersList.add(currentOrder); // Add the previous order to the list
+                        ordersList.add(currentOrder);
                     }
 
                     // Create a new Orders object for the new order
@@ -148,13 +150,17 @@ public class OrdersDAO {
                 orderItem.setQuantity(quantity);
                 orderItem.setImage(image); // Set the image URL
 
-                currentOrder.addOrderItem(orderItem);  // Add item to the order
+                currentOrder.addOrderItem(orderItem);  // Add item to the current order
             }
 
-            // Add the last order to the list
+            // Add the last order to the list if it's not already added
             if (currentOrder != null) {
                 ordersList.add(currentOrder);
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;  // Re-throw exception to be handled by the calling code
         }
 
         return ordersList;  // Return the list of orders with their items

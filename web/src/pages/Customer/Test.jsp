@@ -1,95 +1,103 @@
-<%@ page import="java.sql.*" %>
+<%@ page import="Utilities.CustomerDAO, Utilities.Customer" %>
+<%
+    // Retrieve user_id from the session (replace this with actual session retrieval)
+    int user_id = 201;
+
+    // Initialize necessary variables
+    String name = "";
+    String email = "";
+    int customer_id = 0;
+    String image = "";
+    String imagepath = "";
+    int location_id = 0;
+    String location_name = "";
+    String address = "";
+    String phone = "";
+    boolean twoFA = false;
+
+    // Fetch customer details
+    Customer customer = CustomerDAO.getCustomerByUserId(user_id);
+    if (customer != null) {
+        customer_id = customer.getCustomerId();
+        name = customer.getFullName();
+        email = customer.getEmail();
+        image = customer.getImage();
+        location_id = customer.getLocationId();
+        location_name = customer.getLocation();
+        address = customer.getAddress();
+        phone = customer.getPhone();
+        twoFA = customer.isTwoStepVerification();
+    }
+
+    // Construct image path
+    imagepath = request.getContextPath() + '/' + image;
+%>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Category Images</title>
+    <title>Customer Details</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 1200px;
+        table {
+            border-collapse: collapse;
+            width: 50%;
             margin: 20px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        .grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-        .card {
-            background: #f9f9f9;
+        th, td {
             border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            width: 220px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 8px;
+            text-align: left;
         }
-        .card img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-        }
-        .card h3 {
-            margin: 10px;
-            text-align: center;
-            color: #555;
+        th {
+            background-color: #f4f4f4;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Random Category Images</h1>
-        <div class="grid">
-            <%
-                Connection conn = null;
-                PreparedStatement stmt = null;
-                ResultSet rs = null;
-                try {
-                    // Establish database connection
-                    conn = Utilities.Database.getConnection(); // Adjust this to your connection method
-                    
-                    // Query to fetch 4 random categories using DBMS_RANDOM.VALUE
-                    String sql = "SELECT category_name, image FROM " +
-                                 "(SELECT category_name, image FROM categories ORDER BY DBMS_RANDOM.VALUE) " +
-                                 "WHERE ROWNUM <= 4";
-                    stmt = conn.prepareStatement(sql);
-                    rs = stmt.executeQuery();
-                    
-                    // Iterate through result set
-                    while (rs.next()) {
-                        String categoryName = rs.getString("category_name");
-                        String imagePath = rs.getString("image");
-            %>
-            <div class="card">
-                <img src="<%= request.getContextPath() + "/" + imagePath %>" alt="<%= categoryName %>">
-                <h3><%= categoryName %></h3>
-            </div>
-            <%
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    // Close resources
-                    if (rs != null) rs.close();
-                    if (stmt != null) stmt.close();
-                    if (conn != null) conn.close();
-                }
-            %>
-        </div>
-    </div>
+    <h1 style="text-align: center;">Customer Details</h1>
+    <table>
+        <tr>
+            <th>Field</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Customer ID</td>
+            <td><%= customer_id %></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td><%= name %></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><%= email %></td>
+        </tr>
+        <tr>
+            <td>Image</td>
+            <td>
+                <img src="<%= imagepath %>" alt="Customer Image" style="max-width: 150px; height: auto;" />
+            </td>
+        </tr>
+        <tr>
+            <td>Location ID</td>
+            <td><%= location_id %></td>
+        </tr>
+        <tr>
+            <td>Location Name</td>
+            <td><%= location_name %></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td><%= address %></td>
+        </tr>
+        <tr>
+            <td>Phone</td>
+            <td><%= phone %></td>
+        </tr>
+        <tr>
+            <td>Two-Step Verification</td>
+            <td><%= twoFA ? "Enabled" : "Disabled" %></td>
+        </tr>
+    </table>
 </body>
 </html>

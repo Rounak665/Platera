@@ -64,13 +64,13 @@
             <div class="sidebar-menu">
                 <ul>
                     <li>
-                        <a href="./Customer_Settings.jsp">
+                        <a href="./CustomerProfile.jsp">
                             <span class="icon"><ion-icon name="person"></ion-icon></span>
                             <span>Account</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./Customer_Order.jsp">
+                        <a href="./CustomerOrder.jsp">
                             <span class="icon"><ion-icon name="receipt-outline"></ion-icon></span>
                             <span>Orders</span>
                         </a>
@@ -121,34 +121,47 @@
                                     <i class="fas fa-file-alt"></i>
                                     <span>Privacy Policy</span>
                                 </li>
+                                <li id="delete-acc">
+                                    <a href=""
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>Delete Account</span>
+                                </li>
                             </ul>
                         </div>
                         <div class="settings-content" id="account-section">
                             <h2>Account</h2>
                             <div class="profile-section">
-                                <div class="profile-photo">
-                                    <img src="profile-photo.jpg" alt="Profile Photo" />
-                                    <div class="photo-actions">
-                                        <button class="btn change-photo">Change photo</button>
-                                        <button class="btn remove-photo">Remove</button>
+                                <form class="account-form" method="post" action="http://localhost:8080/Platera-Main/UpdateCustomerProfile" enctype="multipart/form-data">
+                                    <input type="hidden" name="customer_id" value="<%=customer_id%>">
+                                    <!-- Profile Photo Section -->
+                                    <div class="profile-photo">
+                                        <img id="profile-photo-preview" src="<%=imagepath%>" alt="Profile Photo" />
+                                        <div class="photo-actions">
+                                            <!-- File input for selecting a new photo -->
+                                            <input type="file" id="photo-input" name="profilePhoto" accept="image/*" style="display: none;" />
+                                            <button type="button" class="btn change-photo" onclick="document.getElementById('photo-input').click();">Change photo</button>
+                                            <button type="button" class="btn remove-photo" onclick="removePhoto()">Remove Photo</button>
+                                        </div>
                                     </div>
-                                </div>
-                                <form class="account-form">
+
+                                    <!-- User Details Section -->
                                     <div class="form-row">
                                         <div class="form-col">
                                             <label>Name</label>
-                                            <input type="text" value="<%=name%>" />
+                                            <input type="text" name="name" value="<%=name%>" />
                                         </div>
                                         <div class="form-col">
                                             <label>Phone</label>
-                                            <input type="tel" value="<%=phone%>" />
+                                            <input type="tel" name="phone" value="<%=phone%>" />
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-col">
                                             <label for="location">Location:</label>
-                                            <select id="location" name="restaurant-location" class="styled-dropdown" required>
-                                                <option value="" disabled selected>Select a location</option>
+                                            <select id="location" name="location" class="styled-dropdown" required>
+                                                <option value="" disabled selected>
+                                                    <%= location_name != null ? location_name : "Select a location"%>
+                                                </option>
                                                 <%
                                                     LocationDAO locationDAO = new LocationDAO();
                                                     List<Location> locations = locationDAO.getLocations();
@@ -164,14 +177,17 @@
                                     <div class="form-row">
                                         <div class="form-col">
                                             <label>Address Details</label>
-                                            <textarea><%=address%></textarea>
+                                            <textarea name="address"><%=address%></textarea>
                                         </div>
                                     </div>
+
+                                    <!-- Save Settings Button -->
                                     <button type="submit" class="btn save-settings">Save Setting</button>
                                 </form>
-
-
                             </div>
+
+
+
                         </div>
                         <!-- Notification Section -->
                         <section class="notifications" id="notifications-section" style="display: none;">
@@ -401,6 +417,62 @@
             }
         }
     </script>
+    <script>
+        // JavaScript to handle the photo preview
+        document.getElementById('photo-input').addEventListener('change', function (event) {
+            const file = event.target.files[0]; // Get the selected file
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    // Update the img src with the chosen photo
+                    document.getElementById('profile-photo-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+    <script>
+        function removePhoto() {
+            let confirmDelete = confirm("Are you sure you want to delete your profile photo?");
+
+            if (!confirmDelete) {
+                return;
+            }
+
+            let customerId = <%= customer_id%>;
+            let formData = new FormData();
+            formData.append("customer_id", customerId);
+
+            let contextPath = window.location.pathname.split('/')[1];
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "/" + contextPath + "/RemoveCustomerPhoto", true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        let responseText = xhr.responseText.trim();
+                        if (responseText === "success") {
+                            document.getElementById("profile-photo-preview").src = "DatabaseImages/Customers/Default.png";
+                            alert("Photo removed successfully!");
+                        } else if (responseText === "photoDeletionFailed") {
+                            alert("Failed to remove photo. Please try again.");
+                        } else if (responseText === "error") {
+                            alert("Customer not found. Please try again.");
+                        } else if (responseText === "sqlError") {
+                            alert("Database error occurred. Please try again later.");
+                        } else if (responseText === "invalidUserId") {
+                            alert("Invalid user ID. Please try again.");
+                        }
+                    } else {
+                        alert("Error: " + xhr.status + " - " + xhr.statusText);
+                    }
+                }
+            };
+            xhr.send(formData);
+        }
+
+    </script>
+
     <script src="./script.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
