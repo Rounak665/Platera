@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,22 +47,39 @@ public class CustomerVerifyOTP extends HttpServlet {
 
                 // Database connection
                 try (Connection conn = Database.getConnection()) {
-                    String sql = "INSERT INTO users (name, email, password, user_role_id) VALUES (?, ?, ?, 2)";
-                    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                    // Insert the new user
+                    String insertSql = "INSERT INTO users (name, email, password, user_role_id) VALUES (?, ?, ?, 2)";
+                    try (PreparedStatement stmt = conn.prepareStatement(insertSql)) {
                         stmt.setString(1, name);
                         stmt.setString(2, email);
                         stmt.setString(3, password);
                         stmt.executeUpdate();
                     }
-                    response.sendRedirect("src/pages/Customer/Home.jsp");
+
+                    // Now fetch the user_id based on email
+                    String selectSql = "SELECT user_id FROM users WHERE email = ?";
+                    try (PreparedStatement selectStmt = conn.prepareStatement(selectSql)) {
+                        selectStmt.setString(1, email);
+                        try (ResultSet rs = selectStmt.executeQuery()) {
+                            if (rs.next()) {
+                                int userId = rs.getInt("user_id");
+
+                                // Set the user_id in the session
+                                session.setAttribute("user_id", userId);
+                            }
+                        }
+                    }
+
+                    // Redirect to the customer profile page
+                    response.sendRedirect("src/pages/Customer/CustomerDashboard/CustomerProfile.jsp");
                 } catch (SQLException e) {
                     out.println("<p>Error saving data to the database: " + e.getMessage() + "</p>");
                 }
 
                 // Clear session attributes after successful signup
                 session.removeAttribute("otp");
-//                session.removeAttribute("name");
-//                session.removeAttribute("email");
+                session.removeAttribute("name");
+                session.removeAttribute("email");
                 session.removeAttribute("password");
 
             } else {
@@ -69,7 +87,6 @@ public class CustomerVerifyOTP extends HttpServlet {
                 out.println("<h1>Invalid OTP. Please try again.</h1>");
                 out.println("<p>User: " + name + "</p>");  // Print the name for debugging
                 request.setAttribute("errorMessage", "Invalid OTP. Please try again.");
-//                request.getRequestDispatcher("verifyOTP.jsp").forward(request, response);
             }
         }
     }

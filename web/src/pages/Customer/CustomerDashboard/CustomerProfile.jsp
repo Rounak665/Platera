@@ -122,12 +122,18 @@
                                     <span>Privacy Policy</span>
                                 </li>
                                 <li id="delete-acc">
-                                    <a href=""
-                                    <i class="fas fa-file-alt"></i>
-                                    <span>Delete Account</span>
+                                    <form action="http://localhost:8080/Platera-Main/DeleteUser" method="POST" onsubmit="return confirmDelete()">
+                                        <input type="hidden" name="userId" value="<%=user_id%>">
+                                        <button type="submit" class="delete-btn">
+                                            <i class="fas fa-file-alt"></i>
+                                            <span>Delete Account</span>
+                                        </button>
+                                    </form>
                                 </li>
                             </ul>
                         </div>
+
+
                         <div class="settings-content" id="account-section">
                             <h2>Account</h2>
                             <div class="profile-section">
@@ -471,6 +477,12 @@
             xhr.send(formData);
         }
 
+    </script>
+    <script>
+        // Confirmation for deleting account
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete your account? This action cannot be undone.");
+        }
     </script>
 
     <script src="./script.js"></script>
