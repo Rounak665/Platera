@@ -367,7 +367,6 @@
 
                                         int restaurantId = currentOrder.getRestaurantId();
 
-                                        // Use RestaurantDAO to get restaurant details including reviews and rating
                                         RestaurantDAO restaurantDAO = new RestaurantDAO();
                                         Restaurant restaurant = restaurantDAO.getRestaurantById(restaurantId); // Fetch restaurant details by ID
 

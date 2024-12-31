@@ -9,7 +9,6 @@ import java.util.List;
 public class RestaurantDAO {
 
     // Method to fetch all restaurants
-    // Method to fetch all restaurants with user details
     public List<Restaurant> getAllRestaurants() {
         List<Restaurant> restaurants = new ArrayList<>();
         String query = "SELECT r.restaurant_id, r.restaurant_name, r.address, r.phone, r.image, l.location_name, r.min_price, r.max_price, "
@@ -17,13 +16,13 @@ public class RestaurantDAO {
                 + "AVG(re.rating) AS avg_rating, "
                 + "u.phone AS user_phone, u.address AS user_address, u.email AS user_email, u.two_step_verification "
                 + "FROM restaurants r "
-                + "JOIN users u ON u.user_id = r.owner_user_id "
-                + "JOIN locations l ON r.location_id = l.location_id "
-                + "JOIN reviews re ON re.restaurant_id = r.restaurant_id "
-                + "JOIN restaurant_categories rc ON rc.restaurant_id = r.restaurant_id "
-                + "JOIN categories c1 ON rc.CATEGORY_1 = c1.category_id "
-                + "JOIN categories c2 ON rc.CATEGORY_2 = c2.category_id "
-                + "JOIN categories c3 ON rc.CATEGORY_3 = c3.category_id "
+                + "LEFT JOIN users u ON u.user_id = r.owner_user_id "
+                + "LEFT JOIN locations l ON r.location_id = l.location_id "
+                + "LEFT JOIN reviews re ON re.restaurant_id = r.restaurant_id "
+                + "LEFT JOIN restaurant_categories rc ON rc.restaurant_id = r.restaurant_id "
+                + "LEFT JOIN categories c1 ON rc.CATEGORY_1 = c1.category_id "
+                + "LEFT JOIN categories c2 ON rc.CATEGORY_2 = c2.category_id "
+                + "LEFT JOIN categories c3 ON rc.CATEGORY_3 = c3.category_id "
                 + "GROUP BY r.restaurant_id, r.restaurant_name, r.address, r.phone, r.image, l.location_name, r.min_price, "
                 + "r.max_price, c1.category_name, c2.category_name, c3.category_name, "
                 + "u.phone, u.address, u.email, u.two_step_verification";
@@ -73,13 +72,13 @@ public class RestaurantDAO {
                 + "AVG(re.rating) AS avg_rating, "
                 + "u.phone AS user_phone, u.address AS user_address, u.email AS user_email, u.two_step_verification "
                 + "FROM restaurants r "
-                + "JOIN users u ON u.user_id = r.owner_user_id "
-                + "JOIN locations l ON r.location_id = l.location_id "
-                + "JOIN reviews re ON re.restaurant_id = r.restaurant_id "
-                + "JOIN restaurant_categories rc ON rc.restaurant_id = r.restaurant_id "
-                + "JOIN categories c1 ON rc.CATEGORY_1 = c1.category_id "
-                + "JOIN categories c2 ON rc.CATEGORY_2 = c2.category_id "
-                + "JOIN categories c3 ON rc.CATEGORY_3 = c3.category_id "
+                + "LEFT JOIN users u ON u.user_id = r.owner_user_id "
+                + "LEFT JOIN locations l ON r.location_id = l.location_id "
+                + "LEFT JOIN reviews re ON re.restaurant_id = r.restaurant_id "
+                + "LEFT JOIN restaurant_categories rc ON rc.restaurant_id = r.restaurant_id "
+                + "LEFT JOIN categories c1 ON rc.CATEGORY_1 = c1.category_id "
+                + "LEFT JOIN categories c2 ON rc.CATEGORY_2 = c2.category_id "
+                + "LEFT JOIN categories c3 ON rc.CATEGORY_3 = c3.category_id "
                 + "WHERE l.location_id = ? "
                 + "GROUP BY r.restaurant_id, r.restaurant_name, r.address, r.phone, r.image, l.location_name, r.min_price, "
                 + "r.max_price, c1.category_name, c2.category_name, c3.category_name, "
@@ -125,21 +124,20 @@ public class RestaurantDAO {
         return restaurants;
     }
 
-    // Update getRestaurantById and other methods similarly by adding user details
-// Method to get a single restaurant by ID
+    // Update getRestaurantById and other methods similarly by adding LEFT JOIN
     public Restaurant getRestaurantById(int restaurantId) {
         String query = "SELECT r.restaurant_id, r.restaurant_name, r.address, r.phone, r.image, l.location_name, r.min_price, r.max_price, "
                 + "c1.category_name AS CATEGORY_1_NAME, c2.category_name AS CATEGORY_2_NAME, c3.category_name AS CATEGORY_3_NAME, "
                 + "AVG(re.rating) AS avg_rating, "
                 + "u.phone AS user_phone, u.address AS user_address, u.email AS user_email, u.two_step_verification "
                 + "FROM restaurants r "
-                + "JOIN users u ON u.user_id = r.owner_user_id "
-                + "JOIN locations l ON r.location_id = l.location_id "
-                + "JOIN reviews re ON re.restaurant_id = r.restaurant_id "
-                + "JOIN restaurant_categories rc ON rc.restaurant_id = r.restaurant_id "
-                + "JOIN categories c1 ON rc.CATEGORY_1 = c1.category_id "
-                + "JOIN categories c2 ON rc.CATEGORY_2 = c2.category_id "
-                + "JOIN categories c3 ON rc.CATEGORY_3 = c3.category_id "
+                + "LEFT JOIN users u ON u.user_id = r.owner_user_id "
+                + "LEFT JOIN locations l ON r.location_id = l.location_id "
+                + "LEFT JOIN reviews re ON re.restaurant_id = r.restaurant_id "
+                + "LEFT JOIN restaurant_categories rc ON rc.restaurant_id = r.restaurant_id "
+                + "LEFT JOIN categories c1 ON rc.CATEGORY_1 = c1.category_id "
+                + "LEFT JOIN categories c2 ON rc.CATEGORY_2 = c2.category_id "
+                + "LEFT JOIN categories c3 ON rc.CATEGORY_3 = c3.category_id "
                 + "WHERE r.restaurant_id = ? "
                 + "GROUP BY r.restaurant_id, r.restaurant_name, r.address, r.phone, r.image, l.location_name, r.min_price, "
                 + "r.max_price, c1.category_name, c2.category_name, c3.category_name, "
