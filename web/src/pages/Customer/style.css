@@ -329,6 +329,10 @@
 
 /* Sliding User Section */
 .user-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: fixed; /* Fixed positioning for sliding effect */
     top: 0;
     right: -50%; /* Start off-screen */
@@ -342,23 +346,36 @@
 }
 
 /* User Profile Styles */
-/* .user-profile {
-    
-} */
+.user-profile {
+    padding: 60px 80px;
+    background-color: #f8f8f8;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 30px; /* Space between elements */
+}
 
 .user-profile h2 {
     margin-bottom: 20px; /* Space below heading */
-    font-size: 28px; /* Increase font size */
+    font-size: 38px; /* Increase font size */
     color: #333; /* Heading color */
 }
 
 .dashboard-options {
+    text-align: left;
+    gap: 20px;
     list-style-type: none;
     padding: 0;
 }
 
 .dashboard-options li {
-    padding: 15px; /* Padding for each option */
+    background-color: rgb(224, 224, 224);
+    margin-bottom: 10px;
+    padding: 10px 21px; /* Padding for each option */
     display: flex; /* Use flexbox for alignment */
     align-items: center; /* Center items vertically */
     cursor: pointer; /* Pointer cursor */
@@ -366,8 +383,15 @@
     border-radius: 5px; /* Rounded corners */
 }
 
+.dashboard-options li a {
+    text-decoration: none; /* Remove underline */
+    color: #333; /* Text color */
+    font-size: 15px; /* Font size */
+    font-weight: bold;
+}
+
 .dashboard-options li:hover {
-    background-color: #e0e0e0; /* Highlight on hover */
+    background-color: #e7e7e7; /* Highlight on hover */
 }
 
 /* Logout Button Styles */
@@ -393,7 +417,7 @@
     position: fixed; 
     top: 0;
     right: -50%;
-    width: 400px; 
+    width: 32%; 
     height: 100%;
     background-color: #f9f9f9;
     box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
@@ -772,16 +796,16 @@
 /* Close Button Styles */
 .close-btn {
     background: none;
-  border: none;
-  font-size: 70px;
-  color: #333;
-  font-weight: 200;
-  cursor: pointer;
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  transition: color 0.3s;
-  transform: translateY(-30px);
+    border: none;
+    font-size: 70px;
+    color: #333;
+    font-weight: 200;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    transition: color 0.3s;
+    transform: translateY(-30px);
 }
 
 .close-btn:hover {
@@ -1178,6 +1202,7 @@ form #send{
     width: 18px;
     margin-bottom: 0;
 }
+
 form input{
     width: 100%;
     background-color: transparent;
@@ -1218,7 +1243,7 @@ footer p.copyright{
     background-color: #767676;
     border-radius: 2px;
     position: absolute;
-    top: 25px;
+    top: 35px;
     left: 0;
     overflow: hidden;
 }
@@ -1233,8 +1258,16 @@ footer p.copyright{
     animation: moving 2s linear infinite;
 }
 #logout-btn{
-    position: absolute;
-    right: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 80px;
+}
+
+.fa-solid{
+    color: #f1f1f1;
+    margin-right: 10px;
+    font-size: 20px;
 }
 
 @keyframes moving{

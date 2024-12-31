@@ -269,42 +269,79 @@ const cartSection = document.getElementById('cartSection');
 const closeCartSectionCheckout = document.getElementById("closeCartSectionCheckout");
 const closeCartSectionPaynow = document.getElementById("closeCartSectionPaynow");
 
+// Debugging logs
+console.log('profileIcon:', profileIcon);
+console.log('userSection:', userSection);
+console.log('closeUserSection:', closeUserSection);
+console.log('cartIcon:', cartIcon);
+console.log('cartSection:', cartSection);
+console.log('closeCartSectionCheckout:', closeCartSectionCheckout);
+console.log('closeCartSectionPaynow:', closeCartSectionPaynow);
+
 profileIcon.addEventListener('click', () => {
+    console.log('profileIcon clicked');
     if (userSection.style.right === '0%') {
         userSection.style.right = '-50%'; // Slide out user section
     } else {
         userSection.style.right = '0%'; // Slide in user section
         cartSection.style.right = '-50%'; // Ensure cart is hidden
     }
+    console.log('userSection.style.right:', userSection.style.right);
+    console.log('cartSection.style.right:', cartSection.style.right);
 });
 
 cartIcon.addEventListener('click', () => {
+    console.log('cartIcon clicked');
     if (cartSection.style.right === '0%') {
         cartSection.style.right = '-50%'; // Slide out cart section
     } else {
         cartSection.style.right = '0%'; // Slide in cart section
         userSection.style.right = '-50%'; // Ensure user section is hidden
     }
+    console.log('cartSection.style.right:', cartSection.style.right);
+    console.log('userSection.style.right:', userSection.style.right);
 });
 
 // Close buttons functionality
 if (closeCartSectionCheckout) {
     closeCartSectionCheckout.addEventListener("click", () => {
+        console.log('closeCartSectionCheckout clicked');
         document.getElementById("cartSection").style.right = "-50%";
     });
 }
 
 if (closeCartSectionPaynow) {
     closeCartSectionPaynow.addEventListener("click", () => {
+        console.log('closeCartSectionPaynow clicked');
         document.getElementById("cartSection").style.right = "-50%";
     });
 }
+
+if (closeUserSection) {
+    closeUserSection.addEventListener("click", () => {
+        console.log('closeUserSection clicked');
+        userSection.style.right = "-50%"; // Slide out user section
+    });
+}
+
 window.onload = function() {
+    console.log('window.onload');
     // Check if the URL contains the hash for the cart section
     if (window.location.hash === '#cartSection') {
+        console.log('URL contains #cartSection');
         // Slide in the cart section
         document.querySelector('.cart-section').style.right = '0%';
         // Ensure user section is hidden
         document.querySelector('.user-section').style.right = '-50%';
     }
+
+    // Display profile setup popup after a delay
+    setTimeout(function () {
+        document.getElementById('profileSetupPopup').style.display = 'flex';
+    }, 0); // Adjust the delay as needed
+
+    // Handle profile setup button click
+    document.getElementById('profileSetupBtn').addEventListener('click', function () {
+        window.location.href = './CustomerDashboard/CustomerProfile.jsp';
+    });
 };

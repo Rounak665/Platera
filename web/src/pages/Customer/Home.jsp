@@ -159,7 +159,12 @@
             <div class="user-profile">
                 <h2>Dashboard</h2>
                 <ul class="dashboard-options">
-                    <form action="http://localhost:8080/Platera-Main/logout" method="get">
+                    <li id="welcomeMessage">Hi, ${sessionScope.name}!</li>
+                    <li id="profileSettings"><a href="./CustomerDashboard/CustomerProfile.jsp">Profile Settings</a></li>
+                    <li id="orderHistory"><a href="./CustomerDashboard/CustomerOrderHistory.jsp">Order History</a></li>  
+                </ul>
+                <!-- Logout Button -->
+                <form action="http://localhost:8080/Platera-Main/logout" method="get">
                         <button type="submit" class="btn btn-outline-danger" id="logout-btn">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -176,15 +181,8 @@
                             </svg>
                             Logout
                         </button>
-                    </form>
-                    <li>Hi, ${sessionScope.name}!</li>
-                    <li><a href="./CustomerDashboard/CustomerProfile.jsp">Profile Settings</a></li>
-                    <li>Order History</li>
-                    <li>Favorites</li>
-                    <li>Logout</li>
-                </ul>
-                <button class="logout-btn">Logout</button>
-                <!-- Logout Button -->
+                </form>
+                
             </div>
         </section>
 
@@ -509,7 +507,7 @@
                             <div class="underline"><span></span></div>
                         </h3>
                         <form>
-                            <img id="mail" src="./Public/images/mail.png" alt="" />
+                            <i class="fa-solid fa-envelope"></i>
                             <input
                                 type="email"
                                 name=""
@@ -517,7 +515,7 @@
                                 placeholder="Enter Your Email Address"
                                 />
                             <button type="submit">
-                                <img id="send" src="./Public/images/send.png" alt="" />
+                                <i class="fa-solid fa-arrow-right"></i>
                             </button>
                         </form>
                         <div class="social_icon">
@@ -558,65 +556,6 @@
                             cartSection.style.transition = 'right 0.3s ease'; // Re-enable smooth transition
                         }, 10); // Short delay to re-enable transition without noticeable flicker
                     }
-                    // JavaScript to handle the sliding effect for user and cart sections
-                    const profileIcon = document.getElementById('profileIcon');
-                    const userSection = document.getElementById('userSection');
-                    const closeUserSection = document.getElementById('closeUserSection');
-
-                    const cartIcon = document.getElementById('cartIcon');
-                    const cartSection = document.getElementById('cartSection');
-                    const closeCartSectionCheckout = document.getElementById("closeCartSectionCheckout");
-                    const closeCartSectionPaynow = document.getElementById("closeCartSectionPaynow");
-
-                    profileIcon.addEventListener('click', () => {
-                        if (userSection.style.right === '0%') {
-                            userSection.style.right = '-50%'; // Slide out user section
-                        } else {
-                            userSection.style.right = '0%'; // Slide in user section
-                            cartSection.style.right = '-50%'; // Ensure cart is hidden
-                        }
-                    });
-
-                    cartIcon.addEventListener('click', () => {
-                        if (cartSection.style.right === '0%') {
-                            cartSection.style.right = '-50%'; // Slide out cart section
-                        } else {
-                            cartSection.style.right = '0%'; // Slide in cart section
-                            userSection.style.right = '-50%'; // Ensure user section is hidden
-                        }
-                    });
-
-// Close buttons functionality
-                    if (closeCartSectionCheckout) {
-                        closeCartSectionCheckout.addEventListener("click", () => {
-                            document.getElementById("cartSection").style.right = "-50%";
-                        });
-                    }
-
-                    if (closeCartSectionPaynow) {
-                        closeCartSectionPaynow.addEventListener("click", () => {
-                            document.getElementById("cartSection").style.right = "-50%";
-                        });
-                    }
-                    window.onload = function () {
-                        // Check if the URL contains the hash for the cart section
-                        if (window.location.hash === '#cartSection') {
-                            // Slide in the cart section
-                            document.querySelector('.cart-section').style.right = '0%';
-                            // Ensure user section is hidden
-                            document.querySelector('.user-section').style.right = '-50%';
-                        }
-
-                        // Display profile setup popup after a delay
-                        setTimeout(function () {
-                            document.getElementById('profileSetupPopup').style.display = 'flex';
-                        }, 0); // Adjust the delay as needed
-
-                        // Handle profile setup button click
-                        document.getElementById('profileSetupBtn').addEventListener('click', function () {
-                            window.location.href = './CustomerDashboard/CustomerProfile.jsp';
-                        });
-                    };
 
         </script>
         <script src="./script.js"></script>
