@@ -1,4 +1,4 @@
-<!-- <%@page import="Utilities.Database"%>
+<%@page import="Utilities.Database"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -7,7 +7,7 @@
 <%@page import="Utilities.Restaurant"%>
 <%@page import="java.util.List"%>
 <%@page import="Utilities.RestaurantDAO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
