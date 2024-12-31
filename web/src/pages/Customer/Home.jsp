@@ -75,6 +75,16 @@
 
         %>
 
+
+        <!-- Profile Setup Popup -->
+        <div class="profile-setup-popup" id="profileSetupPopup">
+            <div class="popup-content">
+                <h3>For Better Experience, Please set up your profile with Platera</h3>
+                <button id="profileSetupBtn" class="btn btn-primary">Go to Profile Settings</button>
+            </div>
+        </div>
+
+
         <!-- Welcome Popup -->
         <c:if test="${sessionScope.welcomePopup == false}">
             <div class="welcome-popup" id="welcomePopup">
@@ -591,6 +601,16 @@
                             // Ensure user section is hidden
                             document.querySelector('.user-section').style.right = '-50%';
                         }
+
+                        // Display profile setup popup after a delay
+                        setTimeout(function() {
+                            document.getElementById('profileSetupPopup').style.display = 'flex';
+                        }, 0); // Adjust the delay as needed
+
+                        // Handle profile setup button click
+                        document.getElementById('profileSetupBtn').addEventListener('click', function() {
+                            window.location.href = './CustomerDashboard/CustomerProfile.jsp';
+                        });
                     };
 
         </script>

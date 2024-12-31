@@ -163,6 +163,10 @@
         </div>
     </div>
 
+    <section class="blank-section">
+
+    </section>
+
     <footer>
         <div class="container_footer">
             <div class="row">
