@@ -135,8 +135,8 @@
                     <span class="cuisines"><%=restaurant.getCategory1()%>, <%=restaurant.getCategory2()%>, <%=restaurant.getCategory3()%></span> <!-- cuisines -->
                     <span><i class="fa-regular fa-circle-dot"></i>Outlet: <%=restaurant.getLocation()%></span> 
                     <span class>25-30 mins</span>
-                    <span class="phone"><i class="fa-solid fa-phone"></i><%=restaurant.getPhoneNumber()%></span>
-                    <span class="address"><i class="fa-solid fa-location-dot"></i><%=restaurant.getAddress()%></span>
+                    <span class="phone"><i class=" //fa-solid fa-phone"></i>12312353456</span>
+                    <span class="address"><i class="fa-solid fa-location-dot"></i></span>
                 </div>
             </div>
 
@@ -203,6 +203,11 @@
                             Masaledar Veg Patty, Onion & Our Signature Tomato Herby Sauce. Qty: 1<br />
                             37 Gms | Kcal: 362 | Carbs: 53.4 Gms | Sugar: 6.5 Gms | Fat: 12.8 Gms
                         </p>
+                        <!-- Add to Cart and View Cart Buttons -->
+                        <div class="item-buttons">
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                            <button class="view-cart-btn">View Cart</button>
+                        </div>
                     </div>
                     <div class="item-actions">
                         <img src="<%=request.getContextPath()%>/<%=item.getImage()%>" alt="<%= item.getItemName()%>" />
