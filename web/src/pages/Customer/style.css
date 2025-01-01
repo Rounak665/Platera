@@ -537,6 +537,25 @@
     color: white;
 }
 
+.cart-item-quantity-trash{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #2d8659; Dark green background */
+    border-radius: 20px; /* Rounded pill shape */
+    padding: 5px 5px;
+    gap: 10px;
+}
+
+.fa-trash-can{
+    padding: 7px 9px;
+    border-radius: 50%;
+    background-color: #F12630;
+    color: #fff;
+    font-size: 10px;
+    cursor: pointer;
+}
+
 .quantity-btn {
     background-color: transparent;
     border: none;

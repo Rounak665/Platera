@@ -1,4 +1,4 @@
-<%@page import="Utilities.CustomerDAO"%>
+<!-- <%@page import="Utilities.CustomerDAO"%>
 <%@page import="Utilities.Customer"%>
 <%@page import="Utilities.CartDAO"%>
 <%@page import="Utilities.Cart"%>
@@ -11,7 +11,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="Utilities.RestaurantDAO" %>
 <%@ page import="Utilities.Restaurant" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %> -->
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -78,14 +78,14 @@
 
 
         <!-- Profile Setup Popup -->
-        <% if (location_id == 0) {%>
+        <!-- <% if (location_id == 0) {%>
         <div class="profile-setup-popup" id="profileSetupPopup">
             <div class="popup-content">
                 <h3>Thank you <%= name%> for signing up. Please set up your profile for a better experience.</h3>
                 <button id="profileSetupBtn" class="btn btn-primary">Go to Profile Settings</button>
             </div>
         </div>
-        <% }%>
+        <% }%> -->
 
 
 
@@ -212,13 +212,16 @@
                             <p class="cart-item-price" >₹<%=cart.getItemPrice()%></p>
                         </div>
                         <div class="price">
-                            <div class="cart-item-quantity">
-                                <form action="http://localhost:8080/Platera-Main/UpdateCartQuantity" method="POST">
-                                    <input type="hidden" name="cart_id" value="<%= cart.getCartId()%>">
-                                    <button type="submit" name="action" value="subtract" class="quantity-btn subtract">-</button>
-                                    <input type="text" name="quantity" class="quantity-number" value="<%= cart.getQuantity()%>" disabled>
-                                    <button type="submit" name="action" value="add" class="quantity-btn add">+</button>
-                                </form>
+                            <div class="cart-item-quantity-trash">
+                                <div class="cart-item-quantity">
+                                    <form action="http://localhost:8080/Platera-Main/UpdateCartQuantity" method="POST">
+                                        <input type="hidden" name="cart_id" value="<%= cart.getCartId()%>">
+                                        <button type="submit" name="action" value="subtract" class="quantity-btn subtract">-</button>
+                                        <input type="text" name="quantity" class="quantity-number" value="<%= cart.getQuantity()%>" disabled>
+                                        <button type="submit" name="action" value="add" class="quantity-btn add">+</button>
+                                    </form>
+                                </div>
+                                <i class="fa-solid fa-trash-can"></i>
                             </div>
                             <p class="total-price">₹<%=cart.getItemPrice() * cart.getQuantity()%></p>
                         </div>
