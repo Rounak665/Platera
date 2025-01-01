@@ -2,7 +2,7 @@ package Utilities;
 
 public class Cart {
     private int cartId;
-    private int userId;
+    private int customerId;
     private int itemId;
     private String itemName;
     private String itemImage;
@@ -23,12 +23,12 @@ public class Cart {
         this.cartId = cartId;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public int getItemId() {

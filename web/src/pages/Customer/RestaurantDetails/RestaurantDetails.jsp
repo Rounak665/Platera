@@ -1,3 +1,6 @@
+<%@page import="Utilities.CustomerDAO"%>
+<%@page import="Utilities.CartDAO"%>
+<%@page import="Utilities.Customer"%>
 <%@page import="Utilities.Database"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -21,19 +24,49 @@
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     </head>
     <body>
+
         <%
-            //Actual code
-    //        int restaurantId = Integer.parseInt(request.getParameter("restaurantId"));
+            // Retrieve user_id from the session
+//            Integer user_id = (Integer) session.getAttribute("user_id");
+            int user_id = 201;
+
+            // Initialize necessary variables
+            String name = "";
+            String email = "";
+            int customer_id = 0;
+            String image = "";
+            String imagepath = "";
+            int location_id = 0;
+            String location = "";
+            String address = "";
+            String phone = "";
+            boolean twoFA;
+
+            Customer customer = CustomerDAO.getCustomerByUserId(user_id);
+            if (customer != null) {
+                customer_id = customer.getCustomerId();
+                name = customer.getFullName();
+                email = customer.getEmail();
+                image = customer.getImage();
+                location_id = customer.getLocationId();
+                location = customer.getLocation();
+                address = customer.getAddress();
+                phone = customer.getPhone();
+                twoFA = customer.isTwoStepVerification();
+            }
+
+            // Create image path based on the image file path retrieved
+            imagepath = request.getContextPath() + '/' + image;
+
+        %>
+        <%            //Actual code
+//        int restaurantId = Integer.parseInt(request.getParameter("restaurantId"));
             //For debugging
             int restaurantId = 101;
-        %>
 
-        <%
             RestaurantDAO restaurantDAO = new RestaurantDAO();
             Restaurant restaurant = restaurantDAO.getRestaurantById(restaurantId);
-        %>
 
-        <%
             // Initialize the review count variable
             int reviewCount = 0;
 
@@ -132,16 +165,16 @@
 
                 </div>
                 <div class="details">
-                    <span class="cuisines"><%=restaurant.getCategory1()%>, <%=restaurant.getCategory2()%>, <%=restaurant.getCategory3()%></span> <!-- cuisines -->
+                    <span class="cuisines"><%=restaurant.getCategory1()%>, <%=restaurant.getCategory2()%>, <%=restaurant.getCategory3()%></span>
                     <span><i class="fa-regular fa-circle-dot"></i>Outlet: <%=restaurant.getLocation()%></span> 
                     <span class>25-30 mins</span>
-                    <span class="phone"><i class=" //fa-solid fa-phone"></i>12312353456</span>
-                    <span class="address"><i class="fa-solid fa-location-dot"></i></span>
+                    <span class="phone"><i class="fa-solid fa-phone"></i><%=restaurant.getPhone()%></span>
+                    <span class="address"><i class="fa-solid fa-location-dot"></i><%=restaurant.getAddress()%></span>
                 </div>
             </div>
 
             <div class="restaurant-image">
-                <img src="./assets/product1.png" alt="Restaurant Image">
+                <img src="<%=request.getContextPath()%>/<%=restaurant.getImage()%>" alt="Restaurant Image">
             </div>
         </section>
 
@@ -190,7 +223,7 @@
                     // Loop through the menu items list
                     for (MenuItems item : menuItemsList) {
                 %>
-                <div class="menu-item">
+                <div class="menu-item" id="item<%= item.getItemId()%>">
                     <div class="item-details">
                         <!-- Bestseller tag logic can be added as needed -->
                         <span class="bestseller-tag"><%= item.getPrice() < 100 ? "⭐ Bestseller" : ""%></span>
@@ -203,11 +236,26 @@
                             Masaledar Veg Patty, Onion & Our Signature Tomato Herby Sauce. Qty: 1<br />
                             37 Gms | Kcal: 362 | Carbs: 53.4 Gms | Sugar: 6.5 Gms | Fat: 12.8 Gms
                         </p>
+                        <%
+                            CartDAO cartDAO = new CartDAO();
+                            boolean isInCart = cartDAO.isItemInCart(customer_id, restaurantId, item.getItemId());
+                        %>
                         <!-- Add to Cart and View Cart Buttons -->
                         <div class="item-buttons">
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="view-cart-btn">View Cart</button>
+                            <!-- Add to Cart button inside a form -->
+                            <form action="http://localhost:8080/Platera-Main/AddToCart" method="POST" style="<%= isInCart ? "display:none;" : ""%>">
+                                <input type="hidden" name="customerId" value="<%= customer_id%>" />
+                                <input type="hidden" name="restaurantId" value="<%= restaurantId%>" />
+                                <input type="hidden" name="itemId" value="<%= item.getItemId()%>" />
+                                <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+                            </form>
+
+                            <!-- Go to Cart button -->
+                            <a href="../Home.jsp#cartSection" style="<%= isInCart ? "" : "display:none;"%>">
+                                <button class="view-cart-btn">Go to Cart</button>
+                            </a>
                         </div>
+
                     </div>
                     <div class="item-actions">
                         <img src="<%=request.getContextPath()%>/<%=item.getImage()%>" alt="<%= item.getItemName()%>" />
@@ -218,9 +266,6 @@
                 %>
             </div>
         </div>
-
-
-
 
         <script src="./restaurantDashboard.js"></script>
     </body>

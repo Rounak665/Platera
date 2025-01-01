@@ -419,7 +419,7 @@
                         if (restaurants != null && !restaurants.isEmpty()) {
                             for (Restaurant restaurant : restaurants) {
                     %>
-                    <a href="http://localhost:8080/Platera-Main/src/pages/RestaurantDashboardInUser/restaurantDashboard.jsp?restaurantId=<%= restaurant.getRestaurantId()%>" class="restaurant-card-link">
+                    <a href="./RestaurantDetails/RestaurantDetails.jsp?restaurantId=<%= restaurant.getRestaurantId()%>" class="restaurant-card-link">
                         <div class="restaurant-card">
                             <img
                                 src="<%= request.getContextPath()%>/<%= restaurant.getImage()%>"
