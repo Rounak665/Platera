@@ -163,15 +163,14 @@ public boolean addItemToCart(Cart cart) {
     }
 
     // Method to check if an item is in the cart
-    public boolean isItemInCart(int customerId, int restaurantId, int itemId) {
-        String query = "SELECT 1 FROM cart WHERE customer_id = ? AND restaurant_id = ? AND item_id = ?";
+    public boolean isItemInCart(int customerId, int itemId) {
+        String query = "SELECT 1 FROM cart WHERE customer_id = ? AND item_id = ?";
 
         try (Connection conn = Database.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query)) {
 
             stmt.setInt(1, customerId);  
-            stmt.setInt(2, restaurantId);
-            stmt.setInt(3, itemId);       
+            stmt.setInt(2, itemId);       
 
             try (ResultSet rs = stmt.executeQuery()) {
                 return rs.next(); 

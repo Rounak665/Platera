@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Utilities.CartDAO;
 import Utilities.Cart;
+import Utilities.Restaurant;
+import Utilities.RestaurantDAO;
 
 @WebServlet("/AddToCart")
 public class AddToCart extends HttpServlet {
@@ -15,33 +17,42 @@ public class AddToCart extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int customerId = Integer.parseInt(request.getParameter("customerId"));
-        int restaurantId = Integer.parseInt(request.getParameter("restaurantId"));
         int itemId = Integer.parseInt(request.getParameter("itemId"));
 
         System.out.println("Customer ID: " + customerId);
-        System.out.println("Restaurant ID: " + restaurantId);
         System.out.println("Item ID: " + itemId);
 
         CartDAO cartDAO = new CartDAO();
-        boolean isInCart = cartDAO.isItemInCart(customerId, restaurantId, itemId);
+        boolean isInCart = cartDAO.isItemInCart(customerId, itemId);
 
         if (isInCart) {
             response.sendRedirect("src/pages/Customer/Home.jsp?cartSection");
         } else {
-            Cart cart = new Cart();
-            cart.setCustomerId(customerId);
-            cart.setItemId(itemId);
-            cart.setRestaurantId(restaurantId);
-            cart.setQuantity(1);
+            // Fetch the restaurantId using the itemId
+            RestaurantDAO restaurantDAO = new RestaurantDAO();
+            Restaurant restaurant = restaurantDAO.getRestaurantByItemId(itemId);
+            int restaurantId = (restaurant != null) ? restaurant.getRestaurantId() : -1;
 
-            boolean success = cartDAO.addItemToCart(cart);
+            if (restaurantId != -1) {
+                Cart cart = new Cart();
+                cart.setCustomerId(customerId);
+                cart.setItemId(itemId);
+                cart.setRestaurantId(restaurantId);
+                cart.setQuantity(1);
 
-            if (success) {
-                response.sendRedirect("src/pages/Customer/RestaurantDetails/RestaurantDetails.jsp#item" +itemId);
+                boolean success = cartDAO.addItemToCart(cart);
+
+                if (success) {
+                    response.sendRedirect("src/pages/Customer/RestaurantDetails/RestaurantDetails.jsp?restaurantId=" + restaurantId + "#item" + itemId);
+                } else {
+                    request.setAttribute("errorMessage", "Failed to add item to cart.");
+                    request.getRequestDispatcher("restaurantDetails.jsp").forward(request, response);
+                }
             } else {
-                request.setAttribute("errorMessage", "Failed to add item to cart.");
+                request.setAttribute("errorMessage", "Restaurant not found for the given item.");
                 request.getRequestDispatcher("restaurantDetails.jsp").forward(request, response);
             }
         }
     }
 }
+

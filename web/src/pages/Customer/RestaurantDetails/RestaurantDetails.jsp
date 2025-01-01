@@ -59,10 +59,12 @@
             imagepath = request.getContextPath() + '/' + image;
 
         %>
+        
+        
         <%            //Actual code
-//        int restaurantId = Integer.parseInt(request.getParameter("restaurantId"));
+        int restaurantId = Integer.parseInt(request.getParameter("restaurantId"));
             //For debugging
-            int restaurantId = 101;
+//            int restaurantId = 101;
 
             RestaurantDAO restaurantDAO = new RestaurantDAO();
             Restaurant restaurant = restaurantDAO.getRestaurantById(restaurantId);
@@ -238,7 +240,7 @@
                         </p>
                         <%
                             CartDAO cartDAO = new CartDAO();
-                            boolean isInCart = cartDAO.isItemInCart(customer_id, restaurantId, item.getItemId());
+                            boolean isInCart = cartDAO.isItemInCart(customer_id, item.getItemId());
                         %>
                         <!-- Add to Cart and View Cart Buttons -->
                         <div class="item-buttons">

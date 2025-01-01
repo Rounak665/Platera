@@ -8,6 +8,7 @@ public class MenuItems {
     private String image;
     private String categoryName; // New field for category name
     private int restaurantId;
+    private String restaurantName;
     private boolean availability;
 
     // Getters and Setters
@@ -71,6 +72,13 @@ public class MenuItems {
 
     public void setRestaurantId(int restaurantId) {
         this.restaurantId = restaurantId;
+    }
+        public String getRestaurantName() {
+        return restaurantName;
+    }
+
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
     }
 
     // toString method for debugging
