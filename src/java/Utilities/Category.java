@@ -1,9 +1,20 @@
 package Utilities;
 
 public class Category {
+
     private int id;
     private String categoryName;
     private String image;
+
+    public Category(int id, String categoryName) {
+        this.id = id;
+        this.categoryName = categoryName;
+    }
+    public Category() {
+        this.id = id;
+        this.categoryName = categoryName;
+        this.image=image;
+    }
 
     // Getter methods
     public int getId() {

@@ -78,7 +78,7 @@
 
 
         <!-- Profile Setup Popup -->
-        <!-- <% if (location_id == 0) {%>
+        <!--<% if (location_id == 0) {%>
         <div class="profile-setup-popup" id="profileSetupPopup">
             <div class="popup-content">
                 <h3>Thank you <%= name%> for signing up. Please set up your profile for a better experience.</h3>
@@ -159,37 +159,37 @@
             <div class="user-profile">
                 <h2>Dashboard</h2>
                 <ul class="dashboard-options">
-                    <li id="welcomeMessage">Hi, ${sessionScope.name}!</li>
+                    <li id="welcomeMessage">Hi, <%=name%></li>
                     <li id="profileSettings"><a href="./CustomerDashboard/CustomerProfile.jsp">Profile Settings</a></li>
                     <li id="orderHistory"><a href="./CustomerDashboard/CustomerOrderHistory.jsp">Order History</a></li>  
                 </ul>
                 <!-- Logout Button -->
                 <form action="http://localhost:8080/Platera-Main/logout" method="get">
-                        <button type="submit" class="btn btn-outline-danger" id="logout-btn">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                class="bi bi-power"
-                                viewBox="0 0 16 16"
-                                >
-                            <path d="M7.5 1v7h1V1z"></path>
-                            <path
-                                d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812"
-                                ></path>
-                            </svg>
-                            Logout
-                        </button>
+                    <button type="submit" class="btn btn-outline-danger" id="logout-btn">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-power"
+                            viewBox="0 0 16 16"
+                            >
+                        <path d="M7.5 1v7h1V1z"></path>
+                        <path
+                            d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812"
+                            ></path>
+                        </svg>
+                        Logout
+                    </button>
                 </form>
-                
+
             </div>
         </section>
 
         <!-- Sliding Cart Section -->
         <section class="cart-section" id="cartSection">
             <!-- Cart section -->
-            <div class="cart-container checkout" > 
+            <div class="cart-container checkout"> 
                 <div class="cart-header">
                     Cart
                     <span class="close-btn" id="closeCartSectionCheckout">&times;</span>
@@ -200,16 +200,26 @@
                         CartDAO cartDAO = new CartDAO();
                         List<Cart> cartItems = cartDAO.getCartItems(customer_id);
                         double promotion = 0;
+                        double subtotal = 0;
+                        double deliveryCharges = 0;
+                        double total = 0;
 
+                        if (cartItems.isEmpty()) {
+                    %>
+                    <div class="heading-for-empty-cart">
+                        <video src="./assets/cartEmptyAnimation.mp4" autoplay muted loop></video>
+                    </div>
+                    <h2 style="text-align: center">Your Cart Is Empty</h2>
+                    <%
+                    } else {
                         for (Cart cart : cartItems) {
                     %>
-
                     <div class="cart-item">
                         <img src="<%=request.getContextPath()%>/<%= cart.getItemImage()%>" alt="<%= cart.getItemName()%>" class="cart-item-image">
 
                         <div class="cart-item-details">
                             <p class="cart-item-name"><%= cart.getItemName()%></p>
-                            <p class="cart-item-price" >₹<%=cart.getItemPrice()%></p>
+                            <p class="cart-item-price">₹<%=cart.getItemPrice()%></p>
                         </div>
                         <div class="price">
                             <div class="cart-item-quantity-trash">
@@ -221,16 +231,22 @@
                                         <button type="submit" name="action" value="add" class="quantity-btn add">+</button>
                                     </form>
                                 </div>
-                                <i class="fa-solid fa-trash-can"></i>
+                                <form action="http://localhost:8080/Platera-Main/DeleteFromCart" method="post">
+                                    <input type="hidden" name="cart_id" value="<%= cart.getCartId()%>">
+                                    <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                                </form>
                             </div>
                             <p class="total-price">₹<%=cart.getItemPrice() * cart.getQuantity()%></p>
                         </div>
                     </div>
                     <%
-                            promotion = cart.getCouponDiscount();
+                                promotion = cart.getCouponDiscount();
+                            }
                         }
                     %>
                 </div>
+
+                <% if (!cartItems.isEmpty()) {%>
                 <div class="promo-code">
                     <form action="http://localhost:8080/Platera-Main/ApplyCoupon" method="post">
                         <input type="text" name="coupon_code" placeholder="Promo Code">
@@ -241,27 +257,28 @@
                 <div class="cart-summary">
                     <%
                         // Calculate subtotal and total
-                        double subtotal = 0;
+
                         for (Cart cart : cartItems) {
                             subtotal += cart.getItemPrice() * cart.getQuantity();
                         }
 
                         // Apply delivery charges conditionally
-                        double deliveryCharges = (subtotal < 199) ? 30 : 0;  // Delivery charges are 30 if subtotal is less than 199
+                        deliveryCharges = (subtotal < 199) ? 30 : 0;  // Delivery charges are 30 if subtotal is less than 199
 
                         // Calculate total
-                        double total = subtotal + deliveryCharges - promotion;
+                        total = subtotal + deliveryCharges - promotion;
                     %>
 
-                    <div><span>Subtotal</span><p  class="subtotal">₹<%=subtotal%></p></div>
+                    <div><span>Subtotal</span><p class="subtotal">₹<%=subtotal%></p></div>
                     <div><span>Delivery</span><p class="delivery_charges">+₹<%=deliveryCharges%></p></div>
                     <div><span>Promotions</span><p class="delivery_charges">-₹<%=promotion%></p></div>
-                    <div><span>Total</span><p  class="total">₹<%=total%></p></div>
+                    <div><span>Total</span><p class="total">₹<%=total%></p></div>
                 </div>
 
                 <button class="checkout-btn">CHECKOUT</button>
-
+                <% }%>
             </div>
+
 
 
             <!-- Checkout Scetion -->

@@ -79,7 +79,8 @@
                 <p class="security-description">
                     Enhance your security by setting up two-factor authentication (2FA) on your registered email.
                 </p>
-                <form id="twoFAForm" method="post" action="<%= request.getContextPath()%>/updateTwoFA">
+                <form id="twoFAForm" method="post" action="http://localhost:8080/Platera-Main/UpdateTwoFAStatus">
+                    <input type="hidden" value="<%=user_id%>" name="userId">
                     <div class="security-option">
                         <div class="security-description">
                             <label class="option-title">
