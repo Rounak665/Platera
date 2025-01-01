@@ -8,19 +8,20 @@ public class DeliveryExecutiveDAO {
     // Get delivery executive by executive_id
     public static DeliveryExecutive getDeliveryExecutiveById(int executiveId) throws SQLException {
         Connection conn = Utilities.Database.getConnection();
-        String query = "SELECT d.executive_id, u.name, u.email, u.phone, u.address, dd.vehicle_type, dd.vehicle_number, "
+        String query = "SELECT d.delivery_executive_id, u.user_id, u.name, u.email, u.phone, u.address, dd.vehicle_type, dd.vehicle_number, "
                 + "d.location as location_id, l.location_name, d.image, d.status, u.two_step_verification "
                 + "FROM delivery_executives d "
                 + "LEFT JOIN users u ON u.user_id = d.user_id "
                 + "LEFT JOIN locations l ON d.location = l.location_id "
                 + "LEFT JOIN delivery_executive_documents dd ON dd.delivery_executive_id = d.delivery_executive_id "
-                + "WHERE d.executive_id = ?";
+                + "WHERE d.delivery_executive_id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, executiveId);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 DeliveryExecutive executive = new DeliveryExecutive();
-                executive.setExecutiveId(rs.getInt("executive_id"));
+                executive.setUserId(rs.getInt("user_id"));
+                executive.setExecutiveId(rs.getInt("delivery_executive_id"));
                 executive.setFullName(rs.getString("name"));
                 executive.setEmail(rs.getString("email"));
                 executive.setPhone(rs.getString("phone"));
@@ -74,7 +75,7 @@ public class DeliveryExecutiveDAO {
     // Get all delivery executives
     public static List<DeliveryExecutive> getAllDeliveryExecutives() throws SQLException {
         Connection conn = Utilities.Database.getConnection();
-        String query = "SELECT d.executive_id, u.name, u.email, u.phone, u.address, dd.vehicle_type, dd.vehicle_number, "
+        String query = "SELECT d.delivery_executive_id, u.name, u.email, u.phone, u.address, dd.vehicle_type, dd.vehicle_number, "
                 + "d.location as location_id, l.location_name, d.image, d.status, u.two_step_verification "
                 + "FROM delivery_executives d "
                 + "LEFT JOIN users u ON u.user_id = d.user_id "
@@ -119,18 +120,61 @@ public static boolean saveDeliveryExecutive(DeliveryExecutive executive) throws 
     }
 
     // Update delivery executive
-    public static boolean updateDeliveryExecutive(DeliveryExecutive executive) throws SQLException {
-        Connection conn = Utilities.Database.getConnection();
-        String query = "UPDATE delivery_executives SET vehicle_type = ?, location_id = ?, image = ?, status = ? WHERE executive_id = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, executive.getVehicleType());
-            stmt.setInt(2, executive.getLocationId());
-            stmt.setString(3, executive.getImage());
-            stmt.setString(4, executive.getStatus());
-            stmt.setInt(5, executive.getExecutiveId());
-            return stmt.executeUpdate() > 0;
-        }
+public static boolean updateDeliveryExecutiveProfile(DeliveryExecutive executive) throws SQLException {
+    Connection conn = Utilities.Database.getConnection();
+
+    // Query to update the 'delivery_executives' table
+    String query1 = "UPDATE delivery_executives "
+                  + "SET image = CASE WHEN ? IS NOT NULL AND LENGTH(TRIM(?)) > 0 THEN ? ELSE image END, "
+                  + "    location = ? "
+                  + "WHERE delivery_executive_id = ?";
+
+    // Query to update the 'users' table
+    String query2 = "UPDATE users "
+                  + "SET name = ?, phone = ?, address = ? "
+                  + "WHERE user_id = ?";
+
+    // Query to update the 'delivery_executive_documents' table
+    String query3 = "UPDATE delivery_executive_documents "
+                  + "SET vehicle_type = ?, vehicle_number = ? "
+                  + "WHERE delivery_executive_id = ?";
+
+    try (PreparedStatement stmt1 = conn.prepareStatement(query1);
+         PreparedStatement stmt2 = conn.prepareStatement(query2);
+         PreparedStatement stmt3 = conn.prepareStatement(query3)) {
+
+        // Set parameters for the first query (delivery_executives table)
+        stmt1.setString(1, executive.getImage());
+        stmt1.setString(2, executive.getImage());
+        stmt1.setString(3, executive.getImage());
+        stmt1.setInt(4, executive.getLocationId());
+        stmt1.setInt(5, executive.getExecutiveId());
+
+        // Execute the update for the delivery_executives table
+        int rowsAffected1 = stmt1.executeUpdate();
+
+        // Set parameters for the second query (users table)
+        stmt2.setString(1, executive.getFullName());
+        stmt2.setString(2, executive.getPhone());
+        stmt2.setString(3, executive.getAddress());
+        stmt2.setInt(4, executive.getUserId());
+
+        int rowsAffected2 = stmt2.executeUpdate();
+
+        // Set parameters for the third query (delivery_executive_documents table)
+        stmt3.setString(1, executive.getVehicleType());
+        stmt3.setString(2, executive.getVehicleNumber());
+        stmt3.setInt(3, executive.getExecutiveId());
+
+        int rowsAffected3 = stmt3.executeUpdate();
+
+        // Return true if all updates affected rows (indicating success)
+        return rowsAffected1 > 0 && rowsAffected2 > 0 && rowsAffected3 > 0;
     }
+}
+
+
+
 
     // Delete delivery executive
     public static boolean deleteDeliveryExecutive(int executiveId) throws SQLException {
@@ -141,4 +185,5 @@ public static boolean saveDeliveryExecutive(DeliveryExecutive executive) throws 
             return stmt.executeUpdate() > 0;
         }
     }
+
 }

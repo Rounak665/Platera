@@ -171,13 +171,17 @@
                                                 <%
                                                     LocationDAO locationDAO = new LocationDAO();
                                                     List<Location> locations = locationDAO.getLocations();
+
                                                     for (Location location : locations) {
                                                 %>
-                                                <option value="<%= location.getId()%>"><%= location.getName()%></option>
+                                                <option value="<%= location.getId()%>" <%= (location.getId() == location_id) ? "selected" : ""%>>
+                                                    <%= location.getName()%>
+                                                </option>
                                                 <%
                                                     }
                                                 %>
                                             </select>
+
                                         </div>
                                     </div>
                                     <div class="form-row">

@@ -1,4 +1,7 @@
 
+<%@page import="Utilities.Location"%>
+<%@page import="Utilities.Location"%>
+<%@page import="Utilities.LocationDAO"%>
 <%@page import="Utilities.DeliveryExecutiveDAO"%>
 <%@page import="Utilities.DeliveryExecutive"%>
 <%@page import="Utilities.Restaurant"%>
@@ -123,15 +126,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="DeliveryOrders.jsp">
+                            <a href="./DeliveryOrders.jsp">
                                 <span class="icon"><ion-icon name="cart"></ion-icon></span>
                                 <span>Orders</span>
-                            </a>
-                        </li>
-                        <li class="li_logout">
-                            <a href="../AddRestaurent/AddRestaurent.html#Signin-popup">
-                                <span class="icon"><ion-icon name="power"></ion-icon></span>
-                                <span>Logout</span>
                             </a>
                         </li>
                     </ul>
@@ -168,567 +165,611 @@
                 <!-- edit section -->
                 <div class="modal-content" id="modalContent" style="display: none;">
                     <span class="close-btn" id="closeEditSection">&times;</span>
-                    <form action="UpdateDeliveryExecutive" method="post" enctype="multipart/form-data">
-                        <div class="modal-header">
-                            Edit Profile
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
+
+                    <div class="modal-header">
+                        Edit Profile
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <form action="http://localhost:8080/Platera-Main/UpdateExecutiveProfile" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="user_id" value="<%=user_id%>">
+                                <input type="hidden" name="executive_id" value="<%=executiveId%>">
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="profileImage" class="form-label">Profile Image</label>
-                                        <input type="file" class="form-control file-input" id="profileImage" name="profileImage">
+                                        <input type="file" class="form-control file-input" id="photo-input" name="profileImage" accept="image/*">
                                         <small class="form-text text-muted">Choose a clear, professional image.</small>
                                     </div>
                                 </div>
                                 <div class="col-md-6 d-flex align-items-center">
                                     <div class="preview-container">
-                                        <img id="previewImage" src="https://via.placeholder.com/100" alt="Profile Preview" class="img-thumbnail">
+                                        <img id="profile-photo-preview" src="<%= imagePath%>" alt="Profile Preview" class="img-thumbnail">
                                         <small class="form-text text-muted">Preview your profile image here.</small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="name" name="name" value="<%= request.getAttribute("name")%>" placeholder="Enter your full name">
+                                        <input type="text" class="form-control" id="name" name="name" value="<%=name%>" placeholder="Enter your full name">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email" name="email" value="<%= request.getAttribute("email")%>" placeholder="Enter your email address">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="number" class="form-label">Number</label>
-                                        <input type="text" class="form-control" id="number" name="number" value="<%= request.getAttribute("number")%>" placeholder="Enter your phone number">
+                                        <label for="number" class="form-label">Phone No.</label>
+                                        <input type="text" class="form-control" id="number" name="phone" value="<%=phone%>" placeholder="Enter your phone number">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="address" class="form-label">Address</label>
-                                        <input type="text" class="form-control" id="address" name="address" value="<%= request.getAttribute("address")%>" placeholder="Enter your address">
+                                        <input type="text" class="form-control" id="address" name="address" value="<%=address%>" placeholder="Enter your address">
+                                    </div>
+                                </div>
+                                <!-- Vehicle Type Dropdown -->
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="vehicleType" class="form-label">Vehicle Type</label>
+                                        <select class="form-control" id="vehicleType" name="vehicleType">
+                                            <option value="" disabled selected>
+                                                <%= vehicleType != null && !vehicleType.isEmpty() ? vehicleType : "Select your vehicle type"%>
+                                            </option>
+                                            <option value="Bike">Bike</option>
+                                            <option value="Scooter">Scooter</option>
+                                            <option value="Cycle">Cycle</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Location Dropdown -->
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="location" class="form-label">Location</label>
+                                        <select id="location" name="location" class="form-control styled-dropdown" required>
+                                            <option value="<%= locationId%>" selected>
+                                                <%= locationName != null ? locationName : "Select a location"%>
+                                            </option>
+                                            <%
+                                                LocationDAO locationDAO = new LocationDAO();
+                                                List<Location> locations = locationDAO.getLocations();
+                                                for (Location location : locations) {
+                                            %>
+                                            <option value="<%= location.getId()%>" <%= (location.getId() == locationId) ? "selected" : ""%>>
+                                                <%= location.getName()%>
+                                            </option>
+                                            <%
+                                                }
+                                            %>
+                                        </select>
+
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="deliveryArea" class="form-label">Delivery Area Address</label>
-                                        <input type="text" class="form-control" id="deliveryArea" name="deliveryArea" value="<%= request.getAttribute("deliveryArea")%>" placeholder="Enter delivery area">
+                                        <label for="vehicleNumber" class="form-label">Vehicle No.</label>
+                                        <input type="text" class="form-control" id="emergencyContact" name="vehicleNumber" value="<%=vehicleNumber%>" placeholder="Enter vehicle number">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="emergencyContact" class="form-label">Emergency Contact</label>
-                                        <input type="text" class="form-control" id="emergencyContact" name="emergencyContact" value="<%= request.getAttribute("emergencyContact")%>" placeholder="Enter emergency contact">
-                                    </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" id="cancelModal" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
                                 </div>
-
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" id="cancelModal" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                        </div>
-                    </form>
-                </div>
-            </section>
-
-            <!-- main content -->
-            <div class="main-content">
-                <header>
-                    <div class="headerLogo">
-                        <div class="logo">
-                            <img src="../../../Public/images/logo.png" alt="">
-                        </div>
-                    </div>
-                    <div class="search-wrapper">
-                        <span class="icon"><ion-icon name="search"></ion-icon></span>
-                        <input type="search" placeholder="Search">
-                    </div>
-                    <div class="social-icons">
-                        <div class="logout_btn">
-                            <form action="http://localhost:8080/Platera-Main/logout" class="d-flex align-items-center logout">
-                                <button type="submit" class="btn d-flex align-items-center">
-                                    <span class="ml-2">Logout</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
-                                    <path d="M7.5 1v7h1V1z"></path>
-                                    <path d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812"></path>
-                                    </svg>
-                                </button>
                             </form>
                         </div>
+
                     </div>
-                </header>
+                </div>
 
-                <main>
-                    <h2 class="dash-title">Hello, <%=name%></h2>
+        </div>
+    </section>
 
-                    <div class="container">
+    <!-- main content -->
+    <div class="main-content">
+        <header>
+            <div class="headerLogo">
+                <div class="logo">
+                    <img src="../../../Public/images/logo.png" alt="">
+                </div>
+            </div>
+            <div class="search-wrapper">
+                <span class="icon"><ion-icon name="search"></ion-icon></span>
+                <input type="search" placeholder="Search">
+            </div>
+            <div class="social-icons">
+                <div class="logout_btn">
+                    <form action="http://localhost:8080/Platera-Main/logout" class="d-flex align-items-center logout">
+                        <button type="submit" class="btn d-flex align-items-center">
+                            <span class="ml-2">Logout</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
+                            <path d="M7.5 1v7h1V1z"></path>
+                            <path d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812"></path>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </header>
 
-                        <div class="profile">
-                            <div class="personal-details">
-                                <div class="personal-image">
-                                    <img src="<%=imagePath%>" alt="Your-image">
-                                </div>
-                                <div class="personal-description">
-                                    <h5><%=name%></h5>
-                                    <h6><span>&#9733; 5.0</span><span><%=locationName%></span></h6>
-                                    <p>Joined June 2024</p>
-                                    <button type="button" class="btn btn-primary" id="setIcon" style="display: flex;justify-content: center;gap: 10px;padding: 5px !important;"><i class="fas fa-cog settings-icon" style="margin-top: 9px;"></i><p style="font-size: 20px;color: white;">Settings</p></button>
-                                </div>
-                            </div>
-                            <div class="order-details">
-                                <div class="order-card">
-                                    <span class="icon" style="color: rgb(0, 200, 0);">
-                                        <ion-icon name="checkmark-done-outline"></ion-icon>
-                                    </span>
-                                    <h5>932</h5>
-                                    <p>Finished Orders</p>
-                                </div>
-                                <div class="order-card">
-                                    <span class="icon" style="color: rgb(255, 140, 0);">
-                                        <ion-icon name="checkmark-circle"></ion-icon>
-                                    </span>
-                                    <h5>1032</h5>
-                                    <p>Delivered Orders</p>
-                                </div>
-                                <div class="order-card">
-                                    <span class="icon" style="color: rgb(255, 0, 0);">
-                                        <ion-icon name="close-circle"></ion-icon>
-                                    </span>
-                                    <h5>103</h5>
-                                    <p>Cancelled Orders</p>
-                                </div>
-                            </div>
-                            <div class="earning">
-                                <div class="earning-details">
-                                    <div class="details-left">
-                                        <span class="icon"><ion-icon name="wallet-outline"></ion-icon></span>
-                                        <div>
-                                            <p>Today's Earnings</p>
-                                            <h5>₹2,530</h5>
-                                        </div>
-                                    </div>
-                                    <div class="details-right">
-                                        <%
-                                            if ("Y".equals(executiveStatus)) {
-                                        %>
-                                        <form action="http://localhost:8080/Platera-Main/UpdateExecutiveStatus" method="post">
-                                            <input type="hidden" name="executive_id" value="<%= executiveId%>">
-                                            <input type="hidden" name="executive_status" value="N">
-                                            <button class="end-delivery" type="submit">Call it a Day</button>
-                                        </form>
-                                        <%
-                                        } else if ("N".equals(executiveStatus)) {
-                                        %>
-                                        <form action="http://localhost:8080/Platera-Main/UpdateExecutiveStatus" method="post">
-                                            <input type="hidden" name="executive_id" value="<%= executiveId%>">
-                                            <input type="hidden" name="executive_status" value="Y">
-                                            <button class="start-delivery" type="submit">Ready to Deliver</button>
-                                        </form>
-                                        <%
-                                            }
-                                        %>
-                                    </div>
+        <main>
+            <h2 class="dash-title">Hello, <%=name%></h2>
 
+            <div class="container">
 
-                                </div>
-                                <hr />
-                                <div class="distance-details">
-                                    <div class="distance-head">
-                                        <span>Total Trip</span>
-                                        <span>Total Distance</span>
-                                        <span>Total Time</span>
-                                    </div>
-                                    <div class="distance-values">
-                                        <span>15</span>
-                                        <span>15 Km</span>
-                                        <span>90 Min</span>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="profile">
+                    <div class="personal-details">
+                        <div class="personal-image">
+                            <img src="<%=imagePath%>" alt="Your-image">
                         </div>
-
-
-                        <div class="dash-performance">
-                            <!-- Current Order Section -->
-                            <div class="current-order">
-                                <%
-                                    OrdersDAO ordersDAO = new OrdersDAO();
-                                    List<Orders> ordersList = null;
-
-                                    try {
-                                        // Fetch orders using OrdersDAO
-                                        ordersList = ordersDAO.getAcceptedOrdersByDeliveryExecutiveId(executiveId);
-
-                                        if ("N".equals(executiveStatus)) {
-                                            out.println("Press Ready to Deliver to see current orders.");
-                                        } else {
-                                            // Check if there are no orders in the list
-                                            if (ordersList.isEmpty() && "Y".equals(executiveStatus)) {
-                                                out.println("No current order found.");
-                                            }
-
-                                            Orders currentOrder = ordersList.get(0); // Assuming we are displaying the first order for simplicity
-
-                                            int restaurantId = currentOrder.getRestaurantId();
-
-                                            RestaurantDAO restaurantDAO = new RestaurantDAO();
-                                            Restaurant restaurant = restaurantDAO.getRestaurantById(restaurantId); // Fetch restaurant details by ID
-
-                                            // Initialize the review count variable
-                                            int reviewCount = 0;
-
-                                            // Database connection setup
-                                            String query = "SELECT COUNT(*) AS review_count FROM reviews WHERE restaurant_id = ?";
-
-                                            // Establish the database connection and execute the query
-                                            Connection con = null;
-                                            PreparedStatement ps = null;
-                                            ResultSet rs = null;
-
-                                            try {
-                                                // Get the connection
-                                                con = Database.getConnection();
-
-                                                // Prepare the query
-                                                ps = con.prepareStatement(query);
-                                                ps.setInt(1, restaurantId);
-
-                                                // Execute the query
-                                                rs = ps.executeQuery();
-
-                                                // Retrieve the review count
-                                                if (rs.next()) {
-                                                    reviewCount = rs.getInt("review_count");
-                                                }
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            } finally {
-                                                // Close the ResultSet, PreparedStatement, and Connection
-                                                try {
-                                                    if (rs != null) {
-                                                        rs.close();
-                                                    }
-                                                    if (ps != null) {
-                                                        ps.close();
-                                                    }
-                                                    if (con != null) {
-                                                        con.close();
-                                                    }
-                                                } catch (Exception e) {
-                                                    e.printStackTrace();
-                                                }
-                                            }
-                                %>
-
-                                <!-- Displaying the current order details -->
-                                <div class="current-order">
-                                    <h2><ion-icon name="receipt-outline"></ion-icon> Current Order</h2>
-                                    <div class="order-details" onclick="toggleCurrentOrderDetails(this)">
-                                        <div class="order-row">
-                                            <span class="icon"><ion-icon name="document-outline"></ion-icon></span>
-                                            <strong>Order #<%= currentOrder.getOrderId()%></strong>
-                                            <span class="arrow"><i class="fas fa-chevron-down dropdown-current"></i></span>
-                                        </div>
-                                        <div class="order-row">
-                                            <span class="icon"><ion-icon name="restaurant-outline"></ion-icon></span>
-                                                    <%= currentOrder.getRestaurantName()%>
-                                        </div>
-                                        <div class="order-row">
-                                            <span class="icon"><ion-icon name="pricetag-outline"></ion-icon></span>
-                                                    <%= currentOrder.getTotalAmount()%>
-                                        </div>
-                                        <div class="order-row">
-                                            <span class="icon"><ion-icon name="location-outline"></ion-icon></span>
-                                                    <%= currentOrder.getCustomerAddress()%>
-                                        </div>
-                                        <div class="order-row">
-                                            <span class="icon"><ion-icon name="checkmark-circle-outline"></ion-icon></span>
-                                            Status: <strong class="status"><%=currentOrder.getOrderStatus()%></strong>
-                                        </div>
-                                    </div>
-
-                                    <div class="details-row">
-                                        <div class="details-container">
-                                            <div class="order-menu">
-                                                <h4>Items</h4>
-                                                <%
-                                                    // You can loop through the order items list from the current order object
-                                                    for (OrderItem item : currentOrder.getOrderItems()) {
-                                                %>
-                                                <p><img src="<%=request.getContextPath()%>/<%=item.getImage()%>" alt="<%= item.getItemName()%> image"> <%= item.getItemName()%> (x<%=item.getQuantity()%>)</p>
-                                                    <%
-                                                        }
-                                                    %>
-                                            </div>
-
-                                            <div class="restaurant-info">
-                                                <h4><%= currentOrder.getRestaurantName()%></h4>
-
-                                                <!-- Display restaurant rating dynamically -->
-                                                <p><i class="fas fa-star"></i> <%= restaurant.getRating()%> | <%= reviewCount%> Reviews</p>
-
-                                                <p>Delivery Time: <strong>30 Min</strong></p>
-                                                <p>
-                                                    <span class="icon"><ion-icon name="location-outline"></ion-icon></span>
-                                                    Address: <strong><%= currentOrder.getRestaurantAddress()%></strong>
-                                                </p>
-                                                <p>
-                                                    <span class="icon"><ion-icon name="call-outline"></ion-icon></span>
-                                                    Phone: <strong><%= currentOrder.getRestaurantPhone()%></strong>
-                                                </p>
-                                            </div>
-
-                                            <div class="order-summary">
-                                                <div class="order-summary-details">
-                                                    <span>
-                                                        <h4>Status</h4>
-                                                        <p><%= currentOrder.getPaymentStatus()%></p>
-                                                    </span>
-                                                    <span>
-                                                        <h4>Date Paid</h4>
-                                                        <p><%= currentOrder.getPaymentDate()%></p>
-                                                    </span>
-                                                    <span>
-                                                        <h4>Customer Phone</h4>
-                                                        <p>
-                                                            <span class="icon"><ion-icon name="call-outline"></ion-icon></span>
-                                                                    <%= currentOrder.getCustomerPhone()%>
-                                                        </p>
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                            <div class="order-amt">
-                                                <h4>Total</h4>
-                                                <p class="total-amount" style="margin-bottom: 50px;">₹<%= currentOrder.getTotalAmount()%></p>
-                                                <div class="details-right">
-                                                    <%
-                                                        // Directly using the getter in the equals method
-                                                        if ("Cooked".equals(currentOrder.getOrderStatus()) || "Accepted".equals(currentOrder.getOrderStatus())) {
-                                                    %>
-                                                    <form action="http://localhost:8080/Platera-Main/UpdateOrderStatus" method="post" onsubmit="return confirmHandover()">
-                                                        <input type="hidden" name="order_id" value="<%= currentOrder.getOrderId()%>">
-                                                        <input type="hidden" name="order_status" value="Picked Up">                                                     
-                                                        <button class="pickedup-button" type="submit">Picked up</button>
-
-                                                    </form>
-                                                    <%
-                                                    } else if ("Picked Up".equals(currentOrder.getOrderStatus())) {
-                                                    %>
-                                                    <form action="http://localhost:8080/Platera-Main/UpdateOrderStatus" method="post" onsubmit="return confirmPickup()">
-                                                        <input type="hidden" name="order_id" value="<%= currentOrder.getOrderId()%>">                                                       
-                                                        <input type="hidden" name="executive_status" value="Delivered">
-                                                        <button class="delivered-button" type="submit">Handover</button>
-                                                    </form>
-                                                    <%
-                                                        }
-                                                    %>
-
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                        <div class="personal-description">
+                            <h5><%=name%></h5>
+                            <h6><span>&#9733; 5.0</span><span>|<%=locationName%></span></h6>
+                            <p>Joined June 2024</p>
+                            <button type="button" class="btn btn-primary" id="setIcon" style="display: flex;justify-content: center;gap: 10px;padding: 5px !important;"><i class="fas fa-cog settings-icon" style="margin-top: 9px;"></i><p style="font-size: 20px;color: white;">Settings</p></button>
+                        </div>
+                    </div>
+                    <div class="order-details">
+                        <div class="order-card">
+                            <span class="icon" style="color: rgb(0, 200, 0);">
+                                <ion-icon name="checkmark-done-outline"></ion-icon>
+                            </span>
+                            <h5>932</h5>
+                            <p>Finished Orders</p>
+                        </div>
+                        <div class="order-card">
+                            <span class="icon" style="color: rgb(255, 140, 0);">
+                                <ion-icon name="checkmark-circle"></ion-icon>
+                            </span>
+                            <h5>1032</h5>
+                            <p>Delivered Orders</p>
+                        </div>
+                        <div class="order-card">
+                            <span class="icon" style="color: rgb(255, 0, 0);">
+                                <ion-icon name="close-circle"></ion-icon>
+                            </span>
+                            <h5>103</h5>
+                            <p>Cancelled Orders</p>
+                        </div>
+                    </div>
+                    <div class="earning">
+                        <div class="earning-details">
+                            <div class="details-left">
+                                <span class="icon"><ion-icon name="wallet-outline"></ion-icon></span>
+                                <div>
+                                    <p>Today's Earnings</p>
+                                    <h5>₹2,530</h5>
                                 </div>
-
-                                <%}
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
+                            </div>
+                            <div class="details-right">
+                                <%
+                                    if ("Y".equals(executiveStatus)) {
+                                %>
+                                <form action="http://localhost:8080/Platera-Main/UpdateExecutiveStatus" method="post">
+                                    <input type="hidden" name="executive_id" value="<%= executiveId%>">
+                                    <input type="hidden" name="executive_status" value="N">
+                                    <button class="end-delivery" type="submit">Call it a Day</button>
+                                </form>
+                                <%
+                                } else if ("N".equals(executiveStatus)) {
+                                %>
+                                <form action="http://localhost:8080/Platera-Main/UpdateExecutiveStatus" method="post">
+                                    <input type="hidden" name="executive_id" value="<%= executiveId%>">
+                                    <input type="hidden" name="executive_status" value="Y">
+                                    <button class="start-delivery" type="submit">Ready to Deliver</button>
+                                </form>
+                                <%
                                     }
                                 %>
                             </div>
 
 
-
-
-
-                            <!-- Statistics Section -->
-                            <div class="statistics">
-                                <h2><ion-icon name="list-outline"></ion-icon> Delivered Orders</h2>
-                                <div class="yourOrders">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Order</th>
-                                                <th>Status</th>
-                                                <th>Date</th>
-                                                <th>Address</th>
-                                                <th>Total</th>
-                                                <th>Payment Method</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <%
-                                                ordersDAO = new OrdersDAO();
-                                                List<Orders> completedOrdersList = null;
-
-                                                try {
-                                                    // Fetch completed orders using OrdersDAO
-                                                    completedOrdersList = ordersDAO.getCompletedOrdersByDeliveryExecutiveId(executiveId);
-
-                                                    if (completedOrdersList.isEmpty()) {
-                                                        out.println("<tr><td colspan='7'>No completed orders found.</td></tr>");
-                                                    } else {
-                                                        for (Orders order : completedOrdersList) {
-                                                            int restaurantId = order.getRestaurantId();
-
-                                                            // Use RestaurantDAO to get restaurant details including reviews and rating
-                                                            RestaurantDAO restaurantDAO = new RestaurantDAO();
-                                                            Restaurant restaurant = restaurantDAO.getRestaurantById(restaurantId); // Fetch restaurant details by ID
-
-                                                            // Initialize the review count variable
-                                                            int reviewCount = 0;
-
-                                                            // Database connection setup
-                                                            String query = "SELECT COUNT(*) AS review_count FROM reviews WHERE restaurant_id = ?";
-
-                                                            // Establish the database connection and execute the query
-                                                            Connection con = null;
-                                                            PreparedStatement ps = null;
-                                                            ResultSet rs = null;
-
-                                                            try {
-                                                                // Get the connection
-                                                                con = Database.getConnection();
-
-                                                                // Prepare the query
-                                                                ps = con.prepareStatement(query);
-                                                                ps.setInt(1, restaurantId);
-
-                                                                // Execute the query
-                                                                rs = ps.executeQuery();
-
-                                                                // Retrieve the review count
-                                                                if (rs.next()) {
-                                                                    reviewCount = rs.getInt("review_count");
-                                                                }
-                                                            } catch (Exception e) {
-                                                                e.printStackTrace();
-                                                            } finally {
-                                                                // Close the ResultSet, PreparedStatement, and Connection
-                                                                try {
-                                                                    if (rs != null) {
-                                                                        rs.close();
-                                                                    }
-                                                                    if (ps != null) {
-                                                                        ps.close();
-                                                                    }
-                                                                    if (con != null) {
-                                                                        con.close();
-                                                                    }
-                                                                } catch (Exception e) {
-                                                                    e.printStackTrace();
-                                                                }
-                                                            }
-                                            %>
-                                            <!-- Dynamic Order Row -->
-                                            <tr class="order-row" onclick="toggleDetailsGeneral(this)">
-                                                <td class="menu">Order #<%= order.getOrderId()%></td>
-                                                <td><span class="status completed">Completed</span></td>
-                                                <td class="date"><%= order.getOrderDate()%></td>
-                                                <td class="address">
-                                                    <i class="fas fa-map-marker-alt"></i> 
-                                                    <%= order.getCustomerAddress()%>
-                                                </td>
-                                                <td class="total"><span>₹<%= order.getTotalAmount()%></span></td>
-                                                <td class="payment-method"><%= order.getPaymentMethod()%></td>
-                                                <td class="arrow"><i class="fas fa-chevron-down dropdown"></i></td>
-                                            </tr>
-                                            <tr class="details-row">
-                                                <td colspan="7">
-                                                    <div class="details-container">
-                                                        <div class="order-menu">
-                                                            <h4>Order Menu</h4>
-                                                            <%
-                                                                for (OrderItem item : order.getOrderItems()) {
-                                                            %>
-                                                            <p><img src="<%=request.getContextPath()%>/<%= item.getImage()%>" alt="<%= item.getItemName()%> image"> <%= item.getItemName()%> (x<%= item.getQuantity()%>) </p>
-                                                                <%
-                                                                    }
-                                                                %>
-                                                        </div>
-                                                        <div class="restaurant-info">
-                                                            <h4><%= order.getRestaurantName()%></h4>
-                                                            <p><i class="fas fa-star"></i> <%=restaurant.getRating()%> | <%=reviewCount%> Reviews</p>
-                                                            <p>Delivery Time: <strong>30 Min</strong></p>
-                                                        </div>
-                                                        <div class="order-summary">
-                                                            <div class="order-summary-details">
-                                                                <span>
-                                                                    <h4>Status</h4>
-                                                                    <p>Completed</p>
-                                                                </span>
-                                                                <span>
-                                                                    <h4>Date</h4>
-                                                                    <p><%=order.getOrderDate()%></p>
-                                                                </span>
-                                                            </div>
-                                                            <div class="order-summary-details">
-
-                                                                <span>
-                                                                    <h4>Date Paid</h4>
-                                                                    <p><%= order.getPaymentDate()%></p>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="order-amt">
-                                                            <h4>Total</h4>
-                                                            <p class="total-amount">₹<%= order.getTotalAmount()%></p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <%
-                                                        }
-                                                    }
-                                                } catch (Exception e) {
-                                                    out.println("<tr><td colspan='7'>Error: " + e.getMessage() + "</td></tr>");
-                                                    e.printStackTrace();
-                                                }
-                                            %>
-                                        </tbody>
-                                    </table>
-                                </div>
-
+                        </div>
+                        <hr />
+                        <div class="distance-details">
+                            <div class="distance-head">
+                                <span>Total Trip</span>
+                                <span>Total Distance</span>
+                                <span>Total Time</span>
+                            </div>
+                            <div class="distance-values">
+                                <span>15</span>
+                                <span>15 Km</span>
+                                <span>90 Min</span>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                </main>
+
+                <div class="dash-performance">
+                    <!-- Current Order Section -->
+                    <div class="current-order">
+                        <%
+                            OrdersDAO ordersDAO = new OrdersDAO();
+                            List<Orders> ordersList = null;
+
+                            try {
+                                // Fetch orders using OrdersDAO
+                                ordersList = ordersDAO.getAcceptedOrdersByDeliveryExecutiveId(executiveId);
+
+                                if ("N".equals(executiveStatus)) {
+                                    out.println("Press Ready to Deliver to see current orders.");
+                                } else {
+                                    // Check if there are no orders in the list
+                                    if (ordersList.isEmpty() && "Y".equals(executiveStatus)) {
+                                        out.println("No current order found.");
+                                    }
+
+                                    Orders currentOrder = ordersList.get(0); // Assuming we are displaying the first order for simplicity
+
+                                    int restaurantId = currentOrder.getRestaurantId();
+
+                                    RestaurantDAO restaurantDAO = new RestaurantDAO();
+                                    Restaurant restaurant = restaurantDAO.getRestaurantById(restaurantId); // Fetch restaurant details by ID
+
+                                    // Initialize the review count variable
+                                    int reviewCount = 0;
+
+                                    // Database connection setup
+                                    String query = "SELECT COUNT(*) AS review_count FROM reviews WHERE restaurant_id = ?";
+
+                                    // Establish the database connection and execute the query
+                                    Connection con = null;
+                                    PreparedStatement ps = null;
+                                    ResultSet rs = null;
+
+                                    try {
+                                        // Get the connection
+                                        con = Database.getConnection();
+
+                                        // Prepare the query
+                                        ps = con.prepareStatement(query);
+                                        ps.setInt(1, restaurantId);
+
+                                        // Execute the query
+                                        rs = ps.executeQuery();
+
+                                        // Retrieve the review count
+                                        if (rs.next()) {
+                                            reviewCount = rs.getInt("review_count");
+                                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    } finally {
+                                        // Close the ResultSet, PreparedStatement, and Connection
+                                        try {
+                                            if (rs != null) {
+                                                rs.close();
+                                            }
+                                            if (ps != null) {
+                                                ps.close();
+                                            }
+                                            if (con != null) {
+                                                con.close();
+                                            }
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                        %>
+
+                        <!-- Displaying the current order details -->
+                        <div class="current-order">
+                            <h2><ion-icon name="receipt-outline"></ion-icon> Current Order</h2>
+                            <div class="order-details" onclick="toggleCurrentOrderDetails(this)">
+                                <div class="order-row">
+                                    <span class="icon"><ion-icon name="document-outline"></ion-icon></span>
+                                    <strong>Order #<%= currentOrder.getOrderId()%></strong>
+                                    <span class="arrow"><i class="fas fa-chevron-down dropdown-current"></i></span>
+                                </div>
+                                <div class="order-row">
+                                    <span class="icon"><ion-icon name="restaurant-outline"></ion-icon></span>
+                                            <%= currentOrder.getRestaurantName()%>
+                                </div>
+                                <div class="order-row">
+                                    <span class="icon"><ion-icon name="pricetag-outline"></ion-icon></span>
+                                            <%= currentOrder.getTotalAmount()%>
+                                </div>
+                                <div class="order-row">
+                                    <span class="icon"><ion-icon name="location-outline"></ion-icon></span>
+                                            <%= currentOrder.getCustomerAddress()%>
+                                </div>
+                                <div class="order-row">
+                                    <span class="icon"><ion-icon name="checkmark-circle-outline"></ion-icon></span>
+                                    Status: <strong class="status"><%=currentOrder.getOrderStatus()%></strong>
+                                </div>
+                            </div>
+
+                            <div class="details-row">
+                                <div class="details-container">
+                                    <div class="order-menu">
+                                        <h4>Items</h4>
+                                        <%
+                                            // You can loop through the order items list from the current order object
+                                            for (OrderItem item : currentOrder.getOrderItems()) {
+                                        %>
+                                        <p><img src="<%=request.getContextPath()%>/<%=item.getImage()%>" alt="<%= item.getItemName()%> image"> <%= item.getItemName()%> (x<%=item.getQuantity()%>)</p>
+                                            <%
+                                                }
+                                            %>
+                                    </div>
+
+                                    <div class="restaurant-info">
+                                        <h4><%= currentOrder.getRestaurantName()%></h4>
+
+                                        <!-- Display restaurant rating dynamically -->
+                                        <p><i class="fas fa-star"></i> <%= restaurant.getRating()%> | <%= reviewCount%> Reviews</p>
+
+                                        <p>Delivery Time: <strong>30 Min</strong></p>
+                                        <p>
+                                            <span class="icon"><ion-icon name="location-outline"></ion-icon></span>
+                                            Address: <strong><%= currentOrder.getRestaurantAddress()%></strong>
+                                        </p>
+                                        <p>
+                                            <span class="icon"><ion-icon name="call-outline"></ion-icon></span>
+                                            Phone: <strong><%= currentOrder.getRestaurantPhone()%></strong>
+                                        </p>
+                                    </div>
+
+                                    <div class="order-summary">
+                                        <div class="order-summary-details">
+                                            <span>
+                                                <h4>Status</h4>
+                                                <p><%= currentOrder.getPaymentStatus()%></p>
+                                            </span>
+                                            <span>
+                                                <h4>Date Paid</h4>
+                                                <p><%= currentOrder.getPaymentDate()%></p>
+                                            </span>
+                                            <span>
+                                                <h4>Customer Phone</h4>
+                                                <p>
+                                                    <span class="icon"><ion-icon name="call-outline"></ion-icon></span>
+                                                            <%= currentOrder.getCustomerPhone()%>
+                                                </p>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="order-amt">
+                                        <h4>Total</h4>
+                                        <p class="total-amount" style="margin-bottom: 50px;">₹<%= currentOrder.getTotalAmount()%></p>
+                                        <div class="details-right">
+                                            <%
+                                                // Directly using the getter in the equals method
+                                                if ("Cooked".equals(currentOrder.getOrderStatus()) || "Accepted".equals(currentOrder.getOrderStatus())) {
+                                            %>
+                                            <form action="http://localhost:8080/Platera-Main/UpdateOrderStatus" method="post" onsubmit="return confirmHandover()">
+                                                <input type="hidden" name="order_id" value="<%= currentOrder.getOrderId()%>">
+                                                <input type="hidden" name="order_status" value="Picked Up">                                                     
+                                                <button class="pickedup-button" type="submit">Picked up</button>
+
+                                            </form>
+                                            <%
+                                            } else if ("Picked Up".equals(currentOrder.getOrderStatus())) {
+                                            %>
+                                            <form action="http://localhost:8080/Platera-Main/UpdateOrderStatus" method="post" onsubmit="return confirmPickup()">
+                                                <input type="hidden" name="order_id" value="<%= currentOrder.getOrderId()%>">                                                       
+                                                <input type="hidden" name="executive_status" value="Delivered">
+                                                <button class="delivered-button" type="submit">Handover</button>
+                                            </form>
+                                            <%
+                                                }
+                                            %>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <%}
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        %>
+                    </div>
+
+
+
+
+
+                    <!-- Statistics Section -->
+                    <div class="statistics">
+                        <h2><ion-icon name="list-outline"></ion-icon> Delivered Orders</h2>
+                        <div class="yourOrders">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Order</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <th>Address</th>
+                                        <th>Total</th>
+                                        <th>Payment Method</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%
+                                        ordersDAO = new OrdersDAO();
+                                        List<Orders> completedOrdersList = null;
+
+                                        try {
+                                            // Fetch completed orders using OrdersDAO
+                                            completedOrdersList = ordersDAO.getCompletedOrdersByDeliveryExecutiveId(executiveId);
+
+                                            if (completedOrdersList.isEmpty()) {
+                                                out.println("<tr><td colspan='7'>No completed orders found.</td></tr>");
+                                            } else {
+                                                for (Orders order : completedOrdersList) {
+                                                    int restaurantId = order.getRestaurantId();
+
+                                                    // Use RestaurantDAO to get restaurant details including reviews and rating
+                                                    RestaurantDAO restaurantDAO = new RestaurantDAO();
+                                                    Restaurant restaurant = restaurantDAO.getRestaurantById(restaurantId); // Fetch restaurant details by ID
+
+                                                    // Initialize the review count variable
+                                                    int reviewCount = 0;
+
+                                                    // Database connection setup
+                                                    String query = "SELECT COUNT(*) AS review_count FROM reviews WHERE restaurant_id = ?";
+
+                                                    // Establish the database connection and execute the query
+                                                    Connection con = null;
+                                                    PreparedStatement ps = null;
+                                                    ResultSet rs = null;
+
+                                                    try {
+                                                        // Get the connection
+                                                        con = Database.getConnection();
+
+                                                        // Prepare the query
+                                                        ps = con.prepareStatement(query);
+                                                        ps.setInt(1, restaurantId);
+
+                                                        // Execute the query
+                                                        rs = ps.executeQuery();
+
+                                                        // Retrieve the review count
+                                                        if (rs.next()) {
+                                                            reviewCount = rs.getInt("review_count");
+                                                        }
+                                                    } catch (Exception e) {
+                                                        e.printStackTrace();
+                                                    } finally {
+                                                        // Close the ResultSet, PreparedStatement, and Connection
+                                                        try {
+                                                            if (rs != null) {
+                                                                rs.close();
+                                                            }
+                                                            if (ps != null) {
+                                                                ps.close();
+                                                            }
+                                                            if (con != null) {
+                                                                con.close();
+                                                            }
+                                                        } catch (Exception e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+                                    %>
+                                    <!-- Dynamic Order Row -->
+                                    <tr class="order-row" onclick="toggleDetailsGeneral(this)">
+                                        <td class="menu">Order #<%= order.getOrderId()%></td>
+                                        <td><span class="status completed">Completed</span></td>
+                                        <td class="date"><%= order.getOrderDate()%></td>
+                                        <td class="address">
+                                            <i class="fas fa-map-marker-alt"></i> 
+                                            <%= order.getCustomerAddress()%>
+                                        </td>
+                                        <td class="total"><span>₹<%= order.getTotalAmount()%></span></td>
+                                        <td class="payment-method"><%= order.getPaymentMethod()%></td>
+                                        <td class="arrow"><i class="fas fa-chevron-down dropdown"></i></td>
+                                    </tr>
+                                    <tr class="details-row">
+                                        <td colspan="7">
+                                            <div class="details-container">
+                                                <div class="order-menu">
+                                                    <h4>Order Menu</h4>
+                                                    <%
+                                                        for (OrderItem item : order.getOrderItems()) {
+                                                    %>
+                                                    <p><img src="<%=request.getContextPath()%>/<%= item.getImage()%>" alt="<%= item.getItemName()%> image"> <%= item.getItemName()%> (x<%= item.getQuantity()%>) </p>
+                                                        <%
+                                                            }
+                                                        %>
+                                                </div>
+                                                <div class="restaurant-info">
+                                                    <h4><%= order.getRestaurantName()%></h4>
+                                                    <p><i class="fas fa-star"></i> <%=restaurant.getRating()%> | <%=reviewCount%> Reviews</p>
+                                                    <p>Delivery Time: <strong>30 Min</strong></p>
+                                                </div>
+                                                <div class="order-summary">
+                                                    <div class="order-summary-details">
+                                                        <span>
+                                                            <h4>Status</h4>
+                                                            <p>Completed</p>
+                                                        </span>
+                                                        <span>
+                                                            <h4>Date</h4>
+                                                            <p><%=order.getOrderDate()%></p>
+                                                        </span>
+                                                    </div>
+                                                    <div class="order-summary-details">
+
+                                                        <span>
+                                                            <h4>Date Paid</h4>
+                                                            <p><%= order.getPaymentDate()%></p>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="order-amt">
+                                                    <h4>Total</h4>
+                                                    <p class="total-amount">₹<%= order.getTotalAmount()%></p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <%
+                                                }
+                                            }
+                                        } catch (Exception e) {
+                                            out.println("<tr><td colspan='7'>Error: " + e.getMessage() + "</td></tr>");
+                                            e.printStackTrace();
+                                        }
+                                    %>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-        </div>
+
+        </main>
+    </div>
+</div>
 
 
-        <!-- Scripts  -->
-        <script>
-            function confirmHandover() {
-                return confirm("Are you sure you want to hand over the order?");
-            }
+<!-- Scripts  -->
+<script>
+    function confirmHandover() {
+        return confirm("Are you sure you want to hand over the order?");
+    }
 
-            function confirmPickup() {
-                return confirm("Are you sure you want to mark the order as picked up?");
-            }
-        </script>
-        <script>
-            // Confirmation for deleting account
-            function confirmDelete() {
-                return confirm("Are you sure you want to delete your account? This action cannot be undone.");
-            }
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    function confirmPickup() {
+        return confirm("Are you sure you want to mark the order as picked up?");
+    }
+</script>
+<script>
+    // Confirmation for deleting account
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete your account? This action cannot be undone.");
+    }
+</script>
+<script>
+    // JavaScript to handle the photo preview
+    document.getElementById('photo-input').addEventListener('change', function (event) {
+        const file = event.target.files[0]; // Get the selected file
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                // Update the img src in the preview div
+                document.getElementById('profile-photo-preview').src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
-        <!-- Icon Scripts -->
+<!-- Icon Scripts -->
 
-        <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-        <script src="script.js"></script>
-    </body>
+<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="script.js"></script>
+</body>
 </html>

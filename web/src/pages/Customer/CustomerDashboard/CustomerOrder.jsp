@@ -20,9 +20,9 @@
     <body>
         <%
             // Retrieve user_id from the session
-            Integer user_id = (Integer)session.getAttribute("user_id");
+//            Integer user_id = (Integer)session.getAttribute("user_id");
 
-//            int user_id = 201;
+            int user_id = 201;
 
             // Initialize necessary variables
             String name = "";
@@ -93,7 +93,7 @@
                             <img src="../../../Public/images/logo.png" alt="Logo">
                         </div>
                     </div>
-                    <h1>Welcome, Arjun!</h1>
+                    <h1>Welcome, <%=name%>!</h1>
                     <button class="edit_btn">Edit Profile</button>
                 </div>
                 <main class="main-content">
