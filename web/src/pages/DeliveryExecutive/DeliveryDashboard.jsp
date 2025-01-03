@@ -537,7 +537,7 @@
                                                 // Directly using the getter in the equals method
                                                 if ("Cooked".equals(currentOrder.getOrderStatus()) || "Accepted".equals(currentOrder.getOrderStatus())) {
                                             %>
-                                            <form action="http://localhost:8080/Platera-Main/UpdateOrderStatus" method="post" onsubmit="return confirmHandover()">
+                                            <form action="http://localhost:8080/Platera-Main/UpdateOrderStatus" method="post" onsubmit="return confirmPickup()">
                                                 <input type="hidden" name="order_id" value="<%= currentOrder.getOrderId()%>">
                                                 <input type="hidden" name="order_status" value="Picked Up">                                                     
                                                 <button class="pickedup-button" type="submit">Picked up</button>
@@ -546,7 +546,7 @@
                                             <%
                                             } else if ("Picked Up".equals(currentOrder.getOrderStatus())) {
                                             %>
-                                            <form action="http://localhost:8080/Platera-Main/UpdateOrderStatus" method="post" onsubmit="return confirmPickup()">
+                                            <form action="http://localhost:8080/Platera-Main/UpdateOrderStatus" method="post" onsubmit="return confirmHandover()">
                                                 <input type="hidden" name="order_id" value="<%= currentOrder.getOrderId()%>">                                                       
                                                 <input type="hidden" name="executive_status" value="Delivered">
                                                 <button class="delivered-button" type="submit">Handover</button>

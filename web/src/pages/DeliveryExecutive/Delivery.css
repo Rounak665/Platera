@@ -354,7 +354,7 @@ header {
 main {
     margin-top: 60px;
     background: #f1f5f9;
-    /* height: calc(100vh - 60px); */
+     height: calc(100vh - 60px); 
     padding: 1rem 3rem;
 }
 
@@ -804,19 +804,6 @@ input:checked + .slider::before {
     right: 0; /* Move to the right of the screen when opened */
 }
 
-.view-details-btn {
-    padding: 5px 10px;
-    background: #3498db;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-}
-
-.view-details-btn:hover {
-    background: #2980b9;
-}
-
 .delivered-order {
     width: 100%;
     max-width: 800px;
@@ -913,11 +900,10 @@ strong{
 .view-details-btn {
     padding: 10px;
     margin: 10px 0;
-    border-radius:5px;
     background: #3498db;
     color: white;
     border: none;
-    border-radius: 3px;
+    border-radius: 10px;
     cursor: pointer;
 }
 .view-details-btn:hover {
@@ -928,7 +914,7 @@ strong{
     background: #e74c3c;
     color: white;
     border: none;
-    border-radius: 3px;
+    border-radius: 10px;
     cursor: pointer;
     margin-right: 10px;
 }
