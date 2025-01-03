@@ -1,3 +1,6 @@
+<%@page import="java.util.Collections"%>
+<%@page import="Utilities.Category"%>
+<%@page import="Utilities.CategoryDAO"%>
 <!-- <%@page import="Utilities.CustomerDAO"%>
 <%@page import="Utilities.Customer"%>
 <%@page import="Utilities.CartDAO"%>
@@ -375,27 +378,29 @@
 
             <!-- Floating Product Cards -->
             <div class="product-cards-container">
+                <%
+                    // Initialize the categories list
+                    CategoryDAO categoryDAO = new CategoryDAO();
+                    List<Category> categories = categoryDAO.getAllCategories();
+
+                    // Shuffle the categories list to randomize it
+                    Collections.shuffle(categories);
+
+                    int count = 0; // Counter to track the number of displayed categories
+                    for (Category category : categories) {
+                        if (count == 4) {
+                            break; // Stop after displaying 4 categories
+                        }
+                        count++;
+                %>
                 <div class="product-card">
-                    <img src="./assets/card1.jpg" alt="Dish 1" />
-                    <h4>Order Online</h4>
-                    <p>Stay home and order to your doorstep</p>
+                    <img src="<%= request.getContextPath()%>/<%= category.getImage()%>" alt="<%= category.getName()%>" />
+                    <h4><%= category.getName()%></h4>
+                    <p>Explore our <%= category.getName().toLowerCase()%> menu</p>
                 </div>
-                <div class="product-card">
-                    <img src="./assets/card2.jpg" alt="Dish 2" />
-                    <h4>International Cuisins</h4>
-                    <p>Explore our range of international cuisines</p>
-                </div>
-                <div class="product-card">
-                    <img src="./assets/card3.jpg" alt="Dish 3" />
-                    <h4>Top Indian Dishes</h4>
-                    <p>Check out our top Indian dishes</p>
-                </div>
-                <div class="product-card">
-                    <img src="./assets/card4.jpg" alt="Dish 4" />
-                    <h4>Healthy Options</h4>
-                    <p>Discover our healthy options</p>
-                </div>
+                <% } %>
             </div>
+
         </section>
 
         <!-- Spacer Section -->
