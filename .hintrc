@@ -32,7 +32,8 @@
       {
         "duplicate-id-active": "off"
       }
-    ]
+    ],
+    "meta-viewport": "off"
   },
   "browserslist": [
     "defaults",

@@ -1,14 +1,17 @@
-<%@page import="java.util.List"%>
+<!-- <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="Utilities.Location" %>
 <%@ page import="Utilities.LocationDAO" %>
 <%@ page import="Utilities.Category" %>
-<%@ page import="Utilities.CategoryDAO" %>
+<%@ page import="Utilities.CategoryDAO" %> -->
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Restaurant Details | Platera</title>
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon">
 
         <!-- Styles -->
         <link rel="stylesheet" href="./Restaurant_public_info.css">
@@ -22,14 +25,30 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     </head>
     <body>
+
+        <!-- Error Popup -->
+        <div class="error-popup" id="errorPopup">
+            <div class="error-content">
+                <h2>Error</h2>
+                <p id="errorMessage">An error has occurred. Please try again later.</p>
+                <button id="closeErrorPopup">Go Back</button>
+            </div>
+        </div>
         <!-- Navbar -->
-        <nav class="navbar">
-            <div class="navbar-brand"><a href="#"><img src="./assets/PlateraLogo-red.png" alt=""></a></div>
-            <ul class="navbar-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+        <header>
+            <div class="nav_bar">
+                <div class="logo">
+                    <img src="./Assets/PlateraLogo-red.png" alt="logo" height="70px" >
+                </div>
+                <div class="nav_links">
+                    <ul class="nav_list">
+                        <li><a href="../../../index.html">Home</a></li>
+                        <li><a href="../ContactUs/ContactUs.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <a href="#"><button class="signin" id="signin">Sign In</button></a>
+            </div>
+        </header>
 
         <!-- Hero Section -->
         <section class="hero">

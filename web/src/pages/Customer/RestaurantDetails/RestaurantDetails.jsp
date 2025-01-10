@@ -116,6 +116,16 @@
 
         %>
 
+
+        <!-- Error Popup -->
+        <div class="error-popup" id="errorPopup">
+            <div class="error-content">
+                <h2>Error</h2>
+                <p id="errorMessage">An error has occurred. Please try again later.</p>
+                <button id="closeErrorPopup">Go Back</button>
+            </div>
+        </div>
+
         <!-- Navigation Bar -->
         <header>
             <nav class="navbar">
@@ -192,14 +202,14 @@
                     </div>
                 </div>
                 <div class="deal-slide">
-                    <img src="./assets/deal2.png" alt="Deal 2">
+                    <img src="./assets/d07196b25b85d1fd9951e10c255ab737.avif" alt="Deal 2">
                     <div class="offer-text">
                         <h4>Extra ₹25 Off</h4>
                         <p>Use code: DEAL25</p>
                     </div>
                 </div>
                 <div class="deal-slide">
-                    <img src="./assets/deal3.png" alt="Deal 3">
+                    <img src="./assets/d07196b25b85d1fd9951e10c255ab737.avif" alt="Deal 3">
                     <div class="offer-text">
                         <h4>Extra ₹25 Off</h4>
                         <p>Use code: DEAL25</p>

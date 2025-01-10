@@ -7,7 +7,16 @@
     <link rel="stylesheet" href="./OTPVerification.css">
 </head>
 <body>
+    <!-- Error Popup -->
+    <div class="error-popup" id="errorPopup">
+        <div class="error-content">
+            <h2>Error</h2>
+            <p id="errorMessage">An error has occurred. Please try again later.</p>
+            <button id="closeErrorPopup">Go Back</button>
+        </div>
+    </div>
 
+    
     <div class="container">
         <div class="logo">
             <img src="<%= request.getContextPath()%>/Public/images/PlateraLogo-red.png" alt="Logo" width="50" height="50">

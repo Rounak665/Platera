@@ -1,4 +1,3 @@
-
 <%@page import="Utilities.Location"%>
 <%@page import="Utilities.Location"%>
 <%@page import="Utilities.LocationDAO"%>
@@ -53,7 +52,14 @@
 
         %>
 
-
+        <!-- Error Popup -->
+        <div class="error-popup" id="errorPopup">
+            <div class="error-content">
+                <h2>Error</h2>
+                <p id="errorMessage">An error has occurred. Please try again later.</p>
+                <button id="closeErrorPopup">Go Back</button>
+            </div>
+        </div>
 
         <!-- Welcome Popup -->
 

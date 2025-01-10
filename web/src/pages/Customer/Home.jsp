@@ -1,7 +1,7 @@
 <%@page import="java.util.Collections"%>
 <%@page import="Utilities.Category"%>
 <%@page import="Utilities.CategoryDAO"%>
-<!-- <%@page import="Utilities.CustomerDAO"%>
+<%@page import="Utilities.CustomerDAO"%>
 <%@page import="Utilities.Customer"%>
 <%@page import="Utilities.CartDAO"%>
 <%@page import="Utilities.Cart"%>
@@ -14,7 +14,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="Utilities.RestaurantDAO" %>
 <%@ page import="Utilities.Restaurant" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %> -->
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -90,7 +90,14 @@
         </div>
         <% }%> -->
 
-
+        <!-- Error Popup -->
+        <div class="error-popup" id="errorPopup">
+            <div class="error-content">
+                <h2>Error</h2>
+                <p id="errorMessage">An error has occurred. Please try again later.</p>
+                <button id="closeErrorPopup">Go Back</button>
+            </div>
+        </div>
 
 
         <!-- Welcome Popup -->
