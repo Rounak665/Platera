@@ -97,8 +97,8 @@ body {
 
 /* Sidebar styles */
 .sidebar {
-    height: 100vh;
-    width: 250px;
+    height: 100%;
+    width: 240px;
     background-color: #ff0000ef;
     color: #fff;
     padding: 20px;
@@ -106,6 +106,10 @@ body {
     flex-direction: column;
     overflow-y: auto;
     transition: width 500ms;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
 }
 
 .sidebar-header {
@@ -202,7 +206,7 @@ body {
     min-height: 100vh;
 }
 .dashboard-section {
-    margin-top: 20px;
+    /* margin-top: 20px; */
     height: 100%;
 }
 
@@ -210,6 +214,17 @@ body {
     font-size: 20px;
     margin-bottom: 10px;
 }
+
+#OrderHeader {
+    font-size: 26px; 
+    font-weight: 600; 
+    color: #2c3e50; 
+   margin-left: 50px;
+    letter-spacing: 0.3px; 
+    font-family: 'Segoe UI', 'Roboto', sans-serif; 
+    text-transform: none;
+}
+
 
 .dashboard-section .content {
     background-color: #f9f9f9;
@@ -230,18 +245,20 @@ body {
 
 /* Main Content */
 .main-content {
-    flex: 1;
+    margin-left: 240px; 
+    margin-top: 60px; 
     padding: 14px;
     background-color: #efefef;
     border-left: 1px solid #ddd;
-    max-height: 100vh;
-    overflow-y: hidden;
+    height: calc(100vh - 60px); 
+    overflow-y: auto; 
+    transition: margin-left 500ms;
 }
 
-/* Profile Header */
+
 /* Profile Header Styles */
 .profile-header {
-    width: 100%;
+    width: calc(100% - 240px); 
     background: #fff;
     height: 60px;
     padding: 0 1rem;
@@ -249,8 +266,13 @@ body {
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #ccc;
+    position: fixed; 
+    top: 0;
+    left: 240px; 
+    z-index: 99; 
     transition: left 500ms;
 }
+
 
 /* Logo Section */
 .headerLogo {
@@ -455,6 +477,120 @@ tr.details-row.show {
     color: #00ff11;
     margin-top: 20px;
 }
+
+
+/* ---------------Order Card---------------- */
+.order-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.order-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 320px;
+    padding: 20px;
+    text-align: center;
+}
+
+.order-card h2 {
+    font-size: 18px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.order-card p {
+    font-size: 12px;
+    color: #888;
+    margin: 5px 0 15px;
+}
+
+.order-card .restaurant-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.order-card .rating {
+    font-size: 14px;
+    color: #ffa500;
+}
+
+.order-card .info {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+    flex-direction: column;
+}
+
+.order-card .info div {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.order-card .order-menu1 {
+    text-align: left;
+    margin-bottom: 15px;
+    max-height: 90px;
+    overflow-y: scroll;
+    padding: 0 10px;
+}
+
+.order-card .order-menu1 .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.order-card .order-menu1 .item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+}
+
+.order-card .order-menu1 .item .details {
+    flex: 1;
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+.order-card .order-menu1 .item .price {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.order-card .total {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffa500;
+    margin-bottom: 15px;
+}
+
+.order-card .status {
+    background-color: #e9fbe9;
+    color: #4caf50;
+    padding: 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    border: 1px solid #4caf50;
+}
+hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 15px 0;
+}
+
+
+
+
 
 
 
@@ -1447,44 +1583,90 @@ input:checked + .slider::before {
     }
 }
 
-/* Responsive Design */
+/* Mobile */
 @media screen and (max-width: 768px) {
-    .privacy-policy {
-        padding: 30px 10px;
+
+    .sidebar {
+        width: 100%; /* Full-width sidebar */
+        height: 100%;
     }
 
-    .privacy-header h1 {
-        font-size: 2rem;
+    .main-content {
+        margin-left: 0;
+        margin-top: 60px;
     }
 
-    .policy-section h2 {
-        font-size: 1.5rem;
+    .sidebar-header {
+        display: flex;
+        justify-content: center;
     }
 
-    .policy-section p,
-    .policy-section ul {
-        font-size: 0.9rem;
+    .sidebar-menu li {
+        text-align: center;
+    }
+
+    .profile-header {
+        left: 0;
+        width: 100%;
+    }
+
+    .sidebar-toggle {
+        display: flex;
+    }
+
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .dashboard-section .content {
+        padding: 10px;
+    }
+    
+    /* Adjust Table */
+    table {
+        font-size: 14px;
+    }
+
+    .table-container {
+        margin: 10px 0;
     }
 }
 
-@media only screen and (max-width: 450px) {
-    main {
-        padding-left: 1rem;
-        padding-right: 1rem;
+/* Mobile (Small Screens) */
+@media screen and (max-width: 480px) {
+
+    .sidebar {
+        display: none; /* Hide sidebar on small screens */
     }
-    .sidebar .sidebar-header{
-        display: none;
+
+    .main-content {
+        margin-left: 0;
     }
-    .sidebar .li_edit{
+
+    .sidebar-toggle {
         display: flex;
     }
-    .edit_btn{
-        display: none;
+
+    .profile-header {
+        padding: 0 10px;
     }
-    .profile-header h1{
+
+    .profile-header h1 {
         font-size: 18px;
     }
 
+    .table-container {
+        margin: 10px 0;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    .sidebar-header {
+        display: flex;
+        justify-content: center;
+    }
 }
 
 

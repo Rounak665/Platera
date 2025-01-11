@@ -71,7 +71,7 @@ public class CustomerVerifyOTP extends HttpServlet {
                     }
 
                     // Redirect to the customer profile page
-                    response.sendRedirect("src/pages/Customer/CustomerDashboard/CustomerProfile.jsp");
+                    response.sendRedirect("src/pages/Customer/Home.jsp#profileSetupPopup");
                 } catch (SQLException e) {
                     out.println("<p>Error saving data to the database: " + e.getMessage() + "</p>");
                 }

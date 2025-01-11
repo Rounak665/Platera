@@ -153,6 +153,150 @@ body {
 	}
 }
 
+
+/* Sliding Profile setting section */
+
+.setting-section {
+    position: fixed; 
+    top: 0;
+    right: -50%;
+    width: 26%; 
+    height: 100%;
+    background-color: #f9f9f9;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease;
+    z-index: 1000; 
+}
+
+.setting-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    height: 100%;
+}
+
+.setting-header {
+    padding: 15px;
+    text-align: center;
+    color: black;
+    font-size: 33px;
+    font-weight: bold;
+    position: relative;
+    margin-top: 30px;
+}
+/* Close Button Styles */
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 70px;
+    color: #333;
+    font-weight: 200;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    transition: color 0.3s;
+    transform: translateY(-30px);
+    z-index: 1000;
+}
+.sec-close-btn {
+    background: none;
+    border: none;
+    font-size: 70px;
+    color: #ffffff;
+    font-weight: 200;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    transition: color 0.3s;
+    transform: translateY(-30px);
+    z-index: 1000;
+}
+
+#delete-acc form {
+    margin: 0;
+    padding: 0;
+}
+
+#delete-acc .delete-btn {
+    background: none;
+    border: none !important;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    text-align: left;
+    font-size: 16px;
+    color: inherit;
+}
+
+#delete-acc .delete-btn i {
+    margin-right: 10px;
+}
+
+/* Optional: style for hover effect */
+#delete-acc .delete-btn:hover {
+    background-color: #f1f1f1;
+}
+
+.close-btn:hover, .sec-close-btn:hover {
+    color: #F12630; /* Change color on hover */
+}
+
+.setting-options {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.setting-options li {
+    display: flex;
+    align-items: center;
+    padding: 15px 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 1rem;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+.setting-options li:last-child {
+    border-bottom: none;
+}
+
+.setting-options li i {
+    margin-right: 15px;
+    font-size: 1.5rem;
+    color: #007bff;
+}
+
+.setting-options li a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.setting-options li:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+}
+
+.setting-options li:hover i {
+    color: #0056b3;
+}
+
+.setting-options li:hover a {
+    color: #0056b3;
+}
+
+
+
+
+
 .header {
     background-color: var(--color-dark);
 }

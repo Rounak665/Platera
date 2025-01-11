@@ -6,7 +6,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -16,26 +15,28 @@ public class RestaurantDeleteCategories extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Fetch the restaurantId from session
-        HttpSession session = request.getSession();
-        Integer restaurantId = (Integer) session.getAttribute("restaurant_id");
+        // Get the restaurant ID from the form inputs
+        String restaurantIdParam = request.getParameter("restaurant_id");
 
-        // If restaurantId is not found in session, return an error
-        if (restaurantId == null) {
+        // Validate the restaurant ID
+        if (restaurantIdParam == null || restaurantIdParam.isEmpty()) {
             response.setContentType("text/html");
-            response.getWriter().println("<h3>Restaurant not found. Please log in again.</h3>");
+            response.getWriter().println("<h3>Invalid restaurant ID provided.</h3>");
             return;
         }
 
-        // Get the category ID to be deleted
-        String categoryIdParam = request.getParameter("category_id");
-        if (categoryIdParam == null || categoryIdParam.isEmpty()) {
+        // Parse the restaurant ID to an integer
+        int restaurantId = Integer.parseInt(restaurantIdParam);
+
+        // Get the category ID from the form inputs (already an integer)
+        int categoryId;
+        try {
+            categoryId = Integer.parseInt(request.getParameter("category_id"));
+        } catch (NumberFormatException e) {
             response.setContentType("text/html");
-            response.getWriter().println("<h3>Invalid category ID provided.</h3>");
+            response.getWriter().println("<h3>Invalid category ID provided. It must be an integer.</h3>");
             return;
         }
-
-        int categoryId = Integer.parseInt(categoryIdParam);
 
         // Query to remove the category from restaurant_categories
         String updateQuery = "UPDATE restaurant_categories SET "
@@ -45,7 +46,7 @@ public class RestaurantDeleteCategories extends HttpServlet {
                 + "WHERE restaurant_id = ?";
 
         try (Connection conn = Utilities.Database.getConnection();
-                PreparedStatement ps = conn.prepareStatement(updateQuery)) {
+             PreparedStatement ps = conn.prepareStatement(updateQuery)) {
 
             // Set query parameters
             ps.setInt(1, categoryId);

@@ -153,6 +153,170 @@ body {
     }
 }
 
+
+.popupOTP {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #4646469f;
+    width: 100%;
+    height: 100vh;
+    z-index: 1001;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    overflow: hidden;
+}
+
+/* Container Styles */
+.container1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 400px;
+    margin: auto;
+    padding: 40px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Logo Placeholder */
+.logoOTP {
+    width: 150px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.logoOTP img {
+    width: 100%;
+    height: auto;
+}
+
+/* Header Styles */
+.container1 h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+/* Paragraph Styles */
+.container1 p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    max-width: 90%;
+    text-align: center;
+}
+
+
+/* Form Styles */
+.otp-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Adjust input field and button spacing */
+.otp-form input#code {
+    width: 100%;
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.otp-form input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #fafafa;
+}
+
+.otp-form input[type="text"]:focus {
+    border-color: #6c63ff;
+    outline: none;
+    background-color: #ffffff;
+}
+.otp-form input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #fafafa;
+}
+
+.otp-form input[type="email"]:focus {
+    border-color: #6c63ff;
+    outline: none;
+    background-color: #ffffff;
+}
+
+.otp-form input[type="submit"] {
+    padding: 12px;
+    background-color: #6c63ff;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.otp-form input[type="submit"]:nth-of-type(1){
+    margin-top: 20px;
+} 
+
+.otp-form input[type="submit"]:hover {
+    background-color: #5848c2;
+}
+
+/* Button Styles */
+.otp-form button {
+    padding: 12px;
+    background-color: #6c63ff;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.otp-form button:hover {
+    background-color: #5848c2;
+}
+
+/* Back to Login Link Styles */
+.otp-form .back-link {
+    color: #6c63ff;
+    font-size: 0.9rem;
+    text-decoration: none;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+.otp-form .back-link:hover {
+    text-decoration: underline;
+}
+
+/* header */
+
 .header {
     background-color: var(--color-dark);
 }
@@ -435,8 +599,9 @@ header {
 main {
     margin-top: 60px;
     background: #f1f5f9;
-     height: calc(100vh - 60px); 
+    min-height: calc(100vh - 60px); 
     padding: 1rem 3rem;
+    overflow-y: auto;
 }
 
 /* Security Section Container */
@@ -450,7 +615,7 @@ main {
     width: 100%;
     height: 100vh;
     z-index: 1001;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
 }
@@ -1093,7 +1258,7 @@ strong{
 }
 
 
-/* ------OTP POPUP------------ */
+/* ------OTP POPUP------------
 .popup{
     position: fixed;
     z-index: 10000;
@@ -1104,12 +1269,10 @@ strong{
     background-size: cover;
     height: 100vh;
     width: 100%;
-    visibility: hidden;
     transition: 0.3s ease;
     top: 0;
 }
 
-/* When activated, the popups become visible*/
 .popup.otp{
     visibility: visible;
 }
@@ -1192,7 +1355,7 @@ strong{
 .otp-body a {
     color: #007BFF;
     text-decoration: none;
-}
+} */
 
 
 /*-------- Delivery Dashboard---------------  */
@@ -1206,6 +1369,20 @@ strong{
     margin-top: 30px;
     width: 100%;
     flex-direction: column;
+}
+ /* back btn */
+ .back-btn {
+    background: none;
+    border: none;
+    font-size: 40px; /* Adjust size as needed */
+    color: #333;
+    font-weight: 200;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 20px; /* Position it on the left side */
+    transition: color 0.3s;
+    z-index: 1000;
 }
 
 
@@ -1239,10 +1416,14 @@ strong{
 /* Body */
 .modal-body {
     padding: 1rem 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
 }
 
-.mb-3 {
-    margin-bottom: 1rem;
+.col-mod-6{
+    margin-bottom: 3rem !important;
 }
 
 /* Input Fields */

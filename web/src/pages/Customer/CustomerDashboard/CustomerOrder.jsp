@@ -7,6 +7,7 @@
 <%@page import="java.util.List"%>
 <%@page import="Utilities.CustomerDAO"%>
 <%@page import="Utilities.Customer"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -53,7 +54,7 @@
             imagepath = request.getContextPath() + '/' + image;
 
         %>
-            <!-- Error Popup -->
+        <!-- Error Popup -->
         <div class="error-popup" id="errorPopup">
             <div class="error-content">
                 <h2>Error</h2>
@@ -110,139 +111,68 @@
                 </div>
                 <main class="main-content">
                     <section class="dashboard-section" id="orders">
-                        <h2>Your Orders</h2>
+                        <h2 id="OrderHeader">Your Orders</h2>
 
-                        <div class="table-container">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Menu</th>
-                                        <th>Status</th>
-                                        <th>Date</th>
-                                        <th>Address</th>
-                                        <th>Total</th>
-                                        <th>Payment Method</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+
+
+                        <div class="order-container">
+                            <%
+                                // Fetch the orders for the given customer using the customer ID
+                                OrdersDAO ordersDAO = new OrdersDAO();
+                                List<Orders> orders = ordersDAO.getOrdersByCustomerId(customer_id);
+
+                                // Loop through each order and display it in the table
+                                for (Orders currentOrder : orders) {
+                                    int restaurantId = currentOrder.getRestaurantId();
+                                    RestaurantDAO restaurantDAO = new RestaurantDAO();
+                                    Restaurant restaurant = restaurantDAO.getRestaurantById(restaurantId); // Fetch restaurant details
+                                    double rating = restaurant.getRating(); // Get the rating from the Restaurant object
+                            %>
+
+                            <div class="order-card">
+                                <h2>Order #<%= currentOrder.getOrderId()%></h2>
+                                <p><%= currentOrder.getOrderDate()%></p>
+                                <hr>
+                                <div class="restaurant-name"><%= currentOrder.getRestaurantName()%></div>
+                                <div class="rating">&#9733; <%= rating%></div>
+                                <p>Date Paid:<%= currentOrder.getPaymentDate()%></p>
+                                <hr>
+                                <div class="info">
+                                    <div>
+                                        <span>Delivery Time</span>
+                                        <span><strong>30 Min</strong></span>
+                                    </div>
+                                    <div>
+                                        <span>Distance</span>
+                                        <span><strong>2.5 Km</strong></span>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="order-menu1">
                                     <%
-                                        // Fetch the orders for the given customer using the customer ID
-                                        OrdersDAO ordersDAO = new OrdersDAO();
-                                        List<Orders> orders = ordersDAO.getOrdersByCustomerId(customer_id);
-
-                                        // Loop through each order and display it in the table
-                                        for (Orders currentOrder : orders) {
-                                            int restaurantId = currentOrder.getRestaurantId();
-                                            RestaurantDAO restaurantDAO = new RestaurantDAO();
-                                            Restaurant restaurant = restaurantDAO.getRestaurantById(restaurantId); // Fetch restaurant details
-                                            double rating = restaurant.getRating(); // Get the rating from the Restaurant object
+                                        // Loop through each order item and display it
+                                        for (OrderItem item : currentOrder.getOrderItems()) {
                                     %>
-                                    <tr class="order-row" onclick="toggleDetails(this)">
-                                        <td class="menu">Order #<%= currentOrder.getOrderId()%></td>
-                                        <td><span class="status <%= currentOrder.getOrderStatus().toLowerCase()%>"><%= currentOrder.getOrderStatus()%></span></td>
-                                        <td class="date"><%= currentOrder.getOrderDate()%></td>
-                                        <td class="address"><i class="fas fa-map-marker-alt"></i> <%= currentOrder.getCustomerAddress()%></td>
-                                        <td class="total"><span>$ <%= currentOrder.getTotalAmount()%></span></td>
-                                        <td class="payment-method"><%= currentOrder.getPaymentMethod()%></td>
-                                        <td class="arrow"><i class="fas fa-chevron-down dropdown"></i></td>
-                                    </tr>
-                                    <tr class="details-row">
-                                        <td colspan="7">
-                                            <div class="details-container">
-                                                <div class="order-menu">
-                                                    <h4>Order Menu</h4>
-                                                    <%
-                                                        // Loop through each order item and display it
-                                                        for (OrderItem item : currentOrder.getOrderItems()) {
-                                                    %>
-                                                    <p><img src="<%= request.getContextPath() + "/" + item.getImage()%>" alt="<%= item.getItemName()%>"> <%= item.getItemName()%> (x<%= item.getQuantity()%>)</p>
-                                                        <%
-                                                            }
-                                                        %>
-                                                </div>
-                                                <div class="restaurant-info">
-                                                    <h4><%= currentOrder.getRestaurantName()%></h4>
-                                                    <!-- Displaying dynamic restaurant rating -->
-                                                    <p><i class="fas fa-star"></i> <%= rating%> </p>
-                                                    <p>Delivery Time: <strong>10 Min</strong></p>
-                                                    <p>Distance: <strong>2.5 Km</strong></p>
-                                                </div>
-                                                <div class="order-summary">
-                                                    <div class="order-summary-details">
-                                                        <span>
-                                                            <h4>Status</h4>
-                                                            <p><%= currentOrder.getOrderStatus()%></p>
-                                                        </span>
-                                                        <span>
-                                                            <h4>Date</h4>
-                                                            <p><%= currentOrder.getOrderDate()%></p>
-                                                        </span>
-                                                    </div>
-                                                    <div class="order-summary-details">
-                                                        <span>
-                                                            <h4>Bills</h4>
-                                                            <p>Order #<%= currentOrder.getOrderId()%></p>
-                                                        </span>
-                                                        <span>
-                                                            <h4>Date Paid</h4>
-                                                            <p><%= currentOrder.getPaymentDate()%></p>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="order-amt">
-                                                    <h4>Total</h4>
-                                                    <p class="total-amount">$<%= currentOrder.getTotalAmount()%></p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <div class="item">
+                                        <img src="<%= request.getContextPath() + "/" + item.getImage()%>" alt="<%= item.getItemName()%>" class="cart-item-image">
+                                        <div class="details"><%= item.getItemName()%><br>x<%= item.getQuantity()%></div>
+                                        <div class="price">$300</div>
+                                    </div>
                                     <%
                                         }
                                     %>
-                                </tbody>
+                                </div>
+                                <hr>
+                                <div class="total">Total: $<%= currentOrder.getTotalAmount()%></div>
+                                <div class="status <%= currentOrder.getOrderStatus().toLowerCase()%>"><%= currentOrder.getOrderStatus()%></div>
+                            </div>
+                            <%
+                                }
+                            %>
 
+                        </div>
 
-                            </table>
-
-                        </div>
                     </section>
-
-
-                    <!-- <section class="dashboard-section" id="membership">
-                        <h2>Platera Membership</h2>
-                        <div class="content">
-                            <p>Become a premium member to enjoy exclusive discounts and perks!</p>
-                        </div>
-                    </section>
-        
-                    <section class="dashboard-section" id="favorites">
-                        <h2>Your Favorites</h2>
-                        <div class="content">
-                            <p>Save your favorite dishes and restaurants here for quick access!</p>
-                        </div>
-                    </section>
-        
-                    <section class="dashboard-section" id="payments">
-                        <h2>Payment Methods</h2>
-                        <div class="content">
-                            <p>Manage your payment methods for seamless checkout experiences.</p>
-                        </div>
-                    </section>
-        
-                    <section class="dashboard-section" id="addresses">
-                        <h2>Saved Addresses</h2>
-                        <div class="content">
-                            <p>Add and manage your delivery addresses here.</p>
-                        </div>
-                    </section>
-        
-                    <section class="dashboard-section" id="settings">
-                        <h2>Account Settings</h2>
-                        <div class="content">
-                            <p>Update your personal information, password, and preferences here.</p>
-                        </div>
-                    </section> -->
                 </main>
             </div>
         </div>

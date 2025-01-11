@@ -46,8 +46,8 @@
     <body>
         <%
             // Retrieve user_id from the session
-//            Integer user_id = (Integer) session.getAttribute("user_id");
-            int user_id = 201;
+            Integer user_id = (Integer) session.getAttribute("user_id");
+//            int user_id = 201;
 
             // Initialize necessary variables
             String name = "";
@@ -80,15 +80,15 @@
         %>
 
 
-        <!-- Profile Setup Popup -->
-        <!--<% if (location_id == 0) {%>
+       <!-- Profile Setup Popup -->
+        <% if (location_id == 0) {%>
         <div class="profile-setup-popup" id="profileSetupPopup">
             <div class="popup-content">
                 <h3>Thank you <%= name%> for signing up. Please set up your profile for a better experience.</h3>
                 <button id="profileSetupBtn" class="btn btn-primary">Go to Profile Settings</button>
             </div>
         </div>
-        <% }%> -->
+        <% }%>
 
         <!-- Error Popup -->
         <div class="error-popup" id="errorPopup">
