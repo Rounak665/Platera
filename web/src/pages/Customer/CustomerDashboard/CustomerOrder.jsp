@@ -98,9 +98,9 @@
                 </div>
                 <main class="main-content">
                     <section class="dashboard-section" id="orders">
-                        <h2>Your Orders</h2>
+                        <h2 id="OrderHeader">Your Orders</h2>
 
-                        <div class="table-container">
+                        <!-- <div class="table-container">
                             <table>
                                 <thead>
                                     <tr>
@@ -151,7 +151,6 @@
                                                 </div>
                                                 <div class="restaurant-info">
                                                     <h4><%= currentOrder.getRestaurantName()%></h4>
-                                                    <!-- Displaying dynamic restaurant rating -->
                                                     <p><i class="fas fa-star"></i> <%= rating%> </p>
                                                     <p>Delivery Time: <strong>10 Min</strong></p>
                                                     <p>Distance: <strong>2.5 Km</strong></p>
@@ -193,44 +192,45 @@
 
                             </table>
 
-                        </div>
-                    </section>
+                        </div> -->
 
 
-                    <!-- <section class="dashboard-section" id="membership">
-                        <h2>Platera Membership</h2>
-                        <div class="content">
-                            <p>Become a premium member to enjoy exclusive discounts and perks!</p>
+                    <div class="order-container">
+
+                        <div class="order-card">
+                            <h2>Order #<%= currentOrder.getOrderId()%></h2>
+                            <p><%= currentOrder.getOrderDate()%></p>
+                            <hr>
+                            <div class="restaurant-name"><%= currentOrder.getRestaurantName()%></div>
+                            <div class="rating">&#9733; <%= rating%> &bull; 1k+ Reviews</div>
+                            <p>Date Paid:<%= currentOrder.getPaymentDate()%></p>
+                            <hr>
+                            <div class="info">
+                                <div>
+                                    <span>Delivery Time</span>
+                                    <span><strong>10 Min</strong></span>
+                                </div>
+                                <div>
+                                    <span>Distance</span>
+                                    <span><strong>2.5 Km</strong></span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="order-menu1">
+                                <div class="item">
+                                    <img src="<%=request.getContextPath()%>/<%= cart.getItemImage()%>" alt="<%= cart.getItemName()%>" class="cart-item-image">
+                                    <div class="details"><%= cart.getItemName()%><br><%= cart.getQuantity()%></div>
+                                    <div class="price">₹<%=cart.getItemPrice()%></div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="total">Total: $<%= currentOrder.getTotalAmount()%></div>
+                            <div class="status <%= currentOrder.getOrderStatus().toLowerCase()%>"><%= currentOrder.getOrderStatus()%></div>
                         </div>
+                    
+                    </div>
+
                     </section>
-        
-                    <section class="dashboard-section" id="favorites">
-                        <h2>Your Favorites</h2>
-                        <div class="content">
-                            <p>Save your favorite dishes and restaurants here for quick access!</p>
-                        </div>
-                    </section>
-        
-                    <section class="dashboard-section" id="payments">
-                        <h2>Payment Methods</h2>
-                        <div class="content">
-                            <p>Manage your payment methods for seamless checkout experiences.</p>
-                        </div>
-                    </section>
-        
-                    <section class="dashboard-section" id="addresses">
-                        <h2>Saved Addresses</h2>
-                        <div class="content">
-                            <p>Add and manage your delivery addresses here.</p>
-                        </div>
-                    </section>
-        
-                    <section class="dashboard-section" id="settings">
-                        <h2>Account Settings</h2>
-                        <div class="content">
-                            <p>Update your personal information, password, and preferences here.</p>
-                        </div>
-                    </section> -->
                 </main>
             </div>
         </div>

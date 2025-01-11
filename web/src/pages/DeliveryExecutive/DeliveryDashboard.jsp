@@ -67,6 +67,30 @@
             </div>
         </div>     
 
+        <!-- Otp popup -->
+        <div class="popupOTP" id="popupOTPContainer">
+            <div class="container1">
+            <div class="logoOTP">
+                <img src="<%= request.getContextPath()%>/Public/images/PlateraLogo-red.png" alt="Logo" width="50" height="50">
+            </div>
+            <h2>Verify Delivery Handover</h2>
+            <p>An OTP has been sent to customer's email: <strong>${email}</strong></p>
+             <!-- Message Section -->
+        <p style="color: #F12630; font-size: 0.95rem; margin-bottom: 20px;">
+            Enter the OTP within <strong>1 minute</strong>.
+        </p>
+        <!-- ------------------------------Change the form action of the handover otp here----------------------- -->
+            <form action="http://localhost:8080/Platera-Main/DeliveryExecutiveVerifyOTP" method="POST" class="otp-form">
+                <input type="text" name="otp" placeholder="Enter OTP" required>
+                <input type="hidden" name="email" value="${email}" /> 
+                <input type="submit" value="Verify OTP">
+            </form>
+            <form action="http://localhost:8080/Platera-Main/DeliveryExecutiveVerifyOTP" method="POST" class="otp-form">
+                <input type="submit" value="Generate OTP">
+            </form>
+            </div>
+        </div>
+
         <!-- Two step Verification -->
 
         <div id="security-section" class="security-container" style="display: none;">
@@ -165,49 +189,54 @@
 
                 <!-- edit section -->
                 <div class="modal-content" id="modalContent" style="display: none;">
+                    <span class="back-btn" id="backToCheckout"><b>&#8592;</b></span>
                     <span class="close-btn" id="closeEditSection">&times;</span>
 
                     <div class="modal-header">
                         Edit Profile
                     </div>
                     <div class="modal-body">
-                        <div class="row">
                             <form action="http://localhost:8080/Platera-Main/UpdateExecutiveProfile" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="user_id" value="<%=user_id%>">
                                 <input type="hidden" name="executive_id" value="<%=executiveId%>">
-                                <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="profileImage" class="form-label">Profile Image</label>
                                         <input type="file" class="form-control file-input" id="photo-input" name="profileImage" accept="image/*">
                                         <small class="form-text text-muted">Choose a clear, professional image.</small>
                                     </div>
-                                </div>
-                                <div class="col-md-6 d-flex align-items-center">
+                                    </div>
+                                    <div class="col-md-6 d-flex align-items-center">
                                     <div class="preview-container">
                                         <img id="profile-photo-preview" src="<%= imagePath%>" alt="Profile Preview" class="img-thumbnail">
                                         <small class="form-text text-muted">Preview your profile image here.</small>
                                     </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="name" class="form-label">Name</label>
                                         <input type="text" class="form-control" id="name" name="name" value="<%=name%>" placeholder="Enter your full name">
                                     </div>
-                                </div>
-                                <div class="col-md-6">
+                                    </div>
+                                    <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="number" class="form-label">Phone No.</label>
                                         <input type="text" class="form-control" id="number" name="phone" value="<%=phone%>" placeholder="Enter your phone number">
                                     </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="address" class="form-label">Address</label>
                                         <input type="text" class="form-control" id="address" name="address" value="<%=address%>" placeholder="Enter your address">
                                     </div>
-                                </div>
+                                    </div>
                                 <!-- Vehicle Type Dropdown -->
-                                <div class="col-md-6">
+                                    <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="vehicleType" class="form-label">Vehicle Type</label>
                                         <select class="form-control" id="vehicleType" name="vehicleType">
@@ -219,9 +248,11 @@
                                             <option value="Cycle">Cycle</option>
                                         </select>
                                     </div>
+                                    </div>
                                 </div>
+                                <div class="row">
                                 <!-- Location Dropdown -->
-                                <div class="col-md-6">
+                                    <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="location" class="form-label">Location</label>
                                         <select id="location" name="location" class="form-control styled-dropdown" required>
@@ -242,11 +273,12 @@
                                         </select>
 
                                     </div>
-                                </div>
-                                <div class="col-md-6">
+                                    </div>
+                                    <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="vehicleNumber" class="form-label">Vehicle No.</label>
                                         <input type="text" class="form-control" id="emergencyContact" name="vehicleNumber" value="<%=vehicleNumber%>" placeholder="Enter vehicle number">
+                                    </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -254,11 +286,9 @@
                                     <button type="submit" class="btn btn-primary">Save Changes</button>
                                 </div>
                             </form>
-                        </div>
 
                     </div>
                 </div>
-
         </div>
     </section>
 
@@ -549,7 +579,7 @@
                                             <form action="http://localhost:8080/Platera-Main/UpdateOrderStatus" method="post" onsubmit="return confirmHandover()">
                                                 <input type="hidden" name="order_id" value="<%= currentOrder.getOrderId()%>">                                                       
                                                 <input type="hidden" name="executive_status" value="Delivered">
-                                                <button class="delivered-button" type="submit">Handover</button>
+                                                <button class="delivered-button" id="HandOver" type="submit">Handover</button>
                                             </form>
                                             <%
                                                 }
