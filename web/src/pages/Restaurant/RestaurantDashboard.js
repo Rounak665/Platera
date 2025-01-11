@@ -42,14 +42,4 @@ document.getElementById('closeSecuritySection').addEventListener('click', functi
     document.getElementById('security-section').style.display = 'none';
 });
 
-// ---------------------Edit Profile Section---------------------
-const backToCheckoutButton = document.getElementById("backToCheckout");
-if (backToCheckoutButton) {
-    backToCheckoutButton.addEventListener("click", function () {
-        // Hide the edit container
-        document.querySelector('.modal-content').style.display = 'none';
 
-        // Show the settings container
-        document.querySelector('.setting-container').style.display = 'block';
-    });
-}

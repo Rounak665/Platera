@@ -18,7 +18,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Restaurant Dashboard Overview</title>
-        <link rel="stylesheet" href="./RestaurantDashboard.css"> <!-- Link to your CSS -->
+        <link rel="stylesheet" href="./RestaurantDashboard.css"> 
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     </head>
     <body>
 
@@ -39,6 +41,135 @@
                 </div>
             </div>
         </div>
+
+        <!-- sliding profile settings -->
+
+        <section class="setting-section" id="setSection">
+            <div class="setting-container" id="settingContainer">
+                <span class="close-btn" id="closeSetSection">&times;</span>
+                <div class="setting-header">
+                    Profile Setttings
+                </div>
+                <ul class="setting-options">
+                    <li id="editProfile"><i class="fas fa-user-edit"></i> Edit your profile</li>
+                    <li><i class="fas fa-key"></i> Change Password</li>
+                    <li id="setSecure"><i class="fas fa-shield-alt"></i> Security</li>
+                    <li><i class="fas fa-file-alt"></i> <a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><i class="fas fa-file-contract"></i> <a href="terms-conditions.html">Terms and Conditions</a></li>
+                    <li id="delete-acc">
+                        <i class="fas fa-trash-alt"></i>
+                        <form action="http://localhost:8080/Platera-Main/DeleteUser" method="POST" onsubmit="return confirmDelete()">
+                            <input type="hidden" name="userId" value="<%=user_id%>">
+                            <button type="submit" class="delete-btn">
+                                <span>Delete Account</span>
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- edit section -->
+            <div class="modal-content" id="modalContent" style="display: none;">
+                <span class="close-btn" id="closeEditSection">&times;</span>
+
+                <div class="modal-header">
+                    Edit Profile
+                </div>
+                <div class="modal-body">
+                        <form action="http://localhost:8080/Platera-Main/UpdateExecutiveProfile" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="user_id" value="<%=user_id%>">
+                            <input type="hidden" name="executive_id" value="<%=executiveId%>">
+                            <div class="row">
+                                <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="profileImage" class="form-label">Profile Image</label>
+                                    <input type="file" class="form-control file-input" id="photo-input" name="profileImage" accept="image/*">
+                                    <small class="form-text text-muted">Choose a clear, professional image.</small>
+                                </div>
+                                </div>
+                                <div class="col-md-6 d-flex align-items-center">
+                                <div class="preview-container">
+                                    <img id="profile-photo-preview" src="<%= imagePath%>" alt="Profile Preview" class="img-thumbnail">
+                                    <small class="form-text text-muted">Preview your profile image here.</small>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" value="<%=name%>" placeholder="Enter your full name">
+                                </div>
+                                </div>
+                                <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="number" class="form-label">Phone No.</label>
+                                    <input type="text" class="form-control" id="number" name="phone" value="<%=phone%>" placeholder="Enter your phone number">
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="address" name="address" value="<%=address%>" placeholder="Enter your address">
+                                </div>
+                                </div>
+                            <!-- Vehicle Type Dropdown -->
+                                <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="vehicleType" class="form-label">Vehicle Type</label>
+                                    <select class="form-control" id="vehicleType" name="vehicleType">
+                                        <option value="" disabled selected>
+                                            <%= vehicleType != null && !vehicleType.isEmpty() ? vehicleType : "Select your vehicle type"%>
+                                        </option>
+                                        <option value="Bike">Bike</option>
+                                        <option value="Scooter">Scooter</option>
+                                        <option value="Cycle">Cycle</option>
+                                    </select>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                            <!-- Location Dropdown -->
+                                <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="location" class="form-label">Location</label>
+                                    <select id="location" name="location" class="form-control styled-dropdown" required>
+                                        <option value="<%= locationId%>" selected>
+                                            <%= locationName != null ? locationName : "Select a location"%>
+                                        </option>
+                                        <%
+                                            LocationDAO locationDAO = new LocationDAO();
+                                            List<Location> locations = locationDAO.getLocations();
+                                            for (Location location : locations) {
+                                        %>
+                                        <option value="<%= location.getId()%>" <%= (location.getId() == locationId) ? "selected" : ""%>>
+                                            <%= location.getName()%>
+                                        </option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
+
+                                </div>
+                                </div>
+                                <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="vehicleNumber" class="form-label">Vehicle No.</label>
+                                    <input type="text" class="form-control" id="emergencyContact" name="vehicleNumber" value="<%=vehicleNumber%>" placeholder="Enter vehicle number">
+                                </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" id="cancelModal" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+
+                </div>
+            </div>
+        </section>
 
         <div>
             <div class="sidebar">
@@ -88,6 +219,7 @@
                         <span class="icon"><ion-icon name="search"></ion-icon></span>
                         <input type="search" placeholder="Search">
                     </div>
+                    <div class="log-set">
                     <div class="social-icons">
                         <a href="http://localhost:8080/Platera-Main/logout" class="logout-link">
                             <div class="logout_btn">
@@ -96,6 +228,8 @@
                             </div>
                         </a>
                     </div>
+                    <i class="fas fa-cog settings-icon" id="setIcon" style="margin-top: 9px;"></i>
+                </div>
                 </header>
 
                 <main>
@@ -276,6 +410,13 @@
 
         <!-- main scripts -->
 
+        <script src="RestaurantDashboard.js"></script>
+        <script>
+            // Confirmation for deleting account
+            function confirmDelete() {
+                return confirm("Are you sure you want to delete your account? This action cannot be undone.");
+            }
+        </script>
         <script>
             document.querySelector("#menu").addEventListener("click", function () {
                 document.querySelector(".sidebar").classList.add("activate");
