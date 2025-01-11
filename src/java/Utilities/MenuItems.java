@@ -7,6 +7,7 @@ public class MenuItems {
     private double price;
     private String image;
     private String categoryName; // New field for category name
+    private int categoryId; // New field for category ID
     private int restaurantId;
     private String restaurantName;
     private boolean availability;
@@ -73,12 +74,22 @@ public class MenuItems {
     public void setRestaurantId(int restaurantId) {
         this.restaurantId = restaurantId;
     }
-        public String getRestaurantName() {
+
+    public String getRestaurantName() {
         return restaurantName;
     }
 
     public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;
+    }
+
+    // Getter and Setter for categoryId
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     // toString method for debugging
@@ -89,7 +100,8 @@ public class MenuItems {
                 + ", itemName='" + itemName + '\''
                 + ", price=" + price
                 + ", image='" + image + '\''
-                + ", categoryName='" + categoryName + '\''
+                + ", categoryName='" + categoryName + '\'' 
+                + ", categoryId=" + categoryId // Include categoryId in the string representation
                 + ", restaurantId=" + restaurantId
                 + '}';
     }

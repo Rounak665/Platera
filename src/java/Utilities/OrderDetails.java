@@ -19,6 +19,7 @@ public class OrderDetails {
     private String paymentStatus;
     private List<OrderItem> items;
     private String itemImage;
+    private String orderStatus;
 
     // Constructor to initialize the items list
     public OrderDetails() {
@@ -148,5 +149,11 @@ public class OrderDetails {
 
     public void setItemImage(String itemImage) {
         this.itemImage = itemImage;
+    }
+    public String getOrderStatus(){
+        return orderStatus;
+    }
+    public void setOrderStatus(String orderStatus){
+        this.orderStatus=orderStatus;
     }
 }

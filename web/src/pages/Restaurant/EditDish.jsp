@@ -103,22 +103,29 @@
                     <section id="edit-menu-section" class="recent">
                         <h2 class="dash-title">Edit Dish</h2>
                         <div class="activity-card pad-1">
+
                             <!-- Fetch categories using CategoryDAO -->
-                            <% 
+                            <%
                                 CategoryDAO categoryDAO = new CategoryDAO();
                                 List<Category> categories = categoryDAO.getCategories();
-                                request.setAttribute("categories", categories);
+                                String itemId = request.getParameter("item_id");
+                                String itemName = request.getParameter("item_name");
+                                String categoryId = request.getParameter("category_id");
+                                String price = request.getParameter("price");
+                                boolean availability = Boolean.parseBoolean(request.getParameter("availability"));
+                                String imagePath = request.getParameter("image");
                             %>
+
 
                             <!-- Form updated for editing -->
                             <form action="http://localhost:8080/Platera-Main/RestaurantUpdateDish" id="edit-menu-form" method="POST" enctype="multipart/form-data">
                                 <!-- Hidden field for item ID -->
-                                <input type="hidden" name="dish-id" value="${itemId}">
+                                <input type="hidden" name="item_id" value="<%= itemId%>">
 
                                 <!-- Dish Name -->
                                 <div class="form-group">
                                     <label for="dish-name">Name</label>
-                                    <input type="text" id="dish-name" name="dish-name" class="form-control" value="${itemName}" required>
+                                    <input type="text" id="dish-name" name="dish-name" class="form-control" value="<%= itemName%>" required>
                                 </div>
 
                                 <!-- Dish Category -->
@@ -126,30 +133,37 @@
                                     <label for="dish-category">Category</label>
                                     <select id="dish-category" name="dish-category" class="form-control" required>
                                         <option value="">Choose</option>
-                                        <c:forEach var="category" items="${categories}">
-                                            <option value="${category.id}" ${category.id == categoryId ? "selected" : ""}>${category.name}</option>
-                                        </c:forEach>
+                                        <%
+                                            for (Category category : categories) {
+                                                boolean selected = category.getId() == Integer.parseInt(categoryId);
+                                        %>
+                                        <option value="<%= category.getId()%>" <%= selected ? "selected" : ""%>><%= category.getName()%></option>
+                                        <%
+                                            }
+                                        %>
                                     </select>
                                 </div>
 
                                 <!-- Dish Price -->
                                 <div class="form-group">
                                     <label for="dish-price">Price</label>
-                                    <input type="text" id="dish-price" name="dish-price" class="form-control" value="${price}" required>
+                                    <input type="text" id="dish-price" name="dish-price" class="form-control" value="<%= price%>" required>
                                 </div>
 
                                 <!-- Dish Image -->
                                 <div class="form-group">
-                                    <p>Keep the image empty if you want to remove the image.Upload the previous image if you dont want to update the image</p>
+                                    <p>Keep the image empty if you want to remove the image. Upload the previous image if you don't want to update the image.</p>
                                     <label for="menu-image">Image</label>
                                     <input type="file" id="menu-image" name="dish-image" class="form-control">
-                                    <img src="<%= request.getContextPath() + "/" + session.getAttribute("imagePath") %>" alt="Dish Image" width="100">
+                                    <!-- If the image path exists in the session, display it -->
+                                    <img src="<%= request.getContextPath() + "/" + imagePath%>" alt="Dish Image" width="100">
                                 </div>
 
                                 <!-- Availability -->
                                 <div class="form-group">
                                     <label>
-                                        <input type="checkbox" id="menu-availability" name="dish-availability" ${"Available".equals(availability) ? "checked" : ""}>
+                                        <!-- Check availability based on boolean -->
+                                        <input type="checkbox" id="menu-availability" name="dish-availability" <%= availability ? "checked" : ""%>>
                                         Available
                                     </label>
                                 </div>
@@ -159,8 +173,12 @@
                                     <button type="submit" id="edit-menu-submit" class="btn btn-main">Update</button>
                                 </div>
                             </form>
+
                         </div>
                     </section>
+
+
+
                 </main>
             </div>
         </div>
@@ -171,19 +189,19 @@
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
         <script>
-            document.querySelector("#menu").addEventListener("click", function () {
-                document.querySelector(".sidebar").classList.add("activate");
-            });
+                            document.querySelector("#menu").addEventListener("click", function () {
+                                document.querySelector(".sidebar").classList.add("activate");
+                            });
 
-            document.querySelector(".sidebar .close-btn").addEventListener("click", function () {
-                document.querySelector(".sidebar").classList.remove("activate");
-            });
+                            document.querySelector(".sidebar .close-btn").addEventListener("click", function () {
+                                document.querySelector(".sidebar").classList.remove("activate");
+                            });
 
-            function signout() {
-                localStorage.removeItem('authtoken');
-                localStorage.removeItem('admin');
-                window.location.href = '../AddRestaurent/AddRestaurent.html#Signin-popup';
-            }
+                            function signout() {
+                                localStorage.removeItem('authtoken');
+                                localStorage.removeItem('admin');
+                                window.location.href = '../AddRestaurent/AddRestaurent.html#Signin-popup';
+                            }
         </script>
     </body>
 </html>

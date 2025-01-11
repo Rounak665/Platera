@@ -1,103 +1,36 @@
-<%@ page import="Utilities.CustomerDAO, Utilities.Customer" %>
+<%@ page import="java.util.*, java.sql.*" %>
+<%@ page import="Utilities.MenuItemsDAO" %>
+<%@ page import="Utilities.MenuItems" %>
+
 <%
-    // Retrieve user_id from the session (replace this with actual session retrieval)
-    int user_id = 201;
-
-    // Initialize necessary variables
-    String name = "";
-    String email = "";
-    int customer_id = 0;
-    String image = "";
-    String imagepath = "";
-    int location_id = 0;
-    String location_name = "";
-    String address = "";
-    String phone = "";
-    boolean twoFA = false;
-
-    // Fetch customer details
-    Customer customer = CustomerDAO.getCustomerByUserId(user_id);
-    if (customer != null) {
-        customer_id = customer.getCustomerId();
-        name = customer.getFullName();
-        email = customer.getEmail();
-        image = customer.getImage();
-        location_id = customer.getLocationId();
-        location_name = customer.getLocation();
-        address = customer.getAddress();
-        phone = customer.getPhone();
-        twoFA = customer.isTwoStepVerification();
-    }
-
-    // Construct image path
-    imagepath = request.getContextPath() + '/' + image;
+    // Retrieve the item_id from the request parameter
+    MenuItemsDAO menuItemsDAO = new MenuItemsDAO();
+    MenuItems item = null;
+    
+        int itemId = 81;
+        item = menuItemsDAO.getMenuItemById(itemId); // Fetch item using the method
+    
 %>
 
-<!DOCTYPE html>
 <html>
 <head>
-    <title>Customer Details</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 50%;
-            margin: 20px auto;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-    </style>
+    <title>Menu Item Details</title>
 </head>
 <body>
-    <h1 style="text-align: center;">Customer Details</h1>
-    <table>
-        <tr>
-            <th>Field</th>
-            <th>Value</th>
-        </tr>
-        <tr>
-            <td>Customer ID</td>
-            <td><%= customer_id %></td>
-        </tr>
-        <tr>
-            <td>Name</td>
-            <td><%= name %></td>
-        </tr>
-        <tr>
-            <td>Email</td>
-            <td><%= email %></td>
-        </tr>
-        <tr>
-            <td>Image</td>
-            <td>
-                <img src="<%= imagepath %>" alt="Customer Image" style="max-width: 150px; height: auto;" />
-            </td>
-        </tr>
-        <tr>
-            <td>Location ID</td>
-            <td><%= location_id %></td>
-        </tr>
-        <tr>
-            <td>Location Name</td>
-            <td><%= location_name %></td>
-        </tr>
-        <tr>
-            <td>Address</td>
-            <td><%= address %></td>
-        </tr>
-        <tr>
-            <td>Phone</td>
-            <td><%= phone %></td>
-        </tr>
-        <tr>
-            <td>Two-Step Verification</td>
-            <td><%= twoFA ? "Enabled" : "Disabled" %></td>
-        </tr>
-    </table>
+    <h2>Menu Item Details</h2>
+
+    <% if (item != null) { %>
+        <p><strong>Item ID:</strong> <%= item.getItemId() %></p>
+        <p><strong>Item Name:</strong> <%= item.getItemName() %></p>
+        <p><strong>Price:</strong> <%= item.getPrice() %></p>
+        <p><strong>Category:</strong> <%= item.getCategoryName() %></p>
+        <p><strong>Availability:</strong> <%= item.isAvailability() ? "Available" : "Not Available" %></p>
+        <p><strong>Image:</strong> <img src="<%= item.getImage() %>" alt="Dish Image" width="100"></p>
+    <% } else { %>
+        <p>No menu item found with the provided ID.</p>
+    <% } %>
+
+    <br>
+    <a href="menu.jsp">Back to Menu</a>
 </body>
 </html>
