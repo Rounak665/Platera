@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 
@@ -662,4 +663,225 @@ body {
 
 .view-cart-btn:hover {
   transform: scale(1.05);
+}
+
+
+
+/* Review Section */
+.review-section {
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-top: 1px solid #ddd;
+}
+
+.review-section h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.reviews {
+  margin-bottom: 20px;
+}
+
+.review {
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.review h4 {
+  margin: 0 0 5px 0;
+}
+
+.review p {
+  margin: 0;
+}
+
+.review-form {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.review-form h3 {
+  margin-bottom: 15px;
+}
+
+.review-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.review-form textarea,
+.review-form select,
+.review-form button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.review-form button {
+  background-color: #F12630;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.review-form button:hover {
+  background-color: #c4103d;
+}
+
+
+/* Footer section */
+footer{
+  width: 100%;
+  position: relative;
+  bottom: 0;
+  z-index: 1;
+  right: 100;
+  background-color: rgb(38, 38, 38);
+  color: rgb(255, 255, 255);
+  padding: 100px 0 30px 0;
+  border-top-left-radius: 125px;
+  font-size: 13px;
+  line-height: 20px;
+}
+footer .row{
+  width: 85%;
+  margin: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+footer .col{
+  flex-basis: 25%;
+  padding: 10px;
+}
+.col:nth-child(2), .col:nth-child(3){
+  flex-basis: 15%;
+}
+footer .col img{
+  width: 200px;
+  margin-bottom: 20px;
+}
+.col h3{
+  width: fit-content;
+  margin-bottom: 40px;
+  position: relative;
+}
+.email_id{
+  width: fit-content;
+  border-bottom: 1px solid rgb(255, 255, 255);
+  margin: 20px 0;
+}
+footer .col ul li{
+  list-style: none;
+  margin-bottom: 12px;
+}
+footer .col ul li a{
+  text-decoration: none;
+  color: #f4f4f4;
+}
+footer .col ul li a:hover{
+  color: #FFD04D;
+  transition: 0.3s;
+}
+footer .row .col form{
+  padding-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(255, 255, 255);
+  margin-bottom: 50px;
+}
+form #mail{
+  width: 18px;
+  margin-right: 10px;
+  margin-bottom: 0;
+}
+form #send{
+  width: 18px;
+  margin-bottom: 0;
+}
+
+form input{
+  width: 100%;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: rgb(255, 255, 255);
+}
+form button{
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.social_icon .fa-brands{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40px;
+  font-size: 30px;
+  color: black;
+  background-color: #f4f4f4;
+  margin-right: 15px;
+  cursor: ponter;
+}
+footer hr{
+  width: 90%;
+  border: 0;
+  border-bottom: 1px solid #f4f4f4;
+  margin: 20px auto;
+}
+footer p.copyright{
+  text-align: center;
+}
+.underline{
+  width: 100%;
+  height: 2px;
+  background-color: #767676;
+  border-radius: 2px;
+  position: absolute;
+  top: 35px;
+  left: 0;
+  overflow: hidden;
+}
+.underline span{
+  width: 15px;
+  height: 100%;
+  background-color: #f4f4f4;
+  border-radius: 2px;
+  position: absolute;
+  top: 0;
+  left: 10px;
+  animation: moving 2s linear infinite;
+}
+#logout-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 80px;
+}
+
+.fa-solid{
+  color: #f1f1f1;
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+@keyframes moving{
+  0%{
+      left: -20px;
+  }    
+  100%{
+      left: 100%;
+  }
 }
