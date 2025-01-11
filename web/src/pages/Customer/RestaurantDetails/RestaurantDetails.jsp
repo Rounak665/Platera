@@ -279,6 +279,138 @@
             </div>
         </div>
 
+        <!-- Review Section -->
+        <section class="review-section">
+            <h2>Reviews</h2>
+            <div class="reviews">
+                <%
+                    // Fetch and display reviews for the restaurant
+                    String reviewQuery = "SELECT * FROM reviews WHERE restaurant_id = ?";
+                    try {
+                        con = Database.getConnection();
+                        ps = con.prepareStatement(reviewQuery);
+                        ps.setInt(1, restaurantId);
+                        rs = ps.executeQuery();
+
+                        while (rs.next()) {
+                            String reviewText = rs.getString("review_text");
+                            String reviewerName = rs.getString("reviewer_name");
+                            int rating = rs.getInt("rating");
+                %>
+                <div class="review">
+                    <h4><%= reviewerName %> - ⭐<%= rating %></h4>
+                    <p><%= reviewText %></p>
+                </div>
+                <%
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        try {
+                            if (rs != null) rs.close();
+                            if (ps != null) ps.close();
+                            if (con != null) con.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                %>
+            </div>
+            <div class="review-form">
+                <h3>Leave a Review</h3>
+                <form action="SubmitReviewServlet" method="POST">
+                    <input type="hidden" name="restaurantId" value="<%= restaurantId %>">
+                    <input type="hidden" name="customerId" value="<%= customer_id %>">
+                    <label for="reviewText">Your Review:</label>
+                    <textarea name="reviewText" id="reviewText" rows="4" required></textarea>
+                    <label for="rating">Rating:</label>
+                    <select name="rating" id="rating" required>
+                        <option value="5">5 - Excellent</option>
+                        <option value="4">4 - Very Good</option>
+                        <option value="3">3 - Good</option>
+                        <option value="2">2 - Fair</option>
+                        <option value="1">1 - Poor</option>
+                    </select>
+                    <button type="submit">Submit Review</button>
+                </form>
+            </div>
+        </section>
+
+                <!-- Footer Section -->
+
+        <footer>
+            <div class="container_footer">
+                <div class="row">
+                    <div class="col">
+                        <img src="./assets/PlateraLogo-red.png" alt="" />
+                        <p>
+                            Platera delivers delicious meals from your favorite local
+                            restaurants straight to your door, combining speed and convenience
+                            with every order. From quick bites to gourmet dishes, enjoy a
+                            world of flavors anytime, anywhere!
+                        </p>
+                    </div>
+                    <div class="col">
+                        <h3>
+                            Office
+                            <div class="underline"><span></span></div>
+                        </h3>
+                        <p>ITFL Road</p>
+                        <p>Whitefield, Bangalore</p>
+                        <p>Karnatak, PIN 568629, INDIA</p>
+                        <p class="email_id">support@platera.in</p>
+                        <h4>+91 - 1234567891</h4>
+                    </div>
+                    <div class="col">
+                        <h3>
+                            Links
+                            <div class="underline"><span></span></div>
+                        </h3>
+                        <ul>
+                            <li>
+                                <a
+                                    href="../FooterLinkPages/Terms&Conditions/Terms&Conditions.html"
+                                    >Terms & Conditions</a
+                                >
+                            </li>
+                            <li>
+                                <a href="../FooterLinkPages/PrivacyPolicy/PrivacyPolicy.html"
+                                   >Privacy Policy</a
+                                >
+                            </li>
+                            <li><a href="../FooterLinkPages/Help/Help.html">Help</a></li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h3>
+                            Newsletter
+                            <div class="underline"><span></span></div>
+                        </h3>
+                        <form>
+                            <i class="fa-solid fa-envelope"></i>
+                            <input
+                                type="email"
+                                name=""
+                                id=""
+                                placeholder="Enter Your Email Address"
+                                />
+                            <button type="submit">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </form>
+                        <div class="social_icon">
+                            <i class="fa-brands fa-facebook"></i>
+                            <i class="fa-brands fa-instagram"></i>
+                            <i class="fa-brands fa-pinterest"></i>
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <p class="copyright">Platera @2024 - All Rights Reserved</p>
+        </footer>
+
         <script src="./restaurantDashboard.js"></script>
     </body>
 </html>

@@ -1,9 +1,9 @@
-<!-- <%@page import="java.util.List"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="Utilities.Location" %>
 <%@ page import="Utilities.LocationDAO" %>
 <%@ page import="Utilities.Category" %>
-<%@ page import="Utilities.CategoryDAO" %> -->
+<%@ page import="Utilities.CategoryDAO" %>
 <html lang="en">
     <head>
         <meta charset="UTF-8">

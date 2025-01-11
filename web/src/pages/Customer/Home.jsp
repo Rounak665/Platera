@@ -204,6 +204,9 @@
                     Cart
                     <span class="close-btn" id="closeCartSectionCheckout">&times;</span>
                 </div>
+                <div class="heading-for-empty-cart">
+                    <video src="./assets/cartEmptyAnimation.mp4" autoplay muted loop></video>
+                </div>
                 <div class="cart-items">
                     <%
                         // Replace with the actual user/customer ID fetched from the session or request
@@ -216,9 +219,7 @@
 
                         if (cartItems.isEmpty()) {
                     %>
-                    <div class="heading-for-empty-cart">
-                        <video src="./assets/cartEmptyAnimation.mp4" autoplay muted loop></video>
-                    </div>
+                    
                     <h2 style="text-align: center">Your Cart Is Empty</h2>
                     <%
                     } else {

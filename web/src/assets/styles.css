@@ -879,57 +879,82 @@ header .nav_bar .logo img{
 
 
 /* Footer section */
-footer{
+footer {
     width: 100%;
     position: relative;
     bottom: 0;
     z-index: 1;
-    /* right: 100; */
     background-color: rgb(38, 38, 38);
     color: rgb(255, 255, 255);
     padding: 100px 0 30px 0;
     border-top-left-radius: 125px;
-    font-size: 13px;
+    font-size: 15px;
     line-height: 20px;
-}
-footer .row{
-    width: 85%;
-    margin: auto;
     display: flex;
+    align-items: center; /* Center align items vertically */
+    justify-content: center; /* Center align items horizontally */
+}
+
+footer .container_footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align items horizontally */
+}
+
+footer .row {
+    width: 85%;
+    display: flex;
+    flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
+    /* border: 1px solid red; Debugging line to visualize the row */
 }
-footer .col{
+
+footer .col {
     flex-basis: 25%;
     padding: 10px;
+    /* border: 1px solid blue; Debugging line to visualize the columns */
 }
-.col:nth-child(2), .col:nth-child(3){
+
+.col:nth-child(2), .col:nth-child(3) {
     flex-basis: 15%;
 }
-footer .col img{
+
+footer .col img {
     width: 200px;
     margin-bottom: 20px;
 }
-.col h3{
+
+.col h3 {
     width: fit-content;
     margin-bottom: 40px;
     position: relative;
 }
-.email_id{
+
+.email_id {
     width: fit-content;
     border-bottom: 1px solid rgb(255, 255, 255);
     margin: 20px 0;
 }
-footer .col ul li{
+
+footer .col ul li {
     list-style: none;
     margin-bottom: 12px;
 }
-footer .col ul li a{
+
+footer .col ul li a {
     text-decoration: none;
     color: #f4f4f4;
 }
-footer .row .col form{
+
+footer .col ul li a:hover {
+    color: #FFD04D;
+    transition: 0.3s;
+}
+
+footer .row .col form {
     padding-bottom: 15px;
     display: flex;
     align-items: center;
@@ -937,29 +962,35 @@ footer .row .col form{
     border-bottom: 1px solid rgb(255, 255, 255);
     margin-bottom: 50px;
 }
-form #mail{
+
+form #mail {
     width: 18px;
     margin-right: 10px;
     margin-bottom: 0;
 }
-form #send{
+
+form #send {
     width: 18px;
     margin-bottom: 0;
 }
-form input{
+
+form input {
+    font-size: 18px;
     width: 100%;
     background-color: transparent;
     outline: none;
     border: none;
     color: rgb(255, 255, 255);
 }
-form button{
+
+form button {
     background-color: transparent;
     border: none;
     outline: none;
     cursor: pointer;
 }
-.social_icon .fa-brands{
+
+.social_icon .fa-brands {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -969,28 +1000,32 @@ form button{
     color: black;
     background-color: #f4f4f4;
     margin-right: 15px;
-    cursor: ponter;
+    cursor: pointer;
 }
-footer hr{
+
+hr {
     width: 90%;
     border: 0;
     border-bottom: 1px solid #f4f4f4;
     margin: 20px auto;
 }
-footer p.copyright{
+
+p.copyright {
     text-align: center;
 }
-.underline{
+
+.underline {
     width: 100%;
     height: 2px;
     background-color: #767676;
     border-radius: 2px;
     position: absolute;
-    top: 25px;
+    top: 35px;
     left: 0;
     overflow: hidden;
 }
-.underline span{
+
+.underline span {
     width: 15px;
     height: 100%;
     background-color: #f4f4f4;
@@ -1001,15 +1036,22 @@ footer p.copyright{
     animation: moving 2s linear infinite;
 }
 
-@keyframes moving{
-    0%{
+@keyframes moving {
+    0% {
         left: -20px;
     }    
-    100%{
+    100% {
         left: 100%;
     }
 }
 
+.footer-bottom{
+    width: 100%;
+    background-color: rgb(38, 38, 38);
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
 
 /* Responsive Design */
 @media(max-width: 1920px) and (min-width: 1201px){
