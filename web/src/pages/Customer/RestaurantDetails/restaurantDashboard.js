@@ -1,4 +1,13 @@
-// script.js
+// Show Error Popup
+// function showErrorPopup(message) {
+//     document.getElementById('errorMessage').innerText = message;
+//     document.getElementById('errorPopup').style.display = 'flex';
+// }
+
+// // Close Error Popup
+// document.getElementById('closeErrorPopup').addEventListener('click', function() {
+//     document.getElementById('errorPopup').style.display = 'none';
+// });
 
 // Tab Switching
 document.querySelectorAll('.tab').forEach((tab) => {

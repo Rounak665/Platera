@@ -37,6 +37,16 @@
             // Calculate total
             double total = subtotal + deliveryCharges - promotion;
         %>
+
+<!-- Error Popup -->
+        <div class="error-popup" id="errorPopup">
+            <div class="error-content">
+                <h2>Error</h2>
+                <p id="errorMessage">An error has occurred. Please try again later.</p>
+                <button id="closeErrorPopup">Go Back</button>
+            </div>
+        </div>
+
         <nav class="navbar">
             <div class="logo"><a href=""><img src="./Assets/PlateraLogo-red.png" alt="" width="150px"></a></div>
             <button class="back-button" onClick="goBack()">Back</button>

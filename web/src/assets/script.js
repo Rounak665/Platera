@@ -25,3 +25,15 @@ function showNextImage() {
 
 // Change image every 3 seconds
 setInterval(showNextImage, 3000);
+
+
+// Show Error Popup
+// function showErrorPopup(message) {
+//     document.getElementById('errorMessage').innerText = message;
+//     document.getElementById('errorPopup').style.display = 'flex';
+// }
+
+// // Close Error Popup
+// document.getElementById('closeErrorPopup').addEventListener('click', function() {
+//     document.getElementById('errorPopup').style.display = 'none';
+// });

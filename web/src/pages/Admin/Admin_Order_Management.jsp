@@ -1,4 +1,4 @@
-<%@page import="Utilities.Database"%>
+<!-- <%@page import="Utilities.Database"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.ArrayList"%>
@@ -9,7 +9,7 @@
 <%@page import="java.sql.SQLException"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,6 +20,15 @@
         <link rel="stylesheet" href="Admin.css">
     </head>
     <body>
+
+        <!-- Error Popup -->
+        <div class="error-popup" id="errorPopup">
+            <div class="error-content">
+                <h2>Error</h2>
+                <p id="errorMessage">An error has occurred. Please try again later.</p>
+                <button id="closeErrorPopup">Go Back</button>
+            </div>
+        </div>
 
         <!-- loader -->
         <div class="loader">
