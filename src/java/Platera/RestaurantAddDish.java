@@ -14,7 +14,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 @WebServlet(name = "RestaurantAddDish", urlPatterns = {"/RestaurantAddDish"})
@@ -29,17 +28,18 @@ public class RestaurantAddDish extends HttpServlet {
             throws ServletException, IOException {
 
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
 
-        // Ensure the user is logged in
-        Integer restaurantId = (Integer) session.getAttribute("restaurant_id");
-        if (restaurantId == null) {
-            response.sendRedirect("index.html");
+        // Retrieve and validate the restaurant ID from the form input
+        String restaurantIdParam = request.getParameter("restaurant_id");
+        if (restaurantIdParam == null || restaurantIdParam.isEmpty()) {
+            response.sendRedirect("index.html");  // Redirect to login or error page if restaurant ID is missing
             return;
         }
 
+        Integer restaurantId = Integer.parseInt(restaurantIdParam); // Parse the restaurant ID
+
         try {
-            // Retrieve and validate form parameters
+            // Retrieve and validate form parameters for the dish
             String itemName = request.getParameter("dish-name");
             String priceParam = request.getParameter("dish-price");
             String categoryParam = request.getParameter("dish-category");
@@ -104,13 +104,12 @@ public class RestaurantAddDish extends HttpServlet {
 
                     stmt.executeUpdate();
                 }
-                response.sendRedirect("src/pages/Restaurant/Menu.jsp?success=DishAdded");
+                response.sendRedirect("src/pages/Restaurant/RestaurantMenu.jsp?success=DishAdded");
             }
         } catch (NumberFormatException e) {
-            response.sendRedirect("src/pages/Restaurant/Menu.jsp?error=InvalidNumberFormat");
+            response.sendRedirect("src/pages/Restaurant/RestaurantMenu.jsp?error=InvalidNumberFormat");
         } catch (Exception e) {
-            response.sendRedirect("src/pages/Restaurant/Menu.jsp?error=UnexpectedError");
+            response.sendRedirect("src/pages/Restaurant/RestaurantMenu.jsp?error=UnexpectedError");
         }
     }
 }
-

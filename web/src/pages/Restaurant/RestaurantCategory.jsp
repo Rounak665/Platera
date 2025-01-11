@@ -1,3 +1,5 @@
+<%@page import="Utilities.Restaurant"%>
+<%@page import="Utilities.RestaurantDAO"%>
 <%@page import="Utilities.Database"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -115,15 +117,61 @@
                                         </thead>
                                         <tbody id="category-table-body">
                                             <%
+                                                // Simulate session attributes for debugging
+                                                int user_id = (Integer) session.getAttribute("user_id");
+//                                                int user_id = 302;
+
+                                                int restaurantId = 0; // Default value for int
+                                                String name = null;
+                                                String address = null;
+                                                String phone = null;
+                                                String locationName = null;
+                                                double minPrice = 0.0; // Default value for double
+                                                double maxPrice = 0.0; // Default value for double
+                                                double avgRating = 0.0; // Default value for double
+                                                String category1 = null;
+                                                String category2 = null;
+                                                String category3 = null;
+                                                String restaurantImagePath = null;
+
+                                                // Owner details
+                                                String ownerPhone = null;
+                                                String ownerAddress = null;
+                                                String ownerEmail = null;
+                                                boolean twoFA = false; // Default value for boolean
+
+                                                Restaurant restaurant = null;
+
+                                                RestaurantDAO restaurantDAO = new RestaurantDAO();
+                                                restaurant = restaurantDAO.getRestaurantByUserId(user_id);
+
+                                                if (restaurant != null) {
+                                                    restaurantId = restaurant.getRestaurantId();
+                                                    name = restaurant.getName();
+                                                    address = restaurant.getAddress();
+                                                    phone = restaurant.getPhone();
+                                                    locationName = restaurant.getLocation();
+                                                    minPrice = restaurant.getMinPrice();
+                                                    maxPrice = restaurant.getMaxPrice();
+                                                    avgRating = restaurant.getRating();
+                                                    category1 = restaurant.getCategory1();
+                                                    category2 = restaurant.getCategory2();
+                                                    category3 = restaurant.getCategory3();
+                                                    restaurantImagePath = request.getContextPath() + '/' + restaurant.getImage();
+
+                                                    // Owner details
+                                                    ownerPhone = restaurant.getOwnerPhone();
+                                                    ownerAddress = restaurant.getOwnerAddress();
+                                                    ownerEmail = restaurant.getOwnerEmail();
+                                                    twoFA = restaurant.isTwoStepVerification();
+                                                }
+                                            %>
+                                            <%
                                                 Connection conn = null;
                                                 PreparedStatement ps = null;
                                                 ResultSet rs = null;
 
-                                                // Get the restaurant_id from session
-                    //                          Integer restaurantId = (Integer) session.getAttribute("restaurant_id");
-                                                Integer restaurantId = 101;
-
-                                                if (restaurantId == null) {
+                                                if (restaurantId == 0) {
                                             %>
                                             <tr>
                                                 <td colspan="3">Restaurant not found. Please log in again.</td>
@@ -147,13 +195,15 @@
                                                         categoriesExist = true;
                                                         int categoryId = rs.getInt("category_id");
                                                         String categoryName = rs.getString("category_name");
+                                                        System.out.println(categoryId);
                                             %>
                                             <tr>
                                                 <td><%= categoryId%></td>
                                                 <td><%= categoryName%></td>
                                                 <td>
                                                     <form action="http://localhost:8080/Platera-Main/RestaurantDeleteCategories" method="POST" onsubmit="return confirm('Are you sure you want to delete this category?');">
-                                                        <input type="hidden" name="category_id" value="<%= categoryId%>">
+                                                        <input type="hidden" name="restaurant_id" value="<%=restaurantId%>">
+                                                               <input type="hidden" name="category_id" value="<%= categoryId%>">
                                                         <button type="submit" class="btn-delete">Delete</button>
                                                     </form>
                                                 </td>
@@ -210,13 +260,13 @@
         <!-- main scripts -->
 
         <script>
-                                    document.querySelector("#menu").addEventListener("click", function () {
-                                        document.querySelector(".sidebar").classList.add("activate");
-                                    });
+                                                        document.querySelector("#menu").addEventListener("click", function () {
+                                                            document.querySelector(".sidebar").classList.add("activate");
+                                                        });
 
-                                    document.querySelector(".sidebar .close-btn").addEventListener("click", function () {
-                                        document.querySelector(".sidebar").classList.remove("activate");
-                                    });
+                                                        document.querySelector(".sidebar .close-btn").addEventListener("click", function () {
+                                                            document.querySelector(".sidebar").classList.remove("activate");
+                                                        });
         </script>
 
     </body>

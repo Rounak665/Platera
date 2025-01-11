@@ -1,3 +1,8 @@
+<%@page import="Utilities.OrderDetailsDAO"%>
+<%@page import="Utilities.OrderItem"%>
+<%@page import="Utilities.OrderDetails"%>
+<%@page import="Utilities.Restaurant"%>
+<%@page import="Utilities.RestaurantDAO"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="Utilities.Database"%>
 <%@page import="java.util.List"%>
@@ -120,7 +125,57 @@
                         </a>
                     </div>
                 </header>
+                <%
 
+                    // Simulate session attributes for debugging
+                    //int user_id = (Integer) session.getAttribute("user_id");
+                    int user_id = 185;
+
+                    int restaurantId = 0; // Default value for int
+                    String name = null;
+                    String address = null;
+                    String phone = null;
+                    String locationName = null;
+                    double minPrice = 0.0; // Default value for double
+                    double maxPrice = 0.0; // Default value for double
+                    double avgRating = 0.0; // Default value for double
+                    String category1 = null;
+                    String category2 = null;
+                    String category3 = null;
+                    String restaurantImagePath = null;
+
+                    // Owner details
+                    String ownerPhone = null;
+                    String ownerAddress = null;
+                    String ownerEmail = null;
+                    boolean twoFA = false; // Default value for boolean
+
+                    Restaurant restaurant = null;
+
+                    RestaurantDAO restaurantDAO = new RestaurantDAO();
+                    restaurant = restaurantDAO.getRestaurantByUserId(user_id);
+
+                    if (restaurant != null) {
+                        restaurantId = restaurant.getRestaurantId();
+                        name = restaurant.getName();
+                        address = restaurant.getAddress();
+                        phone = restaurant.getPhone();
+                        locationName = restaurant.getLocation();
+                        minPrice = restaurant.getMinPrice();
+                        maxPrice = restaurant.getMaxPrice();
+                        avgRating = restaurant.getRating();
+                        category1 = restaurant.getCategory1();
+                        category2 = restaurant.getCategory2();
+                        category3 = restaurant.getCategory3();
+                        restaurantImagePath = request.getContextPath() + '/' + restaurant.getImage();
+
+                        // Owner details
+                        ownerPhone = restaurant.getOwnerPhone();
+                        ownerAddress = restaurant.getOwnerAddress();
+                        ownerEmail = restaurant.getOwnerEmail();
+                        twoFA = restaurant.isTwoStepVerification();
+                    }
+                %>
                 <main>
                     <h2 class="dash-title">Orders</h2>
 
@@ -144,134 +199,46 @@
                                     </thead>
                                     <tbody>
                                         <%
-                                            // Assuming restaurantId is passed dynamically from session or request
-                                            int restaurantId = 101; // For debugging
+                                            // Create an instance of OrderDetailsDAO to call the non-static method
+                                            OrderDetailsDAO orderDetailsDAO = new OrderDetailsDAO();
 
-                                            Connection conn = null;
-                                            PreparedStatement stmt = null;
-                                            ResultSet rs = null;
+                                            // Fetch order details by restaurant ID using the function
+                                            List<OrderDetails> orderDetailsList = orderDetailsDAO.getOrderDetailsByRestaurantId(restaurantId); // Assuming restaurantId is available
 
-                                            // SQL Query to fetch orders with additional payment information and items ordered
-                                            String orderSql = "SELECT o.order_id, "
-                                                    + "o.total_amount, "
-                                                    + "o.order_status, "
-                                                    + "o.order_date, "
-                                                    + "p.payment_method, "
-                                                    + "p.payment_status, "
-                                                    + "mi.item_name, "
-                                                    + "oi.quantity "
-                                                    + "FROM orders o "
-                                                    + "LEFT JOIN payments p ON o.order_id = p.order_id "
-                                                    + "LEFT JOIN order_items oi ON o.order_id = oi.order_id "
-                                                    + "LEFT JOIN menu_items mi ON oi.item_id = mi.item_id "
-                                                    + "WHERE o.restaurant_id = ?";
+                                            // Loop through the orders and display each order's details
+                                            for (OrderDetails orderDetails : orderDetailsList) {
+                                                StringBuilder itemsOrdered = new StringBuilder();
 
-                                            List<String[]> orderDetailsList = new ArrayList<String[]>();  // List to store order details
-                                            int currentOrderId = -1;
-                                            StringBuilder itemsOrdered = new StringBuilder();
-                                            String orderStatus = "";
-                                            double totalAmount = 0;
-                                            java.sql.Timestamp orderDate = null;
-                                            String paymentMethod = "";
-                                            String paymentStatus = "";
-
-                                            try {
-                                                conn = Database.getConnection();
-                                                stmt = conn.prepareStatement(orderSql);
-                                                stmt.setInt(1, restaurantId); // Set the restaurantId dynamically
-                                                rs = stmt.executeQuery();
-
-                                                // Process the result set and populate orderDetailsList
-                                                while (rs.next()) {
-                                                    int orderId = rs.getInt("order_id");
-
-                                                    // When a new order is encountered, save the previous order's details
-                                                    if (orderId != currentOrderId && currentOrderId != -1) {
-                                                        orderDetailsList.add(new String[]{
-                                                            String.valueOf(currentOrderId),
-                                                            String.valueOf(totalAmount),
-                                                            orderStatus,
-                                                            new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(orderDate),
-                                                            paymentMethod,
-                                                            paymentStatus,
-                                                            itemsOrdered.toString()
-                                                        });
-                                                        itemsOrdered.setLength(0); // Clear the StringBuilder for the next order
-                                                    }
-
-                                                    // Update order-level details
-                                                    currentOrderId = orderId;
-                                                    totalAmount = rs.getDouble("total_amount");
-                                                    orderStatus = rs.getString("order_status");
-                                                    orderDate = rs.getTimestamp("order_date");
-                                                    paymentMethod = rs.getString("payment_method");
-                                                    paymentStatus = rs.getString("payment_status");
-
-                                                    // Append item details for the current order
+                                                // Build item string for this order
+                                                for (OrderItem item : orderDetails.getItems()) {
                                                     if (itemsOrdered.length() > 0) {
                                                         itemsOrdered.append(", ");
                                                     }
-                                                    itemsOrdered.append(rs.getInt("quantity")).append("x ").append(rs.getString("item_name"));
+                                                    itemsOrdered.append(item.getQuantity()).append("x ").append(item.getItemName());
                                                 }
-
-                                                // Add the last order's details to the list
-                                                if (currentOrderId != -1) {
-                                                    orderDetailsList.add(new String[]{
-                                                        String.valueOf(currentOrderId),
-                                                        String.valueOf(totalAmount),
-                                                        orderStatus,
-                                                        new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(orderDate),
-                                                        paymentMethod,
-                                                        paymentStatus,
-                                                        itemsOrdered.toString()
-                                                    });
-                                                }
-                                            } catch (SQLException e) {
-                                                e.printStackTrace();
-                                            } finally {
-                                                // Close resources
-                                                try {
-                                                    if (rs != null) {
-                                                        rs.close();
-                                                    }
-                                                    if (stmt != null) {
-                                                        stmt.close();
-                                                    }
-                                                    if (conn != null) {
-                                                        conn.close();
-                                                    }
-                                                } catch (SQLException e) {
-                                                    e.printStackTrace();
-                                                }
-                                            }
-                                        %>
-
-                                        <%
-                                            // Loop through the orders and display each order's details
-                                            for (String[] orderDetails : orderDetailsList) {
                                         %>
                                         <tr>
-                                            <td><%= orderDetails[0]%></td>
-                                            <td><%= orderDetails[1]%></td>
-                                            <td><%= orderDetails[2]%></td>
-                                            <td><%= orderDetails[3]%></td>
-                                            <td><%= orderDetails[4]%></td>
-                                            <td><%= orderDetails[5]%></td>
-                                            <td><%= orderDetails[6]%></td> <!-- Display ordered items -->
+                                            <td><%= orderDetails.getOrderId()%></td>
+                                            <td><%= orderDetails.getTotalAmount()%></td>
+                                            <td><%= orderDetails.getOrderStatus()%></td>
+                                            <td><%=orderDetails.getOrderDate()%></td>
+                                            <td><%= orderDetails.getPaymentMethod()%></td>
+                                            <td><%= orderDetails.getPaymentStatus()%></td>
+                                            <td><%= itemsOrdered.toString()%></td> <!-- Display ordered items -->
                                             <td>
                                                 <%
                                                     // Display button for "Food Ready" if the status is "Pending"
-                                                    if ("Pending".equals(orderDetails[2])) {
+                                                    if ("Pending".equals(orderDetails.getOrderStatus())) {
                                                 %>
                                                 <form action="http://localhost:8080/Platera-Main/UpdateOrderStatus" method="POST">
-                                                    <input type="hidden" name="order_id" value="<%= orderDetails[0]%>">
-                                                     <input type="hidden" name="order_status" value="Ready">
+                                                    <input type="hidden" name="order_id" value="<%= orderDetails.getOrderId()%>">
+                                                    <input type="hidden" name="order_status" value="Ready">
                                                     <button type="submit" class="food-ready-btn">Food Ready</button>
                                                 </form>
                                                 <%
                                                     } else {
                                                         // Display current status if not "Pending"
-                                                        out.print("<span>" + orderDetails[2] + "</span>");
+                                                        out.print("<span>" + orderDetails.getOrderStatus() + "</span>");
                                                     }
                                                 %>
                                             </td>
@@ -284,6 +251,7 @@
                             </div>
                         </div>
                     </section>
+
 
 
 

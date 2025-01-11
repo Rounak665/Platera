@@ -29,13 +29,13 @@ public class RestaurantUpdateDish extends HttpServlet {
 
         try {
             // Retrieve and validate form parameters
-            int itemId = Integer.parseInt(request.getParameter("dish-id"));
-            String itemName = request.getParameter("dish-name");
-            double price = Double.parseDouble(request.getParameter("dish-price"));
-            String categoryParam = request.getParameter("dish-category");
+            int itemId = Integer.parseInt(request.getParameter("item_id")); // From hidden input field
+            String itemName = request.getParameter("dish-name"); // From 'dish-name' field
+            double price = Double.parseDouble(request.getParameter("dish-price")); // From 'dish-price' field
+            String categoryParam = request.getParameter("dish-category"); // From 'dish-category' dropdown
             int categoryId = Integer.parseInt(categoryParam);
             String availabilityParam = request.getParameter("dish-availability");
-            String availability = ("on".equals(availabilityParam)) ? "Y" : "N";
+            String availability = ("on".equals(availabilityParam)) ? "Y" : "N"; // Checkbox logic
 
             // Handle the image upload if present
             Part imagePart = request.getPart("dish-image");
@@ -50,8 +50,8 @@ public class RestaurantUpdateDish extends HttpServlet {
                 imageFileName = imageFileName.replaceAll("[^a-zA-Z0-9.-]", "_");
 
                 // Calculate the path relative to the web folder (Platera-Main/web)
-                String realPath = getServletContext().getRealPath("/");  
-                String projectRoot = new File(realPath).getParentFile().getParent();  // Step back two levels to reach the Platera-Main root
+                String realPath = getServletContext().getRealPath("/");
+                String projectRoot = new File(realPath).getParentFile().getParent(); // Step back two levels to reach the Platera-Main root
                 String imageDirectoryPath = projectRoot + File.separator + "web" + File.separator + IMAGE_DIRECTORY;
 
                 // Ensure the directory exists
@@ -85,21 +85,21 @@ public class RestaurantUpdateDish extends HttpServlet {
 
                     // If there is an image, store the relative path (without the "web/" part)
                     if (imageFileName != null) {
-                        stmt.setString(5, IMAGE_DIRECTORY + "/" + imageFileName);  // Store the relative path in the database
+                        stmt.setString(5, IMAGE_DIRECTORY + "/" + imageFileName); // Store the relative path in the database
                     } else {
-                        stmt.setNull(5, java.sql.Types.VARCHAR);  // If no image, set it as null
+                        stmt.setNull(5, java.sql.Types.VARCHAR); // If no image, set it as null
                     }
                     stmt.setInt(6, itemId);
 
                     stmt.executeUpdate();
                 }
-                response.sendRedirect("src/pages/Restaurant/Menu.jsp?success=DishUpdated");
+                response.sendRedirect("src/pages/Restaurant/RestaurantMenu.jsp?success=DishUpdated");
             }
         } catch (NumberFormatException e) {
-            response.sendRedirect("src/pages/Restaurant/Menu.jsp?error=InvalidNumberFormat");
+            response.sendRedirect("src/pages/Restaurant/RestaurantMenu.jsp?error=InvalidNumberFormat");
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("src/pages/Restaurant/Menu.jsp?error=UnexpectedError");
+            response.sendRedirect("src/pages/Restaurant/RestaurantMenu.jsp?error=UnexpectedError");
         }
     }
 }

@@ -7,9 +7,8 @@ public class OrderItem {
     private String itemName;
     private int quantity;
     private String image;
+    private double price;
 
-    // Constructor to initialize the OrderItem
-    
     OrderItem() {
     }
     
@@ -47,6 +46,9 @@ public class OrderItem {
     public int getQuantity() {
         return quantity;
     }
+    public double getPrice(){
+    return price;
+}
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
@@ -57,5 +59,8 @@ public class OrderItem {
 
     public void setImage(String image) {
         this.image = image;
+    }
+    public void setPrice(double price){
+        this.price=price;
     }
 }

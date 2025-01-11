@@ -1,3 +1,5 @@
+<%@page import="Utilities.Restaurant"%>
+<%@page import="Utilities.RestaurantDAO"%>
 <%@page import="Utilities.MenuItems"%>
 <%@page import="Utilities.MenuItemsDAO"%>
 <%@page import="java.util.List"%>
@@ -25,7 +27,7 @@
             </div>
         </div>
 
-        
+
         <!-- loader -->
         <div class="loader">
             <div id="pl">
@@ -98,7 +100,7 @@
                     <h2 class="dash-title">Menu</h2>
 
                     <div class="page-action">
-                        <button class="btn btn-main" id="add-menu-btn" onclick="location.href = './EditDish.jsp'"><span class="icon"><ion-icon name="add-circle"></ion-icon></span> Add menu item</button>
+                        <button class="btn btn-main" id="add-menu-btn" onclick="location.href = './AddDish.jsp'"><span class="icon"><ion-icon name="add-circle"></ion-icon></span> Add menu item</button>
                     </div>
 
                     <section class="recent">
@@ -118,13 +120,62 @@
                                     </thead>
                                     <tbody id="menu-table">
                                         <%
+                                            // Simulate session attributes for debugging
+                                            // int user_id = (Integer) session.getAttribute("user_id");
+                                            int user_id = 185;
+
+                                            int restaurantId = 0; // Default value for int
+                                            String name = null;
+                                            String address = null;
+                                            String phone = null;
+                                            String locationName = null;
+                                            double minPrice = 0.0; // Default value for double
+                                            double maxPrice = 0.0; // Default value for double
+                                            double avgRating = 0.0; // Default value for double
+                                            String category1 = null;
+                                            String category2 = null;
+                                            String category3 = null;
+                                            String restaurantImagePath = null;
+
+                                            // Owner details
+                                            String ownerPhone = null;
+                                            String ownerAddress = null;
+                                            String ownerEmail = null;
+                                            boolean twoFA = false; // Default value for boolean
+
+                                            Restaurant restaurant = null;
+
+                                            RestaurantDAO restaurantDAO = new RestaurantDAO();
+                                            restaurant = restaurantDAO.getRestaurantByUserId(user_id);
+
+                                            if (restaurant != null) {
+                                                restaurantId = restaurant.getRestaurantId();
+                                                name = restaurant.getName();
+                                                address = restaurant.getAddress();
+                                                phone = restaurant.getPhone();
+                                                locationName = restaurant.getLocation();
+                                                minPrice = restaurant.getMinPrice();
+                                                maxPrice = restaurant.getMaxPrice();
+                                                avgRating = restaurant.getRating();
+                                                category1 = restaurant.getCategory1();
+                                                category2 = restaurant.getCategory2();
+                                                category3 = restaurant.getCategory3();
+                                                restaurantImagePath = request.getContextPath() + '/' + restaurant.getImage();
+
+                                                // Owner details
+                                                ownerPhone = restaurant.getOwnerPhone();
+                                                ownerAddress = restaurant.getOwnerAddress();
+                                                ownerEmail = restaurant.getOwnerEmail();
+                                                twoFA = restaurant.isTwoStepVerification();
+                                            }
+                                        %>
+
+                                        <%
                                             MenuItemsDAO menuItemsDAO = new MenuItemsDAO();
 
                                             // Get restaurant_id from session
 //                                            Integer restaurantId = (Integer) session.getAttribute("restaurant_id");
-                                            Integer restaurantId = 101;
-
-                                            if (restaurantId == null) {
+                                            if (restaurantId == 0) {
                                         %>
                                         <tr>
                                             <td colspan="7">Restaurant not found. Please log in again.</td>
@@ -155,10 +206,16 @@
                                             <td><%= item.getPrice()%></td>
                                             <td><%= availability%></td>
                                             <td>
-                                                <form action="http://localhost:8080/Platera-Main/RestaurantEditDish" method="POST">
-                                                    <input type="hidden" name="id" value="<%= item.getItemId()%>">
+                                                <form action="http://localhost:8080/Platera-Main/src/pages/Restaurant/EditDish.jsp" method="POST">
+                                                    <input type="hidden" name="item_id" value="<%= item.getItemId()%>">
+                                                    <input type="hidden" name="item_name" value="<%= item.getItemName()%>">
+                                                    <input type="hidden" name="category_id" value="<%= item.getCategoryId()%>">
+                                                    <input type="hidden" name="price" value="<%= item.getPrice()%>">
+                                                    <input type="hidden" name="availability" value="<%= item.isAvailability()%>">
+                                                    <input type="hidden" name="image" value="<%= item.getImage()%>">
                                                     <button type="submit" class="btn-edit">Edit</button>
                                                 </form>
+
                                                 <form action="http://localhost:8080/Platera-Main/DeleteDish" method="POST" onsubmit="return confirm('Are you sure you want to delete this dish?');">
                                                     <input type="hidden" name="id" value="<%= item.getItemId()%>">
                                                     <button type="submit" class="btn-delete">Delete</button>
