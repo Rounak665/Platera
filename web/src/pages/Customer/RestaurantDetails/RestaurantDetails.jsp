@@ -27,8 +27,8 @@
 
         <%
             // Retrieve user_id from the session
-            Integer user_id = (Integer) session.getAttribute("user_id");
-//            int user_id = 201;
+//            Integer user_id = (Integer) session.getAttribute("user_id");
+            int user_id = 201;
 
             // Initialize necessary variables
             String name = "";
@@ -59,12 +59,12 @@
             imagepath = request.getContextPath() + '/' + image;
 
         %>
-        
-        
+
+
         <%            //Actual code
-        int restaurantId = Integer.parseInt(request.getParameter("restaurantId"));
+//            int restaurantId = Integer.parseInt(request.getParameter("restaurantId"));
             //For debugging
-//            int restaurantId = 101;
+            int restaurantId = 101;
 
             RestaurantDAO restaurantDAO = new RestaurantDAO();
             Restaurant restaurant = restaurantDAO.getRestaurantById(restaurantId);
@@ -284,8 +284,12 @@
             <h2>Reviews</h2>
             <div class="reviews">
                 <%
-                    // Fetch and display reviews for the restaurant
-                    String reviewQuery = "SELECT * FROM reviews WHERE restaurant_id = ?";
+                    // Updated query to fetch reviews with customer and user details
+                    String reviewQuery = "SELECT r.rating, r.review_text, r.review_date, u.name "
+                            + "FROM reviews r "
+                            + "JOIN customers c ON r.customer_id = c.customer_id "
+                            + "JOIN users u ON c.user_id = u.user_id "
+                            + "WHERE r.restaurant_id = ?";
                     try {
                         con = Database.getConnection();
                         ps = con.prepareStatement(reviewQuery);
@@ -293,13 +297,15 @@
                         rs = ps.executeQuery();
 
                         while (rs.next()) {
-                            String reviewText = rs.getString("review_text");
-                            String reviewerName = rs.getString("reviewer_name");
                             int rating = rs.getInt("rating");
+                            String reviewText = rs.getString("review_text");
+                            String reviewDate = rs.getString("review_date");
+                            String reviewerName = rs.getString("name");
                 %>
                 <div class="review">
-                    <h4><%= reviewerName %> - ⭐<%= rating %></h4>
-                    <p><%= reviewText %></p>
+                    <h4><%= reviewerName%> - ⭐<%= rating%></h4>
+                    <p><%= reviewText%></p>
+                    <small>Reviewed on: <%= reviewDate%></small>
                 </div>
                 <%
                         }
@@ -307,20 +313,27 @@
                         e.printStackTrace();
                     } finally {
                         try {
-                            if (rs != null) rs.close();
-                            if (ps != null) ps.close();
-                            if (con != null) con.close();
+                            if (rs != null) {
+                                rs.close();
+                            }
+                            if (ps != null) {
+                                ps.close();
+                            }
+                            if (con != null) {
+                                con.close();
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                 %>
             </div>
+
             <div class="review-form">
                 <h3>Leave a Review</h3>
-                <form action="SubmitReviewServlet" method="POST">
-                    <input type="hidden" name="restaurantId" value="<%= restaurantId %>">
-                    <input type="hidden" name="customerId" value="<%= customer_id %>">
+                <form action="http://localhost:8080/Platera-Main/SubmitReview" method="POST">
+                    <input type="hidden" name="restaurantId" value="<%= restaurantId%>">
+                    <input type="hidden" name="customerId" value="<%= customer_id%>">
                     <label for="reviewText">Your Review:</label>
                     <textarea name="reviewText" id="reviewText" rows="4" required></textarea>
                     <label for="rating">Rating:</label>
@@ -336,7 +349,7 @@
             </div>
         </section>
 
-                <!-- Footer Section -->
+        <!-- Footer Section -->
 
         <footer>
             <div class="container_footer">

@@ -46,7 +46,7 @@
         <header>
             <div class="nav_bar">
                 <div class="logo">
-                    <img src="./Assets/PlateraLogo-red.png" alt="logo" height="70px" >
+                    <img src="./assets/PlateraLogo-red.png" alt="logo" height="70px" >
                 </div>
                 <div class="nav_links">
                     <ul class="nav_list">
