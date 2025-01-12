@@ -105,7 +105,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    transition: width 500ms;
+    transition: 500ms;
     position: fixed;
     left: 0;
     top: 0;
@@ -179,10 +179,18 @@ body {
 
 .sidebar-toggle.menu {
     display: none;
+    
+}
+.sidebar-toggle.menu .ico1{
+    font-size: 35px;
 }
 
 .sidebar-toggle.close-btn {
     display: none;
+    font-size: 25px;
+}
+.sidebar-toggle.close-btn .ico {
+    font-size: 50px;
 }
 
 .sidebar.activate {
@@ -193,9 +201,13 @@ body {
 .sidebar.activate .menu {
     display: none;
 }
+.sidebar.activate li span:last-child{
+    display: block;
+}
 
 .sidebar.activate .close-btn {
     display: flex;
+    justify-content: center;
 }
 
 
@@ -1580,94 +1592,180 @@ input:checked + .slider::before {
 
     .sidebar-toggle.menu{
         display: flex;
+        margin: -10px;
+    }
+    .main-content{
+        margin-left: 60px;
+    }
+    .profile-header{
+        width: calc(100% - 60px);
+        left: 60px;
+    }
+    .profile-header h1{
+        margin-right: 10px;
     }
 }
 
 /* Mobile */
-@media screen and (max-width: 768px) {
+/* Media Query for Devices with Width Less than 768px (Tablets and Smaller Devices) */
+@media (max-width: 768px) {
+    /* Sidebar */
+    
 
-    .sidebar {
-        width: 100%; /* Full-width sidebar */
-        height: 100%;
+    .sidebar-header .logo img {
+        width: 40px; 
     }
 
+    .sidebar-menu li a {
+        font-size: 14px; 
+        padding: 8px;
+    }
+
+    .sidebar-menu li .icon {
+        margin-right: 0; 
+    }
+
+    .sidebar.activate {
+        width: 100%;
+    }
+
+    .sidebar-toggle.menu {
+        display: flex;
+    }
+
+    /* Main Content */
     .main-content {
+        margin-left: 60px; 
+    }
+    .profile-header h1{
+        font-size: 18px;
+    }
+}
+
+/* Media Query for Devices with Width Less than 480px (Mobile Phones) */
+@media (max-width: 480px) {
+    /* Body */
+    body {
+        font-size: 14px; /* Reduce default font size */
+    }
+
+    /* Sidebar */
+    .sidebar {
+        width: 60px;
+    height: 60px;
+    position: fixed;
+    top: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+    overflow: hidden;
+    }
+    .sidebar.activate {
+        width: 80vw;
+        height: 100vh;
+    }
+
+    .sidebar-header {
+        display: none; /* Hide header on mobile */
+    }
+
+    .sidebar-menu ul {
+        flex-direction: row; /* Horizontal menu */
+    }
+
+    .sidebar-menu li {
+        margin: 0 5px; /* Space between menu items */
+    }
+    
+
+    .sidebar-menu li .icon {
+        font-size: 18px; /* Adjust icon size */
+    }
+
+    /* Content */
+    .content {
+        margin-left: 0;
+    }
+
+    /* Profile Header */
+    .profile-header {
+        align-items: center;
+        text-align: center;
+        background-color: #ff0000ef;
+    }
+
+    .profile-header h1 {
+        display: none;
+    }
+
+    .profile-header .edit_btn {
+        width: 110px; /* Full width button */
+    }
+
+    /* Order Section */
+    .dashboard-section {
+        padding: 10px;
+    }
+
+    .main-content{
         margin-left: 0;
         margin-top: 60px;
     }
 
-    .sidebar-header {
-        display: flex;
-        justify-content: center;
+    .order-card {
+        width: 100%; /* Full width cards */
+        margin-bottom: 15px; /* Spacing between cards */
+        font-size: 14px; /* Smaller text */
     }
 
-    .sidebar-menu li {
-        text-align: center;
+    .order-card h2 {
+        font-size: 16px;
     }
 
-    .profile-header {
-        left: 0;
-        width: 100%;
-    }
-
-    .sidebar-toggle {
-        display: flex;
-    }
-
-    .dashboard-container {
-        flex-direction: column;
-    }
-
-    .dashboard-section .content {
-        padding: 10px;
-    }
-    
-    /* Adjust Table */
-    table {
-        font-size: 14px;
-    }
-
-    .table-container {
-        margin: 10px 0;
-    }
-}
-
-/* Mobile (Small Screens) */
-@media screen and (max-width: 480px) {
-
-    .sidebar {
-        display: none; /* Hide sidebar on small screens */
-    }
-
-    .main-content {
-        margin-left: 0;
-    }
-
-    .sidebar-toggle {
-        display: flex;
-    }
-
-    .profile-header {
-        padding: 0 10px;
-    }
-
-    .profile-header h1 {
-        font-size: 18px;
-    }
-
-    .table-container {
-        margin: 10px 0;
-    }
-
-    table {
+    .order-card .info div {
         font-size: 12px;
     }
 
-    .sidebar-header {
-        display: flex;
-        justify-content: center;
+    .order-menu1 .item {
+        flex-direction: column; /* Stack item details */
+        align-items: center;
+        text-align: center;
+    }
+
+    .order-menu1 .item img {
+        max-width: 80px; /* Smaller images */
+    }
+
+    .order-menu1 .details {
+        margin-top: 5px; /* Spacing from image */
     }
 }
+
+/* Adjustments for Very Small Screens (<375px) */
+@media (max-width: 375px) {
+    .sidebar-menu li a {
+        font-size: 10px; /* Further reduce font size */
+        padding: 4px;
+    }
+
+    .order-card {
+        font-size: 12px; /* Reduce text size for cards */
+    }
+
+    .profile-header h1 {
+        font-size: 16px; /* Reduce header font size */
+    }
+
+    .error-popup .error-content {
+        padding: 20px; /* Reduce padding for error popup */
+    }
+
+    .error-content button {
+        padding: 8px 15px; /* Smaller button */
+        font-size: 12px;
+    }
+}
+
 
 
 
