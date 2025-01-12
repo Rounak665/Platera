@@ -67,7 +67,7 @@
 
         <!-- otp popup -->
 
-        <section class="popup">
+        <!-- <section class="popup">
             <div class="otp-popup">
                 <div class="otp-content">
                     <div class="otp-header">
@@ -89,7 +89,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <div>
 
