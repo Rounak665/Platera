@@ -62,9 +62,9 @@
 
 
         <%            //Actual code
-//            int restaurantId = Integer.parseInt(request.getParameter("restaurantId"));
+            int restaurantId = Integer.parseInt(request.getParameter("restaurantId"));
             //For debugging
-            int restaurantId = 101;
+//            int restaurantId = 203;
 
             RestaurantDAO restaurantDAO = new RestaurantDAO();
             Restaurant restaurant = restaurantDAO.getRestaurantById(restaurantId);
