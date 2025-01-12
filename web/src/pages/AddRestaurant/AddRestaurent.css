@@ -196,6 +196,7 @@ body{
     height: 55vh;
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-direction: column;
     border-radius: 10px;
     padding: 25px;
@@ -209,7 +210,7 @@ body{
     width: 40px;
     cursor: pointer;
 }
-.container1 .close-btn .ico{
+.container1 .close-btn .icon{
     height: 100%;
     width: 100%;
 }
@@ -217,6 +218,7 @@ body{
     font-size: 2rem;
     font-weight: 550;
     color: rgb(87, 87, 87);
+    margin-bottom: 20px;
 }
 .container1 .contact_form{
     width: 100%;
@@ -1090,6 +1092,9 @@ footer .col ul li a{
     text-decoration: none;
     color: #f4f4f4;
 }
+footer .col ul li a:hover{
+    color: #FFD04D;
+}
 footer .row .col form{
     padding-bottom: 15px;
     display: flex;
@@ -1097,6 +1102,15 @@ footer .row .col form{
     justify-content: space-between;
     border-bottom: 1px solid rgb(255, 255, 255);
     margin-bottom: 50px;
+}
+.fa-solid{
+    font-size: 18px;
+    color: #f4f4f4;
+}
+.fa-solid .fa-envelope{
+    width: 18px;
+    margin-right: 19px;
+    margin-bottom: 0;
 }
 form #mail{
     width: 18px;

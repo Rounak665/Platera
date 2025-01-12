@@ -1,65 +1,339 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
+*{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
-.navbar {
-    background-color: #333;
-    overflow: hidden;
+
+/* Scrollbar Container */
+::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+    height: 10px; /* Height for horizontal scrollbar */
 }
-.navbar a {
-    float: left;
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 20px;
-    text-decoration: none;
+
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Track background */
+    border-radius: 5px; /* Rounded track */
 }
-.navbar a:hover {
-    background-color: #ddd;
-    color: black;
+
+/* Scrollbar Thumb */
+::-webkit-scrollbar-thumb {
+    background-color: #F12630; /* Scrollbar color */
+    border-radius: 5px; /* Rounded scrollbar */
+    border: 2px solid #f1f1f1; /* Creates space around thumb */
 }
-.hero {
-    position: relative;
-    text-align: center;
-    color: white;
+
+/* Hover Effect on Scrollbar Thumb */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #FFD04D; /* Darker shade on hover */
 }
-.hero img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
+
+body {
+    font-family: 'Outfit', sans-serif;
 }
-.hero .search-bar {
-    position: absolute;
+
+/* Error Popup Styles */
+.error-popup {
+    display: none; /* Hidden by default */
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it is above other elements */
+}
+
+.error-content {
+    background-color: #fff;
+    padding: 50px 20px;
+    border-radius: 8px;
+    text-align: center;
     max-width: 600px;
+    width: 80%;
 }
-.search-bar input[type="text"] {
-    width: calc(100% - 110px);
-    padding: 10px;
-    font-size: 18px;
-    border: none;
+
+.error-content h2 {
+    margin: 0 0 10px;
 }
-.search-bar button {
-    padding: 10px;
-    font-size: 18px;
+
+.error-content p {
+    margin: 0 0 20px;
+}
+
+.error-content button {
+    padding: 10px 20px;
+    background-color: #F12630;
+    color: #fff;
     border: none;
-    background-color: #ff6347;
-    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.error-content button:hover {
+    transform: scale(1.05);
+    background-color: #FFD04D; /* Darker shade on hover */
+    font-weight: bold;
+    color: rgb(30, 30, 30);
+}
+
+.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 120px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+    color: #f8f8f8;
+    position: absolute;
+    top: 0;
+    z-index: 2;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 35px; /* Added gap between logo and location dropdown */
+}
+
+.logo {
+    width: 150px;
+    margin-right: 15px;
+}
+
+.location-select {
+    padding: 5px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    color: #f8f8f8;
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;  
+}
+.nav-links a:hover {
+    color: #F12630;
+    text-decoration: none;
+}
+.nav-links #active a{
+    color: #F12630;
+}
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-icons i {
+    font-size: 1.5rem;
+    margin-left: 15px;
     cursor: pointer;
 }
-.dishes, .cuisines, .popular-dishes {
+
+.hamburger-menu {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.side-section {
+    position: fixed;
+    top: 0;
+    right: -30%;
+    width: 30%;
+    height: 100%;
+    background-color: #fff;
+    /* box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5); */
+    padding: 20px;
+    transition: right 0.3s ease;
+    z-index: 1000;
+}
+
+.profile-section {
+    background-color: #f9f9f9;
+}
+
+.cart-section {
+    background-color: #e9e9e9;
+}
+
+.side-section.active {
+    right: 0;
+}
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+}
+
+.close-btn:hover {
+    color: #000;
+}
+
+
+/* Breakpoints for responsiveness */
+
+/* Large screens (e.g., TVs) */
+@media (min-width: 1400px) {
+    .navbar {
+        padding: 20px 250px; /* Increased padding for larger screens */
+    }
+    .nav-left{
+        gap: 20px; /* Increased spacing between logo and location dropdown */   
+    }
+    .nav-links {
+        gap: 20px; /* Increased spacing between links */
+    }
+    .nav-icons{
+        gap: 15px;
+    }
+}
+
+/* Desktops */
+@media (max-width: 1400px) {
+    .nav-links {
+        gap: 5px;
+    }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #333;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .hamburger-menu {
+        display: block;
+    }
+
+    .navbar {
+        padding: 10px 20px; /* Reduced padding for smaller screens */
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+    .navbar {
+
+        flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+        padding: 20px 35px;
+    }
+
+    .search-container {
+        display: none;
+    }
+
+    #selected-location{
+        display: none;
+    }
+
+    .logo {
+        width: 100px; /* Smaller logo for mobile */
+    }
+
+    .location-select {
+        width: 100%;
+        margin-top: 10px; /* Location dropdown as a block element */
+    }
+
+    .nav-icons {
+        margin-top: 10px;
+    }
+
+    .hamburger-menu {
+        margin-top: 10px;
+    }
+}
+
+/* General Banner Styling (Same as before) */
+.banner {
+    position: relative;
+    width: 100%;
+    height: 30vh;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 4s ease-in-out; /* Smooth transition */
+}
+/* Background Images */
+.banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('../Menu/Assets/slide1.png'); /* Set initial image */
+    background-position: center;
+    animation: slide 15s infinite;
+    z-index: 1;
+    transition: background-image 4s ease-in-out; /* Smooth transition */
+}
+.banner-content {
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.banner h2 {
+    font-size: 2.5rem;
+    /* margin-bottom: 20px; */
+}
+
+.popular-dishes {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
     padding: 20px;
     text-align: center;
 }
-.dishes h2, .cuisines h2, .popular-dishes h2 {
+.popular-dishes h2 {
     margin-bottom: 20px;
 }
-.carousel-container, .cuisine-list, .dish-cards {
+.dish-cards {
+    margin-top: 20px;
+    width: 60%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -68,20 +342,47 @@ body {
     display: flex;
     transition: transform 0.3s ease-in-out;
 }
-.carousel-slide, .cuisine, .dish-card {
+.carousel-slide{
     margin: 10px;
     text-align: center;
     width: 200px;
 }
-.carousel-slide img, .cuisine img, .dish-card img {
+.cuisine{
+    margin: 10px;
+    text-align: center;
+    width: 260px;
+}
+.dish-card{
+    box-shadow: 0 0 5px 1px #d4d4d499;
+    border-radius: 10px;
+    background-color: #f4f4f4;
+    padding: 10px;
+    margin: 10px;
+    text-align: left;
+    width: 260px;
+    height: 400px;
+}
+.carousel-slide img{
     width: 100%;
-    height: auto;
+    height: 80%;
+    object-fit: cover;
+}
+.cuisine img{
+    width: 100%;
+    height: 70%;
+    object-fit: cover;
+}
+
+.dish-card img {
+    border-radius: 10px;
+    width: 100%;
+    height: 50%;
     object-fit: cover;
 }
 .carousel-button, .add-to-cart, .view-cart {
     padding: 10px;
     font-size: 16px;
-    margin: 5px;
+    /* margin: 5px; */
     cursor: pointer;
 }
 .carousel-button {
@@ -101,14 +402,28 @@ body {
     right: 10px;
 }
 .add-to-cart {
-    background-color: #4CAF50;
-    color: white;
+    margin-top: 8%;
+    margin-right: 5px;
+    border-radius: 8px;
+    background-color: #FFD04D;
+    color: #333;
+    font-weight: bold;
     border: none;
+    transition: all 0.3s ease;
+}
+.add-to-cart:hover {
+    transform: scale(1.1);
 }
 .view-cart {
-    background-color: #008CBA;
+    background-color: #F12630;
     color: white;
     border: none;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.view-cart:hover {
+    transform: scale(1.1);
 }
 .dish-card p {
     margin: 5px 0;
@@ -155,3 +470,152 @@ body {
         width: 100%;
     }
 }
+
+.blank-section{
+    width: 100%;    
+    height: 100px;
+}
+
+/* Footer section */
+footer{
+    width: 100%;
+    position: relative;
+    bottom: 0;
+    z-index: 1;
+    /* right: 100; */
+    background-color: rgb(38, 38, 38);
+    color: rgb(255, 255, 255);
+    padding: 100px 0 30px 0;
+    border-top-left-radius: 125px;
+    font-size: 13px;
+    line-height: 20px;
+  }
+  footer .row{
+    width: 85%;
+    margin: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  footer .col{
+    flex-basis: 25%;
+    padding: 10px;
+  }
+  .col:nth-child(2), .col:nth-child(3){
+    flex-basis: 15%;
+  }
+  footer .col img{
+    width: 200px;
+    margin-bottom: 20px;
+  }
+  .col h3{
+    width: fit-content;
+    margin-bottom: 40px;
+    position: relative;
+  }
+  #newsletter-email::placeholder{
+      color: #f4f4f4
+  }
+  .email_id{
+    width: fit-content;
+    border-bottom: 1px solid rgb(255, 255, 255);
+    margin: 20px 0;
+  }
+  footer .col ul li{
+    list-style: none;
+    margin-bottom: 12px;
+  }
+  footer .col ul li a{
+    text-decoration: none;
+    color: #f4f4f4;
+  }
+  footer .col ul li a:hover{
+    color: #FFD04D;
+    transition: 0.3s;
+  }
+  footer .row .col form{
+    padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(255, 255, 255);
+    margin-bottom: 50px;
+  }
+  form #mail{
+    width: 18px;
+    margin-right: 10px;
+    margin-bottom: 0;
+  }
+  form #send{
+    width: 18px;
+    margin-bottom: 0;
+  }
+  form input{
+    width: 100%;
+    background-color: transparent;
+    outline: none;
+    border: none;
+  /*  color: rgb(255, 255, 255);*/
+  }
+  form button{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+  .social_icon .fa-brands{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    font-size: 30px;
+    color: black;
+    background-color: #f4f4f4;
+    margin-right: 15px;
+    cursor: ponter;
+  }
+  footer hr{
+    width: 90%;
+    border: 0;
+    border-bottom: 1px solid #f4f4f4;
+    margin: 20px auto;
+  }
+  footer p.copyright{
+    text-align: center;
+  }
+  .underline{
+    width: 100%;
+    height: 2px;
+    background-color: #767676;
+    border-radius: 2px;
+    position: absolute;
+    top: 25px;
+    left: 0;
+    overflow: hidden;
+  }
+  .underline span{
+    width: 15px;
+    height: 100%;
+    background-color: #f4f4f4;
+    border-radius: 2px;
+    position: absolute;
+    top: 0;
+    left: 10px;
+    animation: moving 2s linear infinite;
+  }
+  #logout-btn{
+    position: absolute;
+    right: 30px;
+  }
+  
+  @keyframes moving{
+    0%{
+        left: -20px;
+    }    
+    100%{
+        left: 100%;
+    }
+  }
+  
