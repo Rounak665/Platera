@@ -1,19 +1,15 @@
 document.addEventListener("DOMContentLoaded", function() {
   const cardMethod = document.getElementById('cardMethod');
-  const codMethod = document.getElementById('codMethod');
   const netBankingMethod = document.getElementById('netBankingMethod');
 
   const cardDetails = document.getElementById('cardDetails');
-  const codDetails = document.getElementById('codDetails');
   const netBankingDetails = document.getElementById('netBankingDetails');
 
   // Log initial state
   console.log('Initial state of elements:');
   console.log('cardMethod:', cardMethod);
-  console.log('codMethod:', codMethod);
   console.log('netBankingMethod:', netBankingMethod);
   console.log('cardDetails:', cardDetails);
-  console.log('codDetails:', codDetails);
   console.log('netBankingDetails:', netBankingDetails);
 
   // Function to reset the active state and hide all payment details
@@ -28,12 +24,6 @@ document.addEventListener("DOMContentLoaded", function() {
           console.log('cardDetails display set to none');
       } else {
           console.error('cardDetails element not found');
-      }
-      if (codDetails) {
-          codDetails.style.display = 'none';
-          console.log('codDetails display set to none');
-      } else {
-          console.error('codDetails element not found');
       }
       if (netBankingDetails) {
           netBankingDetails.style.display = 'none';
@@ -52,18 +42,6 @@ document.addEventListener("DOMContentLoaded", function() {
       if (cardDetails) {
           cardDetails.style.display = 'block';
           console.log('cardDetails display after click:', cardDetails.style.display);
-      }
-  });
-
-  // Event listener for COD method button
-  codMethod.addEventListener('click', () => {
-      console.log('COD method button clicked');
-      resetActive();
-      codMethod.classList.add('active');
-      console.log('Added active class to codMethod');
-      if (codDetails) {
-          codDetails.style.display = 'block';
-          console.log('codDetails display after click:', codDetails.style.display);
       }
   });
 

@@ -167,13 +167,13 @@
                 
                 <div class="remember-forgot">
                     <label><input type="checkbox">Remember me</label>
-                    <a href="../ForgotPassword/ForgotPassword.jsp">Forgot password?</a>
+                    <a href="../ForgotPassword/ForgotPassword.jsp" target="_blank">Forgot password?</a>
                 </div>
 
                 <button type="submit" class="btn">Login</button>
 
                 <div class="login-register">
-                    <p>Don't have an account? <a href="#" class="register-link" id="link-Signup">Sign Up</a></p>
+                    <p>Don't have an account? <a href="#" class="register-link" id="link-Signup" target="_blank">Sign Up</a></p>
                 </div>
             </form>
         </div>
@@ -189,8 +189,8 @@
             </div>
             <div class="nav_links">
                 <ul class="nav_list">
-                    <li><a href="../../../index.html">Home</a></li>
-                    <li><a href="../ContactUs/ContactUs.html">Contact Us</a></li>
+                    <li><a href="../../../index.html" target="_blank">Home</a></li>
+                    <li><a href="../ContactUs/ContactUs.html" target="_blank">Contact Us</a></li>
                 </ul>
             </div>
             <a href="#"><button class="signin" id="signin">Sign In</button></a>
@@ -417,9 +417,9 @@
                 <div class="col">
                     <h3>Links <div class="underline"><span></span></div></h3>
                     <ul>
-                        <li><a href="../FooterLinkPages/Terms&Conditions/Terms&Conditions.html">Terms & Conditions</a></li>
-                        <li><a href="../FooterLinkPages/PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
-                        <li><a href="../FooterLinkPages/Help/Help.html">Help</a></li>
+                        <li><a href="../FooterLinkPages/Terms&Conditions/Terms&Conditions.html" target="_blank">Terms & Conditions</a></li>
+                        <li><a href="../FooterLinkPages/PrivacyPolicy/PrivacyPolicy.html" target="_blank">Privacy Policy</a></li>
+                        <li><a href="../FooterLinkPages/Help/Help.html" target="_blank">Help</a></li>
                     </ul>
                 </div>
                 <div class="col">
