@@ -34,14 +34,14 @@
 
 /*
 
-    #F12630 RED
+    #F12630 REDff
     #FFD04D YELLOW
     
 */
 
 /* Error Popup Styles */
 .error-popup {
-    display: none; /* Hidden by default */
+    display: none; 
     position: fixed;
     top: 50%;
     left: 50%;
