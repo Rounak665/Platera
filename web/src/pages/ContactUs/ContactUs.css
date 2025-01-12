@@ -459,7 +459,7 @@ body {
 }
 .nav_bar .nav_links .nav_list li{
     list-style: none;
-    margin: 0 20px;
+    margin-left: 60px;
 }
 .nav_bar .nav_links .nav_list li a{
     text-decoration: none;
@@ -468,6 +468,9 @@ body {
 }
 .nav_bar .nav_links ul li a:hover{
     color: rgb(236, 24, 67);
+}
+.nav_links .nav_list #active a{
+    color: #F12630;
 }
 
 .nav_bar .menu{
@@ -889,6 +892,9 @@ footer .col ul li{
 footer .col ul li a{
     text-decoration: none;
     color: #f4f4f4;
+}
+footer .col ul li a:hover{
+    color: #FFD04D;
 }
 footer .row .col form{
     padding-bottom: 15px;

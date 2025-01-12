@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Partner with Us</title>
-    <link rel="stylesheet" href="AddRestaurent.css">
+    <title>Platera - Partner with Us</title>
+    <link rel="stylesheet" href="./AddRestaurent.css">
     <link rel="shortcut icon" href="./Assets/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -125,7 +125,7 @@
                 
                 <div class="remember-forgot">
                     <label><input type="checkbox">Remember me</label>
-                    <a href="#">Forgot password?</a>
+                    <a href="../ForgotPassword/ForgotPassword.jsp">Forgot password?</a>
                 </div>
 
                 <button type="submit" class="btn">Login</button>
@@ -143,7 +143,7 @@
     <header>
         <div class="nav_bar">
             <div class="logo">
-                <img src="./Assets/PlateraLogo-red.png" alt="logo">
+                <a href="../../../index.html"><img src="./Assets/PlateraLogo-red.png" alt="logo"></a>
             </div>
             <div class="nav_links">
                 <ul class="nav_list">
@@ -151,7 +151,7 @@
                     <li><a href="../ContactUs/ContactUs.html">Contact Us</a></li>
                 </ul>
             </div>
-            <a href="#"><button class="signin" id="signin">Sign In</button></a>
+            <a href="#"><button class="signin" id="signin">Sign Up</button></a>
             <span class="menu" style="color: rgb(255, 255, 255);">
                 <i class="fa-solid fa-bars fa-xl"></i>
             </span>
@@ -349,8 +349,8 @@
         <div class="container_footer">
             <div class="row">
                 <div class="col">
-                    <img src="./Public/images/logo.png" alt="">
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quam at nisi veniam voluptatem eveniet obcaecati, modi itaque inventore. Nulla laudantium totam, enim autem aut harum.</p>
+                    <img src="../../../Public/images/PlateraLogo-red.png" alt="">
+                    <p>Platera delivers delicious meals from your favorite local restaurants straight to your door, combining speed and convenience with every order. From quick bites to gourmet dishes, enjoy a world of flavors anytime, anywhere!</p>
                 </div>
                 <div class="col">
                     <h3>Office <div class="underline"><span></span></div></h3>
@@ -363,18 +363,19 @@
                 <div class="col">
                     <h3>Links <div class="underline"><span></span></div></h3>
                     <ul>
-                        <li><a href="#">Terms & Conditions</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Help</a></li>
-                        <li><a href="#">FAQ</a></li>
+                        <li><a href="../FooterLinkPages/Terms&Conditions/Terms&Conditions.html">Terms & Conditions</a></li>
+                        <li><a href="../FooterLinkPages/PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
+                        <li><a href="../FooterLinkPages/Help/Help.html">Help</a></li>
                     </ul>
                 </div>
                 <div class="col">
                     <h3>Newsletter <div class="underline"><span></span></div></h3>
                     <form>
-                        <img id="mail" src="./Public/images/mail.png" alt="">
-                        <input type="email" name="" id="" placeholder="Enter Your Email Address">
-                        <button type="submit"><img id="send" src="./Public/images/send.png" alt=""></button>
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" name="" id="email" placeholder="Enter Your Email Address">
+                        <button type="submit">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
                     </form>
                     <div class="social_icon">
                         <i class="fa-brands fa-facebook"></i>
