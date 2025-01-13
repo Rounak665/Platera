@@ -155,7 +155,7 @@ body {
 
 
 .popupOTP {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     background-color: #4646469f;
@@ -165,7 +165,6 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    display: none;
     overflow: hidden;
 }
 
@@ -182,6 +181,29 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+}
+
+/* Close Button Styles */
+.container1 {
+    position: relative; /* This allows the close button to be positioned relative to this container */
+}
+
+.container1 .close-btn {
+    position: absolute;
+    top: 30px; /* Distance from the top of the container */
+    right: 20px; /* Distance from the right of the container */
+    background: none; /* No background */
+    border: none; /* No border */
+    font-size: 1.5rem; /* Large enough to be noticeable */
+    font-weight: bold; /* Bold for emphasis */
+    color: #333; /* Standard text color */
+    cursor: pointer; /* Pointer cursor for clickability */
+    z-index: 10; /* Ensure it stays above the content */
+}
+
+.container1 .close-btn:hover {
+    color: #ff0000; /* Red on hover */
+
 }
 
 /* Logo Placeholder */
@@ -1374,8 +1396,8 @@ strong{
     width: 100%;
     flex-direction: column;
 }
- /* back btn */
- .back-btn {
+/* back btn */
+.back-btn {
     background: none;
     border: none;
     font-size: 40px; /* Adjust size as needed */

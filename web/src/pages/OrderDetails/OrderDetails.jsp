@@ -16,8 +16,8 @@
         <%
             // Retrieve user_id from the session
 
-              int user_id = (Integer) session.getAttribute("user_id");
-//            int user_id = 201;
+//              int user_id = (Integer) session.getAttribute("user_id");
+            int user_id = 201;
 
             // Initialize necessary variables
             String name = "";

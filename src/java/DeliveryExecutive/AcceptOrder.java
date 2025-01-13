@@ -44,7 +44,7 @@ public class AcceptOrder extends HttpServlet {
             updateStmt.setInt(1, Integer.parseInt(orderId));
             updateStmt.executeUpdate();
 
-            response.getWriter().println("Order accepted and delivery details saved successfully.");
+            response.sendRedirect("src/pages/DeliveryExecutive/DeliveryDashboard.jsp");
         } catch (SQLException e) {
             e.printStackTrace();
             response.sendRedirect("src/pages/Error/DatabaseError.html");

@@ -18,6 +18,34 @@ public class Restaurant {
     private String ownerAddress;
     private String ownerEmail;
     private boolean twoStepVerification;
+    private int locationId;  // New property for location_id
+    private String ownerName;  // New property for owner's name
+    private int ownerId;
+    
+    public int getOwnerId(){
+        return ownerId;
+    }
+    public void setOwnerId(int ownerId){
+        this.ownerId=ownerId;
+    }
+
+    // Getter and Setter for ownerName
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    // Getter and Setter for locationId
+    public int getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(int locationId) {
+        this.locationId = locationId;
+    }
 
     // Constructor
     public Restaurant() {

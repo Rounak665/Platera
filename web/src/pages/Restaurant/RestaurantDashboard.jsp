@@ -1,3 +1,5 @@
+<%@page import="Utilities.Location"%>
+<%@page import="Utilities.LocationDAO"%>
 <%@page import="Utilities.OrderItem"%>
 <%@page import="Utilities.OrderDetails"%>
 <%@page import="Utilities.OrderDetailsDAO"%>
@@ -22,7 +24,61 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     </head>
     <body>
+        <%
+            // Simulate session attributes for debugging
+            // int user_id = (Integer) session.getAttribute("user_id");
+            int user_id = 185;
 
+            int restaurantId = 0; // Default value for int
+            String name = null;
+            String address = null;
+            String phone = null;
+            String locationName = null;
+            int locationId = 0;
+            double minPrice = 0.0; // Default value for double
+            double maxPrice = 0.0; // Default value for double
+            double avgRating = 0.0; // Default value for double
+            String category1 = null;
+            String category2 = null;
+            String category3 = null;
+            String imagePath = null;
+
+            // Owner details
+            String ownerName=null;
+            String ownerPhone = null;
+            String ownerAddress = null;
+            String ownerEmail = null;
+            boolean twoFA = false; // Default value for boolean
+
+            Restaurant restaurant = null;
+
+            RestaurantDAO restaurantDAO = new RestaurantDAO();
+            restaurant = restaurantDAO.getRestaurantByUserId(user_id);
+
+            if (restaurant != null) {
+                restaurantId = restaurant.getRestaurantId();
+                name = restaurant.getName();
+                address = restaurant.getAddress();
+                phone = restaurant.getPhone();
+                locationId = restaurant.getLocationId();
+                locationName = restaurant.getLocation();
+                minPrice = restaurant.getMinPrice();
+                maxPrice = restaurant.getMaxPrice();
+                avgRating = restaurant.getRating();
+                category1 = restaurant.getCategory1();
+                category2 = restaurant.getCategory2();
+                category3 = restaurant.getCategory3();
+                imagePath = request.getContextPath() + '/' + restaurant.getImage();
+
+                // Owner details
+                ownerName = restaurant.getOwnerName();
+                ownerPhone = restaurant.getOwnerPhone();
+                ownerAddress = restaurant.getOwnerAddress();
+                ownerEmail = restaurant.getOwnerEmail();
+                twoFA = restaurant.isTwoStepVerification();
+                
+            }
+        %>
         <!-- Error Popup -->
         <div class="error-popup" id="errorPopup">
             <div class="error-content">
@@ -75,96 +131,70 @@
                     Edit Profile
                 </div>
                 <div class="modal-body">
-                        <form action="http://localhost:8080/Platera-Main/UpdateExecutiveProfile" method="post" enctype="multipart/form-data">
-                            <input type="hidden" name="user_id" value="<%=user_id%>">
-                            <input type="hidden" name="executive_id" value="<%=executiveId%>">
-                            <div class="row">
-                                <div class="col-md-6">
+                    <form action="http://localhost:8080/Platera-Main/UpdateRestaurantProfile" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="user_id" value="<%=user_id%>">
+                        <input type="hidden" name="restaurant_id" value="<%=restaurantId%>">
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="profileImage" class="form-label">Profile Image</label>
                                     <input type="file" class="form-control file-input" id="photo-input" name="profileImage" accept="image/*">
-                                    <small class="form-text text-muted">Choose a clear, professional image.</small>
+                                    <small class="form-text text-muted">Choose a clear image.</small>
                                 </div>
-                                </div>
-                                <div class="col-md-6 d-flex align-items-center">
+                            </div>
+                            <div class="col-md-6 d-flex align-items-center">
                                 <div class="preview-container">
                                     <img id="profile-photo-preview" src="<%= imagePath%>" alt="Profile Preview" class="img-thumbnail">
-                                    <small class="form-text text-muted">Preview your profile image here.</small>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" value="<%=name%>" placeholder="Enter your full name">
-                                </div>
-                                </div>
-                                <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="number" class="form-label">Phone No.</label>
-                                    <input type="text" class="form-control" id="number" name="phone" value="<%=phone%>" placeholder="Enter your phone number">
-                                </div>
+                                    <small class="form-text text-muted">Preview your restaurant image here.</small>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="address" class="form-label">Address</label>
-                                    <input type="text" class="form-control" id="address" name="address" value="<%=address%>" placeholder="Enter your address">
+                                    <label for="name" class="form-label">Restaurant Name</label>
+                                    <input type="text" class="form-control" id="name" name="restaurant-name" value="<%=name%>" placeholder="Enter your full name">
                                 </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Owner Name</label>
+                                    <input type="text" class="form-control" id="name" name="owner-name" value="<%=ownerName%>" placeholder="Enter your full name">
                                 </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="number" class="form-label">Restaurant Phone No.</label>
+                                    <input type="text" class="form-control" id="number" name="restaurant-phone" value="<%=phone%>" placeholder="Enter your phone number">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="number" class="form-label">Owner Phone No.</label>
+                                    <input type="text" class="form-control" id="number" name="owner-phone" value="<%=ownerPhone%>" placeholder="Enter your phone number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Restaurant Address</label>
+                                    <input type="text" class="form-control" id="address" name="restaurant-address" value="<%=address%>" placeholder="Enter your address">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Owner Address</label>
+                                    <input type="text" class="form-control" id="address" name="owner-address" value="<%=ownerAddress%>" placeholder="Enter your address">
+                                </div>
+                            </div>
                             <!-- Vehicle Type Dropdown -->
-                                <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="vehicleType" class="form-label">Vehicle Type</label>
-                                    <select class="form-control" id="vehicleType" name="vehicleType">
-                                        <option value="" disabled selected>
-                                            <%= vehicleType != null && !vehicleType.isEmpty() ? vehicleType : "Select your vehicle type"%>
-                                        </option>
-                                        <option value="Bike">Bike</option>
-                                        <option value="Scooter">Scooter</option>
-                                        <option value="Cycle">Cycle</option>
-                                    </select>
-                                </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                            <!-- Location Dropdown -->
-                                <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="location" class="form-label">Location</label>
-                                    <select id="location" name="location" class="form-control styled-dropdown" required>
-                                        <option value="<%= locationId%>" selected>
-                                            <%= locationName != null ? locationName : "Select a location"%>
-                                        </option>
-                                        <%
-                                            LocationDAO locationDAO = new LocationDAO();
-                                            List<Location> locations = locationDAO.getLocations();
-                                            for (Location location : locations) {
-                                        %>
-                                        <option value="<%= location.getId()%>" <%= (location.getId() == locationId) ? "selected" : ""%>>
-                                            <%= location.getName()%>
-                                        </option>
-                                        <%
-                                            }
-                                        %>
-                                    </select>
-
-                                </div>
-                                </div>
-                                <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="vehicleNumber" class="form-label">Vehicle No.</label>
-                                    <input type="text" class="form-control" id="emergencyContact" name="vehicleNumber" value="<%=vehicleNumber%>" placeholder="Enter vehicle number">
-                                </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" id="cancelModal" data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
-                            </div>
-                        </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="cancelModal" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
 
                 </div>
             </div>
@@ -219,16 +249,16 @@
                         <input type="search" placeholder="Search">
                     </div>
                     <div class="log-set">
-                    <div class="social-icons">
-                        <a href="http://localhost:8080/Platera-Main/logout" class="logout-link">
-                            <div class="logout_btn">
-                                <span class="logout">Logout</span>
-                                <span class="icon"><ion-icon name="power"></ion-icon></span>
-                            </div>
-                        </a>
+                        <div class="social-icons">
+                            <a href="http://localhost:8080/Platera-Main/logout" class="logout-link">
+                                <div class="logout_btn">
+                                    <span class="logout">Logout</span>
+                                    <span class="icon"><ion-icon name="power"></ion-icon></span>
+                                </div>
+                            </a>
+                        </div>
+                        <i class="fas fa-cog settings-icon" id="setIcon" style="margin-top: 9px;"></i>
                     </div>
-                    <i class="fas fa-cog settings-icon" id="setIcon" style="margin-top: 9px;"></i>
-                </div>
                 </header>
 
                 <main>
@@ -274,56 +304,7 @@
                             </div>
                         </div>
                     </div>
-                    <%
-                        // Simulate session attributes for debugging
-                        // int user_id = (Integer) session.getAttribute("user_id");
-                        int user_id = 185;
 
-                        int restaurantId = 0; // Default value for int
-                        String name = null;
-                        String address = null;
-                        String phone = null;
-                        String locationName = null;
-                        double minPrice = 0.0; // Default value for double
-                        double maxPrice = 0.0; // Default value for double
-                        double avgRating = 0.0; // Default value for double
-                        String category1 = null;
-                        String category2 = null;
-                        String category3 = null;
-                        String imagePath = null;
-
-                        // Owner details
-                        String ownerPhone = null;
-                        String ownerAddress = null;
-                        String ownerEmail = null;
-                        boolean twoFA = false; // Default value for boolean
-
-                        Restaurant restaurant = null;
-
-                        RestaurantDAO restaurantDAO = new RestaurantDAO();
-                        restaurant = restaurantDAO.getRestaurantByUserId(user_id);
-
-                        if (restaurant != null) {
-                            restaurantId = restaurant.getRestaurantId();
-                            name = restaurant.getName();
-                            address = restaurant.getAddress();
-                            phone = restaurant.getPhone();
-                            locationName = restaurant.getLocation();
-                            minPrice = restaurant.getMinPrice();
-                            maxPrice = restaurant.getMaxPrice();
-                            avgRating = restaurant.getRating();
-                            category1 = restaurant.getCategory1();
-                            category2 = restaurant.getCategory2();
-                            category3 = restaurant.getCategory3();
-                            imagePath = request.getContextPath() + '/' + restaurant.getImage();
-
-                            // Owner details
-                            ownerPhone = restaurant.getOwnerPhone();
-                            ownerAddress = restaurant.getOwnerAddress();
-                            ownerEmail = restaurant.getOwnerEmail();
-                            twoFA = restaurant.isTwoStepVerification();
-                        }
-                    %>
 
                     <section class="recent">
                         <div class="activity-card">
@@ -411,10 +392,10 @@
 
         <script src="RestaurantDashboard.js"></script>
         <script>
-            // Confirmation for deleting account
-            function confirmDelete() {
-                return confirm("Are you sure you want to delete your account? This action cannot be undone.");
-            }
+                            // Confirmation for deleting account
+                            function confirmDelete() {
+                                return confirm("Are you sure you want to delete your account? This action cannot be undone.");
+                            }
         </script>
         <script>
             document.querySelector("#menu").addEventListener("click", function () {
@@ -423,6 +404,20 @@
 
             document.querySelector(".sidebar .close-btn").addEventListener("click", function () {
                 document.querySelector(".sidebar").classList.remove("activate");
+            });
+        </script>
+        <script>
+            // JavaScript to handle the photo preview
+            document.getElementById('photo-input').addEventListener('change', function (event) {
+                const file = event.target.files[0]; // Get the selected file
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        // Update the img src in the preview div
+                        document.getElementById('profile-photo-preview').src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
             });
         </script>
 
