@@ -406,9 +406,9 @@
 
 /* User Profile Styles */
 .user-profile {
-  padding: 60px 80px;
-  background-color: #f8f8f8;
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+  /* padding: 260px 50px; */
+  /* background-color: #f8f8f8;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2); */
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -425,7 +425,7 @@
 }
 
 .dashboard-options {
-  text-align: left;
+  text-align: center;
   gap: 20px;
   list-style-type: none;
   padding: 0;
@@ -434,12 +434,13 @@
 .dashboard-options li {
   background-color: rgb(224, 224, 224);
   margin-bottom: 10px;
-  padding: 10px 21px; /* Padding for each option */
+  padding: 10px 130px; /* Padding for each option */
   display: flex; /* Use flexbox for alignment */
   align-items: center; /* Center items vertically */
   cursor: pointer; /* Pointer cursor */
   transition: background-color 0.2s; /* Smooth transition */
   border-radius: 5px; /* Rounded corners */
+  /* text-align: center; */
 }
 
 .dashboard-options li a {
@@ -452,24 +453,35 @@
 .dashboard-options li:hover {
   background-color: #e7e7e7; /* Highlight on hover */
 }
-
+.dashboard-options #welcomeMessage{
+  background-color: transparent;
+  cursor: ;
+}
+/* #logout-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 80px;
+} */
 /* Logout Button Styles */
-.logout-btn {
-  margin-top: 20px; /* Space above the button */
-  padding: 10px 20px; /* Padding for the button */
-  background-color: #ef1e28; /* Button color */
-  color: white; /* Text color */
-  border: none; /* No border */
+#logout-btn {
+  /* margin-top: 20px; Space above the button */
+  padding: 10px 80px; /* Padding for the button */
+  /* background-color: #ef1e28; Button color */
+  color: #ef1e28; /* Text color */
+  border: 2px solid #ef1e28; /* No border */
   border-radius: 5px; /* Rounded corners */
   font-size: 16px; /* Font size */
   cursor: pointer; /* Pointer cursor */
-  transition: background-color 0.3s; /* Smooth transition */
+  transition: all 0.3s ease-in-out; /* Smooth transition */
   width: 100%; /* Full width */
 }
 
-.logout-btn:hover {
+#logout-btn:hover {
   background-color: #f9464f; /* Darker shade on hover */
+  color: white;
 }
+
 
 /* Sliding Cart Section */
 .cart-section {
@@ -941,7 +953,7 @@
   transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.474);
+  background-color: rgba(241, 241, 241, 0.709);
   padding: 10px 20px;
   border-radius: 35px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -954,9 +966,20 @@
   font-size: 16px;
   outline: none;
   border-radius: 20px;
-  width: 500px;
+  width: 400px;
+  margin-left: 10px;
 }
-
+/* Dropdown Styling */
+#search-category {
+  padding: 10px 5px;
+  border: none;
+  /* padding: 10px; */
+  font-size: 16px;
+  outline: none;
+  border-radius: 20px;
+  background-color: #e6e6e6;
+  width: 150px;
+}
 .search-bar button {
   background-color: #f12630;
   color: white;
@@ -1519,12 +1542,6 @@ footer p.copyright {
   top: 0;
   left: 10px;
   animation: moving 2s linear infinite;
-}
-#logout-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px 80px;
 }
 
 .fa-solid {

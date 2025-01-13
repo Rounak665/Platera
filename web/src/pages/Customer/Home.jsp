@@ -141,9 +141,9 @@
 
                 <ul class="nav-links">
                     <li id="active"><a href="./Home.jsp">Home</a></li>
-                    <li><a href="#restaurants">Restaurants</a></li>
-                    <li><a href="#dishes">Dishes</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="../RestaurantsInUser/restaurantsInUser.html">Restaurants</a></li>
+                    <li><a href="../Menu/menu.jsp">Dishes</a></li>
+                    <li><a href="../ContactUs/ContactUs.html">Contact</a></li>
 
                 </ul>
                 <div class="navbar-icons">
@@ -170,7 +170,10 @@
                 <ul class="dashboard-options">
                     <li id="welcomeMessage">Hi, <%=name%></li>
                     <li id="profileSettings"><a href="./CustomerDashboard/CustomerProfile.jsp">Profile Settings</a></li>
-                    <li id="orderHistory"><a href="./CustomerDashboard/CustomerOrderHistory.jsp">Order History</a></li>  
+                    <li id="orderHistory"><a href="./CustomerDashboard/CustomerOrderHistory.jsp">Order History</a></li>
+                    <li id="orderHistory"><a href="../FooterLinkPages/Terms&Conditions/Terms&Conditions.html">Terms & Conditions</a></li>
+                    <li id="orderHistory"><a href="../FooterLinkPages/PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
+                    <li id="orderHistory"><a href="../FooterLinkPages/Help/Help.html">Help</a></li>
                 </ul>
                 <!-- Logout Button -->
                 <form action="http://localhost:8080/Platera-Main/logout" method="get">
@@ -373,11 +376,14 @@
 
             <!-- Search Bar -->
             <div class="search-bar">
-                <input
-                    type="text"
-                    placeholder="Search for food, restaurants, or cuisine..."
-                    />
-                <button>Search</button>
+                <form action="http://localhost:8080/Platera-Main/Search">
+                    <select name="keywordType" id="search-category">
+                        <option value="restaurants">Restaurants</option>
+                        <option value="dishes">Dishes</option>
+                    </select>
+                    <input type="text" name="keyword" id="search-input" placeholder="Search for restaurants or dishes..." />
+                    <button id="search-button">Search</button>
+                </form>
             </div>
 
             <!-- Dots Indicator -->

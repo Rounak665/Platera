@@ -109,12 +109,14 @@
             <div class="banner-content">
                 <h2>Welcome to Our Menu and Cuisines</h2>
                 <div class="search-bar">
-                    <select id="search-category">
-                        <option value="dishes">Dishes</option>
-                        <option value="cuisines">Cuisines</option>
-                    </select>
-                    <input type="text" id="search-input" placeholder="Search for Dishes or Cuisines..." />
-                    <button id="search-button">Search</button>
+                    <form action="http://localhost:8080/Platera-Main/Search">
+                        <select name="keywordType" id="search-category">
+                            <option value="restaurants">Restaurants</option>
+                            <option value="dishes">Dishes</option>
+                        </select>
+                        <input name="keyword" type="text" id="search-input" placeholder="Search for restaurants or dishes..." />
+                        <button id="search-button">Search</button>
+                    </form>
                 </div>
             </div>
         </section>
