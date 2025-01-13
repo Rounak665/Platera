@@ -1,0 +1,85 @@
+@ -0,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platera - Session Expired</title>
+    <link rel="shortcut icon" href="./Assets/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #3a3a3a34;
+            color: #151515;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+        .container h4 {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .container p {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        .heading {
+            font-size: 100px;
+            font-weight: bolder;
+            margin-bottom: 20px;
+        }
+        .message {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #e74c3c; /* Red color for emphasis */
+        }
+        button {
+            margin-top: 20px;
+            padding: 15px 20px;
+            background-color: #151515;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        button:hover {
+            transform: scale(1.05);
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h4>ERROR</h4>
+        <div class="heading">
+            <h1>500</h1>
+        </div>
+        <p>Session Expired</p>
+        <p class="message">Your session has expired. Please log in again.</p>
+        <button onclick="goHome()">Go to Home</button>
+    </div>
+
+    <script>
+        function goHome() {
+            window.location.href = "../../../index.html";
+        }
+    </script>
+</body>
+</html>
