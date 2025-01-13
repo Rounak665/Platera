@@ -203,138 +203,141 @@
                     Cart
                     <span class="close-btn" id="closeCartSectionCheckout">&times;</span>
                 </div>
-                
-<!--                <div class="heading-for-empty-cart">
+
+
+
+                <%
+                    // Replace with the actual user/customer ID fetched from the session or request
+                    CartDAO cartDAO = new CartDAO();
+                    List<Cart> cartItems = cartDAO.getCartItems(customer_id);
+                    double promotion = 0;
+                    double subtotal = 0;
+                    double deliveryCharges = 0;
+                    double total = 0;
+
+                    if (cartItems.isEmpty()) {
+                %>
+
+                <div class="heading-for-empty-cart">
                     <video src="./assets/cartEmptyAnimation.mp4" autoplay muted loop></video>
-                </div>-->
+                </div>
+                <%
+                } else {
+                %>
                 <div class="cart-items">
                     <%
-                        // Replace with the actual user/customer ID fetched from the session or request
-                        CartDAO cartDAO = new CartDAO();
-                        List<Cart> cartItems = cartDAO.getCartItems(customer_id);
-                        double promotion = 0;
-                        double subtotal = 0;
-                        double deliveryCharges = 0;
-                        double total = 0;
-
-                        if (cartItems.isEmpty()) {
-                    %>
-
-                    <h2 style="text-align: center">Your Cart Is Empty</h2>
-                    <%
-                    } else {
                         for (Cart cart : cartItems) {
                     %>
-                    <div class="cart-item">
-                        <img src="<%=request.getContextPath()%>/<%= cart.getItemImage()%>" alt="<%= cart.getItemName()%>" class="cart-item-image">
+                        <div class="cart-item">
+                            <img src="<%=request.getContextPath()%>/<%= cart.getItemImage()%>" alt="<%= cart.getItemName()%>" class="cart-item-image">
 
-                        <div class="cart-item-details">
-                            <p class="cart-item-name"><%= cart.getItemName()%></p>
-                            <p class="cart-item-price">₹<%=cart.getItemPrice()%></p>
-                        </div>
-                        <div class="price">
-                            <div class="cart-item-quantity-trash">
-                                <div class="cart-item-quantity">
-                                    <form action="http://localhost:8080/Platera-Main/UpdateCartQuantity" method="POST">
+                            <div class="cart-item-details">
+                                <p class="cart-item-name"><%= cart.getItemName()%></p>
+                                <p class="cart-item-price">₹<%=cart.getItemPrice()%></p>
+                            </div>
+                            <div class="price">
+                                <div class="cart-item-quantity-trash">
+                                    <div class="cart-item-quantity">
+                                        <form action="http://localhost:8080/Platera-Main/UpdateCartQuantity" method="POST">
+                                            <input type="hidden" name="cart_id" value="<%= cart.getCartId()%>">
+                                            <button type="submit" name="action" value="subtract" class="quantity-btn subtract">-</button>
+                                            <input type="text" name="quantity" class="quantity-number" value="<%= cart.getQuantity()%>" disabled>
+                                            <button type="submit" name="action" value="add" class="quantity-btn add">+</button>
+                                        </form>
+                                    </div>
+                                    <form action="http://localhost:8080/Platera-Main/DeleteFromCart" method="post">
                                         <input type="hidden" name="cart_id" value="<%= cart.getCartId()%>">
-                                        <button type="submit" name="action" value="subtract" class="quantity-btn subtract">-</button>
-                                        <input type="text" name="quantity" class="quantity-number" value="<%= cart.getQuantity()%>" disabled>
-                                        <button type="submit" name="action" value="add" class="quantity-btn add">+</button>
+                                        <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
                                     </form>
                                 </div>
-                                <form action="http://localhost:8080/Platera-Main/DeleteFromCart" method="post">
-                                    <input type="hidden" name="cart_id" value="<%= cart.getCartId()%>">
-                                    <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
-                                </form>
+                                <p class="total-price">₹<%=cart.getItemPrice() * cart.getQuantity()%></p>
                             </div>
-                            <p class="total-price">₹<%=cart.getItemPrice() * cart.getQuantity()%></p>
                         </div>
-                    </div>
-                    <%
-                                promotion = cart.getCouponDiscount();
+                        <%
+                                    promotion = cart.getCouponDiscount();
+                                }
                             }
-                        }
-                    %>
-                </div>
-
-                <% if (!cartItems.isEmpty()) {%>
-                <div class="promo-code">
-                    <form action="http://localhost:8080/Platera-Main/ApplyCoupon" method="post">
-                        <input type="text" name="coupon_code" placeholder="Promo Code">
-                        <input type="number" name="customerId" value="<%=customer_id%>" hidden>
-                        <button type="submit">Apply</button>
-                    </form>
-                </div>
-                <div class="cart-summary">
-                    <%
-                        // Calculate subtotal and total
-
-                        for (Cart cart : cartItems) {
-                            subtotal += cart.getItemPrice() * cart.getQuantity();
-                        }
-
-                        // Apply delivery charges conditionally
-                        deliveryCharges = (subtotal < 199) ? 30 : 0;  // Delivery charges are 30 if subtotal is less than 199
-
-                        // Calculate total
-                        total = subtotal + deliveryCharges - promotion;
-                    %>
-
-                    <div><span>Subtotal</span><p class="subtotal">₹<%=subtotal%></p></div>
-                    <div><span>Delivery</span><p class="delivery_charges">+₹<%=deliveryCharges%></p></div>
-                    <div><span>Promotions</span><p class="delivery_charges">-₹<%=promotion%></p></div>
-                    <div><span>Total</span><p class="total">₹<%=total%></p></div>
-                </div>
-
-                <button class="checkout-btn">CHECKOUT</button>
-                <% }%>
-            </div>
-
-
-
-            <!-- Checkout Scetion -->
-
-            <div class="cart-container paynow" style="display: none;">
-                <div class="cart-header">
-                    <span class="back-btn" id="backToCheckout"><b>&#8592;</b></span>
-                    Checkout
-                    <span class="close-btn" id="closeCartSectionPaynow">&times;</span>
-                </div>
-                <form action="http://localhost:8080/Platera-Main/Checkout" method="post">
-                    <div class="payment-options">
-                        <div class="payment-option">
-                            <input type="radio" name="payment" id="debit-credit" value="cards" checked>
-                            <label for="debit-credit">
-                                <img src="https://img.icons8.com/color/48/visa.png" alt="Visa"> Debit/Credit card
-                            </label>
-                        </div>
-
-                        <div class="payment-option">
-                            <input type="radio" name="payment" id="net-banking" value="netBanking">
-                            <label for="net-banking">
-                                <img src="https://img.icons8.com/color/48/bank.png" alt="Bank"> Net banking
-                            </label>
-                        </div>
-
-                        <div class="payment-option">
-                            <input type="radio" name="payment" id="cash-on-delivery" value="cod">
-                            <label for="cash-on-delivery">
-                                <img src="https://img.icons8.com/color/48/cash.png" alt="Cash on Delivery"> Cash on Delivery
-                            </label>
-                        </div>                    
-
+                        %>
                     </div>
 
+                    <% if (!cartItems.isEmpty()) {%>
+                    <div class="promo-code">
+                        <form action="http://localhost:8080/Platera-Main/ApplyCoupon" method="post">
+                            <input type="text" name="coupon_code" placeholder="Promo Code">
+                            <input type="number" name="customerId" value="<%=customer_id%>" hidden>
+                            <button type="submit">Apply</button>
+                        </form>
+                    </div>
                     <div class="cart-summary">
-                        <div><span>Subtotal</span><p  class="subtotal">₹<%=subtotal%></p></div>
+                        <%
+                            // Calculate subtotal and total
+
+                            for (Cart cart : cartItems) {
+                                subtotal += cart.getItemPrice() * cart.getQuantity();
+                            }
+
+                            // Apply delivery charges conditionally
+                            deliveryCharges = (subtotal < 199) ? 30 : 0;  // Delivery charges are 30 if subtotal is less than 199
+
+                            // Calculate total
+                            total = subtotal + deliveryCharges - promotion;
+                        %>
+
+                        <div><span>Subtotal</span><p class="subtotal">₹<%=subtotal%></p></div>
                         <div><span>Delivery</span><p class="delivery_charges">+₹<%=deliveryCharges%></p></div>
                         <div><span>Promotions</span><p class="delivery_charges">-₹<%=promotion%></p></div>
-                        <div><span>Total</span><p  class="total">₹<%=total%></p></div>
+                        <div><span>Total</span><p class="total">₹<%=total%></p></div>
                     </div>
 
-                    <button class="pay-btn">Pay Now</button>
-                </form>
-            </div>
+                    <button class="checkout-btn">CHECKOUT</button>
+                    <% }%>
+                </div>
+
+
+
+                <!-- Checkout Scetion -->
+
+                <div class="cart-container paynow" style="display: none;">
+                    <div class="cart-header">
+                        <span class="back-btn" id="backToCheckout"><b>&#8592;</b></span>
+                        Checkout
+                        <span class="close-btn" id="closeCartSectionPaynow">&times;</span>
+                    </div>
+                    <form action="http://localhost:8080/Platera-Main/Checkout" method="post">
+                        <div class="payment-options">
+                            <div class="payment-option">
+                                <input type="radio" name="payment" id="debit-credit" value="cards" checked>
+                                <label for="debit-credit">
+                                    <img src="https://img.icons8.com/color/48/visa.png" alt="Visa"> Debit/Credit card
+                                </label>
+                            </div>
+
+                            <div class="payment-option">
+                                <input type="radio" name="payment" id="net-banking" value="netBanking">
+                                <label for="net-banking">
+                                    <img src="https://img.icons8.com/color/48/bank.png" alt="Bank"> Net banking
+                                </label>
+                            </div>
+
+                            <div class="payment-option">
+                                <input type="radio" name="payment" id="cash-on-delivery" value="cod">
+                                <label for="cash-on-delivery">
+                                    <img src="https://img.icons8.com/color/48/cash.png" alt="Cash on Delivery"> Cash on Delivery
+                                </label>
+                            </div>                    
+
+                        </div>
+
+                        <div class="cart-summary">
+                            <div><span>Subtotal</span><p  class="subtotal">₹<%=subtotal%></p></div>
+                            <div><span>Delivery</span><p class="delivery_charges">+₹<%=deliveryCharges%></p></div>
+                            <div><span>Promotions</span><p class="delivery_charges">-₹<%=promotion%></p></div>
+                            <div><span>Total</span><p  class="total">₹<%=total%></p></div>
+                        </div>
+
+                        <button class="pay-btn">Pay Now</button>
+                    </form>
+                </div>
 
         </section>
 
@@ -438,46 +441,46 @@
             <!-- Changed Slider -->
             <!-- New Restaurant Carousel Section -->
             <section class="restaurant-carousel-section">
-    <div class="restaurant-carousel-container">
-        <div class="restaurant-carousel">
-            <div class="restaurant-carousel-inner" id="restaurantCarouselInner">
-                <%-- Dynamic Content Begins --%>
-                <%
-                    // Instantiate the DAO and fetch the list of restaurants
-                    RestaurantDAO restaurantDAO = new RestaurantDAO();
-                    List<Restaurant> restaurants = restaurantDAO.getRestaurantsByLocation(location_id);
-                    
-                    if (restaurants != null && !restaurants.isEmpty()) {
-                        for (Restaurant restaurant : restaurants) {
-                %>
-                <div class="restaurant-carousel-item">
-                    <a href="./RestaurantDetails/RestaurantDetails.jsp?restaurantId=<%= restaurant.getRestaurantId() %>" class="restaurant-card-link">
-                        <div class="restaurant-card">
-                            <img
-                                src="<%= request.getContextPath() %>/<%= restaurant.getImage() %>"
-                                alt="<%= restaurant.getName() %>"
-                                class="restaurant-image"
-                            />
-                            <h3><%= restaurant.getName() %></h3>
-                            <p>⭐ <%= restaurant.getRating() %> | ₹<%= restaurant.getMinPrice() %>-₹<%= restaurant.getMaxPrice() %></p>
-                            <p><%= restaurant.getCategory1() %>, <%= restaurant.getCategory2() %>, <%= restaurant.getCategory3() %></p>
-                            <p class="location"><%= restaurant.getLocation() %></p>
+                <div class="restaurant-carousel-container">
+                    <div class="restaurant-carousel">
+                        <div class="restaurant-carousel-inner" id="restaurantCarouselInner">
+                            <%-- Dynamic Content Begins --%>
+                            <%
+                                // Instantiate the DAO and fetch the list of restaurants
+                                RestaurantDAO restaurantDAO = new RestaurantDAO();
+                                List<Restaurant> restaurants = restaurantDAO.getRestaurantsByLocation(location_id);
+
+                                if (restaurants != null && !restaurants.isEmpty()) {
+                                    for (Restaurant restaurant : restaurants) {
+                            %>
+                            <div class="restaurant-carousel-item">
+                                <a href="./RestaurantDetails/RestaurantDetails.jsp?restaurantId=<%= restaurant.getRestaurantId()%>" class="restaurant-card-link">
+                                    <div class="restaurant-card">
+                                        <img
+                                            src="<%= request.getContextPath()%>/<%= restaurant.getImage()%>"
+                                            alt="<%= restaurant.getName()%>"
+                                            class="restaurant-image"
+                                            />
+                                        <h3><%= restaurant.getName()%></h3>
+                                        <p>⭐ <%= restaurant.getRating()%> | ₹<%= restaurant.getMinPrice()%>-₹<%= restaurant.getMaxPrice()%></p>
+                                        <p><%= restaurant.getCategory1()%>, <%= restaurant.getCategory2()%>, <%= restaurant.getCategory3()%></p>
+                                        <p class="location"><%= restaurant.getLocation()%></p>
+                                    </div>
+                                </a>
+                            </div>
+                            <%
+                                }
+                            } else {
+                            %>
+                            <p>No restaurants found or there was an error fetching data.</p>
+                            <%
+                                }
+                            %>
+                            <%-- Dynamic Content Ends --%>
                         </div>
-                    </a>
+                    </div>
                 </div>
-                <%
-                        }
-                    } else {
-                %>
-                <p>No restaurants found or there was an error fetching data.</p>
-                <%
-                    }
-                %>
-                <%-- Dynamic Content Ends --%>
-            </div>
-        </div>
-    </div>
-</section>
+            </section>
 
         </section>
 

@@ -74,30 +74,6 @@
             </div>
         </div>     
 
-        <!-- Otp popup -->
-        <div class="popupOTP" id="popupOTPContainer">
-            <div class="container1">
-                <div class="logoOTP">
-                    <img src="<%= request.getContextPath()%>/Public/images/PlateraLogo-red.png" alt="Logo" width="50" height="50">
-                </div>
-                <h2>Verify Delivery Handover</h2>
-                <p>An OTP has been sent to customer's email: <strong>${email}</strong></p>
-                <!-- Message Section -->
-                <p style="color: #F12630; font-size: 0.95rem; margin-bottom: 20px;">
-                    Enter the OTP within <strong>1 minute</strong>.
-                </p>
-                <!-- ------------------------------Change the form action of the handover otp here----------------------- -->
-                <form action="http://localhost:8080/Platera-Main/DeliveryExecutiveVerifyOTP" method="POST" class="otp-form">
-                    <input type="text" name="otp" placeholder="Enter OTP" required>
-                    <input type="hidden" name="email" value="${email}" /> 
-                    <input type="submit" value="Verify OTP">
-                </form>
-                <form action="http://localhost:8080/Platera-Main/DeliveryExecutiveVerifyOTP" method="POST" class="otp-form">
-                    <input type="submit" value="Generate OTP">
-                </form>
-            </div>
-        </div>
-
         <!-- Two step Verification -->
 
         <div id="security-section" class="security-container" style="display: none;">
@@ -501,6 +477,31 @@
                                 }
                             }
                 %>
+                <div class="popupOTP" id="popupOTPContainer">
+                    <div class="container1">
+                        <!-- Close button styled as a cross -->
+                        <button class="close-btn" onclick="closeOTPPopup()" aria-label="Close">&times;</button>
+
+                        <div class="logoOTP">
+                            <img src="<%= request.getContextPath()%>/Public/images/PlateraLogo-red.png" alt="Logo" width="50" height="50">
+                        </div>
+                        <h2>Verify Delivery Handover</h2>
+                        <p>An OTP will be sent to the customer's email: <strong>${email}</strong></p>
+
+                        <!-- Form for verifying the OTP -->
+                        <form action="http://localhost:8080/Platera-Main/VerifyHandoverOTP" method="POST" class="otp-form">
+                            <input type="text" name="otp" placeholder="Enter OTP" required>
+                            <input type="hidden" name="order_id" value="<%=currentOrder.getOrderId()%>" />
+                            <button type="submit">Submit OTP</button>
+                        </form>
+
+                        <!-- Form for regenerating the OTP -->
+                        <form action="http://localhost:8080/Platera-Main/GenerateHandoverOTP" method="POST" class="otp-form">
+                            <input type="hidden" name="email" value="<%=currentOrder.getCustomerEmail()%>">
+                            <button type="submit" style="margin-top: 10px;">Generate OTP</button>
+                        </form>
+                    </div>
+                </div>
 
                 <!-- Displaying the current order details -->
                 <div class="current-order">
@@ -597,13 +598,10 @@
                                     <%
                                     } else if ("Picked Up".equals(currentOrder.getOrderStatus())) {
                                     %>
-                                    <button class="delivered-button" id="HandOver" type="submit">Handover</button>
+                                    <button class="delivered-button" id="HandOver">Handover</button>
                                     <%
                                         }
                                     %>
-
-
-
                                 </div>
                             </div>
                         </div>
@@ -811,7 +809,24 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Function to show the OTP popup if the URL contains the popup div id
+    function checkForPopupId() {
+        if (window.location.hash === '#popupOTPContainer') {
+            let popup = document.getElementById('popupOTPContainer');
+            popup.style.display = 'flex'; // Show the popup
+        }
+    }
 
+// Function to hide the OTP popup
+    function closeOTPPopup() {
+        let popup = document.getElementById('popupOTPContainer');
+        popup.style.display = 'none'; // Hide the popup
+    }
+
+// Run the check when the DOM content is loaded
+    document.addEventListener('DOMContentLoaded', checkForPopupId);
+</script>
 
 <!-- Icon Scripts -->
 

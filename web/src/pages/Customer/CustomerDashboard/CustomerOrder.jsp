@@ -136,7 +136,7 @@
                                 <hr>
                                 <div class="restaurant-name"><%= currentOrder.getRestaurantName()%></div>
                                 <div class="rating">&#9733; <%= rating%></div>
-                                <p>Date Paid:<%= currentOrder.getPaymentDate()%></p>
+                                <p>Payment Method:<%= currentOrder.getPaymentMethod()%></p>
                                 <hr>
                                 <div class="info">
                                     <div>
@@ -157,7 +157,7 @@
                                     <div class="item">
                                         <img src="<%= request.getContextPath() + "/" + item.getImage()%>" alt="<%= item.getItemName()%>" class="cart-item-image">
                                         <div class="details"><%= item.getItemName()%><br>x<%= item.getQuantity()%></div>
-                                        <div class="price">$300</div>
+                                        <div class="price"><%=item.getPrice()%></div>
                                     </div>
                                     <%
                                         }

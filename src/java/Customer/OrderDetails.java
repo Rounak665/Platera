@@ -38,7 +38,7 @@ public class OrderDetails extends HttpServlet {
             String result = placeOrder.placeOrder();
 
             if ("Order placed successfully!".equals(result)) {
-                response.sendRedirect("src/pages/CustomerDashboard/CustomerOrder.jsp?OrderConfirmed");
+                response.sendRedirect("src/pages/Customer/CustomerDashboard/CustomerOrder.jsp?OrderConfirmed");
             } else {
                 // Redirect to error page if order placement failed
                 response.sendRedirect("src/pages/Customer/Home.jsp#errorPopup");

@@ -138,6 +138,14 @@ public class PlaceOrder {
                     }
                     itemStmt.executeBatch();
                 }
+
+// Delete items from cart for the customer
+                String deleteCartQuery = "DELETE FROM cart WHERE customer_id = ?";
+                try (PreparedStatement deleteCartStmt = conn.prepareStatement(deleteCartQuery)) {
+                    deleteCartStmt.setInt(1, customerId);
+                    deleteCartStmt.executeUpdate();
+                }
+
                 conn.commit();
 
                 // Send email if emailConfirmation is true

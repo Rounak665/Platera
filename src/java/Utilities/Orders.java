@@ -35,7 +35,6 @@ public class Orders {
         this.orderId = orderId;
     }
 
-
     public String getOrderStatus() {
         return orderStatus;
     }
@@ -140,6 +139,15 @@ public class Orders {
 
     public List<OrderItem> getOrderItems() {
         return orderItems;
+    }
+    private String customerEmail;
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
 
     // Optional: Add a toString method for easier debugging
