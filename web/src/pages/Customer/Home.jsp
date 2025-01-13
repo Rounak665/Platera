@@ -203,9 +203,10 @@
                     Cart
                     <span class="close-btn" id="closeCartSectionCheckout">&times;</span>
                 </div>
-                <div class="heading-for-empty-cart">
+                
+<!--                <div class="heading-for-empty-cart">
                     <video src="./assets/cartEmptyAnimation.mp4" autoplay muted loop></video>
-                </div>
+                </div>-->
                 <div class="cart-items">
                     <%
                         // Replace with the actual user/customer ID fetched from the session or request

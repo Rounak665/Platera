@@ -142,7 +142,7 @@
                     </div>
 
                     <div class="social-icons">
-                        <div class="logout_btn">
+<!--                        <div class="logout_btn">
                             <form action="http://localhost:8080/Platera-Main/logout" class="d-flex align-items-center logout">
                                 <button type="submit" class="btn d-flex align-items-center">
                                     <span class="ml-2">Logout</span>
@@ -152,7 +152,7 @@
                                     </svg>
                                 </button>
                             </form>
-                        </div>
+                        </div>-->
                     </div>
                 </header>
 
