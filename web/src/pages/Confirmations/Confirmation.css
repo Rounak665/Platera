@@ -33,7 +33,7 @@
 
 /* Error Popup Styles */
 .error-popup {
-    display: flex; /* Hidden by default */
+    display: none; /* Hidden by default */
     position: fixed;
     top: 50%;
     left: 50%;
