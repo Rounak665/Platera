@@ -118,11 +118,11 @@ public class ApproveRestaurant extends HttpServlet {
                                 insertRestaurantCategoryPstmt.executeUpdate();
                             }
                             // Delete the processed request
-//                        String deleteSql = "DELETE FROM restaurant_requests WHERE request_id = ?";
-//                        try (PreparedStatement deletePstmt = conn.prepareStatement(deleteSql)) {
-//                            deletePstmt.setInt(1, request_id);
-//                            deletePstmt.executeUpdate();
-//                        }
+                            String deleteSql = "DELETE FROM restaurant_requests WHERE request_id = ?";
+                            try (PreparedStatement deletePstmt = conn.prepareStatement(deleteSql)) {
+                                deletePstmt.setInt(1, request_id);
+                                deletePstmt.executeUpdate();
+                            }
 
                             response.setContentType("text/html");
                             response.getWriter().println("<h2>Restaurant has been approved successfully</h2>");
@@ -139,21 +139,20 @@ public class ApproveRestaurant extends HttpServlet {
                         }
                     }
                 } else {
-                    LOGGER.warning("No request found for request ID: " + request_id);
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "No request found for the given ID.");
+                    response.sendRedirect("src/pages/Admin/Admin_Restaurant_Approval.jsp#errorPopup");
                 }
+            } catch (Exception ex) {
+                response.sendRedirect("src/pages/Admin/Admin_Restaurant_Approval.jsp#errorPopup");
+                return;
             }
-            System.out.println("Approved successfully");
+            response.sendRedirect("src/pages/Admin/Admin_Restaurant_Approval.jsp?RestaurantApproved");
 
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Database error occurred: " + e.getMessage(), e);
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error occurred: " + e.getMessage());
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
         } catch (NumberFormatException e) {
-            LOGGER.log(Level.SEVERE, "Invalid request ID: " + request.getParameter("request_id"), e);
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid request ID format.");
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Unexpected error occurred: " + e.getMessage(), e);
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unexpected error occurred.");
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
         }
     }
 }

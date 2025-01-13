@@ -86,16 +86,16 @@ public class RemoveCustomerPhoto extends HttpServlet {
                     if (rowsAffected > 0) {
                         response.sendRedirect("src/pages/Customer/CustomerDashboard/CustomerProfile.jsp?photoDeleted");
                     } else {
-                        response.sendRedirect("src/pages/Customer/CustomerDashboard/CustomerProfile.jsp?photoDeletionFailed");
+                        response.sendRedirect("src/pages/Customer/CustomerDashboard/CustomerProfile.jsp#errorPopup");
                     }
                 }
             } else {
                 System.out.println("Customer not found for user ID: " + userId);
-                response.sendRedirect("src/pages/Customer/CustomerDashboard/CustomerProfile.jsp?error=true");
+                response.sendRedirect("src/pages/Customer/CustomerDashboard/CustomerProfile.jsp#errorPopup");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("src/pages/Customer/CustomerDashboard/CustomerProfile.jsp?sqlError");
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
         }
     }
 }

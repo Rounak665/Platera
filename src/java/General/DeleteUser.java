@@ -32,14 +32,13 @@ public class DeleteUser extends HttpServlet {
                 if (rowsAffected > 0) {
                     response.sendRedirect("index.html?AccountDeleted");
                 } else {
-                    response.sendRedirect("index.html?ErrorDeletingAccount");
+                    response.sendRedirect("index.html#errorPopup");
                 }
             } catch (SQLException e) {
-                out.println("<p>Error: " + e.getMessage() + "</p>");
-                response.sendRedirect("error.jsp");
+                response.sendRedirect("src/pages/Error/DatabaseError.html");
             }
         } else {
-            response.sendRedirect("error.jsp");
+            response.sendRedirect("index.html#errorPopup");
         }
     }
 }

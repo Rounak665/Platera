@@ -19,9 +19,9 @@ import javax.servlet.http.Part;
 
 @WebServlet("/RestaurantPublicInfo")
 @MultipartConfig(
-    fileSizeThreshold = 1024 * 1024 * 2,  // 2 MB
-    maxFileSize = 1024 * 1024 * 10,  // 10 MB
-    maxRequestSize = 1024 * 1024 * 50  // 50 MB
+        fileSizeThreshold = 1024 * 1024 * 2, // 2 MB
+        maxFileSize = 1024 * 1024 * 10, // 10 MB
+        maxRequestSize = 1024 * 1024 * 50 // 50 MB
 )
 public class RestaurantPublicInfo extends HttpServlet {
 
@@ -71,7 +71,7 @@ public class RestaurantPublicInfo extends HttpServlet {
 
             // Calculate the path relative to the web folder (Platera-Main/web)
             String realPath = getServletContext().getRealPath("/");
-            String projectRoot = new File(realPath).getParentFile().getParent();  
+            String projectRoot = new File(realPath).getParentFile().getParent();
             String imageDirectoryPath = projectRoot + File.separator + "web" + File.separator + IMAGE_DIRECTORY;
 
             // Create the directory if it doesn't exist
@@ -89,7 +89,7 @@ public class RestaurantPublicInfo extends HttpServlet {
                     outputStream.write(buffer, 0, bytesRead);
                 }
             } catch (IOException e) {
-                response.sendRedirect("src/pages/Restaurant/Menu.jsp?error=FileUploadError");
+                response.sendRedirect("src/pages/Error/DatabaseError.html");
                 return;
             }
         }
@@ -136,15 +136,23 @@ public class RestaurantPublicInfo extends HttpServlet {
                 int rowsInserted = ps.executeUpdate();
                 if (rowsInserted > 0) {
                     // Print a confirmation message in the servlet
-                    response.getWriter().println("<h2>Restaurant details added successfully!</h2>");
+                    session.setAttribute("restaurant_phone", restaurantPhone);
+                    session.setAttribute("restaurant_address", restaurantAddress);
+                    session.setAttribute("restaurant_location", restaurantLocation);
+                    session.setAttribute("category1", category1);
+                    session.setAttribute("category2", category2);
+                    session.setAttribute("category3", category3);
+                    session.setAttribute("min_price", minPrice);
+                    session.setAttribute("max_price", maxPrice);
+                    response.sendRedirect("src/pages/Confirmations/RestaurantConfirmation.jsp");
                 } else {
-                    response.getWriter().println("<h2>Error saving data!</h2>");
+                    response.sendRedirect("src/pages/AddDeliveryExecutive/AddDeliveryExecutive.jsp#errorPopup");
                 }
             }
         } catch (Exception e) {
             // Handle database connection and query errors
             e.printStackTrace();
-            response.getWriter().println("<h2>Error: " + e.getMessage() + "</h2>");
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
         }
 
     }

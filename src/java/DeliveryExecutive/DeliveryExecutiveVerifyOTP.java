@@ -52,9 +52,7 @@ public class DeliveryExecutiveVerifyOTP extends HttpServlet {
         String password = (String) session.getAttribute("password");
 
         // Set response content type
-        response.setContentType("text/html;charset=UTF-8");
 
-        try (PrintWriter out = response.getWriter()) {
             // Validate OTP
             if (enteredOTP != null && sessionOTP != null && sessionOTP.equals(Integer.valueOf(enteredOTP))) {
                 try (Connection conn = Database.getConnection()) {
@@ -85,22 +83,14 @@ public class DeliveryExecutiveVerifyOTP extends HttpServlet {
                         // Redirect to confirmation page
                         response.sendRedirect("src/pages/Confirmations/DeliveryExecutiveConfirmation.jsp");
                     } else {
-                        out.println("<h1>Error saving data. Please try again later.</h1>");
-                        session.invalidate(); // Invalidate session on error
+                        response.sendRedirect("src/pages/Error/DatabaseError.html");
                     }
                 } catch (SQLException ex) {
-                    Logger.getLogger(DeliveryExecutiveVerifyOTP.class.getName()).log(Level.SEVERE, "SQL Error: "+ profileImage + ex.getMessage(), ex);
-                    out.println("<h1>Database error. Please try again later.</h1>");
-                    out.println("<p>Error details: " + ex.getMessage() + "</p>");
-                    out.println(profileImage);
+                    response.sendRedirect("src/pages/Error/DatabaseError.html");
                 }
             } else {
-                out.println("<h1>Invalid OTP. Please try again.</h1>");
-                session.invalidate(); // Invalidate session on invalid OTP
+                response.sendRedirect("src/pages/Error/WrongOTP.html");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
 

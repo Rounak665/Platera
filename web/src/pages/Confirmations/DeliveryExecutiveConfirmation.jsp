@@ -1,4 +1,4 @@
-<!-- <%@ page import="javax.servlet.http.*, javax.servlet.*" %>
+<%@ page import="javax.servlet.http.*, javax.servlet.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%
     // Retrieve session attributes
@@ -32,7 +32,7 @@
 //    String vehicleNumber = "MH01AB1234";
 //    String vehicleType = "Car";
 
-%> -->
+%> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,7 +61,15 @@
         <img src="<%= request.getContextPath()%>/Public/images/PlateraLogo-red.png" alt="Logo" width="50" height="50">
     </div> 
             <h1>Registration Successful!</h1>
-            <p>Thank you for registering! Your details have been successfully submitted. Our team will send you an email regarding the approval of your restaurant on Platera. Please stay tuned as we review your application.</p>
+            <p>🚀 Welcome to Platera's Delivery Team! <br>
+
+                Your registration has been successfully completed. ✅ <br>
+                
+                👋 We’re thrilled to have you join our team of skilled delivery executives! Our team is reviewing your application to ensure all details are accurate. <br>
+                
+                📧 Once approved, you’ll receive a confirmation email with the next steps and everything you need to get started. <br>
+                
+                🛵 Gear up to be the vital connection in delivering delicious meals to satisfied customers. Stay tuned—your exciting journey with Platera begins soon!</p>
             <button onclick="showPopup()">View Your Details</button>
             <!-- New Proceed to Login Button -->
             <button onclick="proceedToLogin()">Back to </button>
@@ -107,7 +115,7 @@
         }
 
         function proceedToLogin() {
-            window.location.href = "../AddDeliveryExecutive/AddDeliveryExecutive.html#Signin-popup";
+            window.location.href = "../AddDeliveryExecutive/AddDeliveryExecutive.jsp#Signin-popup";
         }
     </script>
 </html>

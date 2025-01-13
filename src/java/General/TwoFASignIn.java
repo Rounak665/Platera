@@ -48,7 +48,7 @@ public class TwoFASignIn extends HttpServlet {
                     dashboardUrl = "src/pages/DeliveryExecutive/DeliveryDashboard.jsp";
                     break;
                 default:
-                    out.println("<h2>Invalid user role!</h2>");
+                    out.println("src/pages/Error/DatabaseError.html");
                     return;  // Exit if the user role is invalid
             }
 
@@ -56,8 +56,7 @@ public class TwoFASignIn extends HttpServlet {
             response.sendRedirect(dashboardUrl);
         } else {
             // OTP doesn't match, show an error message
-            out.println("<h2>OTP Verification Failed!</h2>");
-            out.println("<p>The OTP you entered is incorrect. Please try again.</p>");
+            response.sendRedirect("src/pages/Error/WrongOTP.html");
         }
     }
 }

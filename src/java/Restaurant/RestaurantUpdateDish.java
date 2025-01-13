@@ -69,7 +69,7 @@ public class RestaurantUpdateDish extends HttpServlet {
                         outputStream.write(buffer, 0, bytesRead);
                     }
                 } catch (IOException e) {
-                    response.sendRedirect("src/pages/Restaurant/Menu.jsp?error=FileUploadError");
+                    response.sendRedirect("src/pages/Restaurant/Menu.jsp#errorPopup");
                     return;
                 }
             }
@@ -95,11 +95,14 @@ public class RestaurantUpdateDish extends HttpServlet {
                 }
                 response.sendRedirect("src/pages/Restaurant/RestaurantMenu.jsp?success=DishUpdated");
             }
+            catch(Exception ex){
+                response.sendRedirect("src/pages/Restaurant/RestaurantMenu.jsp?#errorPopup");
+            }
         } catch (NumberFormatException e) {
-            response.sendRedirect("src/pages/Restaurant/RestaurantMenu.jsp?error=InvalidNumberFormat");
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("src/pages/Restaurant/RestaurantMenu.jsp?error=UnexpectedError");
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
         }
     }
 }

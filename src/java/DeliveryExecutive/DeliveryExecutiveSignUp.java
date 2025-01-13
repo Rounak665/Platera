@@ -101,7 +101,7 @@ public class DeliveryExecutiveSignUp extends HttpServlet {
                 session.setAttribute("profileImage", base64EncodedImage);
             } catch (IOException e) {
                 e.printStackTrace();
-                out.println("<h1>Error processing the image: " + e.getMessage() + ". Please try again.</h1>");
+                response.sendRedirect("src/pages/Admin/Admin_Restaurant_Approval.jsp#errorPopup");
                 return;
             }
         }
@@ -112,7 +112,7 @@ public class DeliveryExecutiveSignUp extends HttpServlet {
         if (EmailUtility.sendEmail(email, subject, body)) {
             response.sendRedirect("src/pages/OTPVerifications/DeliveryExecutiveVerifyOTP.jsp");
         } else {
-            out.println("<h1>Error sending OTP email!</h1>");
+            response.sendRedirect("src/pages/AddDeliveryExecutive/AddDeliveryExecutive.jsp#errorPopup");
         }
     }
 }

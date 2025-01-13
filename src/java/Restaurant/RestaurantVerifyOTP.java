@@ -32,12 +32,10 @@ public class RestaurantVerifyOTP extends HttpServlet {
                 // OTP verified successfully
                  response.sendRedirect("src/pages/AddRestaurant/Restaurant_public_info/Restaurant_public_info.jsp");
             } else {
-                // OTP verification failed
-                response.getWriter().println("<h2>Invalid OTP. Please try again.</h2>");
+                response.sendRedirect("src/pages/Error/WrongOTP.html");
             }
         } catch (NumberFormatException e) {
-            // Handle invalid input gracefully
-            response.getWriter().println("<h2>Invalid OTP format. Please enter a valid OTP.</h2>");
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
         }
     }
 }

@@ -1,17 +1,10 @@
-<<<<<<< HEAD:web/src/pages/AddRestaurant/Restaurant_public_info/Restaurant_public_info.jsp
 <%@page import="java.util.List"%>
-=======
- <%@page import="java.util.List"%>
->>>>>>> dcfa2e0ceb104d3551d3e2ad6c09ecde08fe3731:web/src/pages/AddRestaurant/Restaurant_public_info/Restaurant_public_info.html
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="Utilities.Location" %>
 <%@ page import="Utilities.LocationDAO" %>
 <%@ page import="Utilities.Category" %>
-<<<<<<< HEAD:web/src/pages/AddRestaurant/Restaurant_public_info/Restaurant_public_info.jsp
 <%@ page import="Utilities.CategoryDAO" %>
-=======
 <%@ page import="Utilities.CategoryDAO" %> 
->>>>>>> dcfa2e0ceb104d3551d3e2ad6c09ecde08fe3731:web/src/pages/AddRestaurant/Restaurant_public_info/Restaurant_public_info.html
 <html lang="en">
     <head>
         <meta charset="UTF-8">

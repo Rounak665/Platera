@@ -80,8 +80,13 @@
         %>
 
 
+<<<<<<< HEAD
        <!-- Profile Setup Popup -->
         <!-- <% if (location_id == 0) {%>
+=======
+        <!-- Profile Setup Popup -->
+        <% if (location_id == 0) {%>
+>>>>>>> 44561ac206114175772f9475ba71e883081b2c7c
         <div class="profile-setup-popup" id="profileSetupPopup">
             <div class="popup-content">
                 <h3>Thank you <%= name%> for signing up. Please set up your profile for a better experience.</h3>
@@ -219,7 +224,7 @@
 
                         if (cartItems.isEmpty()) {
                     %>
-                    
+
                     <h2 style="text-align: center">Your Cart Is Empty</h2>
                     <%
                     } else {
@@ -691,12 +696,19 @@
 
                         // Re-enable the transition after a short delay to ensure smooth animation for future interactions
                         setTimeout(function () {
-                            cartSection.style.transition = 'right 0.3s ease'; // Re-enable smooth transition
+                            cartSection.style.tran
+                            // Set the cart section's position instantly to make it appear
+                            cartSection.style.right = '0%';
+
+                            // Set visibility and opacity for smooth future transitions
+                            cartSection.style.visibility = 'visible';
+                            cartSection.style.opacitsition = 'right 0.3s ease'; // Re-enable smooth transition
                         }, 10); // Short delay to re-enable transition without noticeable flicker
                     }
 
         </script>
         <script>
+<<<<<<< HEAD
         // Enable horizontal scrolling with mouse wheel
         const restaurantCarousel = document.querySelector('.restaurant-carousel');
         restaurantCarousel.addEventListener('wheel', (event) => {
@@ -707,6 +719,31 @@
             }
             event.preventDefault();
         });
+=======
+            document.addEventListener('DOMContentLoaded', function () {
+                const slider = document.querySelector('.restaurant-slider');
+                const prevBtn = document.querySelector('.prev-btn');
+                const nextBtn = document.querySelector('.next-btn');
+
+                function moveSlider(direction) {
+                    const scrollAmount = slider.clientWidth; // Adjust this value based on your requirement
+
+                    slider.scrollBy({
+                        left: direction * scrollAmount,
+                        behavior: 'smooth'
+                    });
+                    console.log("button-pressed");
+                }
+
+                prevBtn.addEventListener('click', function () {
+                    moveSlider(-1);
+                });
+
+                nextBtn.addEventListener('click', function () {
+                    moveSlider(1);
+                });
+            });
+>>>>>>> 44561ac206114175772f9475ba71e883081b2c7c
         </script>
         <script src="./script.js"></script>
         

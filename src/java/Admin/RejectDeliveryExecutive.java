@@ -57,9 +57,10 @@ public class RejectDeliveryExecutive extends HttpServlet {
                         deletePstmt.setInt(1, request_id);
                         deletePstmt.executeUpdate();
                     }
-
-                    response.setContentType("text/html");
-                    response.getWriter().println("<h2>Delivery Executive application has been rejected successfully</h2>");
+                    catch(Exception ex){                     
+                    response.sendRedirect("src/pages/Admin/Admin_Restaurant_Approval.jsp#errorPopup");
+                    return;
+                    }
 
                     // Send rejection email if the email was retrieved successfully
                     String subject = "Platera Delivery Executive Application Rejected";
@@ -71,10 +72,12 @@ public class RejectDeliveryExecutive extends HttpServlet {
                         EmailUtility.sendEmail(email,subject,body);
                     }
                 }
+            }catch (Exception ex) {
+                response.sendRedirect("src/pages/Admin/Admin_Restaurant_Approval.jsp#errorPopup");
+                return;
             }
         } catch (SQLException ex) {
-            LOGGER.log(Level.SEVERE, "Database error occurred: " + ex.getMessage(), ex);
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error occurred: " + ex.getMessage());
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
         }
     }
 

@@ -57,16 +57,13 @@ public class RestaurantDeleteCategories extends HttpServlet {
             // Execute the update
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
-                response.setContentType("text/html");
-                response.getWriter().println("<h3>Category deleted successfully.</h3>");
+                response.sendRedirect("src/pages/Restaurant/RestaurantMenu.jsp#errorPopup");
             } else {
-                response.setContentType("text/html");
-                response.getWriter().println("<h3>No changes made. Category may not exist for this restaurant.</h3>");
+                response.sendRedirect("src/pages/Restaurant/RestaurantMenu.jsp#errorPopup");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            response.setContentType("text/html");
-            response.getWriter().println("<h3>An error occurred while deleting the category. Please try again later.</h3>");
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
         }
     }
 }

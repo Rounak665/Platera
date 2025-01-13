@@ -48,19 +48,19 @@ public class ApplyCoupon extends HttpServlet {
                             int rowsUpdated = updateStmt.executeUpdate();
 
                             if (rowsUpdated > 0) {
-                                response.sendRedirect("src/pages/Customer/Home.jsp#cartSection");
+                                response.sendRedirect("src/pages/Customer/Home.jsp#cartSection?CouponApplied");
                             } else {
-                                response.getWriter().println("Failed to apply coupon.");
+                                response.sendRedirect("src/pages/Customer/Home.jsp#errorPopup");
                             }
                         }
                     } else {
-                        response.getWriter().println("Invalid or expired coupon.");
+                        response.sendRedirect("src/pages/Customer/Home.jsp#cartSection?NoValidCouponFound");
                     }
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            response.getWriter().println("Error applying coupon. Please try again.");
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
         }
     }
 }

@@ -68,14 +68,14 @@ public class UpdateCustomerProfile extends HttpServlet {
                 if (isUpdated) {
                     response.sendRedirect("src/pages/Customer/CustomerDashboard/CustomerProfile.jsp?profileUpdated");
                 } else {
-                    response.sendRedirect("src/pages/Customer/CustomerDashboard/CustomerProfile.jsp?UpdateFailed");
+                    response.sendRedirect("src/pages/Customer/CustomerDashboard/CustomerProfile.jsp#errorPopup");
                 }
             } else {
-                response.sendRedirect("src/pages/Customer/CustomerDashboard/CustomerProfile.jsp?error=true");
+                response.sendRedirect("src/pages/Customer/CustomerDashboard/CustomerProfile.jsp#errorPopup");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("src/pages/Customer/CustomerDashboard/CustomerProfile.jsp?sqlError");
+           response.sendRedirect("src/pages/Error/DatabaseError.html");
         }
     }
 }

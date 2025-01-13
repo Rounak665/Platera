@@ -49,10 +49,13 @@ public class RejectRestaurant extends HttpServlet {
                 deletePstmt.executeUpdate();
                 response.setContentType("text/html");
                 response.getWriter().println("<h2>Restaurant has been rejected successfully</h2>");
+            }catch(Exception ex){
+                response.sendRedirect("src/pages/Admin/Admin_Restaurant_Approval.jsp#errorPopup");
+                return;
             }
 
         } catch (SQLException e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error occurred: " + e.getMessage());
+            response.sendRedirect("src/pages/Admin/Admin_Restaurant_Approval.jsp#errorPopup");
             return;
         }
 

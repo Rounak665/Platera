@@ -77,14 +77,14 @@ public class UpdateExecutiveProfile extends HttpServlet {
                 if (isUpdated) {
                     response.sendRedirect("src/pages/DeliveryExecutive/DeliveryDashboard.jsp?profileUpdated");
                 } else {
-                    response.sendRedirect("src/pages/Executive/ExecutiveDashboard/ExecutiveProfile.jsp?updateFailed");
+                    response.sendRedirect("src/pages/Executive/ExecutiveDashboard/ExecutiveProfile.jsp#ErrorPopup");
                 }
             } else {
-                response.sendRedirect("src/pages/Executive/ExecutiveDashboard/ExecutiveProfile.jsp?error=true");
+                response.sendRedirect("src/pages/Executive/ExecutiveDashboard/ExecutiveProfile.jsp#ErrorPopup");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("src/pages/Executive/ExecutiveDashboard/ExecutiveProfile.jsp?sqlError");
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
         }
     }
 }

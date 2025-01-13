@@ -73,7 +73,7 @@ public class CustomerVerifyOTP extends HttpServlet {
                     // Redirect to the customer profile page
                     response.sendRedirect("src/pages/Customer/Home.jsp#profileSetupPopup");
                 } catch (SQLException e) {
-                    out.println("<p>Error saving data to the database: " + e.getMessage() + "</p>");
+                    response.sendRedirect("src/pages/Error/DatabaseError.html");
                 }
 
                 // Clear session attributes after successful signup
@@ -84,9 +84,7 @@ public class CustomerVerifyOTP extends HttpServlet {
 
             } else {
                 // OTP verification failed
-                out.println("<h1>Invalid OTP. Please try again.</h1>");
-                out.println("<p>User: " + name + "</p>");  // Print the name for debugging
-                request.setAttribute("errorMessage", "Invalid OTP. Please try again.");
+                response.sendRedirect("src/pages/Error/WrongOTP.html");
             }
         }
     }

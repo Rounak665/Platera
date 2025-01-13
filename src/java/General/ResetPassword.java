@@ -49,15 +49,16 @@ public class ResetPassword extends HttpServlet {
 
                 int rowsUpdated = pstmt.executeUpdate();
 
-                if (rowsUpdated > 0) {
-                    out.println("<h1>Password updated successfully!</h1>");
+                if (rowsUpdated > 0) {                  
                     session.invalidate();
+                    response.sendRedirect("index.html?PasswordUpdated");
                 } else {
-                    out.println("<h1>Error updating password. Please try again later.</h1>");
+                    session.invalidate();
+                    response.sendRedirect("src/pages/ForgotPassword/ForgotPassword.jsp#errorPopup");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();  // Log this properly using a logger in production
-                out.println("<h1>Error updating password. Please try again later.</h1>");
+                response.sendRedirect("src/pages/Error/DatabaseError.html");
             }
         }
     }

@@ -27,11 +27,11 @@ public class DeleteFromCart extends HttpServlet {
                 response.sendRedirect("src/pages/Customer/Home.jsp?status=removed#cartSection");
             } else {
                 // Failed to remove item, handle error
-                response.sendRedirect("Cart.jsp?status=error");
+                response.sendRedirect("src/pages/Customer/Home.jsp#errorPopup");
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            response.sendRedirect("Cart.jsp?status=invalid");
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
         }
     }
 }
