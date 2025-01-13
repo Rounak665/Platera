@@ -33,10 +33,14 @@
     <div class="container">
         <h1>Menu Items</h1>
         <%
-            try (Connection conn = Database.getConnection()) {
+            Connection conn = null;
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            try {
+                conn = Database.getConnection();
                 String query = "SELECT mi.item_name FROM menu_items mi JOIN restaurants r ON mi.restaurant_id = r.restaurant_id WHERE r.location_id = 1";
-                PreparedStatement stmt = conn.prepareStatement(query);
-                ResultSet rs = stmt.executeQuery();
+                stmt = conn.prepareStatement(query);
+                rs = stmt.executeQuery();
                 while (rs.next()) {
         %>
                     <div class="menu-item">
@@ -46,6 +50,10 @@
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
+            } finally {
+                if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+                if (stmt != null) try { stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+                if (conn != null) try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
             }
         %>
     </div>

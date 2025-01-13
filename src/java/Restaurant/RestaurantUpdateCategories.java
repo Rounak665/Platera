@@ -22,7 +22,7 @@ public class RestaurantUpdateCategories extends HttpServlet {
 
         // If restaurantId is not found in session, redirect to login or an error page
         if (restaurantId == null) {
-            response.sendRedirect("login.jsp"); // Or any appropriate redirect
+            response.sendRedirect("index.html"); // Or any appropriate redirect
             return;
         }
 
@@ -49,15 +49,13 @@ public class RestaurantUpdateCategories extends HttpServlet {
                 int rowsUpdated = ps.executeUpdate();
 
                 if (rowsUpdated > 0) {
-                    // Successfully updated the categories
-                    out.println("<h3>Categories updated successfully for Restaurant ID: " + restaurantId + ".</h3>");
+                    response.sendRedirect("src/pages/Restautant/RestaurantCategory.jsp?CategoryUpdated");
                 } else {
-                    // If no rows were updated, maybe show an error
-                    out.println("<h3>Error: No changes made. Please try again.</h3>");
+                    response.sendRedirect("src/pages/Restautant/RestaurantCategory.jsp#errorPopup");
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
         }
     }
 }

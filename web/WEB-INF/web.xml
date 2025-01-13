@@ -16,4 +16,9 @@
         <servlet-name>VerifyOTP</servlet-name>
         <url-pattern>/VerifyOTP</url-pattern>
     </servlet-mapping>
+    
+    <error-page>
+        <error-code>404</error-code>
+        <location>/src/pages/Error/404Error.html</location> <!-- Correct path -->
+    </error-page>
 </web-app>

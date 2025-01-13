@@ -48,7 +48,7 @@ public class ForgotPassword extends HttpServlet {
             if (isEmailSent) {
                 response.sendRedirect("src/pages/ForgotPassword/ForgotPassVerifyOTP.jsp");
             } else {
-                out.println("<h1>Error sending OTP to email. Please try again later.</h1>");
+                response.sendRedirect("src/pages/ForgotPassword/ForgotPassVerifyOTP.jsp#errorPopup");
             }
         }
     }
@@ -65,7 +65,7 @@ public class ForgotPassword extends HttpServlet {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace(); // Log properly in production
+            e.printStackTrace(); // Log properly in production          
             return false;
         }
     }

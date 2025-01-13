@@ -42,20 +42,9 @@ public class RestaurantSignUp extends HttpServlet {
         String password = request.getParameter("password");
         String re_password = request.getParameter("re_password");
 
-        // Set the response content type
-        response.setContentType("text/html;charset=UTF-8");
-
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet sign_up</title>");
-            out.println("</head>");
-            out.println("<body>");
-
             // Check if password and re-password match
             if (!password.equals(re_password)) {
-                out.println("<h1>Passwords do not match!</h1>");
+                response.sendRedirect("src/pages/Error/passwordChecker.html");
             } else {
 
                 Random random = new Random();
@@ -82,13 +71,9 @@ public class RestaurantSignUp extends HttpServlet {
                 if (EmailUtility.sendEmail(email, subject, body)) {
                     response.sendRedirect("src/pages/OTPVerifications/RestaurantVerifyOTP.jsp");
                 } else {
-                    out.println("<h1>Error sending OTP email!</h1>");
+                    response.sendRedirect("src/pages/AddRestaurant/AddRestaurant.html#errorPopup");
                 }
             }
-
-            out.println("</body>");
-            out.println("</html>");
-        }
     }
 
 }

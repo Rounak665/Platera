@@ -62,7 +62,7 @@ public class UpdateTwoFAStatus extends HttpServlet {
                             redirectUrl = "src/pages/Restaurant/RestaurantDashboard.jsp";  // Page for role 4
                             break;
                         default:
-                            redirectUrl = "index.html";  // Default page for other roles
+                            redirectUrl = "src/pages/Error/DatabaseError.html";  // Default page for other roles
                             break;
                     }
 
@@ -71,12 +71,12 @@ public class UpdateTwoFAStatus extends HttpServlet {
 
                 } else {
                     // If the user is not found
-                    response.getWriter().println("<html><body><h3>User not found.</h3></body></html>");
+                 response.sendRedirect("index.html#errorPopup");
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            response.getWriter().println("<html><body><h3>Error: " + e.getMessage() + "</h3></body></html>");
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
         }
     }
 }

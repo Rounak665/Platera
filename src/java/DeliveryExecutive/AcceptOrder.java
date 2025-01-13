@@ -23,7 +23,7 @@ public class AcceptOrder extends HttpServlet {
         String deliveryAddress = request.getParameter("deliveryAddress");
 
         if (orderId == null || deliveryExecutiveId == null || deliveryAddress == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required parameters.");
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
             return;
         }
 
@@ -47,7 +47,7 @@ public class AcceptOrder extends HttpServlet {
             response.getWriter().println("Order accepted and delivery details saved successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error while processing the request: " + e.getMessage());
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
         }
     }
 }

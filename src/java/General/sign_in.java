@@ -25,7 +25,6 @@ public class sign_in extends HttpServlet {
 
         String email = request.getParameter("email_signin");
         String password = request.getParameter("password_signin");
-        
 
         try (Connection conn = Database.getConnection()) {
             // Validate the user's credentials and get user_id, user_role_id, two_step_verification, and email
@@ -100,14 +99,15 @@ public class sign_in extends HttpServlet {
                         }
                     } else {
                         // Invalid credentials
-                        out.println("<h2>Login Failed!</h2>");
-                        out.println("<p>Invalid email or password. Please try again.</p>");
+                        response.sendRedirect("src/pages/Error/EmailPasswordChecker.html");
                     }
+                } catch (Exception ex) {
+                    response.sendRedirect("index.html#errorPopup");
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            out.println("<h2>Something went wrong!</h2>");
+            response.sendRedirect("src/pages/OTPVerifications/CustomerVerifyOTP.jsp");
         }
     }
 

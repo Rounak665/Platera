@@ -29,7 +29,7 @@ public class UpdateOrderStatus extends HttpServlet {
         }
 
         if (orderIdStr == null || orderIdStr.isEmpty() || status == null || status.isEmpty()) {
-            response.sendRedirect("/errorPage.jsp");
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
             return;
         }
 
@@ -45,13 +45,13 @@ public class UpdateOrderStatus extends HttpServlet {
                 if (stmt.executeUpdate() > 0) {
                     response.sendRedirect(getRedirectPage(status));
                 } else {
-                    response.sendRedirect("/errorPage.jsp");
+                    response.sendRedirect("src/pages/Error/DatabaseError.html");
                 }
             }
 
         } catch (SQLException | NumberFormatException e) {
             e.printStackTrace();
-            response.sendRedirect("/errorPage.jsp");
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
         }
     }
 
@@ -64,7 +64,7 @@ public class UpdateOrderStatus extends HttpServlet {
             case "Delivered":
                 return "src/pages/DeliveryExecutive/DeliveryDashboard.jsp";
             default:
-                return "/defaultPage.jsp";
+                return "src/pages/Error/DatabaseError.html";
         }
     }
 }

@@ -24,7 +24,7 @@
                 <button id="closeErrorPopup">Go Back</button>
             </div>
         </div>
-        
+
         <!-- Sidebar and Header Section -->
         <div>
             <div class="sidebar">
@@ -37,7 +37,7 @@
                         <img src="../../../Public/images/logo.png" alt="">
                     </div>
                 </div>
-                
+
                 <div class="sidebar-menu">
                     <ul>
                         <li>
@@ -64,11 +64,11 @@
                                 <span>Delivery Executive Management</span>
                             </a>
                         </li>
-                        
+
                     </ul>
                 </div>
             </div>
-            
+
             <div class="main-content">
                 <header>
                     <div class="headerLogo">
@@ -80,7 +80,7 @@
                         <span class="icon"><ion-icon name="search"></ion-icon></span>
                         <input type="search" placeholder="Search">
                     </div>
-                    
+
                     <div class="social-icons">
                         <div class="logout_btn">
                             <form action="http://localhost:8080/Platera-Main/logout" class="d-flex align-items-center">
@@ -208,11 +208,38 @@
                 document.querySelector(".sidebar").classList.remove("activate");
             });
 
-            function signout() {
-                localStorage.removeItem('authtoken');
-                localStorage.removeItem('admin');
-                window.location.href = '../AddRestaurent/AddRestaurent.html#Signin-popup';
+// Check if the URL hash is #errorPopup
+            if (window.location.hash === '#errorPopup') {
+                // Show the error popup
+                document.addEventListener('DOMContentLoaded', function () {
+                    const errorPopup = document.getElementById('errorPopup');
+                    if (errorPopup) {
+                        errorPopup.style.display = 'flex';
+                    }
+                });
             }
+
+// Function to display the error popup dynamically
+            function showErrorPopup(message) {
+                const errorMessage = document.getElementById('errorMessage');
+                const errorPopup = document.getElementById('errorPopup');
+                if (errorMessage && errorPopup) {
+                    errorMessage.innerText = message;
+                    errorPopup.style.display = 'flex';
+                }
+            }
+
+// Close the error popup
+            document.addEventListener('DOMContentLoaded', function () {
+                const closeErrorPopupButton = document.getElementById('closeErrorPopup');
+                const errorPopup = document.getElementById('errorPopup');
+                if (closeErrorPopupButton && errorPopup) {
+                    closeErrorPopupButton.addEventListener('click', function () {
+                        errorPopup.style.display = 'none';
+                    });
+                }
+            });
+
         </script>
 
     </body>

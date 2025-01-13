@@ -82,7 +82,7 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                     // Create the directory if it doesn't exist
                     File imageDirectory = new File(imageDirectoryPath);
                     if (!imageDirectory.exists()) {
-                        imageDirectory.mkdirs();  
+                        imageDirectory.mkdirs();
                     }
 
                     // Retrieve CLOB image data and decode it to save as a file
@@ -107,13 +107,13 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                     try (PreparedStatement insertDelExecPstmt = conn.prepareStatement(insertDelExecSql)) {
                         insertDelExecPstmt.setInt(1, userId);
                         insertDelExecPstmt.setString(2, IMAGE_DIRECTORY + File.separator + "delivery_executive_" + userId + ".jpg");
-                        insertDelExecPstmt.setInt(3, rs.getInt("location"));   
+                        insertDelExecPstmt.setInt(3, rs.getInt("location"));
                         insertDelExecPstmt.executeUpdate();
 
                         // Get the generated delivery_executive_id                       
                     }
-                    
-                    int deliveryExecutiveId=0;
+
+                    int deliveryExecutiveId = 0;
                     String delExecIdSql = "SELECT delivery_executive_id FROM delivery_executives WHERE user_id = ?";
                     try (PreparedStatement delExecIdSqlPstmt = conn.prepareStatement(delExecIdSql)) {
                         delExecIdSqlPstmt.setInt(1, userId);
@@ -127,7 +127,6 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                             return;
                         }
                     }
-                    
 
                     // Insert into the delivery_executive_documents table, using the retrieved delivery_executive_id
                     String insertDelExecDocsSql = "INSERT INTO delivery_executive_documents (delivery_executive_id, aadhar_number, pan_number, driving_license_number, gender, age, vehicle_type, vehicle_number, bank_account_name, bank_account_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -146,11 +145,11 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                     }
 
                     // Delete the processed request
-//                    String deleteSql = "DELETE FROM DELIVERY_EXECUTIVE_REQUESTS WHERE REQUEST_ID = ?";
-//                    try (PreparedStatement deletePstmt = conn.prepareStatement(deleteSql)) {
-//                        deletePstmt.setInt(1, request_id);
-//                        deletePstmt.executeUpdate();
-//                    }
+                    String deleteSql = "DELETE FROM DELIVERY_EXECUTIVE_REQUESTS WHERE REQUEST_ID = ?";
+                    try (PreparedStatement deletePstmt = conn.prepareStatement(deleteSql)) {
+                        deletePstmt.setInt(1, request_id);
+                        deletePstmt.executeUpdate();
+                    }
 
                     response.setContentType("text/html");
                     response.getWriter().println("<h2>Delivery Executive has been approved successfully</h2>");
@@ -165,10 +164,12 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                         EmailUtility.sendEmail(email, subject, body);
                     }
                 }
+            } catch (Exception ex) {
+                response.sendRedirect("src/pages/Admin/Admin_Delivery_Executive_Approval.jsp#errorPopup");
+                return;
             }
         } catch (SQLException ex) {
-            LOGGER.log(Level.SEVERE, "Database error occurred: " + ex.getMessage(), ex);
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error occurred: " + ex.getMessage());
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
         }
     }
 }

@@ -28,12 +28,12 @@ public class UpdateExecutiveStatus extends HttpServlet {
                 if (rowsUpdated > 0) {
                     response.sendRedirect("src/pages/DeliveryExecutive/DeliveryDashboard.jsp"); 
                 } else {
-                    response.getWriter().println("Failed to update status.");
+                    response.sendRedirect("src/pages/DeliveryExecutive/DeliveryExecutiveDashboard.jsp#errorPopup");
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.getWriter().println("Error: " + e.getMessage());
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
         }
     }
 }

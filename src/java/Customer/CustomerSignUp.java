@@ -24,7 +24,7 @@ public class CustomerSignUp extends HttpServlet {
 
         try (PrintWriter out = response.getWriter()) {
             if (!password.equals(re_password)) {
-                out.println("<h1>Passwords do not match!</h1>");
+                response.sendRedirect("src/pages/Error/passwordChecker.html");
                 return;
             }
 
@@ -48,7 +48,7 @@ public class CustomerSignUp extends HttpServlet {
             if (EmailUtility.sendEmail(email, subject, body)) {
                 response.sendRedirect("src/pages/OTPVerifications/CustomerVerifyOTP.jsp");
             } else {
-                out.println("<h1>Error sending OTP email!</h1>");
+                response.sendRedirect("src/pages/Customer/Home.jsp#errorPopup");
             }
         }
     }

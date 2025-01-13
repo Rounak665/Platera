@@ -45,12 +45,10 @@ public class AddToCart extends HttpServlet {
                 if (success) {
                     response.sendRedirect("src/pages/Customer/RestaurantDetails/RestaurantDetails.jsp?restaurantId=" + restaurantId + "#item" + itemId);
                 } else {
-                    request.setAttribute("errorMessage", "Failed to add item to cart.");
-                    request.getRequestDispatcher("restaurantDetails.jsp").forward(request, response);
+                    response.sendRedirect("src/pages/Error/DatabaseError.html");
                 }
             } else {
-                request.setAttribute("errorMessage", "Restaurant not found for the given item.");
-                request.getRequestDispatcher("restaurantDetails.jsp").forward(request, response);
+                response.sendRedirect("src/pages/Error/DatabaseError.html");
             }
         }
     }

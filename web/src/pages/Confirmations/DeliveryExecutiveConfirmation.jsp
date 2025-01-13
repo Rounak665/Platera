@@ -1,4 +1,4 @@
-<!-- <%@ page import="javax.servlet.http.*, javax.servlet.*" %>
+<%@ page import="javax.servlet.http.*, javax.servlet.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%
     // Retrieve session attributes
@@ -32,7 +32,7 @@
 //    String vehicleNumber = "MH01AB1234";
 //    String vehicleType = "Car";
 
-%> -->
+%> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,12 +60,15 @@
         <img src="<%= request.getContextPath()%>/Public/images/PlateraLogo-red.png" alt="Logo" width="50" height="50">
     </div> 
             <h1>Registration Successful!</h1>
-            <p>🎉 Thank You for Registering with Platera! 🎉<br>
-                Your restaurant's details have been successfully submitted.✅<br> 
+            <p>🚀 Welcome to Platera's Delivery Team! <br>
+
+                Your registration has been successfully completed. ✅ <br>
                 
-                Our team is thrilled to have you on board! We're currently reviewing your application to ensure it meets our quality standards. Once approved, you will receive an email confirmation with all the details you need to get started. <br>
+                👋 We’re thrilled to have you join our team of skilled delivery executives! Our team is reviewing your application to ensure all details are accurate. <br>
                 
-                In the meantime, feel free to explore our platform and get ready to bring delicious meals to food lovers everywhere.</p>
+                📧 Once approved, you’ll receive a confirmation email with the next steps and everything you need to get started. <br>
+                
+                🛵 Gear up to be the vital connection in delivering delicious meals to satisfied customers. Stay tuned—your exciting journey with Platera begins soon!</p>
             <button onclick="showPopup()">View Your Details</button>
             <!-- New Proceed to Login Button -->
             <button onclick="proceedToLogin()">Back to </button>
@@ -78,18 +81,21 @@
             <h2>Your Registration Details</h2>
             <div class="details-list">
                 <div class="column">
-                    <p><strong>Restaurant Name:</strong> <%= name %></p>
-                    <p><strong>Owner Name:</strong> <%= name %></p>
+                    <p><strong>Name:</strong> <%= name %></p>
                     <p><strong>Email:</strong> <%= email %></p>
                     <p><strong>Phone:</strong> <%= phone %></p>
                     <p><strong>Address:</strong> <%= address %></p>
+                    <p><strong>Age:</strong> <%= age %></p>
+                    <p><strong>Gender:</strong> <%= gender %></p>
                 </div>
                 <div class="column">
+                    <p><strong>Aadhar Number:</strong> <%= aadharNumber %></p>
                     <p><strong>Bank Account Name:</strong> <%= bankAccountName %></p>
                     <p><strong>Bank Account Number:</strong> <%= bankAccountNumber %></p>
                     <p><strong>PAN Number:</strong> <%= panNumber %></p>
-                    <p><strong>Regular GSTIN Number:</strong> <%= drivingLicenseNumber %></p>
-                    <p><strong>FSSAI License Number:</strong> <%= vehicleNumber %></p>
+                    <p><strong>Driving License Number:</strong> <%= drivingLicenseNumber %></p>
+                    <p><strong>Vehicle Number:</strong> <%= vehicleNumber %></p>
+                    <p><strong>Vehicle Type:</strong> <%= vehicleType %></p>
                 </div>
             </div>
             <button onclick="closePopup()">Close</button>
@@ -108,7 +114,7 @@
         }
 
         function proceedToLogin() {
-            window.location.href = "../AddRestaurant/AddRestaurant.html#Signin-popup";
+            window.location.href = "../AddDeliveryExecutive/AddDeliveryExecutive.jsp#Signin-popup";
         }
     </script>
 </html>

@@ -42,21 +42,22 @@ public class SubmitReview extends HttpServlet {
 
             if (rowsInserted > 0) {
                 // Redirect to the restaurant page with a success message
-                response.sendRedirect("src/pages/Customer/RestaurantDetails/RestaurantDetails.jsp?restaurantId=" + restaurantId + "&message=Review Submitted Successfully");
+                response.sendRedirect("src/pages/Customer/RestaurantDetails/RestaurantDetails.jsp?restaurantId=" + restaurantId + "?Review Submitted Successfully");
             } else {
                 // Redirect with an error message
-                response.sendRedirect("src/pages/Customer/RestaurantDetails/RestaurantDetails.jsp?restaurantId=" + restaurantId + "&error=Failed to Submit Review");
+                response.sendRedirect("src/pages/Customer/RestaurantDetails/RestaurantDetails.jsp#errorPopup?restaurantId=" + restaurantId );
             }
         } catch (Exception e) {
             e.printStackTrace();
-            // Redirect with an error message in case of exception
-            response.sendRedirect("src/pages/Customer/RestaurantDetails/RestaurantDetails.jsp?restaurantId=" + restaurantId + "&error=Something Went Wrong");
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
+            
         } finally {
             try {
                 if (ps != null) ps.close();
                 if (con != null) con.close();
             } catch (Exception e) {
                 e.printStackTrace();
+                response.sendRedirect("src/pages/Error/DatabaseError.html");
             }
         }
     }
