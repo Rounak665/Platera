@@ -109,22 +109,55 @@ const settingSection = document.getElementById('setSection');
 const closeSetSection = document.getElementById("closeSetSection");
 const closeEditSection = document.getElementById("closeEditSection");
 settingIcon.addEventListener('click', () => {
-    if (settingSection.style.right === '0%') {
-        settingSection.style.right = '-50%'; // Slide out cart section
+    // Check if the screen width is less than 450px
+    if (window.matchMedia("(max-width: 450px)").matches) {
+        // Screen is less than 450px
+        if (settingSection.style.right === '0%') {
+            settingSection.style.right = '-100%'; // Slide out cart section for small screens
+        } else {
+            settingSection.style.right = '0%'; // Slide in cart section
+            userSection.style.right = '-100%'; // Ensure user section is hidden
+        }
     } else {
-        settingSection.style.right = '0%'; // Slide in cart section
-        userSection.style.right = '-50%'; // Ensure user section is hidden
+        // Screen is 450px or more
+        if (settingSection.style.right === '0%') {
+            settingSection.style.right = '-50%'; // Slide out cart section for larger screens
+        } else {
+            settingSection.style.right = '0%'; // Slide in cart section
+            userSection.style.right = '-50%'; // Ensure user section is hidden
+        }
+    }
+});
+
+window.addEventListener('resize', () => {
+    if (window.innerWidth <= 768) {
+        settingSection.style.right = '-100%';
+    } else {
+        settingSection.style.right = '-50%';
     }
 });
 
 if (closeSetSection) {
     closeSetSection.addEventListener("click", () => {
-        document.getElementById("setSection").style.right = "-50%";
+        if (window.matchMedia("(max-width: 450px)").matches) {
+            // Screen is less than 450px
+            document.getElementById("setSection").style.right = "-100%";
+        } else {
+            // Screen is 450px or more
+            document.getElementById("setSection").style.right = "-50%";
+        }
     });
 }
+
 if (closeEditSection) {
     closeEditSection.addEventListener("click", () => {
-        document.getElementById("setSection").style.right = "-50%";
+        if (window.matchMedia("(max-width: 450px)").matches) {
+            // Screen is less than 450px
+            document.getElementById("setSection").style.right = "-100%";
+        } else {
+            // Screen is 450px or more
+            document.getElementById("setSection").style.right = "-50%";
+        }
     });
 }
 
