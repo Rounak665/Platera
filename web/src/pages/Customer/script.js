@@ -1,13 +1,3 @@
-// // Show Error Popup
-// function showErrorPopup(message) {
-//     document.getElementById('errorMessage').innerText = message;
-//     document.getElementById('errorPopup').style.display = 'flex';
-// }
-
-// // Close Error Popup
-// document.getElementById('closeErrorPopup').addEventListener('click', function() {
-//     document.getElementById('errorPopup').style.display = 'none';
-// });
 
 
 // JavaScript for Welcome Popup

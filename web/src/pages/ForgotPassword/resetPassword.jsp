@@ -3,7 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Reset Password</title>
+    <title>Platera - Reset Password</title>
+    <link rel="shortcut icon" href="../../../Public/favicon.png" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="./ForgotPassword.css">
 </head>
 <body>
@@ -31,5 +32,6 @@
         </form>
         <a href="login.jsp" class="back-link">Back to login</a>
     </div>
+    <script src="../../../error.js"></script>
 </body>
 </html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Carousel</title>
+    <style>
+        /* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+/* Scrollbar Container */
+::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+    height: 10px; /* Height for horizontal scrollbar */
+}
+
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Track background */
+    border-radius: 5px; /* Rounded track */
+}
+
+/* Scrollbar Thumb */
+::-webkit-scrollbar-thumb {
+    background-color: #F12630; /* Scrollbar color */
+    border-radius: 5px; /* Rounded scrollbar */
+    border: 2px solid #f1f1f1; /* Creates space around thumb */
+}
+
+/* Hover Effect on Scrollbar Thumb */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #FFD04D; /* Darker shade on hover */
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* max-width: 1200px; */
+    overflow: hidden;
+    border-radius: 10px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+}
+
+.carousel {
+    width: 80%;
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    gap: 10px;
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carousel-item {
+    min-width: calc(100% / 9);
+    box-sizing: border-box;
+    gap: 10px;
+}
+
+.card {
+    background-color: #fff;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    margin: 5px;
+    width: 200px;
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+@media (max-width: 1200px) {
+            .carousel-item {
+                min-width: calc(100% / 10);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .carousel-item {
+                min-width: calc(100% / 10);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .carousel-item {
+                min-width: calc(100% / 10);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .carousel-item {
+                min-width: calc(100% / 10);
+            }
+        }
+
+        @media (max-width: 400px) {
+            .carousel-item {
+                min-width: calc(100% / 10);
+            }
+            .carousel-item {
+                min-width: 100%;
+            }
+
+            .card {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel-container">
+        <div class="carousel">
+            <div class="carousel-inner">
+                <!-- Add cards here -->
+                <div class="carousel-item"><div class="card"><img src="./Public/images/card1.jpg" alt="Restaurant 1"><h3>Restaurant 1</h3><p>Best place for Italian food.</p></div></div>
+                <div class="carousel-item"><div class="card"><img src="restaurant2.jpg" alt="Restaurant 2"><h3>Restaurant 2</h3><p>Delicious sushi and Japanese cuisine.</p></div></div>
+                <div class="carousel-item"><div class="card"><img src="restaurant3.jpg" alt="Restaurant 3"><h3>Restaurant 3</h3><p>Amazing steak and grill.</p></div></div>
+                <div class="carousel-item"><div class="card"><img src="restaurant4.jpg" alt="Restaurant 4"><h3>Restaurant 4</h3><p>Cozy cafe for brunch.</p></div></div>
+                <div class="carousel-item"><div class="card"><img src="restaurant5.jpg" alt="Restaurant 5"><h3>Restaurant 5</h3><p>Authentic Mexican dishes.</p></div></div>
+                <div class="carousel-item"><div class="card"><img src="restaurant6.jpg" alt="Restaurant 6"><h3>Restaurant 6</h3><p>Exquisite French cuisine.</p></div></div>
+                <div class="carousel-item"><div class="card"><img src="restaurant7.jpg" alt="Restaurant 7"><h3>Restaurant 7</h3><p>Fresh seafood and oysters.</p></div></div>
+                <div class="carousel-item"><div class="card"><img src="restaurant8.jpg" alt="Restaurant 8"><h3>Restaurant 8</h3><p>Delicious vegetarian meals.</p></div></div>
+                <div class="carousel-item"><div class="card"><img src="restaurant9.jpg" alt="Restaurant 9"><h3>Restaurant 9</h3><p>Great burgers and fries.</p></div></div>
+                <div class="carousel-item"><div class="card"><img src="restaurant10.jpg" alt="Restaurant 10"><h3>Restaurant 10</h3><p>Famous for its desserts.</p></div></div>
+                <!-- Add more cards as needed -->
+            </div>
+        </div>
+    </div>
+    <script>
+        // Enable horizontal scrolling with mouse wheel
+        const carousel = document.querySelector('.carousel');
+                carousel.addEventListener('wheel', (event) => {
+                    if (event.deltaY > 0) {
+                        carousel.scrollLeft += 100;
+                    } else {
+                        carousel.scrollLeft -= 100;
+                    }
+                    event.preventDefault();
+                });
+    </script>
+</body>
+</html>

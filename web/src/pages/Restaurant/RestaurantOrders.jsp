@@ -16,7 +16,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Orders</title>
+        <title>Platera - Restaurant Orders</title>
+        <link rel="shortcut icon" href="../../../Public/favicon.png" type="image/x-icon">
         <link rel="stylesheet" href="RestaurantDashboard.css"> <!-- Link to your CSS -->
         <style>
             /* Styling for the button */
@@ -278,6 +279,6 @@
 
 
         </script>
-
+        <script src="../../../error.js"></script>
     </body>
 </html>

@@ -7,7 +7,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Edit Dish</title>
+        <title>Platera - Restaurant Edit Dish</title>
         <link rel="stylesheet" href="<%= request.getContextPath()%>/src/pages/Restaurant/RestaurantDashboard.css">
     </head>
     <body>
@@ -203,5 +203,6 @@
                                 window.location.href = '../AddRestaurent/AddRestaurent.html#Signin-popup';
                             }
         </script>
+        <script src="../../../error.js"></script>
     </body>
 </html>

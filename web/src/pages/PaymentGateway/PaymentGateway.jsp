@@ -6,7 +6,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Payment Gateway</title>
+        <title>Powered By Salford Panyments Bank</title>
+        <link rel="shortcut icon" href="../../../Public/favicon.png" type="image/x-icon">
         <link rel="stylesheet" href="./paymentGateway.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -238,6 +239,8 @@
                 window.location.href = "../DeliveryDetailsPage/deliverydetailspage.jsp";
             }
         </script>
+        
+        <script src="../../../error.js"></script>
         <script src="./paymentGateway.js"></script>
     </body>
 </html>

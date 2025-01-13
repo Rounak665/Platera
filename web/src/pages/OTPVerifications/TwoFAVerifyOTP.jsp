@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OTP Verification</title>
+    <title>PLatera - 2FA OTP Verification</title>
+    <link rel="shortcut icon" href="../../../Public/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="./OTPVerification.css">
 </head>
 <body>
@@ -33,6 +34,6 @@
             <input type="submit" value="Verify OTP">
         </form>
     </div>
-
+    <script src="../../../error.js"></script>
 </body>
 </html>

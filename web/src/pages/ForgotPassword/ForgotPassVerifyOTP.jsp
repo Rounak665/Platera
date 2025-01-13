@@ -5,7 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify OTP</title>
+    <link rel="shortcut icon" href="../../../Public/favicon.png" type="image/x-icon">
+    <title>Platera - Forgot Password Verify OTP</title>
     <link rel="stylesheet" href="ForgotPassword.css">
 </head>
 <body>
@@ -33,6 +34,6 @@
         <a href="login.jsp" class="back-link">Back to login</a>       
     </div>
 
-  
+    <script src="../../../error.js"></script>
 </body>
 </html>

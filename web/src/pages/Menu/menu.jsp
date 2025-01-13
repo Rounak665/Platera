@@ -7,7 +7,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Food Delivery Menu</title>
+        <title>Platera - Popular Menu Items</title>
+        <link rel="shortcut icon" href="../../../Public/favicon.png" type="image/x-icon">
         <link rel="stylesheet" href="./menu.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -280,5 +281,6 @@
         </footer>
 
         <script src="./menu.js"></script>
+        <script src="../../../error.js"></script>
     </body>
 </html>

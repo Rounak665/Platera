@@ -11,7 +11,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Categories</title>
+        <title>PLatera - Restaurant Categories</title>
+        <link rel="shortcut icon" href="../../../Public/favicon.png" type="image/x-icon">
         <link rel="stylesheet" href="RestaurantDashboard.css"> <!-- Use the same CSS as the home page -->
     </head>
     <body>
@@ -268,6 +269,6 @@
                                                             document.querySelector(".sidebar").classList.remove("activate");
                                                         });
         </script>
-
+        script src="../../../error.js"></script>
     </body>
 </html>

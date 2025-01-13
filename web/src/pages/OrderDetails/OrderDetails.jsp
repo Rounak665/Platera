@@ -5,7 +5,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Confirm your Details</title>
+        <title>Platera - Confirm your Details</title>
+        <link rel="shortcut icon" href="../../../Public/favicon.png" type="image/x-icon">
         <link rel="stylesheet" href="./OrderDetails.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -100,6 +101,7 @@
                 <button type="submit">Submit</button>
             </form>
         </div>
+        <script src="../../../error.js"></script>
         <script src="./OrderDetails.js"></script>
     </body>
 </html>
