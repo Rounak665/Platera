@@ -79,21 +79,15 @@
 
         %>
 
-
-<<<<<<< HEAD
-       <!-- Profile Setup Popup -->
-        <!-- <% if (location_id == 0) {%>
-=======
         <!-- Profile Setup Popup -->
         <% if (location_id == 0) {%>
->>>>>>> 44561ac206114175772f9475ba71e883081b2c7c
         <div class="profile-setup-popup" id="profileSetupPopup">
             <div class="popup-content">
                 <h3>Thank you <%= name%> for signing up. Please set up your profile for a better experience.</h3>
                 <button id="profileSetupBtn" class="btn btn-primary">Go to Profile Settings</button>
             </div>
         </div>
-        <% }%> -->
+        <% }%>
 
         <!-- Error Popup -->
         <div class="error-popup" id="errorPopup">
@@ -411,7 +405,7 @@
                     <h4><%= category.getName()%></h4>
                     <p>Explore our <%= category.getName().toLowerCase()%> menu</p>
                 </div>
-                <% } %>
+                <% }%>
             </div>
 
         </section>
@@ -440,159 +434,52 @@
                     â¹300-â¹700
                 </button>
             </div>
-
-            <!-- Restaurant Slider -->
-            <!-- <div class="slider-wrapper">
-                <button class="slide-btn prev-btn" onclick="moveSlider(-1)">
-                    &#10094;
-                </button>
-
-                <div class="restaurant-slider">
-                    <%-- Dynamic Content Begins --%>
-                    <%
-                        // Instantiate the DAO and fetch the list of restaurants
-                        RestaurantDAO restaurantDAO = new RestaurantDAO();
-                        List<Restaurant> restaurants = restaurantDAO.getRestaurantsByLocation(location_id);
-
-                        if (restaurants != null && !restaurants.isEmpty()) {
-                            for (Restaurant restaurant : restaurants) {
-                    %>
-                    <a href="./RestaurantDetails/RestaurantDetails.jsp?restaurantId=<%= restaurant.getRestaurantId()%>" class="restaurant-card-link">
+            <!-- Changed Slider -->
+            <!-- New Restaurant Carousel Section -->
+            <section class="restaurant-carousel-section">
+    <div class="restaurant-carousel-container">
+        <div class="restaurant-carousel">
+            <div class="restaurant-carousel-inner" id="restaurantCarouselInner">
+                <%-- Dynamic Content Begins --%>
+                <%
+                    // Instantiate the DAO and fetch the list of restaurants
+                    RestaurantDAO restaurantDAO = new RestaurantDAO();
+                    List<Restaurant> restaurants = restaurantDAO.getRestaurantsByLocation(location_id);
+                    
+                    if (restaurants != null && !restaurants.isEmpty()) {
+                        for (Restaurant restaurant : restaurants) {
+                %>
+                <div class="restaurant-carousel-item">
+                    <a href="./RestaurantDetails/RestaurantDetails.jsp?restaurantId=<%= restaurant.getRestaurantId() %>" class="restaurant-card-link">
                         <div class="restaurant-card">
                             <img
-                                src="<%= request.getContextPath()%>/<%= restaurant.getImage()%>"
-                                alt="<%= restaurant.getName()%>"
+                                src="<%= request.getContextPath() %>/<%= restaurant.getImage() %>"
+                                alt="<%= restaurant.getName() %>"
                                 class="restaurant-image"
-                                />
-                            <div class="restaurant-info">
-                                <h3><%= restaurant.getName()%></h3>
-                                <p>⭐<%=restaurant.getRating()%> | ₹<%= restaurant.getMinPrice()%>- ₹<%= restaurant.getMaxPrice()%></p> 
-                                <p><%=restaurant.getCategory1()%>, <%=restaurant.getCategory2()%>, <%=restaurant.getCategory3()%></p> 
-                                <p class="location"><%= restaurant.getLocation()%></p>                        
-                            </div>
+                            />
+                            <h3><%= restaurant.getName() %></h3>
+                            <p>⭐ <%= restaurant.getRating() %> | ₹<%= restaurant.getMinPrice() %>-₹<%= restaurant.getMaxPrice() %></p>
+                            <p><%= restaurant.getCategory1() %>, <%= restaurant.getCategory2() %>, <%= restaurant.getCategory3() %></p>
+                            <p class="location"><%= restaurant.getLocation() %></p>
                         </div>
                     </a>
-                    <%
+                </div>
+                <%
                         }
                     } else {
-                    %>
-                    <p>No restaurants found or there was an error fetching data.</p>
-                    <%
-                        }
-                    %>
-                    <%-- Dynamic Content Ends --%>
-                </div>
-
-
-
-                <button class="slide-btn next-btn" onclick="moveSlider(1)">
-                    &#10095;
-                </button>
-            </div> -->
-            <!-- Changed Slider -->
-                    <!-- New Restaurant Carousel Section -->
-    <section class="restaurant-carousel-section">
-        <div class="restaurant-carousel-container">
-            <div class="restaurant-carousel">
-                <div class="restaurant-carousel-inner">
-                    <!-- Static Content Begins -->
-                    <div class="restaurant-carousel-item">
-                        <div class="restaurant-card">
-                            <img src="./assets/product1.png" alt="Restaurant 1">
-                            <h3>Restaurant 1</h3>
-                            <p>⭐ 4.5 | ₹200-₹500</p>
-                            <p>Italian, Pizza, Pasta</p>
-                            <p class="location">New York, NY</p>
-                        </div>
-                    </div>
-                    <div class="restaurant-carousel-item">
-                        <div class="restaurant-card">
-                            <img src="./Public/images/card2.jpg" alt="Restaurant 2">
-                            <h3>Restaurant 2</h3>
-                            <p>⭐ 4.0 | ₹150-₹450</p>
-                            <p>Japanese, Sushi</p>
-                            <p class="location">San Francisco, CA</p>
-                        </div>
-                    </div>
-                    <div class="restaurant-carousel-item">
-                        <div class="restaurant-card">
-                            <img src="./Public/images/card3.jpg" alt="Restaurant 3">
-                            <h3>Restaurant 3</h3>
-                            <p>⭐ 4.7 | ₹300-₹700</p>
-                            <p>Steakhouse</p>
-                            <p class="location">Chicago, IL</p>
-                        </div>
-                    </div>
-                    <div class="restaurant-carousel-item">
-                        <div class="restaurant-card">
-                            <img src="./Public/images/card4.jpg" alt="Restaurant 4">
-                            <h3>Restaurant 4</h3>
-                            <p>⭐ 4.2 | ₹100-₹300</p>
-                            <p>Mexican, Tacos</p>
-                            <p class="location">Houston, TX</p>
-                        </div>
-                    </div>
-                    <div class="restaurant-carousel-item">
-                        <div class="restaurant-card">
-                            <img src="./Public/images/card5.jpg" alt="Restaurant 5">
-                            <h3>Restaurant 5</h3>
-                            <p>⭐ 3.8 | ₹200-₹400</p>
-                            <p>Chinese, Dim Sum</p>
-                            <p class="location">Los Angeles, CA</p>
-                        </div>
-                    </div>
-                    <div class="restaurant-carousel-item">
-                        <div class="restaurant-card">
-                            <img src="./Public/images/card6.jpg" alt="Restaurant 6">
-                            <h3>Restaurant 6</h3>
-                            <p>⭐ 4.3 | ₹250-₹550</p>
-                            <p>French, Bistro</p>
-                            <p class="location">Seattle, WA</p>
-                        </div>
-                    </div>
-                    <div class="restaurant-carousel-item">
-                        <div class="restaurant-card">
-                            <img src="./Public/images/card7.jpg" alt="Restaurant 7">
-                            <h3>Restaurant 7</h3>
-                            <p>⭐ 4.1 | ₹180-₹380</p>
-                            <p>Seafood, Grill</p>
-                            <p class="location">Miami, FL</p>
-                        </div>
-                    </div>
-                    <div class="restaurant-carousel-item">
-                        <div class="restaurant-card">
-                            <img src="./Public/images/card8.jpg" alt="Restaurant 8">
-                            <h3>Restaurant 8</h3>
-                            <p>⭐ 4.6 | ₹220-₹520</p>
-                            <p>Vegetarian, Vegan</p>
-                            <p class="location">Austin, TX</p>
-                        </div>
-                    </div>
-                    <div class="restaurant-carousel-item">
-                        <div class="restaurant-card">
-                            <img src="./Public/images/card9.jpg" alt="Restaurant 9">
-                            <h3>Restaurant 9</h3>
-                            <p>⭐ 4.4 | ₹170-₹370</p>
-                            <p>Burgers, Fries</p>
-                            <p class="location">Denver, CO</p>
-                        </div>
-                    </div>
-                    <div class="restaurant-carousel-item">
-                        <div class="restaurant-card">
-                            <img src="./Public/images/card10.jpg" alt="Restaurant 10">
-                            <h3>Restaurant 10</h3>
-                            <p>⭐ 4.8 | ₹300-₹600</p>
-                            <p>Desserts, Bakery</p>
-                            <p class="location">Boston, MA</p>
-                        </div>
-                    </div>
-                    <!-- Static Content Ends -->
-                </div>
+                %>
+                <p>No restaurants found or there was an error fetching data.</p>
+                <%
+                    }
+                %>
+                <%-- Dynamic Content Ends --%>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
         </section>
-            
+
 
 
 
@@ -708,45 +595,20 @@
 
         </script>
         <script>
-<<<<<<< HEAD
-        // Enable horizontal scrolling with mouse wheel
-        const restaurantCarousel = document.querySelector('.restaurant-carousel');
-        restaurantCarousel.addEventListener('wheel', (event) => {
-            if (event.deltaY > 0) {
-                restaurantCarousel.scrollLeft += 100;
-            } else {
-                restaurantCarousel.scrollLeft -= 100;
-            }
-            event.preventDefault();
-        });
-=======
-            document.addEventListener('DOMContentLoaded', function () {
-                const slider = document.querySelector('.restaurant-slider');
-                const prevBtn = document.querySelector('.prev-btn');
-                const nextBtn = document.querySelector('.next-btn');
-
-                function moveSlider(direction) {
-                    const scrollAmount = slider.clientWidth; // Adjust this value based on your requirement
-
-                    slider.scrollBy({
-                        left: direction * scrollAmount,
-                        behavior: 'smooth'
-                    });
-                    console.log("button-pressed");
+            // Enable horizontal scrolling with mouse wheel
+            const restaurantCarousel = document.querySelector('.restaurant-carousel');
+            restaurantCarousel.addEventListener('wheel', (event) => {
+                if (event.deltaY > 0) {
+                    restaurantCarousel.scrollLeft += 300;
+                } else {
+                    restaurantCarousel.scrollLeft -= 300;
                 }
-
-                prevBtn.addEventListener('click', function () {
-                    moveSlider(-1);
-                });
-
-                nextBtn.addEventListener('click', function () {
-                    moveSlider(1);
-                });
+                event.preventDefault();
             });
->>>>>>> 44561ac206114175772f9475ba71e883081b2c7c
+
         </script>
         <script src="./script.js"></script>
-        
+
         <script src="../../../error.js"></script>
     </body>
 </html>
