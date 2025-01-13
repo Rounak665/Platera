@@ -1113,7 +1113,7 @@ border-radius: 20px;
     margin: 20px auto;
     display: flex;
     gap: 20px;
-    overflow-x: auto;
+    /*overflow-x: auto;*/
     scroll-behavior: smooth;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -1215,7 +1215,7 @@ footer{
     position: relative;
     bottom: 0;
     z-index: 1;
-    right: 100;
+    /* right: 100; */
     background-color: rgb(38, 38, 38);
     color: rgb(255, 255, 255);
     padding: 100px 0 30px 0;

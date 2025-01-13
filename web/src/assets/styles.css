@@ -175,6 +175,7 @@ header .nav_bar .logo img{
     align-items: center;
     justify-content: space-around;
     list-style: none;
+    margin-left: 45px;
     /* gap: 1rem; */
 }
 .nav_bar .nav_links .nav_list li{
@@ -190,6 +191,9 @@ header .nav_bar .logo img{
 }
 .nav_bar .nav_links ul li a:hover{
     color: rgb(236, 24, 67);
+}
+.nav_links .nav_list #active a{
+    color: #F12630;
 }
 
 /* #secret-admin-link {
@@ -684,6 +688,10 @@ header .nav_bar .logo img{
     /* overflow: hidden; */
     
 }
+.body_cards a{
+    text-decoration: none;
+    color: #333;
+}
 .card {
     width: 20%;
     height: 88%;
@@ -802,6 +810,9 @@ header .nav_bar .logo img{
     display: none; /* Chrome, Safari, and Opera */
 }
 
+.restaurant-slider a{
+    text-decoration: none;
+}
 /* Restaurant Card */
 .restaurant-card {
     background: #fff;
@@ -962,7 +973,10 @@ footer .row .col form {
     border-bottom: 1px solid rgb(255, 255, 255);
     margin-bottom: 50px;
 }
-
+footer .row .col form fa-solid{
+    font-size: 20px;
+    color: #f4f4f4;
+}
 form #mail {
     width: 18px;
     margin-right: 10px;
@@ -1116,7 +1130,7 @@ p.copyright {
     }
 
     .input-box input {
-        font-size: 14px;
+        font-size: 24px;
     }
 
     /* Hero section */
@@ -1133,6 +1147,7 @@ p.copyright {
     }
     /* Footer section */
     footer .row .col .social_icon .fa-brands{
+
         margin-right: 2px;
     }
     

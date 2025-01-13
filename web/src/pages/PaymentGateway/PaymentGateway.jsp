@@ -57,7 +57,7 @@
             <!-- Left Section: Product Summary -->
             <div class="product-summary">
                 <header>
-                    <p>All <span>Platera</span> Payments are asured by <a href="">Salford <span>payments bank</span><sup>TM</sup></a></p>
+                    <p>All <span>Platera</span> Payments are asured by <a href="../Salford/salford.html" target="_blank">Salford <span>payments bank</span><sup>TM</sup></a></p>
                 </header>
                 <h1>Checkout</h1>
                 <p class="price"><span>Your Total is</span> ₹<%=total%></p>
@@ -85,7 +85,7 @@
             <!-- Right Section: Payment Form -->
             <div class="payment-form">
                 <header>
-                    <a href=""><img src="./Assets/salford-payments-bank.png" alt=""></a>
+                    <a href="../Salford/salford.html" target="_blank"><img src="./Assets/salford-payments-bank.png" alt=""></a>
                 </header>
                 <form action="http://localhost:8080/Platera-Main/PaymentConfirmation" method="post">
                     <div class="form-group">
@@ -96,7 +96,6 @@
                         <label for="paymentMethod">Payment method</label>
                         <div class="payment-methods">
                             <button type="button" class="method" id="cardMethod">Credit/Debit Card</button>
-                            <button type="button" class="method" id="codMethod">COD</button>
                             <button type="button" class="method" id="netBankingMethod">Net Banking</button>
                         </div>
                     </div>
@@ -119,13 +118,6 @@
                     </div>
                     
                 </form>
-
-                <!-- COD Payment Details -->
-                <div id="codDetails" class="payment-details" style="display: none;">
-                    <form action="http://localhost:8080/Platera-Main/PaymentConfirmation" method="post">
-                        <button type="submit" class="submit-button">Place Order</button>
-                    </form>
-                </div>
 
 
                 <div id="netBankingDetails" class="payment-details" style="display: none;">
@@ -199,15 +191,15 @@
                             <li>
                                 <a
                                     href="../FooterLinkPages/Terms&Conditions/Terms&Conditions.html"
-                                    >Terms & Conditions</a
+                                    target="_blank">Terms & Conditions</a
                                 >
                             </li>
                             <li>
-                                <a href="../FooterLinkPages/PrivacyPolicy/PrivacyPolicy.html"
-                                   >Privacy Policy</a
+                                <a href="../FooterLinkPages/PrivacyPolicy/PrivacyPolicy.html" 
+                                target="_blank">Privacy Policy</a
                                 >
                             </li>
-                            <li><a href="../FooterLinkPages/Help/Help.html">Help</a></li>
+                            <li><a href="../FooterLinkPages/Help/Help.html" target="_blank">Help</a></li>
                         </ul>
                     </div>
                     <div class="col promotion">

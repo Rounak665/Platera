@@ -4,14 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Platera - Sign Up</title>
+    <link rel="shortcut icon" href="./Assets/favicon.png" type="image/x-icon">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="SignUp_SignIn.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-
+    
     <!-- Error Popup -->
     <div class="error-popup" id="errorPopup">
         <div class="error-content">
@@ -21,19 +22,26 @@
         </div>
     </div>
 
+    <!-- Loader -->
+    <div class="loader">
+    <div id="pl">
+      <div>
+        <video class="vid" src="../ContactUs/Assets/loader.mp4" autoplay muted loop></video>
+      </div>
+    </div>
+    </div>
+
     <!-- --------Nav Bar------------------------- -->
 
     <header>
         <div class="nav_bar">
             <div class="logo">
-                <img src="../../../Public/images/logo.png" alt="logo" height="70px" >
+                <a href="../../../index.html"><img src="../../../Public/images/PlateraLogo-red.png" alt="logo" height="70px" ></a>
             </div>
             <div class="nav_links">
                 <ul class="nav_list">
-                    <li><a href="../../../index.html">Home</a></li>
-                    <li><a href="">Menu</a></li>
-                    <li><a href="../AddRestaurant/AddRestaurant.html">Add Restaurants</a></li>
-                    <li><a href="../ContactUs/ContactUs.html">Contact Us</a></li>
+                    <li><a href="../../../index.html" target="_blank">Home</a></li>
+                    <li><a href="../ContactUs/ContactUs.html" target="_blank">Contact Us</a></li>
                 </ul>
             </div>
             <!-- <div class="buttons">
@@ -246,7 +254,7 @@
                             </div>
 
                             <div class="remember-forgot">
-                                <label><input type="checkbox" required>I agree to the <a class="t-c" href="../FooterLinkPages/Terms&Conditions/Terms&Conditions.html">terms & conditions</a></label>
+                                <label><input type="checkbox" required>I agree to the <a class="t-c" href="../FooterLinkPages/Terms&Conditions/Terms&Conditions.html" target="_blank">terms & conditions</a></label>
                             </div>
 
                             <button type="submit" class="btn">Sign Up</button>

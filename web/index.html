@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage</title>
+    <title>Platera | Discover & Order Food</title>
     <link rel="stylesheet" href="./src/assets/styles.css">
     <link rel="shortcut icon" href="./Public/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
@@ -39,18 +39,16 @@
             </div>
             <div class="nav_links">
                 <ul class="nav_list">
-                    <li><a href="./index.html">Home</a></li>
-                    <li><a href="./src/pages/Menu/menu.html">Menu</a></li>
-                    <li><a href="src/pages/AddRestaurant/AddRestaurant.html">Add Restaurant</a></li>
-                    <li><a href="src/pages/AddDeliveryExecutive/AddDeliveryExecutive.jsp">Delivery Executive</a></li>
-                    <li><a href="src/pages/ContactUs/ContactUs.html">Contact Us</a></li>
-                    <li><a href="src/pages/Admin/Admin_Order_Management.jsp">Admin Dashboard</a></li>
+                    <li id="active"><a href="./index.html">Home</a></li>
+                    <li><a href="src/pages/AddRestaurant/AddRestaurant.html" target="_blank">Add Restaurant</a></li>
+                    <li><a href="src/pages/AddDeliveryExecutive/AddDeliveryExecutive.jsp" target="_blank">Delivery Executive</a></li>
+                    <li><a href="src/pages/ContactUs/ContactUs.html" target="_blank">Contact Us</a></li>
                     <!-- The above li had id="secret-admin-link" and style="display: none;" -->
                 </ul>
             </div>
             <div class="buttons">
                 <a href="#"><button class="signin" id="signin">Sign In</button></a>
-                <a href="./src/pages/SignUp_SignIn/SignUp_SignIn.html"><button class="signup">Sign Up</button></a>
+                <a href="./src/pages/SignUp_SignIn/SignUp_SignIn.html" target="_blank"><button class="signup">Sign Up</button></a>
             </div>
             <span class="menu" style="color: rgb(255, 255, 255);">
                 <i class="fa-solid fa-bars fa-xl"></i>
@@ -100,13 +98,13 @@
 
                             <div class="remember-forgot">
                                 <label><input type="checkbox">Remember me</label>
-                                <a href="src/pages/ForgotPassword/ForgotPassword.jsp">Forgot password?</a>
+                                <a href="src/pages/ForgotPassword/ForgotPassword.jsp" target="_blank">Forgot password?</a>
                             </div>
 
                             <button type="submit" class="btn">Sign In</button>
 
                             <div class="login-register">
-                                <p>Don't have an account? <a href="#" class="register-link">Sign Up</a></p>
+                                <p>Don't have an account? <a href="./src/pages/SignUp_SignIn/SignUp_SignIn.html" class="register-link" target="_blank">Sign Up</a></p>
                             </div>
                         </form>
                     </div>
@@ -131,15 +129,15 @@
             <!-- Search Bar on Carousel -->
             <div class="carousel-search">
                 <select class="location-dropdown">
-                    <option value="new-york">New York</option>
-                    <option value="san-francisco">San Francisco</option>
-                    <option value="los-angeles">Los Angeles</option>
-                    <option value="chicago">Chicago</option>
-                    <option value="seattle">Seattle</option>
+                    <option value="Kolkata">Kolkata</option>
+                    <option value="Hydrabad">Hydrabad</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Delhi">Delhi</option>
                 </select>
                 <span class="material-symbols-outlined">horizontal_rule</span>
                 <input type="text" placeholder="Search for restaurants or cuisines" class="search-input">
-                <button class="search-button">Search</button>
+                <button class="search-button" onclick="searchRestaurants()">Search</button>
             </div>
         </div>
     </section>
@@ -150,38 +148,46 @@
     <div class="body_container">
         <div class="body_content">
             <div class="body_cards">
-                <div class="card card1">
-                    <img src="./Public/images/card1.jpg" alt="Card Image" class="card-img">
-                    <div class="card-content">
-                        <h2>Order Online</h2>
-                        <p>Stay home and order to your doorstep</p>
-                        <a class="card-btn" href="#">Learn More<i class="fa-solid fa-chevron-right"></i></a>
+                <a href="./src/pages/SignUp_SignIn/SignUp_SignIn.html" target="_blank">
+                    <div class="card card1">
+                        <img src="./Public/images/card1.jpg" alt="Card Image" class="card-img">
+                        <div class="card-content">
+                            <h2>Order Online</h2>
+                            <p>Stay home and order to your doorstep</p>
+                            <a class="card-btn" href="#">Learn More<i class="fa-solid fa-chevron-right"></i></a>
+                        </div>
                     </div>
-                </div>
-                <div class="card card2">
-                    <img src="./Public/images/card2.jpg" alt="Card Image" class="card-img">
-                    <div class="card-content">
-                        <h2>Internation Cuisins</h2>
-                        <p>Explore divine cuisins from around the world</p>
-                        <a class="card-btn" href="#">Learn More<i class="fa-solid fa-chevron-right"></i></a>
+                </a>
+                <a href="./src/pages/SignUp_SignIn/SignUp_SignIn.html" target="_blank">
+                    <div class="card card2">
+                        <img src="./Public/images/card2.jpg" alt="Card Image" class="card-img">
+                        <div class="card-content">
+                            <h2>Internation Cuisins</h2>
+                            <p>Explore divine cuisins from around the world</p>
+                            <a class="card-btn" href="#">Learn More<i class="fa-solid fa-chevron-right"></i></a>
+                        </div>
                     </div>
-                </div>
-                <div class="card card3">
-                    <img src="./Public/images/card3.jpg" alt="Card Image" class="card-img">
-                    <div class="card-content">
-                        <h2>Top Indian Dishes</h2>
-                        <p>Check out our top Indian dishes from different regions</p>
-                        <a class="card-btn" href="#">Learn More<i class="fa-solid fa-chevron-right"></i></a>
+                </a>
+                <a href="./src/pages/SignUp_SignIn/SignUp_SignIn.html" target="_blank">
+                    <div class="card card3">
+                        <img src="./Public/images/card3.jpg" alt="Card Image" class="card-img">
+                        <div class="card-content">
+                            <h2>Top Indian Dishes</h2>
+                            <p>Check out our top Indian dishes from different regions</p>
+                            <a class="card-btn" href="#">Learn More<i class="fa-solid fa-chevron-right"></i></a>
+                        </div>
                     </div>
-                </div>
-                <div class="card card4">
-                    <img src="./Public/images/card4.jpg" alt="Card Image" class="card-img">
-                    <div class="card-content">
-                        <h2>Healthy Options</h2>
-                        <p>Grab healthy options from our your nearest restaurants</p>
-                        <a class="card-btn" href="#">Learn More<i class="fa-solid fa-chevron-right"></i></a>
+                </a>
+                <a href="./src/pages/SignUp_SignIn/SignUp_SignIn.html" target="_blank">
+                    <div class="card card4">
+                        <img src="./Public/images/card4.jpg" alt="Card Image" class="card-img">
+                        <div class="card-content">
+                            <h2>Healthy Options</h2>
+                            <p>Grab healthy options from our your nearest restaurants</p>
+                            <a class="card-btn" href="#">Learn More<i class="fa-solid fa-chevron-right"></i></a>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
@@ -204,6 +210,7 @@
             <button class="slide-btn prev-btn" onclick="moveSlider(-1)">&#10094;</button>
             
             <div class="restaurant-slider">
+                <a href="./src/pages/SignUp_SignIn/SignUp_SignIn.html" target="_blank">
                 <div class="restaurant-card">
                     <img src="./Public/images/product1.png" alt="Restaurant 1" class="restaurant-image" >
                     <div class="restaurant-info">
@@ -213,6 +220,8 @@
                         <p class="location">Dunlop</p> <!-- Location -->
                     </div>
                 </div>
+                </a>
+                <a href="./src/pages/SignUp_SignIn/SignUp_SignIn.html" target="_blank">
                 <div class="restaurant-card">
                     <img src="./Public/images/product2.png" alt="Restaurant 2" class="restaurant-image">
                     <div class="restaurant-info">
@@ -222,6 +231,8 @@
                         <p class="location">Central Kolkata</p> <!-- Location -->
                     </div>
                 </div>
+                </a>
+                <a href="./src/pages/SignUp_SignIn/SignUp_SignIn.html" target="_blank">
                 <div class="restaurant-card">
                     <img src="./Public/images/product3.png" alt="Restaurant 3" class="restaurant-image" style="object-position: top;">
                     <div class="restaurant-info">
@@ -231,6 +242,8 @@
                         <p class="location">Esplanade</p> <!-- Location -->
                     </div>
                 </div>
+                </a>
+                <a href="./src/pages/SignUp_SignIn/SignUp_SignIn.html" target="_blank">
                 <div class="restaurant-card">
                     <img src="./Public/images/product4.png" alt="Restaurant 4" class="restaurant-image">
                     <div class="restaurant-info">
@@ -240,6 +253,8 @@
                         <p class="location">Dunlop</p> <!-- Location -->
                     </div>
                 </div>
+                </a>
+                <a href="./src/pages/SignUp_SignIn/SignUp_SignIn.html" target="_blank">
                 <div class="restaurant-card">
                     <img src="./Public/images/product5.png" alt="Restaurant 5" class="restaurant-image">
                     <div class="restaurant-info">
@@ -249,6 +264,8 @@
                         <p class="location">Park Street</p> <!-- Location -->
                     </div>
                 </div>
+                </a>
+                <a href="./src/pages/SignUp_SignIn/SignUp_SignIn.html" target="_blank">
                 <div class="restaurant-card">
                     <img src="./Public/images/product6.avif" alt="Restaurant 6" class="restaurant-image">
                     <div class="restaurant-info">
@@ -258,6 +275,8 @@
                         <p class="location">Elgin</p> <!-- Location -->
                     </div>
                 </div>
+                </a>
+                <a href="./src/pages/SignUp_SignIn/SignUp_SignIn.html" target="_blank">
                 <div class="restaurant-card">
                     <img src="./Public/images/product7.avif" alt="Restaurant 2" class="restaurant-image">
                     <div class="restaurant-info">
@@ -267,6 +286,8 @@
                         <p class="location">Hati Bagan</p> <!-- Location -->
                     </div>
                 </div>
+                </a>
+                <a href="./src/pages/SignUp_SignIn/SignUp_SignIn.html" target="_blank">
                 <div class="restaurant-card">
                     <img src="./Public/images/product8.avif" alt="Restaurant 2" class="restaurant-image">
                     <div class="restaurant-info">
@@ -276,6 +297,7 @@
                         <p class="location">Central Avenue</p> <!-- Location -->
                     </div>
                 </div>
+                </a>
                 <!-- Add more restaurant cards as needed -->
             </div>
             
@@ -284,51 +306,52 @@
     </section>
 
     <!-- Footer Section -->
-<footer>
-    <div class="container_footer">
-        <div class="row">
-            <div class="col">
-                <img src="./Public/images/PlateraLogo-red.png" alt="">
-                <p>Platera delivers delicious meals from your favorite local restaurants straight to your door, combining speed and convenience with every order. From quick bites to gourmet dishes, enjoy a world of flavors anytime, anywhere!</p>
-            </div> <!-- Close the div tag here -->
-            <div class="col">
-                <h3>Office <div class="underline"><span></span></div></h3>
-                <p>ITFL Road</p>
-                <p>Whitefield, Bangalore</p>
-                <p>Karnatak, PIN 568629, INDIA</p>
-                <p class="email_id">support@platera.in</p>
-                <h4>+91 - 1234567891</h4>
-            </div>
-            <div class="col">
-                <h3>Links <div class="underline"><span></span></div></h3>
-                <ul>
-                    <li><a href="./src/pages/FooterLinkPages/Terms&Conditions/Terms&Conditions.html">Terms & Conditions</a></li>
-                    <li><a href="./src/pages/FooterLinkPages/PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
-                    <li><a href="./src/pages/FooterLinkPages/Help/Help.html">Help</a></li>
-                </ul>
-            </div>
-            <div class="col">
-                <h3>Newsletter <div class="underline"><span></span></div></h3>
-                <form>
-                    <img id="mail" src="./Public/images/mail.png" alt="">
-                    <input type="email" name="" id="" placeholder="Enter Your Email Address">
-                    <button type="submit"><img id="send" src="./Public/images/send.png" alt=""></button>
-                </form>
-                <div class="social_icon">
-                    <i class="fa-brands fa-facebook"></i>
-                    <i class="fa-brands fa-instagram"></i>
-                    <i class="fa-brands fa-pinterest"></i>
-                    <i class="fa-brands fa-x-twitter"></i>
+    <footer>
+        <div class="container_footer">
+            <div class="row">
+                <div class="col">
+                    <img src="./Public/images/PlateraLogo-red.png" alt="">
+                    <p>Platera delivers delicious meals from your favorite local restaurants straight to your door, combining speed and convenience with every order. From quick bites to gourmet dishes, enjoy a world of flavors anytime, anywhere!</p>
+                </div> <!-- Close the div tag here -->
+                <div class="col">
+                    <h3>Office <div class="underline"><span></span></div></h3>
+                    <p>ITFL Road</p>
+                    <p>Whitefield, Bangalore</p>
+                    <p>Karnatak, PIN 568629, INDIA</p>
+                    <p class="email_id">support@platera.in</p>
+                    <h4>+91 - 1234567891</h4>
+                </div>
+                <div class="col">
+                    <h3>Links <div class="underline"><span></span></div></h3>
+                    <ul>
+                        <li><a href="./src/pages/FooterLinkPages/Terms&Conditions/Terms&Conditions.html" target="_blank">Terms & Conditions</a></li>
+                        <li><a href="./src/pages/FooterLinkPages/PrivacyPolicy/PrivacyPolicy.html" target="_blank">Privacy Policy</a></li>
+                        <li><a href="./src/pages/FooterLinkPages/Help/Help.html" target="_blank">Help</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h3>Newsletter <div class="underline"><span></span></div></h3>
+                    <form>
+                        <img id="mail" src="./Public/images/mail.png" alt="" target="_blank">
+                        <input type="email" name="" id="" placeholder="Enter Your Email Address">
+                        <button type="submit"><img id="send" src="./Public/images/send.png" alt=""></button>
+                    </form>
+                    <div class="social_icon">
+                        <i class="fa-brands fa-facebook"></i>
+                        <i class="fa-brands fa-instagram"></i>
+                        <i class="fa-brands fa-pinterest"></i>
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</footer>
-<section class="footer-bottom">
-    <hr>
-    <p class="copyright">Platera @2024 - All Rights Reserved</p>
-</section>
+    </footer>
+
+    <section class="footer-bottom">
+        <hr>
+        <p class="copyright">Platera @2024 - All Rights Reserved</p>
+    </section>
     
     <!-- Script Starts Here -->
 
@@ -355,6 +378,7 @@
             list.classList.toggle("open");
         })
 
+        
     </script>
 
     <!-- For signin popup and close -->
@@ -367,7 +391,11 @@
         });
     </script>
 
-    
+    <script>
+        function searchRestaurants() {
+            window.location.href = "./src/pages/SignUp_SignIn/SignUp_SignIn.html";
+        }
+    </script>
 
     
 <script src="./src/assets/script.js"></script>

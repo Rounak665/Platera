@@ -1,36 +1,53 @@
-<%@ page import="java.util.*, java.sql.*" %>
-<%@ page import="Utilities.MenuItemsDAO" %>
-<%@ page import="Utilities.MenuItems" %>
-
-<%
-    // Retrieve the item_id from the request parameter
-    MenuItemsDAO menuItemsDAO = new MenuItemsDAO();
-    MenuItems item = null;
-    
-        int itemId = 81;
-        item = menuItemsDAO.getMenuItemById(itemId); // Fetch item using the method
-    
-%>
-
+<%@ page import="java.sql.Connection, java.sql.PreparedStatement, java.sql.ResultSet, java.sql.SQLException" %>
+<%@ page import="Utilities.Database" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Menu Item Details</title>
+    <meta charset="UTF-8">
+    <title>Menu Items</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .menu-item {
+            background: #fff;
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .menu-item h2 {
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
-    <h2>Menu Item Details</h2>
-
-    <% if (item != null) { %>
-        <p><strong>Item ID:</strong> <%= item.getItemId() %></p>
-        <p><strong>Item Name:</strong> <%= item.getItemName() %></p>
-        <p><strong>Price:</strong> <%= item.getPrice() %></p>
-        <p><strong>Category:</strong> <%= item.getCategoryName() %></p>
-        <p><strong>Availability:</strong> <%= item.isAvailability() ? "Available" : "Not Available" %></p>
-        <p><strong>Image:</strong> <img src="<%= item.getImage() %>" alt="Dish Image" width="100"></p>
-    <% } else { %>
-        <p>No menu item found with the provided ID.</p>
-    <% } %>
-
-    <br>
-    <a href="menu.jsp">Back to Menu</a>
+    <div class="container">
+        <h1>Menu Items</h1>
+        <%
+            try (Connection conn = Database.getConnection()) {
+                String query = "SELECT mi.item_name FROM menu_items mi JOIN restaurants r ON mi.restaurant_id = r.restaurant_id WHERE r.location_id = 1";
+                PreparedStatement stmt = conn.prepareStatement(query);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+        %>
+                    <div class="menu-item">
+                        <h2><%= rs.getString("item_name") %></h2>
+                    </div>
+        <%
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        %>
+    </div>
 </body>
 </html>

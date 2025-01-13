@@ -1,6 +1,4 @@
 <%@page import="Utilities.OrderItem"%>
-<%@page import="Utilities.OrderItem"%>
-<%@page import="Utilities.OrderDetails"%>
 <%@page import="Utilities.OrderDetails"%>
 <%@page import="Utilities.OrderDetailsDAO"%>
 <%@page import="Utilities.RestaurantDAO"%>

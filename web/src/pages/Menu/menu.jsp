@@ -254,7 +254,7 @@
                             <div class="underline"><span></span></div>
                         </h3>
                         <form>
-                            <img id="mail" src="./Public/images/mail.png" alt="" />
+                            <img id="mail" src="../../../Public/images/mail.png" alt="" />
                             <input
                                 id="newsletter-email"
                                 type="email"
@@ -263,7 +263,7 @@
                                 placeholder="Enter Your Email Address"
                                 />
                             <button type="submit">
-                                <img id="send" src="./Public/images/send.png" alt="" />
+                                <img id="send" src="../../../Public/images/send.png" alt="" />
                             </button>
                         </form>
                         <div class="social_icon">
