@@ -3,6 +3,7 @@
 <%@page import="Utilities.LocationDAO"%>
 <%@page import="Utilities.CustomerDAO"%>
 <%@page import="Utilities.Customer"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
