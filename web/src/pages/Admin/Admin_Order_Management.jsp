@@ -54,12 +54,12 @@
 
                 <div class="sidebar-menu">
                     <ul>
-                        <li>
+                        <!-- <li>
                             <a href="">
                                 <span class="icon"><ion-icon name="bar-chart"></ion-icon></span>
                                 <span>Dashboard Overview</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="">
                                 <span class="icon"><ion-icon name="wine"></ion-icon></span>
@@ -251,6 +251,145 @@
                         </table>
 
                     </section>
+
+
+                    <section id="pending-orders">
+                        <h2>Cooked Orders</h2>
+
+                        <%
+                            Connection cookedConn = null;
+                            PreparedStatement cookedStmt = null;
+                            ResultSet cookedRs = null;
+                            String cookedOrderSql = "SELECT o.order_id, "
+                                    + "r.restaurant_name AS restaurant_name, "
+                                    + "u.name AS customer_name, "
+                                    + "mi.item_name, "
+                                    + "oi.quantity, "
+                                    + "oi.price, "
+                                    + "o.total_amount, "
+                                    + "o.order_status "
+                                    + "FROM orders o "
+                                    + "JOIN order_items oi ON o.order_id = oi.order_id "
+                                    + "JOIN menu_items mi ON oi.item_id = mi.item_id "
+                                    + "JOIN restaurants r ON mi.restaurant_id = r.restaurant_id "
+                                    + "JOIN customers c ON o.customer_id = c.customer_id "
+                                    + "JOIN users u ON c.user_id = u.user_id "
+                                    + "WHERE o.order_status = 'Cooked' "
+                                    + "ORDER BY o.order_id";
+
+                            List<String[]> cookedOrderDetailsList = new ArrayList<String[]>(); // List to store cooked order details
+                            int currentCookedOrderId = -1;
+                            StringBuilder cookedItemsOrdered = new StringBuilder();
+                            String cookedRestaurantName = "";
+                            String cookedCustomerName = "";
+                            double cookedTotalAmount = 0;
+                            String cookedOrderStatus = "";
+
+                            try {
+                                cookedConn = Database.getConnection();
+                                cookedStmt = cookedConn.prepareStatement(cookedOrderSql);
+                                cookedRs = cookedStmt.executeQuery();
+
+                                // Process the result set for cooked orders
+                                while (cookedRs.next()) {
+                                    int cookedOrderId = cookedRs.getInt("order_id");
+
+                                    // Save the previous order's details when encountering a new order
+                                    if (cookedOrderId != currentCookedOrderId && currentCookedOrderId != -1) {
+                                        cookedOrderDetailsList.add(new String[]{
+                                            String.valueOf(currentCookedOrderId),
+                                            cookedRestaurantName,
+                                            cookedCustomerName,
+                                            cookedItemsOrdered.toString(),
+                                            String.valueOf(cookedTotalAmount),
+                                            cookedOrderStatus
+                                        });
+                                        cookedItemsOrdered.setLength(0); // Clear for next order
+                                    }
+
+                                    // Update order-level details
+                                    currentCookedOrderId = cookedOrderId;
+                                    cookedRestaurantName = cookedRs.getString("restaurant_name");
+                                    cookedCustomerName = cookedRs.getString("customer_name");
+                                    cookedTotalAmount = cookedRs.getDouble("total_amount");
+                                    cookedOrderStatus = cookedRs.getString("order_status");
+
+                                    // Append item details
+                                    if (cookedItemsOrdered.length() > 0) {
+                                        cookedItemsOrdered.append(", ");
+                                    }
+                                    cookedItemsOrdered.append(cookedRs.getInt("quantity")).append("x ").append(cookedRs.getString("item_name"));
+                                }
+
+                                // Add the last cooked order's details to the list
+                                if (currentCookedOrderId != -1) {
+                                    cookedOrderDetailsList.add(new String[]{
+                                        String.valueOf(currentCookedOrderId),
+                                        cookedRestaurantName,
+                                        cookedCustomerName,
+                                        cookedItemsOrdered.toString(),
+                                        String.valueOf(cookedTotalAmount),
+                                        cookedOrderStatus
+                                    });
+                                }
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            } finally {
+                                // Close resources
+                                if (cookedRs != null) {
+                                    try {
+                                        cookedRs.close();
+                                    } catch (SQLException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                if (cookedStmt != null) {
+                                    try {
+                                        cookedStmt.close();
+                                    } catch (SQLException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                if (cookedConn != null) {
+                                    try {
+                                        cookedConn.close();
+                                    } catch (SQLException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                        %>
+
+                        <!-- HTML table to display the cooked order details -->
+                        <table border="1">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Restaurant Name</th>
+                                    <th>Customer Name</th>
+                                    <th>Items Ordered</th>
+                                    <th>Total Amount</th>
+                                    <th>Order Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (int i = 0; i < cookedOrderDetailsList.size(); i++) {
+                                        String[] cookedOrderDetails = (String[]) cookedOrderDetailsList.get(i);
+                                %>
+                                <tr>
+                                    <td><%= cookedOrderDetails[0]%></td>
+                                    <td><%= cookedOrderDetails[1]%></td>
+                                    <td><%= cookedOrderDetails[2]%></td>
+                                    <td><%= cookedOrderDetails[3]%></td>
+                                    <td><%= cookedOrderDetails[4]%></td>
+                                    <td><%= cookedOrderDetails[5]%></td>
+                                </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </section>
+
+
 
 
 

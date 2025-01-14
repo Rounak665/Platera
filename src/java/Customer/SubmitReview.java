@@ -42,7 +42,7 @@ public class SubmitReview extends HttpServlet {
 
             if (rowsInserted > 0) {
                 // Redirect to the restaurant page with a success message
-                response.sendRedirect("src/pages/Customer/RestaurantDetails/RestaurantDetails.jsp?restaurantId=" + restaurantId + "?Review Submitted Successfully");
+                response.sendRedirect("src/pages/Customer/RestaurantDetails/RestaurantDetails.jsp?restaurantId=" + restaurantId);
             } else {
                 // Redirect with an error message
                 response.sendRedirect("src/pages/Customer/RestaurantDetails/RestaurantDetails.jsp#errorPopup?restaurantId=" + restaurantId );
