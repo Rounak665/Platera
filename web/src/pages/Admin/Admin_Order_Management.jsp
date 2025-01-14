@@ -252,7 +252,6 @@
 
                     </section>
 
-
                     <section id="pending-orders">
                         <h2>Cooked Orders</h2>
 

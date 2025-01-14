@@ -123,11 +123,6 @@ public class ApproveRestaurant extends HttpServlet {
                                 deletePstmt.setInt(1, request_id);
                                 deletePstmt.executeUpdate();
                             }
-
-                            response.setContentType("text/html");
-                            response.getWriter().println("<h2>Restaurant has been approved successfully</h2>");
-
-                            // Send approval email if the email was retrieved successfully
                             String subject = "Approval of Your Platera Restaurant Application";
                             String body = "Dear Restaurant Owner,\n\n"
                                     + "Congratulations! Your application to register your restaurant with Platera has been approved.\n"
@@ -136,6 +131,8 @@ public class ApproveRestaurant extends HttpServlet {
                             if (email != null) {
                                 EmailUtility.sendEmail(email, subject, body);
                             }
+                            response.sendRedirect("src/pages/Confirmations/requestApprove.html");
+
                         }
                     }
                 } else {

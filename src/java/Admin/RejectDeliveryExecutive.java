@@ -56,23 +56,23 @@ public class RejectDeliveryExecutive extends HttpServlet {
                     try (PreparedStatement deletePstmt = conn.prepareStatement(deleteSql)) {
                         deletePstmt.setInt(1, request_id);
                         deletePstmt.executeUpdate();
-                    }
-                    catch(Exception ex){                     
-                    response.sendRedirect("src/pages/Admin/Admin_Restaurant_Approval.jsp#errorPopup");
-                    return;
+                    } catch (Exception ex) {
+                        response.sendRedirect("src/pages/Admin/Admin_Restaurant_Approval.jsp#errorPopup");
+                        return;
                     }
 
                     // Send rejection email if the email was retrieved successfully
                     String subject = "Platera Delivery Executive Application Rejected";
-        String body = "Dear Applicant,\n\n" +
-                      "We regret to inform you that your application to join Platera as a Delivery Executive has not been approved at this time.\n" +
-                      "Thank you for your interest in joining us, and we wish you the best in your future endeavors.\n\n" +
-                      "Best regards,\nThe Platera Team";
+                    String body = "Dear Applicant,\n\n"
+                            + "We regret to inform you that your application to join Platera as a Delivery Executive has not been approved at this time.\n"
+                            + "Thank you for your interest in joining us, and we wish you the best in your future endeavors.\n\n"
+                            + "Best regards,\nThe Platera Team";
                     if (email != null) {
-                        EmailUtility.sendEmail(email,subject,body);
+                        EmailUtility.sendEmail(email, subject, body);
                     }
+                    response.sendRedirect("src/pages/Confirmations/requestRejected.html");
                 }
-            }catch (Exception ex) {
+            } catch (Exception ex) {
                 response.sendRedirect("src/pages/Admin/Admin_Restaurant_Approval.jsp#errorPopup");
                 return;
             }

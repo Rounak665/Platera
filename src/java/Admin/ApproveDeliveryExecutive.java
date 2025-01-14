@@ -32,8 +32,7 @@ public class ApproveDeliveryExecutive extends HttpServlet {
 
         try (Connection conn = Database.getConnection()) {
             if (conn == null) {
-                LOGGER.severe("Database connection failed.");
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unable to connect to the database.");
+                response.sendRedirect("src/pages/Admin/Admin_Delivery_Executive_Approval.jsp#errorPopup");
                 return;
             }
 
@@ -53,7 +52,7 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                         insertUsersPstmt.setString(1, rs.getString("name"));
                         insertUsersPstmt.setString(2, rs.getString("email"));
                         insertUsersPstmt.setString(3, rs.getString("password"));
-                        insertUsersPstmt.setInt(4, rs.getInt("phone"));
+                        insertUsersPstmt.setString(4, rs.getString("phone"));
                         insertUsersPstmt.setString(5, rs.getString("address"));
                         insertUsersPstmt.executeUpdate();
                     }
@@ -68,8 +67,8 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                         if (userIdRs.next()) {
                             userId = userIdRs.getInt("user_id");
                         } else {
-                            LOGGER.severe("User with email " + email + " does not exist in the users table.");
-                            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "User does not exist.");
+                            System.out.println("2nd");
+                            response.sendRedirect("src/pages/Admin/Admin_Delivery_Executive_Approval.jsp#errorPopup");
                             return;
                         }
                     }
@@ -96,8 +95,8 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                         try (FileOutputStream fos = new FileOutputStream(imageFile)) {
                             fos.write(imageBytes);
                         } catch (IOException e) {
-                            LOGGER.log(Level.SEVERE, "Error saving image file: " + e.getMessage(), e);
-                            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error saving image file.");
+                            System.out.println("2nd");
+                            response.sendRedirect("src/pages/Admin/Admin_Delivery_Executive_Approval.jsp#errorPopup");
                             return;
                         }
                     }
@@ -122,8 +121,8 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                         if (delExecIdSqlRs.next()) {
                             deliveryExecutiveId = delExecIdSqlRs.getInt("delivery_executive_id");
                         } else {
-                            LOGGER.severe("User with email " + email + " does not exist in the users table.");
-                            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "User does not exist.");
+                            System.out.println("3rd");
+                            response.sendRedirect("src/pages/Admin/Admin_Delivery_Executive_Approval.jsp#errorPopup");
                             return;
                         }
                     }
@@ -151,10 +150,6 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                         deletePstmt.executeUpdate();
                     }
 
-                    response.setContentType("text/html");
-                    response.getWriter().println("<h2>Delivery Executive has been approved successfully</h2>");
-
-                    // Send approval email
                     String subject = "Approval of Your Platera Delivery Executive Application";
                     String body = "Dear Applicant,\n\n"
                             + "Congratulations! Your application to join Platera as a Delivery Executive has been approved.\n"
@@ -163,8 +158,13 @@ public class ApproveDeliveryExecutive extends HttpServlet {
                     if (email != null) {
                         EmailUtility.sendEmail(email, subject, body);
                     }
+                    System.out.println("Before the redirect");
+                    response.sendRedirect("src/pages/Confirmations/requestApprove.html");
+                    System.out.println("after the redirect");
                 }
             } catch (Exception ex) {
+                ex.printStackTrace();
+                System.out.println("The exception before sql exception");
                 response.sendRedirect("src/pages/Admin/Admin_Delivery_Executive_Approval.jsp#errorPopup");
                 return;
             }

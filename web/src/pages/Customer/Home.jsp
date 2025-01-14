@@ -46,8 +46,8 @@
     <body>
         <%
             // Retrieve user_id from the session
-//            Integer user_id = (Integer) session.getAttribute("user_id");
-            int user_id = 201;
+            Integer user_id = (Integer) session.getAttribute("user_id");
+//            int user_id = 201;
 
             // Initialize necessary variables
             String name = "";
@@ -100,20 +100,31 @@
 
 
         <!-- Welcome Popup -->
-        <c:if test="${sessionScope.welcomePopup == false}">
-            <div class="welcome-popup" id="welcomePopup">
-                <div class="popup-content">
-                    <h3>Welcome, <%=name%>!</h3>
-                    <p>Thanks for visiting our website.</p>
-                    <button id="closePopupBtn">Close</button>
-                </div>
-            </div>
+        <%
+            // Retrieve the session attribute before modification
+            Boolean welcomePopup = (Boolean) session.getAttribute("welcomePopup");
 
-            <%-- Set the attribute to true after displaying the popup --%>
-            <%
+            // Check if the popup should be displayed
+            if (welcomePopup == null || !welcomePopup) {
+                // Print the session value before showing the popup
+                System.out.println("Before showing popup: " + welcomePopup);
+        %>
+        <div class="welcome-popup active" id="welcomePopup">
+            <div class="popup-content">
+                <h3>Welcome, <%= name%>!</h3>
+                <p>Thanks for visiting our website.</p>
+                <button id="closePopupBtn">Close</button>
+            </div>
+        </div>
+        <%
+                // Set the session attribute to true after showing the popup
                 session.setAttribute("welcomePopup", true);
-            %>
-        </c:if>
+
+                // Print the session value after setting it
+                System.out.println("After setting popup shown: " + session.getAttribute("welcomePopup"));
+            }
+        %>
+
 
 
         <!-- Navigation Bar -->
@@ -231,116 +242,116 @@
                     <%
                         for (Cart cart : cartItems) {
                     %>
-                        <div class="cart-item">
-                            <img src="<%=request.getContextPath()%>/<%= cart.getItemImage()%>" alt="<%= cart.getItemName()%>" class="cart-item-image">
+                    <div class="cart-item">
+                        <img src="<%=request.getContextPath()%>/<%= cart.getItemImage()%>" alt="<%= cart.getItemName()%>" class="cart-item-image">
 
-                            <div class="cart-item-details">
-                                <p class="cart-item-name"><%= cart.getItemName()%></p>
-                                <p class="cart-item-price">₹<%=cart.getItemPrice()%></p>
-                            </div>
-                            <div class="price">
-                                <div class="cart-item-quantity-trash">
-                                    <div class="cart-item-quantity">
-                                        <form action="http://localhost:8080/Platera-Main/UpdateCartQuantity" method="POST">
-                                            <input type="hidden" name="cart_id" value="<%= cart.getCartId()%>">
-                                            <button type="submit" name="action" value="subtract" class="quantity-btn subtract">-</button>
-                                            <input type="text" name="quantity" class="quantity-number" value="<%= cart.getQuantity()%>" disabled>
-                                            <button type="submit" name="action" value="add" class="quantity-btn add">+</button>
-                                        </form>
-                                    </div>
-                                    <form action="http://localhost:8080/Platera-Main/DeleteFromCart" method="post">
+                        <div class="cart-item-details">
+                            <p class="cart-item-name"><%= cart.getItemName()%></p>
+                            <p class="cart-item-price">₹<%=cart.getItemPrice()%></p>
+                        </div>
+                        <div class="price">
+                            <div class="cart-item-quantity-trash">
+                                <div class="cart-item-quantity">
+                                    <form action="http://localhost:8080/Platera-Main/UpdateCartQuantity" method="POST">
                                         <input type="hidden" name="cart_id" value="<%= cart.getCartId()%>">
-                                        <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                                        <button type="submit" name="action" value="subtract" class="quantity-btn subtract">-</button>
+                                        <input type="text" name="quantity" class="quantity-number" value="<%= cart.getQuantity()%>" disabled>
+                                        <button type="submit" name="action" value="add" class="quantity-btn add">+</button>
                                     </form>
                                 </div>
-                                <p class="total-price">₹<%=cart.getItemPrice() * cart.getQuantity()%></p>
+                                <form action="http://localhost:8080/Platera-Main/DeleteFromCart" method="post">
+                                    <input type="hidden" name="cart_id" value="<%= cart.getCartId()%>">
+                                    <button type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                                </form>
                             </div>
+                            <p class="total-price">₹<%=cart.getItemPrice() * cart.getQuantity()%></p>
                         </div>
-                        <%
-                                    promotion = cart.getCouponDiscount();
-                                }
+                    </div>
+                    <%
+                                promotion = cart.getCouponDiscount();
                             }
-                        %>
-                    </div>
-
-                    <% if (!cartItems.isEmpty()) {%>
-                    <div class="promo-code">
-                        <form action="http://localhost:8080/Platera-Main/ApplyCoupon" method="post">
-                            <input type="text" name="coupon_code" placeholder="Promo Code">
-                            <input type="number" name="customerId" value="<%=customer_id%>" hidden>
-                            <button type="submit">Apply</button>
-                        </form>
-                    </div>
-                    <div class="cart-summary">
-                        <%
-                            // Calculate subtotal and total
-
-                            for (Cart cart : cartItems) {
-                                subtotal += cart.getItemPrice() * cart.getQuantity();
-                            }
-
-                            // Apply delivery charges conditionally
-                            deliveryCharges = (subtotal < 199) ? 30 : 0;  // Delivery charges are 30 if subtotal is less than 199
-
-                            // Calculate total
-                            total = subtotal + deliveryCharges - promotion;
-                        %>
-
-                        <div><span>Subtotal</span><p class="subtotal">₹<%=subtotal%></p></div>
-                        <div><span>Delivery</span><p class="delivery_charges">+₹<%=deliveryCharges%></p></div>
-                        <div><span>Promotions</span><p class="delivery_charges">-₹<%=promotion%></p></div>
-                        <div><span>Total</span><p class="total">₹<%=total%></p></div>
-                    </div>
-
-                    <button class="checkout-btn">CHECKOUT</button>
-                    <% }%>
+                        }
+                    %>
                 </div>
 
-
-
-                <!-- Checkout Scetion -->
-
-                <div class="cart-container paynow" style="display: none;">
-                    <div class="cart-header">
-                        <span class="back-btn" id="backToCheckout"><b>&#8592;</b></span>
-                        Checkout
-                        <span class="close-btn" id="closeCartSectionPaynow">&times;</span>
-                    </div>
-                    <form action="http://localhost:8080/Platera-Main/Checkout" method="post">
-                        <div class="payment-options">
-                            <div class="payment-option">
-                                <input type="radio" name="payment" id="debit-credit" value="cards" checked>
-                                <label for="debit-credit">
-                                    <img src="https://img.icons8.com/color/48/visa.png" alt="Visa"> Debit/Credit card
-                                </label>
-                            </div>
-
-                            <div class="payment-option">
-                                <input type="radio" name="payment" id="net-banking" value="netBanking">
-                                <label for="net-banking">
-                                    <img src="https://img.icons8.com/color/48/bank.png" alt="Bank"> Net banking
-                                </label>
-                            </div>
-
-                            <div class="payment-option">
-                                <input type="radio" name="payment" id="cash-on-delivery" value="cod">
-                                <label for="cash-on-delivery">
-                                    <img src="https://img.icons8.com/color/48/cash.png" alt="Cash on Delivery"> Cash on Delivery
-                                </label>
-                            </div>                    
-
-                        </div>
-
-                        <div class="cart-summary">
-                            <div><span>Subtotal</span><p  class="subtotal">₹<%=subtotal%></p></div>
-                            <div><span>Delivery</span><p class="delivery_charges">+₹<%=deliveryCharges%></p></div>
-                            <div><span>Promotions</span><p class="delivery_charges">-₹<%=promotion%></p></div>
-                            <div><span>Total</span><p  class="total">₹<%=total%></p></div>
-                        </div>
-
-                        <button class="pay-btn">Pay Now</button>
+                <% if (!cartItems.isEmpty()) {%>
+                <div class="promo-code">
+                    <form action="http://localhost:8080/Platera-Main/ApplyCoupon" method="post">
+                        <input type="text" name="coupon_code" placeholder="Promo Code">
+                        <input type="number" name="customerId" value="<%=customer_id%>" hidden>
+                        <button type="submit">Apply</button>
                     </form>
                 </div>
+                <div class="cart-summary">
+                    <%
+                        // Calculate subtotal and total
+
+                        for (Cart cart : cartItems) {
+                            subtotal += cart.getItemPrice() * cart.getQuantity();
+                        }
+
+                        // Apply delivery charges conditionally
+                        deliveryCharges = (subtotal < 199) ? 30 : 0;  // Delivery charges are 30 if subtotal is less than 199
+
+                        // Calculate total
+                        total = subtotal + deliveryCharges - promotion;
+                    %>
+
+                    <div><span>Subtotal</span><p class="subtotal">₹<%=subtotal%></p></div>
+                    <div><span>Delivery</span><p class="delivery_charges">+₹<%=deliveryCharges%></p></div>
+                    <div><span>Promotions</span><p class="delivery_charges">-₹<%=promotion%></p></div>
+                    <div><span>Total</span><p class="total">₹<%=total%></p></div>
+                </div>
+
+                <button class="checkout-btn">CHECKOUT</button>
+                <% }%>
+            </div>
+
+
+
+            <!-- Checkout Scetion -->
+
+            <div class="cart-container paynow" style="display: none;">
+                <div class="cart-header">
+                    <span class="back-btn" id="backToCheckout"><b>&#8592;</b></span>
+                    Checkout
+                    <span class="close-btn" id="closeCartSectionPaynow">&times;</span>
+                </div>
+                <form action="http://localhost:8080/Platera-Main/Checkout" method="post">
+                    <div class="payment-options">
+                        <div class="payment-option">
+                            <input type="radio" name="payment" id="debit-credit" value="cards" checked>
+                            <label for="debit-credit">
+                                <img src="https://img.icons8.com/color/48/visa.png" alt="Visa"> Debit/Credit card
+                            </label>
+                        </div>
+
+                        <div class="payment-option">
+                            <input type="radio" name="payment" id="net-banking" value="netBanking">
+                            <label for="net-banking">
+                                <img src="https://img.icons8.com/color/48/bank.png" alt="Bank"> Net banking
+                            </label>
+                        </div>
+
+                        <div class="payment-option">
+                            <input type="radio" name="payment" id="cash-on-delivery" value="cod">
+                            <label for="cash-on-delivery">
+                                <img src="https://img.icons8.com/color/48/cash.png" alt="Cash on Delivery"> Cash on Delivery
+                            </label>
+                        </div>                    
+
+                    </div>
+
+                    <div class="cart-summary">
+                        <div><span>Subtotal</span><p  class="subtotal">₹<%=subtotal%></p></div>
+                        <div><span>Delivery</span><p class="delivery_charges">+₹<%=deliveryCharges%></p></div>
+                        <div><span>Promotions</span><p class="delivery_charges">-₹<%=promotion%></p></div>
+                        <div><span>Total</span><p  class="total">₹<%=total%></p></div>
+                    </div>
+
+                    <button class="pay-btn">Pay Now</button>
+                </form>
+            </div>
 
         </section>
 
@@ -464,9 +475,9 @@
                                 <a href="./RestaurantDetails/RestaurantDetails.jsp?restaurantId=<%= restaurant.getRestaurantId()%>" class="restaurant-card-link">
                                     <div class="restaurant-card">
                                         <img src="<%= request.getContextPath()%>/<%= restaurant.getImage()%>"
-                                            alt="<%= restaurant.getName()%>"
-                                            class="restaurant-image"
-                                            />
+                                             alt="<%= restaurant.getName()%>"
+                                             class="restaurant-image"
+                                             />
                                         <h3><%= restaurant.getName()%></h3>
                                         <p>⭐ <%= restaurant.getRating()%> | ₹<%= restaurant.getMinPrice()%>-₹<%= restaurant.getMaxPrice()%></p>
                                         <p><%= restaurant.getCategory1()%>, <%= restaurant.getCategory2()%>, <%= restaurant.getCategory3()%></p>

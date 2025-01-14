@@ -47,9 +47,19 @@ public class RejectRestaurant extends HttpServlet {
             try (PreparedStatement deletePstmt = conn.prepareStatement(deleteSql)) {
                 deletePstmt.setInt(1, request_id);
                 deletePstmt.executeUpdate();
-                response.setContentType("text/html");
-                response.getWriter().println("<h2>Restaurant has been rejected successfully</h2>");
-            }catch(Exception ex){
+
+                String subject = "Your Platera Restaurant Signup Rejection";
+                String body = "Dear Restaurant Owner,\n\n"
+                        + "We regret to inform you that your restaurant registration request has been rejected.\n\n"
+                        + "If you have any questions, feel free to contact us.\n\n"
+                        + "Best regards,\nThe Platera Team";
+
+                if (email != null) {
+                    EmailUtility.sendEmail(email, subject, body);
+                }
+
+                response.sendRedirect("src/pages/Confirmations/requestRejected.html");
+            } catch (Exception ex) {
                 response.sendRedirect("src/pages/Admin/Admin_Restaurant_Approval.jsp#errorPopup");
                 return;
             }
@@ -59,14 +69,5 @@ public class RejectRestaurant extends HttpServlet {
             return;
         }
 
-        String subject = "Your Platera Restaurant Signup Rejection";
-        String body = "Dear Restaurant Owner,\n\n"
-                + "We regret to inform you that your restaurant registration request has been rejected.\n\n"
-                + "If you have any questions, feel free to contact us.\n\n"
-                + "Best regards,\nThe Platera Team";
-
-        if (email != null) {
-            EmailUtility.sendEmail(email, subject, body);
-        }
     }
 }
