@@ -386,6 +386,7 @@
                         <option value="dishes">Dishes</option>
                     </select>
                     <input type="text" name="keyword" id="search-input" placeholder="Search for restaurants or dishes..." />
+                    <input type="hidden" name="location" value="<%=location_id%>">
                     <button id="search-button">Search</button>
                 </form>
             </div>

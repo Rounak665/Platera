@@ -317,7 +317,6 @@
 </header>
 
 <main>
-    <h2 class="dash-title">Hello, <%=name%></h2>
 
     <div class="container">
 

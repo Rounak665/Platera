@@ -1,6 +1,8 @@
 package Utilities;
 
-public class MenuItems {
+import java.io.Serializable;
+
+public class MenuItems implements Serializable {
 
     private int itemId;
     private String itemName;
