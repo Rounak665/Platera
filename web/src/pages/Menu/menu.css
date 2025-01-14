@@ -496,6 +496,9 @@ body {
     width: 60%;
     margin: 0 auto;
 }
+.carousel-track-container{
+    overflow: hidden;
+}
 .dishes, .cuisines, .popular-dishes {
     padding: 20px;
     text-align: center;
