@@ -109,8 +109,9 @@
                     <li id="editProfile"><i class="fas fa-user-edit"></i> Edit your profile</li>
                     <li><i class="fas fa-key"></i> Change Password</li>
                     <li id="setSecure"><i class="fas fa-shield-alt"></i> Security</li>
-                    <li><i class="fas fa-file-alt"></i> <a href="privacy-policy.html">Privacy Policy</a></li>
-                    <li><i class="fas fa-file-contract"></i> <a href="terms-conditions.html">Terms and Conditions</a></li>
+                    <li><i class="fas fa-file-alt"></i> <a href="../FooterLinkPages/PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
+                    <li><i class="fas fa-file-contract"></i> <a href="../FooterLinkPages/Terms&Conditions/Terms&Conditions.html">Terms and Conditions</a></li>
+                    <li><i class="fa-solid fa-circle-info"></i><a href="../FooterLinkPages/Help/Help.html">Help</a></li>
                     <li id="delete-acc">
                         <i class="fas fa-trash-alt"></i>
                         <form action="http://localhost:8080/Platera-Main/DeleteUser" method="POST" onsubmit="return confirmDelete()">
