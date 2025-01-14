@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 
@@ -669,7 +669,10 @@ body {
 
 /* Review Section */
 .review-section {
-  width: ;
+  width: 60%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
   padding: 20px;
   background-color: #f8f8f8;
   border-top: 1px solid #ddd;
@@ -772,6 +775,7 @@ footer .col img{
   margin-bottom: 20px;
 }
 .col h3{
+  color: #f4f4f4;
   width: fit-content;
   margin-bottom: 40px;
   position: relative;

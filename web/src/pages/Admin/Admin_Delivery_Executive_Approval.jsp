@@ -6,6 +6,7 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -42,12 +43,12 @@
                 
                 <div class="sidebar-menu">
                     <ul>
-                        <li>
+                        <!-- <li>
                             <a href="">
                                 <span class="icon"><ion-icon name="bar-chart"></ion-icon></span>
                                 <span>Dashboard Overview</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li>
                             <a href="./Admin_Order_Management.jsp">
                                 <span class="icon"><ion-icon name="wine"></ion-icon></span>

@@ -304,7 +304,7 @@ body {
     margin-bottom: 20px;
 }
 
-.search-bar {
+.search-bar form {
     margin-top: 20px;
     display: flex;
     align-items: center;
@@ -495,6 +495,9 @@ body {
     position: relative;
     width: 60%;
     margin: 0 auto;
+}
+.carousel-track-container{
+    overflow: hidden;
 }
 .dishes, .cuisines, .popular-dishes {
     padding: 20px;
