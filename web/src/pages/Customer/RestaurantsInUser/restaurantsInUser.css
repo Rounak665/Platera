@@ -308,7 +308,19 @@ body {
     padding-left: 7px;
     font-size: 0.9rem;
 }
-
+.restaurant-card-link {
+    display: block;
+    text-decoration: none; /* Remove default underline */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Hide overflowed content */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for hover effects */
+}
+.restaurant-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: black;
+}
 /* Expand search input on focus */
 .location-search:focus {
     width: 200px;

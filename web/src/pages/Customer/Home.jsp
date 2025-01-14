@@ -463,8 +463,7 @@
                             <div class="restaurant-carousel-item">
                                 <a href="./RestaurantDetails/RestaurantDetails.jsp?restaurantId=<%= restaurant.getRestaurantId()%>" class="restaurant-card-link">
                                     <div class="restaurant-card">
-                                        <img
-                                            src="<%= request.getContextPath()%>/<%= restaurant.getImage()%>"
+                                        <img src="<%= request.getContextPath()%>/<%= restaurant.getImage()%>"
                                             alt="<%= restaurant.getName()%>"
                                             class="restaurant-image"
                                             />
