@@ -495,7 +495,7 @@
         <script>
             document.querySelectorAll("#signin, #register").forEach(element => {
         element.addEventListener("click", function() {
-            document.querySelector(".Signup-popup").classList.add("activate");
+            document.querySelector("#Signin-popup").classList.add("activate");
         });
     });
 

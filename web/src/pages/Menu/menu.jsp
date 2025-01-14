@@ -107,7 +107,7 @@
 
         <section class="banner">
             <div class="banner-content">
-                <h2>Welcome to Our Menu and Cuisines</h2>
+                <h2>Welcome to Our Menu</h2>
                 <div class="search-bar">
                     <form action="http://localhost:8080/Platera-Main/Search">
                         <select name="keywordType" id="search-category">
