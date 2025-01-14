@@ -503,6 +503,7 @@ body {
     position: relative;
     margin-left: 240px;
     transition: margin-left 500ms;
+    z-index: 101;
 }
 
 header {

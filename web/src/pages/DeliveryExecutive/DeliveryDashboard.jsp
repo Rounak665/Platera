@@ -17,19 +17,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Platera - Delivery Executive Dashboard</title>
-        <link rel="stylesheet" href="./Delivery.css">
-        <link rel="shortcut icon" href="../../../Public/favicon.png" type="image/x-icon">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    </head>
-    <body>
 
-        <!--Java Scriplets-->
-        <%
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platera - Delivery Executive Dashboard</title>
+    <link rel="stylesheet" href="./Delivery.css">
+    <link rel="shortcut icon" href="../../../Public/favicon.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+
+    <!--Java Scriplets-->
+    <%
             // Simulate session attributes for debugging
 //    int user_id = (Integer) session.getAttribute("user_id");
             int user_id = 282;
@@ -53,227 +56,239 @@
 
         %>
 
-        <!-- Error Popup -->
-        <div class="error-popup" id="errorPopup">
-            <div class="error-content">
-                <h2>Error</h2>
-                <p id="errorMessage">An error has occurred. Please try again later.</p>
-                <button id="closeErrorPopup">Go Back</button>
+    <!-- Error Popup -->
+    <div class="error-popup" id="errorPopup">
+        <div class="error-content">
+            <h2>Error</h2>
+            <p id="errorMessage">An error has occurred. Please try again later.</p>
+            <button id="closeErrorPopup">Go Back</button>
+        </div>
+    </div>
+
+    <!-- Welcome Popup -->
+
+
+    <!-- loader -->
+    <div class="loader">
+        <div id="pl">
+            <div>
+                <video class="vid" src="../ContactUs/Assets/loader.mp4" autoplay muted loop></video>
             </div>
         </div>
+    </div>
 
-        <!-- Welcome Popup -->
+    <!-- Two step Verification -->
 
-
-        <!-- loader -->
-        <div class="loader">
-            <div id="pl">
-                <div>
-                    <video class="vid" src="../ContactUs/Assets/loader.mp4" autoplay muted loop></video>
-                </div>
+    <div id="security-section" class="security-container" style="display: none;">
+        <div class="security-card">
+            <span class="sec-close-btn" id="closeSecuritySection">&times;</span>
+            <div class="security-header">
+                <i class="fas fa-lock lock-icon"></i>
+                <h2>Two-factor Authentication</h2>
             </div>
-        </div>     
-
-        <!-- Two step Verification -->
-
-        <div id="security-section" class="security-container" style="display: none;">
-            <div class="security-card">
-                <span class="sec-close-btn" id="closeSecuritySection">&times;</span>
-                <div class="security-header">
-                    <i class="fas fa-lock lock-icon"></i>
-                    <h2>Two-factor Authentication</h2>
-                </div>
-                <p class="security-description">
-                    Enhance your security by setting up two-factor authentication (2FA) on your registered email.
-                </p>
-                <form id="twoFAForm" method="post" action="http://localhost:8080/Platera-Main/UpdateTwoFAStatus">
-                    <input type="hidden" value="<%=user_id%>" name="userId">
-                    <div class="security-option">
-                        <div class="security-description">
-                            <label class="option-title">
-                                <span>Text Message</span> <span class="option-subtitle">EMAIL</span>
-                            </label>
-                            <p class="option-description">
-                                Get a one-time passcode through email.
-                            </p>
-                        </div>
-                        <label class="switch">
-                            <!-- Dynamically set the 'checked' attribute based on the 'twoFA' variable -->
-                            <input type="checkbox" id="email-toggle" name="twoFA" <%= twoFA ? "checked" : ""%> />
-                            <span class="slider round"></span>
+            <p class="security-description">
+                Enhance your security by setting up two-factor authentication (2FA) on your registered email.
+            </p>
+            <form id="twoFAForm" method="post" action="http://localhost:8080/Platera-Main/UpdateTwoFAStatus">
+                <input type="hidden" value="<%=user_id%>" name="userId">
+                <div class="security-option">
+                    <div class="security-description">
+                        <label class="option-title">
+                            <span>Text Message</span> <span class="option-subtitle">EMAIL</span>
                         </label>
+                        <p class="option-description">
+                            Get a one-time passcode through email.
+                        </p>
                     </div>
-                    <div class="security-footer">
-                        <button type="button" id="cancel-btn" class="btn cancel-btn">Cancel</button>
-                        <button type="submit" id="save-btn" class="btn save-btn">Save changes</button>
-                    </div>
-                </form>
+                    <label class="switch">
+                        <!-- Dynamically set the 'checked' attribute based on the 'twoFA' variable -->
+                        <input type="checkbox" id="email-toggle" name="twoFA" <%=twoFA ? "checked" : "" %> />
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="security-footer">
+                    <button type="button" id="cancel-btn" class="btn cancel-btn">Cancel</button>
+                    <button type="submit" id="save-btn" class="btn save-btn">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div>
+
+        <div class="sidebar">
+            <div class="sidebar-toggle menu" id="menu">
+                <ion-icon name="menu"></ion-icon>
+            </div>
+            <div class="sidebar-toggle close-btn"><ion-icon name="close-outline" class="ico"></ion-icon></div>
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="../../../Public/images/logo.png" alt="">
+                </div>
+            </div>
+
+            <div class="sidebar-menu">
+                <ul>
+                    <li>
+                        <a href="">
+                            <span class="icon"><ion-icon name="home-sharp"></ion-icon></span>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./DeliveryOrders.jsp">
+                            <span class="icon"><ion-icon name="cart"></ion-icon></span>
+                            <span>Orders</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
 
 
-        <div>
+        <!-- sliding profile settings -->
 
-            <div class="sidebar">
-                <div class="sidebar-toggle menu" id="menu">
-                    <ion-icon name="menu"></ion-icon>
+        <section class="setting-section" id="setSection">
+            <div class="setting-container" id="settingContainer">
+                <span class="close-btn" id="closeSetSection">&times;</span>
+                <div class="setting-header">
+                    Profile Setttings
                 </div>
-                <div class="sidebar-toggle close-btn"><ion-icon name="close-outline" class="ico"></ion-icon></div>
-                <div class="sidebar-header">
-                    <div class="logo">
-                        <img src="../../../Public/images/logo.png" alt="">
-                    </div>
-                </div>
-
-                <div class="sidebar-menu">
-                    <ul>
-                        <li>
-                            <a href="">
-                                <span class="icon"><ion-icon name="home-sharp"></ion-icon></span>
-                                <span>Home</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="./DeliveryOrders.jsp">
-                                <span class="icon"><ion-icon name="cart"></ion-icon></span>
-                                <span>Orders</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="setting-options">
+                    <li id="editProfile"><i class="fas fa-user-edit"></i> Edit your profile</li>
+                    <li><i class="fas fa-key"></i> Change Password</li>
+                    <li id="setSecure"><i class="fas fa-shield-alt"></i> Security</li>
+                    <li><i class="fas fa-file-alt"></i> <a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><i class="fas fa-file-contract"></i> <a href="terms-conditions.html">Terms and Conditions</a>
+                    </li>
+                    <li id="delete-acc">
+                        <i class="fas fa-trash-alt"></i>
+                        <form action="http://localhost:8080/Platera-Main/DeleteUser" method="POST"
+                            onsubmit="return confirmDelete()">
+                            <input type="hidden" name="userId" value="<%=user_id%>">
+                            <button type="submit" class="delete-btn">
+                                <span>Delete Account</span>
+                            </button>
+                        </form>
+                    </li>
+                </ul>
             </div>
 
+            <!-- edit section -->
+            <div class="modal-content" id="modalContent" style="display: none;">
+                <span class="back-btn" id="backToCheckout"><b>&#8592;</b></span>
+                <span class="close-btn" id="closeEditSection">&times;</span>
 
-            <!-- sliding profile settings -->
-
-            <section class="setting-section" id="setSection">
-                <div class="setting-container" id="settingContainer">
-                    <span class="close-btn" id="closeSetSection">&times;</span>
-                    <div class="setting-header">
-                        Profile Setttings
-                    </div>
-                    <ul class="setting-options">
-                        <li id="editProfile"><i class="fas fa-user-edit"></i> Edit your profile</li>
-                        <li><i class="fas fa-key"></i> Change Password</li>
-                        <li id="setSecure"><i class="fas fa-shield-alt"></i> Security</li>
-                        <li><i class="fas fa-file-alt"></i> <a href="privacy-policy.html">Privacy Policy</a></li>
-                        <li><i class="fas fa-file-contract"></i> <a href="terms-conditions.html">Terms and Conditions</a></li>
-                        <li id="delete-acc">
-                            <i class="fas fa-trash-alt"></i>
-                            <form action="http://localhost:8080/Platera-Main/DeleteUser" method="POST" onsubmit="return confirmDelete()">
-                                <input type="hidden" name="userId" value="<%=user_id%>">
-                                <button type="submit" class="delete-btn">
-                                    <span>Delete Account</span>
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
+                <div class="modal-header">
+                    Edit Profile
                 </div>
-
-                <!-- edit section -->
-                <div class="modal-content" id="modalContent" style="display: none;">
-                    <span class="back-btn" id="backToCheckout"><b>&#8592;</b></span>
-                    <span class="close-btn" id="closeEditSection">&times;</span>
-
-                    <div class="modal-header">
-                        Edit Profile
-                    </div>
-                    <div class="modal-body">
-                        <form action="http://localhost:8080/Platera-Main/UpdateExecutiveProfile" method="post" enctype="multipart/form-data">
-                            <input type="hidden" name="user_id" value="<%=user_id%>">
-                            <input type="hidden" name="executive_id" value="<%=executiveId%>">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="profileImage" class="form-label">Profile Image</label>
-                                        <input type="file" class="form-control file-input" id="photo-input" name="profileImage" accept="image/*">
-                                        <small class="form-text text-muted">Choose a clear, professional image.</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 d-flex align-items-center">
-                                    <div class="preview-container">
-                                        <img id="profile-photo-preview" src="<%= imagePath%>" alt="Profile Preview" class="img-thumbnail">
-                                        <small class="form-text text-muted">Preview your profile image here.</small>
-                                    </div>
+                <div class="modal-body">
+                    <form action="http://localhost:8080/Platera-Main/UpdateExecutiveProfile" method="post"
+                        enctype="multipart/form-data">
+                        <input type="hidden" name="user_id" value="<%=user_id%>">
+                        <input type="hidden" name="executive_id" value="<%=executiveId%>">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="profileImage" class="form-label">Profile Image</label>
+                                    <input type="file" class="form-control file-input" id="photo-input"
+                                        name="profileImage" accept="image/*">
+                                    <small class="form-text text-muted">Choose a clear, professional image.</small>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="name" name="name" value="<%=name%>" placeholder="Enter your full name">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="number" class="form-label">Phone No.</label>
-                                        <input type="text" class="form-control" id="number" name="phone" value="<%=phone%>" placeholder="Enter your phone number">
-                                    </div>
+                            <div class="col-md-6 d-flex align-items-center">
+                                <div class="preview-container">
+                                    <img id="profile-photo-preview" src="<%= imagePath%>" alt="Profile Preview"
+                                        class="img-thumbnail">
+                                    <small class="form-text text-muted">Preview your profile image here.</small>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="address" class="form-label">Address</label>
-                                        <input type="text" class="form-control" id="address" name="address" value="<%=address%>" placeholder="Enter your address">
-                                    </div>
-                                </div>
-                                <!-- Vehicle Type Dropdown -->
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="vehicleType" class="form-label">Vehicle Type</label>
-                                        <select class="form-control" id="vehicleType" name="vehicleType">
-                                            <option value="" disabled selected>
-                                                <%= vehicleType != null && !vehicleType.isEmpty() ? vehicleType : "Select your vehicle type"%>
-                                            </option>
-                                            <option value="Bike">Bike</option>
-                                            <option value="Scooter">Scooter</option>
-                                            <option value="Cycle">Cycle</option>
-                                        </select>
-                                    </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" value="<%=name%>"
+                                        placeholder="Enter your full name">
                                 </div>
                             </div>
-                            <div class="row">
-                                <!-- Location Dropdown -->
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="location" class="form-label">Location</label>
-                                        <select id="location" name="location" class="form-control styled-dropdown" required>
-                                            <option value="<%= locationId%>" selected>
-                                                <%= locationName != null ? locationName : "Select a location"%>
-                                            </option>
-                                            <%
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="number" class="form-label">Phone No.</label>
+                                    <input type="text" class="form-control" id="number" name="phone" value="<%=phone%>"
+                                        placeholder="Enter your phone number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="address" name="address"
+                                        value="<%=address%>" placeholder="Enter your address">
+                                </div>
+                            </div>
+                            <!-- Vehicle Type Dropdown -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="vehicleType" class="form-label">Vehicle Type</label>
+                                    <select class="form-control" id="vehicleType" name="vehicleType">
+                                        <option value="" disabled selected>
+                                            <%= vehicleType !=null && !vehicleType.isEmpty() ? vehicleType
+                                                : "Select your vehicle type" %>
+                                        </option>
+                                        <option value="Bike">Bike</option>
+                                        <option value="Scooter">Scooter</option>
+                                        <option value="Cycle">Cycle</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- Location Dropdown -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="location" class="form-label">Location</label>
+                                    <select id="location" name="location" class="form-control styled-dropdown" required>
+                                        <option value="<%= locationId%>" selected>
+                                            <%= locationName !=null ? locationName : "Select a location" %>
+                                        </option>
+                                        <%
                                                 LocationDAO locationDAO = new LocationDAO();
                                                 List<Location> locations = locationDAO.getLocations();
                                                 for (Location location : locations) {
                                             %>
-                                            <option value="<%= location.getId()%>" <%= (location.getId() == locationId) ? "selected" : ""%>>
-                                                <%= location.getName()%>
-                                            </option>
-                                            <%
+                                        <option value="<%= location.getId()%>" <%=(location.getId()==locationId)
+                                            ? "selected" : "" %>>
+                                            <%= location.getName()%>
+                                        </option>
+                                        <%
                                                 }
                                             %>
-                                        </select>
+                                    </select>
 
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="vehicleNumber" class="form-label">Vehicle No.</label>
-                                        <input type="text" class="form-control" id="emergencyContact" name="vehicleNumber" value="<%=vehicleNumber%>" placeholder="Enter vehicle number">
-                                    </div>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" id="cancelModal" data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="vehicleNumber" class="form-label">Vehicle No.</label>
+                                    <input type="text" class="form-control" id="emergencyContact" name="vehicleNumber"
+                                        value="<%=vehicleNumber%>" placeholder="Enter vehicle number">
+                                </div>
                             </div>
-                        </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="cancelModal"
+                                data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
 
-                    </div>
                 </div>
-        </div>
-    </section>
+            </div>
+        </section>
+    </div>
 
     <!-- main content -->
     <div class="main-content">
@@ -295,9 +310,12 @@
                     <form action="http://localhost:8080/Platera-Main/logout" class="d-flex align-items-center logout">
                         <button type="submit" class="btn d-flex align-items-center">
                             <span class="ml-2">Logout</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
-                            <path d="M7.5 1v7h1V1z"></path>
-                            <path d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812"></path>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-power" viewBox="0 0 16 16">
+                                <path d="M7.5 1v7h1V1z"></path>
+                                <path
+                                    d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812">
+                                </path>
                             </svg>
                         </button>
                     </form>
@@ -313,103 +331,110 @@
                 %>
             </div>
 
-    </div>
-</header>
+        </header>
 
-<main>
-    <h2 class="dash-title">Hello, <%=name%></h2>
 
-    <div class="container">
+        <main>
+            <h2 class="dash-title">Hello, <%=name%>
+            </h2>
 
-        <div class="profile">
-            <div class="personal-details">
-                <div class="personal-image">
-                    <img src="<%=imagePath%>" alt="Your-image">
-                </div>
-                <div class="personal-description">
-                    <h5><%=name%></h5>
-                    <h6><span>&#9733; 5.0</span><span>|<%=locationName%></span></h6>
-                    <p>Joined June 2024</p>
-                    <button type="button" class="btn btn-primary" id="setIcon" style="display: flex;justify-content: center;gap: 10px;padding: 5px !important;"><i class="fas fa-cog settings-icon" style="margin-top: 9px;"></i><p style="font-size: 20px;color: white;">Settings</p></button>
-                </div>
-            </div>
-            <div class="order-details">
-                <div class="order-card">
-                    <span class="icon" style="color: rgb(0, 200, 0);">
-                        <ion-icon name="checkmark-done-outline"></ion-icon>
-                    </span>
-                    <h5>932</h5>
-                    <p>Finished Orders</p>
-                </div>
-                <div class="order-card">
-                    <span class="icon" style="color: rgb(255, 140, 0);">
-                        <ion-icon name="checkmark-circle"></ion-icon>
-                    </span>
-                    <h5>1032</h5>
-                    <p>Delivered Orders</p>
-                </div>
-                <div class="order-card">
-                    <span class="icon" style="color: rgb(255, 0, 0);">
-                        <ion-icon name="close-circle"></ion-icon>
-                    </span>
-                    <h5>103</h5>
-                    <p>Cancelled Orders</p>
-                </div>
-            </div>
-            <div class="earning">
-                <div class="earning-details">
-                    <div class="details-left">
-                        <span class="icon"><ion-icon name="wallet-outline"></ion-icon></span>
-                        <div>
-                            <p>Today's Earnings</p>
-                            <h5>₹2,530</h5>
+            <div class="container">
+
+                <div class="profile">
+                    <div class="personal-details">
+                        <div class="personal-image">
+                            <img src="<%=imagePath%>" alt="Your-image">
+                        </div>
+                        <div class="personal-description">
+                            <h5>
+                                <%=name%>
+                            </h5>
+                            <h6><span>&#9733; 5.0</span><span>|<%=locationName%></span></h6>
+                            <p>Joined June 2024</p>
+                            <button type="button" class="btn btn-primary" id="setIcon"
+                                style="display: flex;justify-content: center;gap: 10px;padding: 5px !important;"><i
+                                    class="fas fa-cog settings-icon" style="margin-top: 9px;"></i>
+                                <p style="font-size: 20px;color: white;">Settings</p>
+                            </button>
                         </div>
                     </div>
-                    <div class="details-right">
-                        <%
+                    <div class="order-details">
+                        <div class="order-card">
+                            <span class="icon" style="color: rgb(0, 200, 0);">
+                                <ion-icon name="checkmark-done-outline"></ion-icon>
+                            </span>
+                            <h5>932</h5>
+                            <p>Finished Orders</p>
+                        </div>
+                        <div class="order-card">
+                            <span class="icon" style="color: rgb(255, 140, 0);">
+                                <ion-icon name="checkmark-circle"></ion-icon>
+                            </span>
+                            <h5>1032</h5>
+                            <p>Delivered Orders</p>
+                        </div>
+                        <div class="order-card">
+                            <span class="icon" style="color: rgb(255, 0, 0);">
+                                <ion-icon name="close-circle"></ion-icon>
+                            </span>
+                            <h5>103</h5>
+                            <p>Cancelled Orders</p>
+                        </div>
+                    </div>
+                    <div class="earning">
+                        <div class="earning-details">
+                            <div class="details-left">
+                                <span class="icon"><ion-icon name="wallet-outline"></ion-icon></span>
+                                <div>
+                                    <p>Today's Earnings</p>
+                                    <h5>₹2,530</h5>
+                                </div>
+                            </div>
+                            <div class="details-right">
+                                <%
                             if ("Y".equals(executiveStatus)) {
                         %>
-                        <form action="http://localhost:8080/Platera-Main/UpdateExecutiveStatus" method="post">
-                            <input type="hidden" name="executive_id" value="<%= executiveId%>">
-                            <input type="hidden" name="executive_status" value="N">
-                            <button class="end-delivery" type="submit">Call it a Day</button>
-                        </form>
-                        <%
+                                <form action="http://localhost:8080/Platera-Main/UpdateExecutiveStatus" method="post">
+                                    <input type="hidden" name="executive_id" value="<%= executiveId%>">
+                                    <input type="hidden" name="executive_status" value="N">
+                                    <button class="end-delivery" type="submit">Call it a Day</button>
+                                </form>
+                                <%
                         } else if ("N".equals(executiveStatus)) {
                         %>
-                        <form action="http://localhost:8080/Platera-Main/UpdateExecutiveStatus" method="post">
-                            <input type="hidden" name="executive_id" value="<%= executiveId%>">
-                            <input type="hidden" name="executive_status" value="Y">
-                            <button class="start-delivery" type="submit">Ready to Deliver</button>
-                        </form>
-                        <%
+                                <form action="http://localhost:8080/Platera-Main/UpdateExecutiveStatus" method="post">
+                                    <input type="hidden" name="executive_id" value="<%= executiveId%>">
+                                    <input type="hidden" name="executive_status" value="Y">
+                                    <button class="start-delivery" type="submit">Ready to Deliver</button>
+                                </form>
+                                <%
                             }
                         %>
+                            </div>
+
+
+                        </div>
+                        <hr />
+                        <div class="distance-details">
+                            <div class="distance-head">
+                                <span>Total Trip</span>
+                                <span>Total Distance</span>
+                                <span>Total Time</span>
+                            </div>
+                            <div class="distance-values">
+                                <span>15</span>
+                                <span>15 Km</span>
+                                <span>90 Min</span>
+                            </div>
+                        </div>
                     </div>
-
-
                 </div>
-                <hr />
-                <div class="distance-details">
-                    <div class="distance-head">
-                        <span>Total Trip</span>
-                        <span>Total Distance</span>
-                        <span>Total Time</span>
-                    </div>
-                    <div class="distance-values">
-                        <span>15</span>
-                        <span>15 Km</span>
-                        <span>90 Min</span>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
-        <div class="dash-performance">
-            <!-- Current Order Section -->
-            <div class="current-order">
-                <%
+                <div class="dash-performance">
+                    <!-- Current Order Section -->
+                    <div class="current-order">
+                        <%
                     OrdersDAO ordersDAO = new OrdersDAO();
                     List<Orders> ordersList = null;
 
@@ -477,166 +502,190 @@
                                 }
                             }
                 %>
-                <div class="popupOTP" id="popupOTPContainer">
-                    <div class="container1">
-                        <!-- Close button styled as a cross -->
-                        <button class="close-btn" onclick="closeOTPPopup()" aria-label="Close">&times;</button>
+                        <div class="popupOTP" id="popupOTPContainer">
+                            <div class="container1">
+                                <!-- Close button styled as a cross -->
+                                <button class="close-btn" onclick="closeOTPPopup()" aria-label="Close">&times;</button>
 
-                        <div class="logoOTP">
-                            <img src="<%= request.getContextPath()%>/Public/images/PlateraLogo-red.png" alt="Logo" width="50" height="50">
+                                <div class="logoOTP">
+                                    <img src="<%= request.getContextPath()%>/Public/images/PlateraLogo-red.png"
+                                        alt="Logo" width="50" height="50">
+                                </div>
+                                <h2>Verify Delivery Handover</h2>
+                                <p>An OTP will be sent to the customer's email: <strong>${email}</strong></p>
+
+                                <!-- Form for verifying the OTP -->
+                                <form action="http://localhost:8080/Platera-Main/VerifyHandoverOTP" method="POST"
+                                    class="otp-form">
+                                    <input type="text" name="otp" placeholder="Enter OTP" required>
+                                    <input type="hidden" name="order_id" value="<%=currentOrder.getOrderId()%>" />
+                                    <button type="submit">Submit OTP</button>
+                                </form>
+
+                                <!-- Form for regenerating the OTP -->
+                                <form action="http://localhost:8080/Platera-Main/GenerateHandoverOTP" method="POST"
+                                    class="otp-form">
+                                    <input type="hidden" name="email" value="<%=currentOrder.getCustomerEmail()%>">
+                                    <button type="submit" style="margin-top: 10px;">Generate OTP</button>
+                                </form>
+                            </div>
                         </div>
-                        <h2>Verify Delivery Handover</h2>
-                        <p>An OTP will be sent to the customer's email: <strong>${email}</strong></p>
 
-                        <!-- Form for verifying the OTP -->
-                        <form action="http://localhost:8080/Platera-Main/VerifyHandoverOTP" method="POST" class="otp-form">
-                            <input type="text" name="otp" placeholder="Enter OTP" required>
-                            <input type="hidden" name="order_id" value="<%=currentOrder.getOrderId()%>" />
-                            <button type="submit">Submit OTP</button>
-                        </form>
-
-                        <!-- Form for regenerating the OTP -->
-                        <form action="http://localhost:8080/Platera-Main/GenerateHandoverOTP" method="POST" class="otp-form">
-                            <input type="hidden" name="email" value="<%=currentOrder.getCustomerEmail()%>">
-                            <button type="submit" style="margin-top: 10px;">Generate OTP</button>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Displaying the current order details -->
-                <div class="current-order">
-                    <h2><ion-icon name="receipt-outline"></ion-icon> Current Order</h2>
-                    <div class="order-details" onclick="toggleCurrentOrderDetails(this)">
-                        <div class="order-row">
-                            <span class="icon"><ion-icon name="document-outline"></ion-icon></span>
-                            <strong>Order #<%= currentOrder.getOrderId()%></strong>
-                            <span class="arrow"><i class="fas fa-chevron-down dropdown-current"></i></span>
-                        </div>
-                        <div class="order-row">
-                            <span class="icon"><ion-icon name="restaurant-outline"></ion-icon></span>
+                        <!-- Displaying the current order details -->
+                        <div class="current-order">
+                            <h2><ion-icon name="receipt-outline"></ion-icon> Current Order</h2>
+                            <div class="order-details" onclick="toggleCurrentOrderDetails(this)">
+                                <div class="order-row">
+                                    <span class="icon"><ion-icon name="document-outline"></ion-icon></span>
+                                    <strong>Order #<%= currentOrder.getOrderId()%></strong>
+                                    <span class="arrow"><i class="fas fa-chevron-down dropdown-current"></i></span>
+                                </div>
+                                <div class="order-row">
+                                    <span class="icon"><ion-icon name="restaurant-outline"></ion-icon></span>
                                     <%= currentOrder.getRestaurantName()%>
-                        </div>
-                        <div class="order-row">
-                            <span class="icon"><ion-icon name="pricetag-outline"></ion-icon></span>
+                                </div>
+                                <div class="order-row">
+                                    <span class="icon"><ion-icon name="pricetag-outline"></ion-icon></span>
                                     <%= currentOrder.getTotalAmount()%>
-                        </div>
-                        <div class="order-row">
-                            <span class="icon"><ion-icon name="location-outline"></ion-icon></span>
+                                </div>
+                                <div class="order-row">
+                                    <span class="icon"><ion-icon name="location-outline"></ion-icon></span>
                                     <%= currentOrder.getCustomerAddress()%>
-                        </div>
-                        <div class="order-row">
-                            <span class="icon"><ion-icon name="checkmark-circle-outline"></ion-icon></span>
-                            Status: <strong class="status"><%=currentOrder.getOrderStatus()%></strong>
-                        </div>
-                    </div>
+                                </div>
+                                <div class="order-row">
+                                    <span class="icon"><ion-icon name="checkmark-circle-outline"></ion-icon></span>
+                                    Status: <strong class="status">
+                                        <%=currentOrder.getOrderStatus()%>
+                                    </strong>
+                                </div>
+                            </div>
 
-                    <div class="details-row">
-                        <div class="details-container">
-                            <div class="order-menu">
-                                <h4>Items</h4>
-                                <%
+                            <div class="details-row">
+                                <div class="details-container">
+                                    <div class="order-menu">
+                                        <h4>Items</h4>
+                                        <%
                                     // You can loop through the order items list from the current order object
                                     for (OrderItem item : currentOrder.getOrderItems()) {
                                 %>
-                                <p><img src="<%=request.getContextPath()%>/<%=item.getImage()%>" alt="<%= item.getItemName()%> image"> <%= item.getItemName()%> (x<%=item.getQuantity()%>)</p>
-                                    <%
+                                        <p><img src="<%=request.getContextPath()%>/<%=item.getImage()%>"
+                                                alt="<%= item.getItemName()%> image">
+                                            <%= item.getItemName()%> (x<%=item.getQuantity()%>)
+                                        </p>
+                                        <%
                                         }
                                     %>
-                            </div>
+                                    </div>
 
-                            <div class="restaurant-info">
-                                <h4><%= currentOrder.getRestaurantName()%></h4>
+                                    <div class="restaurant-info">
+                                        <h4>
+                                            <%= currentOrder.getRestaurantName()%>
+                                        </h4>
 
-                                <!-- Display restaurant rating dynamically -->
-                                <p><i class="fas fa-star"></i> <%= restaurant.getRating()%> | <%= reviewCount%> Reviews</p>
+                                        <!-- Display restaurant rating dynamically -->
+                                        <p><i class="fas fa-star"></i>
+                                            <%= restaurant.getRating()%> | <%= reviewCount%> Reviews
+                                        </p>
 
-                                <p>Delivery Time: <strong>30 Min</strong></p>
-                                <p>
-                                    <span class="icon"><ion-icon name="location-outline"></ion-icon></span>
-                                    Address: <strong><%= currentOrder.getRestaurantAddress()%></strong>
-                                </p>
-                                <p>
-                                    <span class="icon"><ion-icon name="call-outline"></ion-icon></span>
-                                    Phone: <strong><%= currentOrder.getRestaurantPhone()%></strong>
-                                </p>
-                            </div>
-
-                            <div class="order-summary">
-                                <div class="order-summary-details">
-                                    <span>
-                                        <h4>Status</h4>
-                                        <p><%= currentOrder.getPaymentStatus()%></p>
-                                    </span>
-                                    <span>
-                                        <h4>Date Paid</h4>
-                                        <p><%= currentOrder.getPaymentDate()%></p>
-                                    </span>
-                                    <span>
-                                        <h4>Customer Phone</h4>
+                                        <p>Delivery Time: <strong>30 Min</strong></p>
+                                        <p>
+                                            <span class="icon"><ion-icon name="location-outline"></ion-icon></span>
+                                            Address: <strong>
+                                                <%= currentOrder.getRestaurantAddress()%>
+                                            </strong>
+                                        </p>
                                         <p>
                                             <span class="icon"><ion-icon name="call-outline"></ion-icon></span>
-                                                    <%= currentOrder.getCustomerPhone()%>
+                                            Phone: <strong>
+                                                <%= currentOrder.getRestaurantPhone()%>
+                                            </strong>
                                         </p>
-                                    </span>
-                                </div>
-                            </div>
+                                    </div>
 
-                            <div class="order-amt">
-                                <h4>Total</h4>
-                                <p class="total-amount" style="margin-bottom: 50px;">₹<%= currentOrder.getTotalAmount()%></p>
-                                <div class="details-right">
-                                    <%
+                                    <div class="order-summary">
+                                        <div class="order-summary-details">
+                                            <span>
+                                                <h4>Status</h4>
+                                                <p>
+                                                    <%= currentOrder.getPaymentStatus()%>
+                                                </p>
+                                            </span>
+                                            <span>
+                                                <h4>Date Paid</h4>
+                                                <p>
+                                                    <%= currentOrder.getPaymentDate()%>
+                                                </p>
+                                            </span>
+                                            <span>
+                                                <h4>Customer Phone</h4>
+                                                <p>
+                                                    <span class="icon"><ion-icon name="call-outline"></ion-icon></span>
+                                                    <%= currentOrder.getCustomerPhone()%>
+                                                </p>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="order-amt">
+                                        <h4>Total</h4>
+                                        <p class="total-amount" style="margin-bottom: 50px;">₹<%=
+                                                currentOrder.getTotalAmount()%>
+                                        </p>
+                                        <div class="details-right">
+                                            <%
                                         // Directly using the getter in the equals method
                                         if ("Cooked".equals(currentOrder.getOrderStatus()) || "Accepted".equals(currentOrder.getOrderStatus())) {
                                     %>
-                                    <form action="http://localhost:8080/Platera-Main/UpdateOrderStatus" method="post" onsubmit="return confirmPickup()">
-                                        <input type="hidden" name="order_id" value="<%= currentOrder.getOrderId()%>">
-                                        <input type="hidden" name="order_status" value="Picked Up">                                                     
-                                        <button class="pickedup-button" type="submit">Picked up</button>
+                                            <form action="http://localhost:8080/Platera-Main/UpdateOrderStatus"
+                                                method="post" onsubmit="return confirmPickup()">
+                                                <input type="hidden" name="order_id"
+                                                    value="<%= currentOrder.getOrderId()%>">
+                                                <input type="hidden" name="order_status" value="Picked Up">
+                                                <button class="pickedup-button" type="submit">Picked up</button>
 
-                                    </form>
-                                    <%
+                                            </form>
+                                            <%
                                     } else if ("Picked Up".equals(currentOrder.getOrderStatus())) {
                                     %>
-                                    <button class="delivered-button" id="HandOver">Handover</button>
-                                    <%
+                                            <button class="delivered-button" id="HandOver">Handover</button>
+                                            <%
                                         }
                                     %>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
-                    </div>
 
-                </div>
-
-                <%}
+                        <%}
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 %>
-            </div>
+                    </div>
 
 
 
 
 
-            <!-- Statistics Section -->
-            <div class="statistics">
-                <h2><ion-icon name="list-outline"></ion-icon> Delivered Orders</h2>
-                <div class="yourOrders">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Order</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                                <th>Address</th>
-                                <th>Total</th>
-                                <th>Payment Method</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <%
+                    <!-- Statistics Section -->
+                    <div class="statistics">
+                        <h2><ion-icon name="list-outline"></ion-icon> Delivered Orders</h2>
+                        <div class="yourOrders">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Order</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <th>Address</th>
+                                        <th>Total</th>
+                                        <th>Payment Method</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%
                                 ordersDAO = new OrdersDAO();
                                 List<Orders> completedOrdersList = null;
 
@@ -699,64 +748,81 @@
                                                 }
                                             }
                             %>
-                            <!-- Dynamic Order Row -->
-                            <tr class="order-row" onclick="toggleDetailsGeneral(this)">
-                                <td class="menu">Order #<%= order.getOrderId()%></td>
-                                <td><span class="status completed">Completed</span></td>
-                                <td class="date"><%= order.getOrderDate()%></td>
-                                <td class="address">
-                                    <i class="fas fa-map-marker-alt"></i> 
-                                    <%= order.getCustomerAddress()%>
-                                </td>
-                                <td class="total"><span>₹<%= order.getTotalAmount()%></span></td>
-                                <td class="payment-method"><%= order.getPaymentMethod()%></td>
-                                <td class="arrow"><i class="fas fa-chevron-down dropdown"></i></td>
-                            </tr>
-                            <tr class="details-row">
-                                <td colspan="7">
-                                    <div class="details-container">
-                                        <div class="order-menu">
-                                            <h4>Order Menu</h4>
-                                            <%
+                                    <!-- Dynamic Order Row -->
+                                    <tr class="order-row" onclick="toggleDetailsGeneral(this)">
+                                        <td class="menu">Order #<%= order.getOrderId()%>
+                                        </td>
+                                        <td><span class="status completed">Completed</span></td>
+                                        <td class="date">
+                                            <%= order.getOrderDate()%>
+                                        </td>
+                                        <td class="address">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <%= order.getCustomerAddress()%>
+                                        </td>
+                                        <td class="total"><span>₹<%= order.getTotalAmount()%></span></td>
+                                        <td class="payment-method">
+                                            <%= order.getPaymentMethod()%>
+                                        </td>
+                                        <td class="arrow"><i class="fas fa-chevron-down dropdown"></i></td>
+                                    </tr>
+                                    <tr class="details-row">
+                                        <td colspan="7">
+                                            <div class="details-container">
+                                                <div class="order-menu">
+                                                    <h4>Order Menu</h4>
+                                                    <%
                                                 for (OrderItem item : order.getOrderItems()) {
                                             %>
-                                            <p><img src="<%=request.getContextPath()%>/<%= item.getImage()%>" alt="<%= item.getItemName()%> image"> <%= item.getItemName()%> (x<%= item.getQuantity()%>) </p>
-                                                <%
+                                                    <p><img src="<%=request.getContextPath()%>/<%= item.getImage()%>"
+                                                            alt="<%= item.getItemName()%> image">
+                                                        <%= item.getItemName()%> (x<%= item.getQuantity()%>)
+                                                    </p>
+                                                    <%
                                                     }
                                                 %>
-                                        </div>
-                                        <div class="restaurant-info">
-                                            <h4><%= order.getRestaurantName()%></h4>
-                                            <p><i class="fas fa-star"></i> <%=restaurant.getRating()%> | <%=reviewCount%> Reviews</p>
-                                            <p>Delivery Time: <strong>30 Min</strong></p>
-                                        </div>
-                                        <div class="order-summary">
-                                            <div class="order-summary-details">
-                                                <span>
-                                                    <h4>Status</h4>
-                                                    <p>Completed</p>
-                                                </span>
-                                                <span>
-                                                    <h4>Date</h4>
-                                                    <p><%=order.getOrderDate()%></p>
-                                                </span>
-                                            </div>
-                                            <div class="order-summary-details">
+                                                </div>
+                                                <div class="restaurant-info">
+                                                    <h4>
+                                                        <%= order.getRestaurantName()%>
+                                                    </h4>
+                                                    <p><i class="fas fa-star"></i>
+                                                        <%=restaurant.getRating()%> | <%=reviewCount%> Reviews
+                                                    </p>
+                                                    <p>Delivery Time: <strong>30 Min</strong></p>
+                                                </div>
+                                                <div class="order-summary">
+                                                    <div class="order-summary-details">
+                                                        <span>
+                                                            <h4>Status</h4>
+                                                            <p>Completed</p>
+                                                        </span>
+                                                        <span>
+                                                            <h4>Date</h4>
+                                                            <p>
+                                                                <%=order.getOrderDate()%>
+                                                            </p>
+                                                        </span>
+                                                    </div>
+                                                    <div class="order-summary-details">
 
-                                                <span>
-                                                    <h4>Date Paid</h4>
-                                                    <p><%= order.getPaymentDate()%></p>
-                                                </span>
+                                                        <span>
+                                                            <h4>Date Paid</h4>
+                                                            <p>
+                                                                <%= order.getPaymentDate()%>
+                                                            </p>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="order-amt">
+                                                    <h4>Total</h4>
+                                                    <p class="total-amount">₹<%= order.getTotalAmount()%>
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="order-amt">
-                                            <h4>Total</h4>
-                                            <p class="total-amount">₹<%= order.getTotalAmount()%></p>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <%
+                                        </td>
+                                    </tr>
+                                    <%
                                         }
                                     }
                                 } catch (Exception e) {
@@ -764,77 +830,79 @@
                                     e.printStackTrace();
                                 }
                             %>
-                        </tbody>
-                    </table>
-                </div>
+                                </tbody>
+                            </table>
+                        </div>
 
+                    </div>
+                </div>
             </div>
-        </div>
+
+        </main>
     </div>
 
-</main>
-</div>
-</div>
 
-
-<!-- Scripts  -->
-<script>
-    function confirmHandover() {
-        return confirm("Are you sure you want to hand over the order?");
-    }
-
-    function confirmPickup() {
-        return confirm("Are you sure you want to mark the order as picked up?");
-    }
-</script>
-<script>
-    // Confirmation for deleting account
-    function confirmDelete() {
-        return confirm("Are you sure you want to delete your account? This action cannot be undone.");
-    }
-</script>
-<script>
-    // JavaScript to handle the photo preview
-    document.getElementById('photo-input').addEventListener('change', function (event) {
-        const file = event.target.files[0]; // Get the selected file
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                // Update the img src in the preview div
-                document.getElementById('profile-photo-preview').src = e.target.result;
-            };
-            reader.readAsDataURL(file);
+    <!-- Scripts  -->
+    <script>
+        function confirmHandover() {
+            return confirm("Are you sure you want to hand over the order?");
         }
-    });
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-// Function to show the OTP popup if the URL contains the popup div id
-    function checkForPopupId() {
-        if (window.location.hash === '#popupOTPContainer') {
+
+        function confirmPickup() {
+            return confirm("Are you sure you want to mark the order as picked up?");
+        }
+    </script>
+    <script>
+        // Confirmation for deleting account
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete your account? This action cannot be undone.");
+        }
+    </script>
+    <script>
+        // JavaScript to handle the photo preview
+        document.getElementById('photo-input').addEventListener('change', function (event) {
+            const file = event.target.files[0]; // Get the selected file
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    // Update the img src in the preview div
+                    document.getElementById('profile-photo-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Function to show the OTP popup if the URL contains the popup div id
+        function checkForPopupId() {
+            if (window.location.hash === '#popupOTPContainer') {
+                let popup = document.getElementById('popupOTPContainer');
+                popup.style.display = 'flex'; // Show the popup
+            }
+        }
+
+        // Function to hide the OTP popup
+        function closeOTPPopup() {
             let popup = document.getElementById('popupOTPContainer');
-            popup.style.display = 'flex'; // Show the popup
+            popup.style.display = 'none'; // Hide the popup
         }
-    }
 
-// Function to hide the OTP popup
-    function closeOTPPopup() {
-        let popup = document.getElementById('popupOTPContainer');
-        popup.style.display = 'none'; // Hide the popup
-    }
+        // Run the check when the DOM content is loaded
+        document.addEventListener('DOMContentLoaded', checkForPopupId);
+    </script>
 
-// Run the check when the DOM content is loaded
-    document.addEventListener('DOMContentLoaded', checkForPopupId);
-</script>
+    <!-- Icon Scripts -->
 
-<!-- Icon Scripts -->
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="./script.js"></script>
 
-<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-<script src="./script.js"></script>
-
-<script src="../../../error.js"></script>
+    <script src="../../../error.js"></script>
 </body>
+
 </html>
