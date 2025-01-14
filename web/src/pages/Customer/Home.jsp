@@ -386,6 +386,7 @@
                         <option value="dishes">Dishes</option>
                     </select>
                     <input type="text" name="keyword" id="search-input" placeholder="Search for restaurants or dishes..." />
+                    <input type="hidden" name="location" value="<%=location_id%>">
                     <button id="search-button">Search</button>
                 </form>
             </div>
@@ -462,8 +463,7 @@
                             <div class="restaurant-carousel-item">
                                 <a href="./RestaurantDetails/RestaurantDetails.jsp?restaurantId=<%= restaurant.getRestaurantId()%>" class="restaurant-card-link">
                                     <div class="restaurant-card">
-                                        <img
-                                            src="<%= request.getContextPath()%>/<%= restaurant.getImage()%>"
+                                        <img src="<%= request.getContextPath()%>/<%= restaurant.getImage()%>"
                                             alt="<%= restaurant.getName()%>"
                                             class="restaurant-image"
                                             />
