@@ -82,33 +82,24 @@ public class CartDAO {
     }
 
     // Method to add an item to the cart
-public boolean addItemToCart(Cart cart) {
-    String query = "INSERT INTO cart (customer_id, item_id, quantity, restaurant_id) "
-            + "VALUES (?, ?, ?, ?)";
+    public boolean addItemToCart(Cart cart) {
+        String query = "INSERT INTO cart (customer_id, item_id, quantity, restaurant_id) "
+                + "VALUES (?, ?, ?, ?)";
 
-    try (Connection conn = Database.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(query)) {
+        try (Connection conn = Database.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, cart.getCustomerId());
+            stmt.setInt(2, cart.getItemId());
+            stmt.setInt(3, cart.getQuantity());
+            stmt.setInt(4, cart.getRestaurantId());
 
-        // Debugging: Log the values before executing the query
-        System.out.println("Adding item to cart:");
-        System.out.println("Customer ID: " + cart.getCustomerId());
-        System.out.println("Item ID: " + cart.getItemId());
-        System.out.println("Quantity: " + cart.getQuantity());
-        System.out.println("Restaurant ID: " + cart.getRestaurantId());
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-        stmt.setInt(1, cart.getCustomerId());
-        stmt.setInt(2, cart.getItemId());
-        stmt.setInt(3, cart.getQuantity());
-        stmt.setInt(4, cart.getRestaurantId());
-
-        return stmt.executeUpdate() > 0;
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return false;
     }
-
-    return false;
-}
-
 
     // Method to update item quantity and total price in the cart
     public boolean updateItemQuantity(int cartId, int quantity) {
@@ -117,10 +108,10 @@ public boolean addItemToCart(Cart cart) {
         try (Connection conn = Database.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setInt(1, quantity); 
-            stmt.setInt(2, cartId);    
+            stmt.setInt(1, quantity);
+            stmt.setInt(2, cartId);
 
-            return stmt.executeUpdate() > 0;  
+            return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -169,17 +160,36 @@ public boolean addItemToCart(Cart cart) {
         try (Connection conn = Database.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            stmt.setInt(1, customerId);  
-            stmt.setInt(2, itemId);       
+            stmt.setInt(1, customerId);
+            stmt.setInt(2, itemId);
 
             try (ResultSet rs = stmt.executeQuery()) {
-                return rs.next(); 
+                return rs.next();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return false;  
+        return false;
+    }
+
+    public boolean hasItemsFromDifferentRestaurant(int customerId, int restaurantId) {
+        String query = "SELECT COUNT(*) FROM cart WHERE customer_id = ? AND restaurant_id != ?";
+        try (Connection con = Database.getConnection();
+                PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setInt(1, customerId);
+            ps.setInt(2, restaurantId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0; // Return true if count > 0
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

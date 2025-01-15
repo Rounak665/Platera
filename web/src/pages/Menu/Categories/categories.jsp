@@ -1,3 +1,4 @@
+<%@page import="Utilities.CartDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="Utilities.CustomerDAO"%>
 <%@page import="Utilities.Customer"%>
@@ -14,8 +15,8 @@
     </head>
     <%
         // Retrieve user_id from the session
-//            Integer user_id = (Integer) session.getAttribute("user_id");
-        int user_id = 201;
+            Integer user_id = (Integer) session.getAttribute("user_id");
+//        int user_id = 201;
 
         // Initialize necessary variables
         String name = "";
@@ -106,7 +107,7 @@
                 int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 //                int categoryId = 14; 
                 Utilities.MenuItemsDAO menuItemsDAO = new Utilities.MenuItemsDAO();
-                List<Utilities.MenuItems> menuItemsList = menuItemsDAO.getMenuItemsByCategoryIdAndLocation(categoryId,location_id);
+                List<Utilities.MenuItems> menuItemsList = menuItemsDAO.getMenuItemsByCategoryIdAndLocation(categoryId, location_id);
 
                 // Initialize category name with a default message
                 String categoryName = "Unknown Category";
@@ -135,8 +136,19 @@
                     <p>Price: ₹<%= menuItem.getPrice()%></p>
                     <p>Category: <%= menuItem.getCategoryName() != null ? menuItem.getCategoryName() : "N/A"%></p>
                     <p>Availability: <%= menuItem.isAvailability() ? "Available" : "Not Available"%></p>
-                    <button class="add-to-cart">Add to Cart</button>
-                    <button class="view-cart">View Cart</button>
+                    <%
+                        CartDAO cartDAO = new CartDAO();
+                        boolean isInCart = cartDAO.isItemInCart(customer_id, menuItem.getItemId());
+                    %>
+                    <form action="http://localhost:8080/Platera-Main/AddToCart" method="POST" style="<%= isInCart ? "display:none;" : ""%>">
+                        <input type="hidden" name="customerId" value="<%= customer_id%>" />
+                        <input type="hidden" name="restaurantId" value="<%= menuItem.getRestaurantId()%>" />
+                        <input type="hidden" name="itemId" value="<%= menuItem.getItemId()%>" />
+                        <button type="submit" class="add-to-cart">Add to Cart</button>
+                    </form>
+                    <a href="../Home.jsp#cartSection" style="<%= isInCart ? "" : "display:none;"%>">
+                        <button class="view-cart">Go to Cart</button>
+                    </a>
                 </div>
                 <%
                     }

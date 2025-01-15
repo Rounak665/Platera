@@ -13,6 +13,7 @@ import Utilities.RestaurantDAO;
 
 @WebServlet("/AddToCart")
 public class AddToCart extends HttpServlet {
+
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -23,17 +24,40 @@ public class AddToCart extends HttpServlet {
         System.out.println("Item ID: " + itemId);
 
         CartDAO cartDAO = new CartDAO();
-        boolean isInCart = cartDAO.isItemInCart(customerId, itemId);
+        RestaurantDAO restaurantDAO = new RestaurantDAO();
 
-        if (isInCart) {
-            response.sendRedirect("src/pages/Customer/Home.jsp?cartSection");
+        // Check if the "overwrite" parameter is true
+        boolean overwrite = request.getParameter("overwrite") != null
+                && request.getParameter("overwrite").equalsIgnoreCase("true");
+
+        if (overwrite) {
+            // Clear the cart for the customer
+            cartDAO.clearCart(customerId);
+            System.out.println("Cart cleared for Customer ID: " + customerId);
+            // No return statement, continue to add the new item
+        }
+
+        // Fetch the restaurantId using the itemId
+        Restaurant restaurant = restaurantDAO.getRestaurantByItemId(itemId);
+        int restaurantId = (restaurant != null) ? restaurant.getRestaurantId() : -1;
+
+        if (restaurantId == -1) {
+            response.sendRedirect("src/pages/Error/DatabaseError.html");
+            return;
+        }
+
+        boolean hasDifferentRestaurantItems = cartDAO.hasItemsFromDifferentRestaurant(customerId, restaurantId);
+
+        if (hasDifferentRestaurantItems) {
+            response.sendRedirect("src/pages/Error/CartConflict.jsp?customerId=" + customerId
+                    + "&itemId=" + itemId
+                    + "&restaurantId=" + restaurantId);
         } else {
-            // Fetch the restaurantId using the itemId
-            RestaurantDAO restaurantDAO = new RestaurantDAO();
-            Restaurant restaurant = restaurantDAO.getRestaurantByItemId(itemId);
-            int restaurantId = (restaurant != null) ? restaurant.getRestaurantId() : -1;
-
-            if (restaurantId != -1) {
+            boolean isInCart = cartDAO.isItemInCart(customerId, itemId);
+            if (isInCart) {
+                response.sendRedirect("src/pages/Customer/Home.jsp#cartSection");
+            } else {
+                // Add the current item to the cart
                 Cart cart = new Cart();
                 cart.setCustomerId(customerId);
                 cart.setItemId(itemId);
@@ -47,10 +71,7 @@ public class AddToCart extends HttpServlet {
                 } else {
                     response.sendRedirect("src/pages/Error/DatabaseError.html");
                 }
-            } else {
-                response.sendRedirect("src/pages/Error/DatabaseError.html");
             }
         }
     }
 }
-

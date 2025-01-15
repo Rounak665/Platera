@@ -35,8 +35,8 @@
         <!--Java Scriplets-->
         <%
             // Simulate session attributes for debugging
-            //    int user_id = (Integer) session.getAttribute("user_id");
-            int user_id = 282;
+                int user_id = (Integer) session.getAttribute("user_id");
+//            int user_id = 282;
 
             DeliveryExecutive deliveryExecutive = null;
 
@@ -177,7 +177,7 @@
                     </div>
                     <ul class="setting-options">
                         <li id="editProfile"><i class="fas fa-user-edit"></i> Edit your profile</li>
-                        <li><i class="fas fa-key"></i> Change Password</li>
+                        <li><i class="fas fa-key"></i><a href="../ForgotPassword/ForgotPassword.jsp"> Change Password</a></li>
                         <li id="setSecure"><i class="fas fa-shield-alt"></i>Two Factor Authentication</li>
                         <li><i class="fas fa-file-alt"></i> <a href="../FooterLinkPages/PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
                         <li><i class="fas fa-file-contract"></i><a href="../FooterLinkPages/Terms&Conditions/Terms&Conditions.html">Terms and Conditions</a></li>

@@ -108,13 +108,13 @@
 
         <section class="banner">
             <%                //Dynamic values from session//
-//                String keyword = (String) session.getAttribute("keyword");
-                //               String locationIdString = (String) session.getAttribute("locationId");
-                //              int locationId = locationIdString != null ? Integer.parseInt(locationIdString) : 0;
+                String keyword = (String) session.getAttribute("keyword");
+                String locationIdString = (String) session.getAttribute("locationId");
+                int locationId = locationIdString != null ? Integer.parseInt(locationIdString) : 0;
 //                 Static values for keyword and location
-                String keyword = "paneer";
-                int locationId = 1;
-            %>
+//                String keyword = "paneer";
+//                int locationId = 1;
+%>
             <div class="banner-content">
                 <h2>Search results for <%= keyword%></h2>
             </div>

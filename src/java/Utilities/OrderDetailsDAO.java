@@ -27,7 +27,7 @@ public class OrderDetailsDAO {
                     + "JOIN order_items oi ON o.order_id = oi.order_id "
                     + "JOIN menu_items m ON oi.item_id = m.item_id "
                     + "JOIN restaurants r ON r.restaurant_id = o.restaurant_id "
-                    + "WHERE o.location = ? AND o.order_status IN ('Pending', 'Ready')";
+                    + "WHERE o.location = ? AND o.order_status IN ('Pending', 'Ready','Cooked')";
 
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, location_id);

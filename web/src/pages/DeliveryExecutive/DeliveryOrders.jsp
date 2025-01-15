@@ -26,8 +26,8 @@
 
         <%
             // Simulate session attributes for debugging
-//    int user_id = (Integer) session.getAttribute("user_id");
-            int user_id = 282;
+            int user_id = (Integer) session.getAttribute("user_id");
+//            int user_id = 282;
 
             DeliveryExecutive deliveryExecutive = null;
 
@@ -66,32 +66,6 @@
             </div>
         </div>
 
-        <!-- otp popup -->
-
-        <!-- <section class="popup">
-            <div class="otp-popup">
-                <div class="otp-content">
-                    <div class="otp-header">
-                        <ion-icon name="close-circle" class="back-icon"></ion-icon>
-                    </div>
-                    <div class="otp-body">
-                        <ion-icon name="notifications" class="otp-icon"></ion-icon>
-                        <h2>Verify Delivery Handover</h2>
-                        <p>We have sent you a one time password to customer's mobile</p>
-                        <div class="otp-timer">2:00</div>
-                        <div class="otp-input">
-                            <input type="tel" maxlength="1" pattern="[0-9]*">
-                            <input type="tel" maxlength="1" pattern="[0-9]*">
-                            <input type="tel" maxlength="1" pattern="[0-9]*">
-                            <input type="tel" maxlength="1" pattern="[0-9]*">
-                        </div>
-                        <p>Didn't receive the OTP? <a href="#">RESEND</a></p>
-                        <button class="btn-verify">Verify</button>
-                    </div>
-                </div>
-            </div>
-        </section> -->
-
         <div>
 
             <div class="sidebar">
@@ -119,8 +93,7 @@
                                 <span>Orders</span>
                             </a>
                         </li>
-                        <%
-                            if ("N".equals(executiveStatus)) {
+                        <%                            if ("N".equals(executiveStatus)) {
                         %>
                         <li class="logoutOption">
                             <form action="http://localhost:8080/Platera-Main/logout" method="POST">                          
@@ -147,20 +120,9 @@
                             <img src="../../../Public/images/logo.png" alt="">
                         </div>
                     </div>
-                    
+
 
                     <div class="social-icons">
-<!--                        <div class="logout_btn">
-                            <form action="http://localhost:8080/Platera-Main/logout" class="d-flex align-items-center logout">
-                                <button type="submit" class="btn d-flex align-items-center">
-                                    <span class="ml-2">Logout</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
-                                    <path d="M7.5 1v7h1V1z"></path>
-                                    <path d="M3 8.812a5 5 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812"></path>
-                                    </svg>
-                                </button>
-                            </form>
-                        </div>-->
                     </div>
                 </header>
 

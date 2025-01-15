@@ -46,8 +46,8 @@
     <body>
         <%
             // Retrieve user_id from the session
-//            Integer user_id = (Integer) session.getAttribute("user_id");
-            int user_id = 201;
+            Integer user_id = (Integer) session.getAttribute("user_id");
+//            int user_id = 201;
 
             // Initialize necessary variables
             String name = "";
@@ -409,9 +409,11 @@
                         count++;
                 %>
                 <div class="product-card">
+                    <a href="../Menu/Categories/categories.jsp?categoryId=<%=category.getId()%>" class="restaurant-card-link">
                     <img src="<%= request.getContextPath()%>/<%= category.getImage()%>" alt="<%= category.getName()%>" />
                     <h4><%= category.getName()%></h4>
                     <p>Explore our <%= category.getName().toLowerCase()%> menu</p>
+                    </a>
                 </div>
                 <% }%>
             </div>
