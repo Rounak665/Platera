@@ -101,25 +101,25 @@
             <div class="sidebar-menu">
                 <ul>
                     <li>
-                        <a href="./RestaurantDashboard.html">
+                        <a href="./RestaurantDashboard.jsp">
                             <span class="icon"><ion-icon name="home-sharp"></ion-icon></span>
                             <span>Home</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./Category.html">
+                        <a href="./RestaurantCategory.jsp">
                             <span class="icon"><ion-icon name="grid"></ion-icon></span>
                             <span>Categories</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./Menu.html">
+                        <a href="./RestaurantMenu.jsp">
                             <span class="icon"><ion-icon name="book"></ion-icon></span>
                             <span>Menu</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./Orders.html">
+                        <a href="./RestaurantOrders.jsp">
                             <span class="icon"><ion-icon name="cart"></ion-icon></span>
                             <span>Orders</span>
                         </a>
