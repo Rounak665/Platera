@@ -1,3 +1,6 @@
+<%@page import="Utilities.CustomerDAO"%>
+<%@page import="Utilities.Customer"%>
+<%@page import="Utilities.CartDAO"%>
 <%@page import="Utilities.MenuItemsDAO"%>
 <%@page import="Utilities.MenuItems"%>
 <%@page import="java.util.List"%>
@@ -17,6 +20,40 @@
         <link rel="stylesheet" href="<%=request.getContextPath()%>/src/pages/search/style.css">
 
     </head>
+    <%
+        // Retrieve user_id from the session
+//            Integer user_id = (Integer) session.getAttribute("user_id");
+        int user_id = 201;
+
+        // Initialize necessary variables
+        String name = "";
+        String email = "";
+        int customer_id = 0;
+        String image = "";
+        String imagepath = "";
+        int location_id = 0;
+        String location = "";
+        String address = "";
+        String phone = "";
+        boolean twoFA;
+
+        Customer customer = CustomerDAO.getCustomerByUserId(user_id);
+        if (customer != null) {
+            customer_id = customer.getCustomerId();
+            name = customer.getFullName();
+            email = customer.getEmail();
+            image = customer.getImage();
+            location_id = customer.getLocationId();
+            location = customer.getLocation();
+            address = customer.getAddress();
+            phone = customer.getPhone();
+            twoFA = customer.isTwoStepVerification();
+        }
+
+        // Create image path based on the image file path retrieved
+        imagepath = request.getContextPath() + '/' + image;
+
+    %>
     <body>
 
 
@@ -70,14 +107,11 @@
             </div> -->
 
         <section class="banner">
-            <%
-                //Dynamic values from session//
-
+            <%                //Dynamic values from session//
 //                String keyword = (String) session.getAttribute("keyword");
-//                String locationIdString = (String) session.getAttribute("locationId");
-//                int locationId = locationIdString != null ? Integer.parseInt(locationIdString) : 0;
-
-                // Static values for keyword and location
+                //               String locationIdString = (String) session.getAttribute("locationId");
+                //              int locationId = locationIdString != null ? Integer.parseInt(locationIdString) : 0;
+//                 Static values for keyword and location
                 String keyword = "paneer";
                 int locationId = 1;
             %>
@@ -99,17 +133,25 @@
                         for (MenuItems menuItem : menuItemsList) {
                 %>
                 <!-- Menu Item Card -->
-                <a href="./RestaurantDetails/RestaurantDetails.jsp?restaurantId=<%= menuItem.getRestaurantId()%>" class="restaurant-card-link">                             
+                <a href="../Customer/RestaurantDetails/RestaurantDetails.jsp?restaurantId=<%= menuItem.getRestaurantId()%>" class="restaurant-card-link">                             
                     <div class="restaurant-card">
                         <img src="<%=request.getContextPath()%>/<%= menuItem.getImage()%>" alt="<%= menuItem.getItemName()%>" />
                         <h3><%= menuItem.getItemName()%></h3>
                         <p>Price: ₹<%= menuItem.getPrice()%></p>
                         <p>Type: <%= menuItem.getCategoryName()%></p>
                         <p>Restaurant: <%= menuItem.getRestaurantName()%></p>
-                        <div class="card-button-cart">
-                            <button class="add-to-cart">Add to Cart</button>
-                            <button class="go-to-cart">Go to Cart</button>
-                        </div>
+                        <%
+                            CartDAO cartDAO = new CartDAO();
+                            boolean isInCart = cartDAO.isItemInCart(customer_id, menuItem.getItemId());
+                        %>
+
+                        <form action="http://localhost:8080/Platera-Main/AddToCart" method="POST" style="<%= isInCart ? "display:none;" : " "%>">
+                            <input type="hidden" name="customerId" value="<%= customer_id%>" />
+                            <input type="hidden" name="restaurantId" value="<%= menuItem.getRestaurantId()%>" />
+                            <input type="hidden" name="itemId" value="<%= menuItem.getItemId()%>" />
+                            <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+                        </form>
+                        <button onclick="return toCartpage();" style="<%= isInCart ? "" : "display:none;"%>" class="view-cart-btn">Go to Cart</button>
                     </div>
                 </a>
                 <%
@@ -202,7 +244,13 @@
             <p class="copyright">Platera @2024 - All Rights Reserved</p>
         </footer>
 
-
+        <script>
+            function toCartpage() {
+                // Redirect to the cart page
+                window.location.href = "../Customer/Home.jsp#cartSection";
+                return false; // Prevents default behavior if needed
+            }
+        </script>
         <script src="./restaurantsInUser.js"></script>
         <script src="../../../error.js"></script>
     </body>

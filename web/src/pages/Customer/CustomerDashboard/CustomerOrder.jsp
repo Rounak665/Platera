@@ -128,7 +128,7 @@
                                     RestaurantDAO restaurantDAO = new RestaurantDAO();
                                     Restaurant restaurant = restaurantDAO.getRestaurantById(restaurantId); // Fetch restaurant details
                                     double rating = restaurant.getRating(); // Get the rating from the Restaurant object
-                            %>
+%>
 
                             <div class="order-card">
                                 <h2>Order #<%= currentOrder.getOrderId()%></h2>
@@ -166,7 +166,21 @@
                                 <hr>
                                 <div class="total">Total: $<%= currentOrder.getTotalAmount()%></div>
                                 <div class="status <%= currentOrder.getOrderStatus().toLowerCase()%>"><%= currentOrder.getOrderStatus()%></div>
-                                <button class="cancel-button" onclick="cancelOrder(<%= currentOrder.getOrderId() %>)">Cancel Order</button>
+                                <%
+                                    // Display button for "Food Ready" if the status is "Pending"
+                                    if ("Pending".equals(currentOrder.getOrderStatus())) {
+                                %>
+                                <div>
+                                    <form action="http://localhost:8080/Platera-Main/UpdateOrderStatus" method="POST" onsubmit="return confirm('Are you sure you want to cancel your order?');">
+                                        <input type="hidden" name="order_id" value="<%= currentOrder.getOrderId()%>">
+                                        <input type="hidden" name="order_status" value="Cancelled">
+                                        <button type="submit" class="cancel-button">Cancel Order</button>
+                                    </form>
+                                </div>
+                                <%
+                                    }
+                                %>
+
                             </div>
                             <%
                                 }
@@ -178,6 +192,8 @@
                 </main>
             </div>
         </div>
+        <script>
+        </script>
         <script src="script.js"></script>
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

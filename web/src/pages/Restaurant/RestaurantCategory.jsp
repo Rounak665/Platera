@@ -98,7 +98,7 @@
 
                     <div class="page-action">
                         <button class="btn btn-main" onclick="location.href = './UpdateCategory.jsp'">
-                            <span class="icon"><ion-icon name="add-circle"></ion-icon></span> Update Category
+                            <span class="icon1"><ion-icon name="add-circle"></ion-icon></span> Update Category
                         </button>
                     </div>
                     <h4>Add three categories that suits your restaurant the best.</h4>

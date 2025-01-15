@@ -234,7 +234,7 @@
                                                 %>
                                                 <form action="http://localhost:8080/Platera-Main/UpdateOrderStatus" method="POST">
                                                     <input type="hidden" name="order_id" value="<%= orderDetails.getOrderId()%>">
-                                                    <input type="hidden" name="order_status" value="Ready">
+                                                    <input type="hidden" name="order_status" value="Cooked">
                                                     <button type="submit" class="food-ready-btn">Food Ready</button>
                                                 </form>
                                                 <%
@@ -277,8 +277,6 @@
             document.querySelector(".sidebar .close-btn").addEventListener("click", function () {
                 document.querySelector(".sidebar").classList.remove("activate");
             });
-
-
         </script>
         <script src="../../../error.js"></script>
     </body>

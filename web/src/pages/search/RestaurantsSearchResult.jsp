@@ -99,11 +99,11 @@
             <%
                 // Fetch session values for keyword and locationId
 
-//               String keyword = (String) session.getAttribute("keyword");
-//                String locationIdString = (String) session.getAttribute("locationId");
-//                int locationId = locationIdString != null ? Integer.parseInt(locationIdString) : 1;
-                String keyword = "c";
-                int locationId = 1;
+               String keyword = (String) session.getAttribute("keyword");
+                String locationIdString = (String) session.getAttribute("locationId");
+                int locationId = locationIdString != null ? Integer.parseInt(locationIdString) : 1;
+//                String keyword = "c";
+//                int locationId = 1;
             %>
             <div class="banner-content">
                 <h2>Search Results For keyword</h2>
@@ -167,7 +167,7 @@
                                 }
                 %>
                 <!-- Restaurant Card -->
-                <a href="./RestaurantDetails/RestaurantDetails.jsp?restaurantId=<%= restaurant.getRestaurantId()%>" class="restaurant-card-link">
+                <a href="../Customer/RestaurantDetails/RestaurantDetails.jsp?restaurantId=<%= restaurant.getRestaurantId()%>" class="restaurant-card-link">
                     <div class="restaurant-card">
                         <img src="<%=request.getContextPath()%>/<%= restaurant.getImage()%>" alt="<%= restaurant.getName()%>" />
                         <h3><%= restaurant.getName()%></h3>

@@ -135,24 +135,10 @@
                        ><img src="./assets/PlateraLogo-red.png" alt=""
                           /></a>
                 </div>
-                <!--                <div class="search-container">
-                                    <input
-                                        type="text"
-                                        id="location-search"
-                                        class="location-search"
-                                        placeholder="Search for a location..."
-                                        /> 
-                                    <button class="select-location-btn" onclick="selectLocation()">
-                                        &#x2192;
-                                    </button>
-                                    
-                                </div>
-                
-                                <span id="selected-location" class="selected-location">Selected Location: None</span>-->
 
                 <ul class="nav-links">
                     <li id="active"><a href="./Home.jsp">Home</a></li>
-                    <li><a href="../RestaurantsInUser/restaurantsInUser.html">Restaurants</a></li>
+                    <li><a href="../RestaurantsInUser/restaurantsInUser.jsp">Restaurants</a></li>
                     <li><a href="../Menu/menu.jsp">Dishes</a></li>
                     <li><a href="../ContactUs/ContactUs.html">Contact</a></li>
 
@@ -181,7 +167,7 @@
                 <ul class="dashboard-options">
                     <li id="welcomeMessage">Hi, <%=name%></li>
                     <li id="profileSettings"><a href="./CustomerDashboard/CustomerProfile.jsp">Profile Settings</a></li>
-                    <li id="orderHistory"><a href="./CustomerDashboard/CustomerOrderHistory.jsp">Order History</a></li>
+                    <li id="orderHistory"><a href="./CustomerDashboard/CustomerOrder.jsp">Order History</a></li>
                     <li id="orderHistory"><a href="../FooterLinkPages/Terms&Conditions/Terms&Conditions.html">Terms & Conditions</a></li>
                     <li id="orderHistory"><a href="../FooterLinkPages/PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
                     <li id="orderHistory"><a href="../FooterLinkPages/Help/Help.html">Help</a></li>
@@ -450,10 +436,10 @@
                     Offers
                 </button>
                 <button class="filter-btn" onclick="filterRestaurants('under300')">
-                    Less than â¹300
+                    Less than ₹300
                 </button>
                 <button class="filter-btn" onclick="filterRestaurants('300to700')">
-                    â¹300-â¹700
+                    ₹300-₹700
                 </button>
             </div>
             <!-- Changed Slider -->
