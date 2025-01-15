@@ -72,16 +72,18 @@
                                 <span>Orders</span>
                             </a>
                         </li>
+                
+                        <li class="logoutOption">
+                            <form action="http://localhost:8080/Platera-Main/logout" method="POST">                          
+                                <button type="submit"><span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>Logout</button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>
 
             <div class="main-content">
                 <header>
-                    <div class="search-wrapper">
-                        <span class="icon"><ion-icon name="search"></ion-icon></span>
-                        <input type="search" placeholder="Search">
-                    </div>
                     <div class="social-icons">
                         <a href="http://localhost:8080/Platera-Main/logout" class="logout-link">
                             <div class="logout_btn">

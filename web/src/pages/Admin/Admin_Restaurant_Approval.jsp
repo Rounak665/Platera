@@ -41,12 +41,6 @@
 
                 <div class="sidebar-menu">
                     <ul>
-                        <!-- <li>
-                            <a href="">
-                                <span class="icon"><ion-icon name="bar-chart"></ion-icon></span>
-                                <span>Dashboard Overview</span>
-                            </a>
-                        </li> -->
                         <li>
                             <a href="./Admin_Order_Management.jsp">
                                 <span class="icon"><ion-icon name="wine"></ion-icon></span>
@@ -65,7 +59,23 @@
                                 <span>Delivery Executive Management</span>
                             </a>
                         </li>
-
+                        <%
+                            if ("N".equals(executiveStatus)) {
+                        %>
+                        <li class="logoutOption">
+                            <form action="http://localhost:8080/Platera-Main/logout" method="POST">                          
+                                <button type="submit"><span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>Logout</button>
+                            </form>
+                        </li>
+                        <%
+                        } else if ("Y".equals(executiveStatus)) {
+                        %>
+                        <li class="logoutOption">
+                            <p>Change your status</p>
+                        </li>
+                        <%
+                            }
+                        %>
                     </ul>
                 </div>
             </div>
@@ -77,10 +87,7 @@
                             <img src="../../../Public/images/logo.png" alt="">
                         </div>
                     </div>
-                    <div class="search-wrapper">
-                        <span class="icon"><ion-icon name="search"></ion-icon></span>
-                        <input type="search" placeholder="Search">
-                    </div>
+                    
 
                     <div class="social-icons">
                         <div class="logout_btn">

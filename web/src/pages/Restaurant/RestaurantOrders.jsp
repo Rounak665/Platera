@@ -108,6 +108,11 @@
                                 <span>Orders</span>
                             </a>
                         </li>
+                        <li class="logoutOption">
+                            <form action="http://localhost:8080/Platera-Main/logout" method="POST">                          
+                                <button type="submit"><span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>Logout</button>
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -318,10 +318,7 @@
                         <img src="../../../Public/images/logo.png" alt="">
                     </div>
                 </div>
-                <div class="search-wrapper">
-                    <span class="icon"><ion-icon name="search"></ion-icon></span>
-                    <input type="search" placeholder="Search">
-                </div>
+                
                 <div class="social-icons">
                     <%
                         if ("N".equals(executiveStatus)) {

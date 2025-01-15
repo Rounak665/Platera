@@ -262,6 +262,17 @@ body {
 .sidebar-menu .logoutOption {
     display: none;
 }
+.sidebar-menu .logoutOption button{
+    display: flex;
+    gap: 20px;
+    background: transparent;
+    color: white;
+    border: none;
+    padding: 10px;
+}
+.sidebar-menu .logoutOption button:hover{
+    background-color: rgb(237, 0, 0);
+}
 .sidebar.activate .menu{
     display: none;
 }
