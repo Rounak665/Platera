@@ -103,6 +103,43 @@
             </div>
         </div>
 
+        <!-- Two step Verification -->
+
+        <div id="security-section" class="security-container" style="display: none;">
+            <div class="security-card">
+                <span class="sec-close-btn" id="closeSecuritySection">&times;</span>
+                <div class="security-header">
+                    <i class="fas fa-lock lock-icon"></i>
+                    <h2>Two-factor Authentication</h2>
+                </div>
+                <p class="security-description">
+                    Enhance your security by setting up two-factor authentication (2FA) on your registered email.
+                </p>
+                <form id="twoFAForm" method="post" action="http://localhost:8080/Platera-Main/UpdateTwoFAStatus">
+                    <input type="hidden" value="<%=user_id%>" name="userId">
+                    <div class="security-option">
+                        <div class="security-description">
+                            <label class="option-title">
+                                <span>Text Message</span> <span class="option-subtitle">EMAIL</span>
+                            </label>
+                            <p class="option-description">
+                                Get a one-time passcode through email.
+                            </p>
+                        </div>
+                        <label class="switch">
+                            <!-- Dynamically set the 'checked' attribute based on the 'twoFA' variable -->
+                            <input type="checkbox" id="email-toggle" name="twoFA" <%=twoFA ? "checked" : ""%> />
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="security-footer">
+                        <button type="button" id="cancel-btn" class="btn cancel-btn">Cancel</button>
+                        <button type="submit" id="save-btn" class="btn save-btn">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <!-- sliding profile settings -->
 
         <section class="setting-section" id="setSection">
@@ -113,7 +150,7 @@
                 </div>
                 <ul class="setting-options">
                     <li id="editProfile"><i class="fas fa-user-edit"></i> Edit your profile</li>
-                    <li><i class="fas fa-key"></i> Change Password</li>
+                    <li><i class="fas fa-key"></i><a href="../ForgotPassword/ForgotPassword.jsp"> Change Password</a></li>
                     <li id="setSecure"><i class="fas fa-shield-alt"></i> Security</li>
                     <li><i class="fas fa-file-alt"></i> <a href="../FooterLinkPages/PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
                     <li><i class="fas fa-file-contract"></i> <a href="../FooterLinkPages/Terms&Conditions/Terms&Conditions.html">Terms and Conditions</a></li>
