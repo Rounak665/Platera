@@ -32,8 +32,8 @@
     <body>
         <%
             // Simulate session attributes for debugging
-            // int user_id = (Integer) session.getAttribute("user_id");
-            int user_id = 311;
+            int user_id = (Integer) session.getAttribute("user_id");
+//            int user_id = 311;
 
             int restaurantId = 0; // Default value for int
             String name = null;
@@ -245,7 +245,7 @@
                                 <span>Orders</span>
                             </a>
                         </li>
-                        
+
                         <li class="logoutOption">
                             <form action="http://localhost:8080/Platera-Main/logout" method="POST">                          
                                 <button type="submit"><span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>Logout</button>
@@ -257,7 +257,7 @@
 
             <div class="main-content">
                 <header>
-                    
+
                     <div class="log-set">
                         <div class="social-icons">
                             <a href="http://localhost:8080/Platera-Main/logout" class="logout-link">
@@ -354,7 +354,7 @@
                                                             String itemName = item.getItemName();
                                                             int quantity = item.getQuantity();
                                                             String itemImage = item.getImage(); // Assuming this returns the image path
-                                                %>
+%>
                                                 <%= itemName%> (x<%= quantity%>),                                                    
                                                 <%
                                                         }

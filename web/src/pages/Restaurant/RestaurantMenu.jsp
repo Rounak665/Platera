@@ -125,8 +125,8 @@
                                     <tbody id="menu-table">
                                         <%
                                             // Simulate session attributes for debugging
-                                            // int user_id = (Integer) session.getAttribute("user_id");
-                                            int user_id = 311;
+                                             int user_id = (Integer) session.getAttribute("user_id");
+//                                            int user_id = 311;
 
                                             int restaurantId = 0; // Default value for int
                                             String name = null;

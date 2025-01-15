@@ -508,94 +508,94 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
     <script>
-    document.getElementById('restaurantRegistrationForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent form submission
+//    document.getElementById('restaurantRegistrationForm').addEventListener('submit', function(event) {
+//    event.preventDefault(); // Prevent form submission
+//
+//    // Get values from the form inputs
+//    const restaurantName = this.restaurant_name.value;
+//    const ownerName = this.owner_name.value;
+//    const email = this.email.value;
+//    const phone = this.phone.value;
+//    const bankAccountName = this.bank_account_name.value;
+//    const bankAccountNumber = this.bank_account_number.value;
+//    const gstin = this.gstin.value;
+//
+//    // Function to convert file to Base64
+//    const toBase64 = (file) => new Promise((resolve, reject) => {
+//        const reader = new FileReader();
+//        reader.onload = () => resolve(reader.result);
+//        reader.onerror = reject;
+//        reader.readAsDataURL(file);
+//    });
+//
+//    // Store images as Base64 strings
+//    Promise.all([
+//        toBase64(this.restaurant_menu_image.files[0]),
+//        toBase64(this.fssai_license_image.files[0]),
+//        toBase64(this.pan_card_image.files[0])
+//    ]).then(images => {
+//        // Store the password along with other details in the restaurant object
+//const restaurant = {
+//    restaurant_name: restaurantName,
+//    owner_name: ownerName,
+//    email: email,
+//    phone: phone,
+//    bank_account_name: bankAccountName,
+//    bank_account_number: bankAccountNumber,
+//    gstin: gstin,
+//    password: this.password.value, // Add this line to store the password
+//    restaurant_menu_image: images[0],
+//    fssai_license_image: images[1],
+//    pan_card_image: images[2]
+//};
+//
+//
+//        // Retrieve existing restaurants from localStorage
+//        const pendingRestaurants = JSON.parse(localStorage.getItem('pendingRestaurants')) || [];
+//        pendingRestaurants.push(restaurant);
+//        localStorage.setItem('pendingRestaurants', JSON.stringify(pendingRestaurants));
+//
+//        // Optional: Clear the form after submission
+//        this.reset();
+//        alert('Restaurant registered successfully!');
+//    }).catch(error => {
+//        console.error('Error uploading images:', error);
+//    });
+//});
 
-    // Get values from the form inputs
-    const restaurantName = this.restaurant_name.value;
-    const ownerName = this.owner_name.value;
-    const email = this.email.value;
-    const phone = this.phone.value;
-    const bankAccountName = this.bank_account_name.value;
-    const bankAccountNumber = this.bank_account_number.value;
-    const gstin = this.gstin.value;
 
-    // Function to convert file to Base64
-    const toBase64 = (file) => new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-    });
+//// Function to populate the restaurant table
+//function populateRestaurantTable() {
+//    const pendingRestaurantsTable = document.getElementById('pendingRestaurantsTable');
+//    pendingRestaurantsTable.innerHTML = ''; // Clear existing entries
+//
+//    const pendingRestaurants = JSON.parse(localStorage.getItem('pendingRestaurants')) || [];
+//
+//    // Populate the table
+//    pendingRestaurants.forEach((restaurant, index) => {
+//        const row = `
+//            <tr onclick="showPopup(${index})">
+//                <td>${restaurant.restaurant_name}</td>
+//                <td>${restaurant.owner_name}</td>
+//                <td>${restaurant.email}</td>
+//                <td>${restaurant.phone}</td>
+//                <td>
+//                    <button class="btn-approve" onclick="approveRestaurant(${index}); event.stopPropagation();">Approve</button>
+//                    <button class="btn-reject" onclick="rejectRestaurant(${index}); event.stopPropagation();">Reject</button>
+//                </td>
+//            </tr>
+//        `;
+//        pendingRestaurantsTable.innerHTML += row;
+//    });
+//}
+//
+//// Call this function to populate the table on page load
+//populateRestaurantTable();
 
-    // Store images as Base64 strings
-    Promise.all([
-        toBase64(this.restaurant_menu_image.files[0]),
-        toBase64(this.fssai_license_image.files[0]),
-        toBase64(this.pan_card_image.files[0])
-    ]).then(images => {
-        // Store the password along with other details in the restaurant object
-const restaurant = {
-    restaurant_name: restaurantName,
-    owner_name: ownerName,
-    email: email,
-    phone: phone,
-    bank_account_name: bankAccountName,
-    bank_account_number: bankAccountNumber,
-    gstin: gstin,
-    password: this.password.value, // Add this line to store the password
-    restaurant_menu_image: images[0],
-    fssai_license_image: images[1],
-    pan_card_image: images[2]
-};
-
-
-        // Retrieve existing restaurants from localStorage
-        const pendingRestaurants = JSON.parse(localStorage.getItem('pendingRestaurants')) || [];
-        pendingRestaurants.push(restaurant);
-        localStorage.setItem('pendingRestaurants', JSON.stringify(pendingRestaurants));
-
-        // Optional: Clear the form after submission
-        this.reset();
-        alert('Restaurant registered successfully!');
-    }).catch(error => {
-        console.error('Error uploading images:', error);
-    });
-});
-
-
-// Function to populate the restaurant table
-function populateRestaurantTable() {
-    const pendingRestaurantsTable = document.getElementById('pendingRestaurantsTable');
-    pendingRestaurantsTable.innerHTML = ''; // Clear existing entries
-
-    const pendingRestaurants = JSON.parse(localStorage.getItem('pendingRestaurants')) || [];
-
-    // Populate the table
-    pendingRestaurants.forEach((restaurant, index) => {
-        const row = `
-            <tr onclick="showPopup(${index})">
-                <td>${restaurant.restaurant_name}</td>
-                <td>${restaurant.owner_name}</td>
-                <td>${restaurant.email}</td>
-                <td>${restaurant.phone}</td>
-                <td>
-                    <button class="btn-approve" onclick="approveRestaurant(${index}); event.stopPropagation();">Approve</button>
-                    <button class="btn-reject" onclick="rejectRestaurant(${index}); event.stopPropagation();">Reject</button>
-                </td>
-            </tr>
-        `;
-        pendingRestaurantsTable.innerHTML += row;
-    });
-}
-
-// Call this function to populate the table on page load
-populateRestaurantTable();
-
-</>-->
+</script>-->
 
      <!-- For FAQ -->
-<!--      <script>
+      <script>
         var acc = document.getElementsByClassName("accordion");
         var i;
 
@@ -613,7 +613,7 @@ populateRestaurantTable();
                 }
             });
         }
-      </script>-->
+      </script>
 
 </body>
 </html>

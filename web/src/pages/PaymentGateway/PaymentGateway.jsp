@@ -19,8 +19,8 @@
     <body>
         <%
         // Retrieve session attributes
-//           Integer customer_id = (Integer) session.getAttribute("customerId");
-            int customer_id = 30;
+           Integer customer_id = (Integer) session.getAttribute("customerId");
+//            int customer_id = 30;
             // Replace with the actual user/customer ID fetched from the session or request
             CartDAO cartDAO = new CartDAO();
             List<Cart> cartItems = cartDAO.getCartItems(customer_id);
