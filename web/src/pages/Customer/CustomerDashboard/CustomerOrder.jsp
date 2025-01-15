@@ -83,6 +83,12 @@
                 <div class="sidebar-menu">
                     <ul>
                         <li>
+                            <a href="../Home.jsp">
+                                <span class="icon"><ion-icon name="home"></ion-icon></span>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="./CustomerProfile.jsp">
                                 <span class="icon"><ion-icon name="person"></ion-icon></span>
                                 <span>Account</span>
@@ -108,7 +114,6 @@
                         </div>
                     </div>
                     <h1>Welcome, <%=name%>!</h1>
-                    <button class="edit_btn">Edit Profile</button>
                 </div>
                 <main class="main-content">
                     <section class="dashboard-section" id="orders">
@@ -157,14 +162,14 @@
                                     <div class="item">
                                         <img src="<%= request.getContextPath() + "/" + item.getImage()%>" alt="<%= item.getItemName()%>" class="cart-item-image">
                                         <div class="details"><%= item.getItemName()%><br>x<%= item.getQuantity()%></div>
-                                        <div class="price"><%=item.getPrice()%></div>
+                                        <div class="price">₹<%=item.getPrice()%></div>
                                     </div>
                                     <%
                                         }
                                     %>
                                 </div>
                                 <hr>
-                                <div class="total">Total: $<%= currentOrder.getTotalAmount()%></div>
+                                <div class="total">Total: ₹<%= currentOrder.getTotalAmount()%></div>
                                 <div class="status <%= currentOrder.getOrderStatus().toLowerCase()%>"><%= currentOrder.getOrderStatus()%></div>
                                 <%
                                     // Display button for "Food Ready" if the status is "Pending"

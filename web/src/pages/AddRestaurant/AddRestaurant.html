@@ -441,18 +441,17 @@ inputs.forEach((input) => {
 
     <!-- For signin popup and close -->
      <script>
-        document.querySelectorAll("#signin, #register").forEach(element => {
-    element.addEventListener("click", function() {
-        document.querySelector("#Signin-popup").classList.add("activate");
-    });
+        document.querySelector("#register").addEventListener("click", function() {
+    document.querySelector(".Signup-popup").classList.add("activate");
 });
 
 document.querySelector(".Signup-popup .container .close-btn").addEventListener("click", function() {
     document.querySelector(".Signup-popup").classList.remove("activate");
 });
-
-document.querySelector("#login").addEventListener("click", function() {
-    document.querySelector("#Signin-popup").classList.add("activate");
+document.querySelectorAll(".signin, #login").forEach(element => {
+    element.addEventListener("click", function() {
+        document.querySelector("#Signin-popup").classList.add("activate");
+    });
 });
 
 document.querySelector("#Signin-popup .container1 .close-btn").addEventListener("click", function() {

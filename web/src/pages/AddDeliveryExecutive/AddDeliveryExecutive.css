@@ -272,7 +272,6 @@ body{
     letter-spacing: .5px;
     outline: none;
     border-radius: .50rem;
-    transition: .3s;
     position: relative;
     z-index: 3;
 }
