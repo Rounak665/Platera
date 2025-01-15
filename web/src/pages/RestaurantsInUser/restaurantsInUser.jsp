@@ -127,15 +127,14 @@
         <section class="banner">
             <div class="banner-content">
                 <h2>Best restaurants Near You</h2>
-                <form action="http://localhost:8080/Platera-Main/Search">
-                    <div class="search-bar">
-                        <select name="keywordType" id="search-category">
-                            <option value="restaurants">Restaurants</option>
-                            <option value="dishes">Dishes</option>
-                        </select>
-                        <input type="text" name="keyword" id="search-input" placeholder="Search for restaurants or dishes..." />
-                        <button id="search-button">Search</button>
-                    </div>
+                <form action="http://localhost:8080/Platera-Main/Search" class="search-bar">
+                    <select name="keywordType" id="search-category">
+                        <option value="restaurants">Restaurants</option>
+                        <option value="dishes">Dishes</option>
+                    </select>
+                    <input type="text" name="keyword" id="search-input" placeholder="Search for restaurants or dishes..." />
+                    <input type="hidden" name="location" value="<%=locationId%>">
+                    <button id="search-button">Search</button>
                 </form>
             </div>
         </section>

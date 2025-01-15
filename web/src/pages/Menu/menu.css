@@ -298,7 +298,33 @@ body {
     color: #fff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
 }
+.banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./Assets/slide1.png'); /* Set initial image */
+    background-position: center;
+    animation: slide 15s infinite;
+    z-index: 1;
+    transition: background-image 4s ease-in-out; /* Smooth transition */
+}
 
+/* Keyframes for Background Images */
+@keyframes slide {
+    0% { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./Assets/slide1.png'); }
+    20% { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./Assets/slide1.png'); }
+    25% { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./Assets/slide2.png'); }
+    45% { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./Assets/slide2.png'); }
+    50% { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./Assets/slide3.png'); }
+    70% { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./Assets/slide3.png'); }
+    75% { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./Assets/slide4.png'); }
+    95% { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./Assets/slide4.png'); }
+    100% { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./Assets/slide5.png'); }
+}
 .banner h2 {
     font-size: 2.5rem;
     margin-bottom: 20px;
@@ -388,33 +414,10 @@ body {
 }
 
 /* Background Images */
-.banner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./assets/slide1.png'); /* Set initial image */
-    background-position: center;
-    animation: slide 15s infinite;
-    z-index: 1;
-    transition: background-image 4s ease-in-out; /* Smooth transition */
-}
+
 
 /* Keyframes for Background Images */
-@keyframes slide {
-    0% { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./assets/slide1.png'); }
-    20% { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./assets/slide1.png'); }
-    25% { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./assets/slide2.png'); }
-    45% { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./assets/slide2.png'); }
-    50% { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./assets/slide3.png'); }
-    70% { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./assets/slide3.png'); }
-    75% { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./assets/slide4.png'); }
-    95% { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./assets/slide4.png'); }
-    100% { background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('./assets/slide5.png'); }
-}
+
 
 /* Responsive Adjustments */
 
@@ -493,11 +496,12 @@ body {
 }
 .carousel-container {
     position: relative;
-    width: 60%;
+    width: 80%;
     margin: 0 auto;
 }
 .carousel-track-container{
     overflow: hidden;
+    width: 100%;
 }
 .dishes, .cuisines, .popular-dishes {
     padding: 20px;
@@ -520,10 +524,23 @@ body {
     text-align: center;
     width: 200px;
 }
+.carousel-slide::marker{
+    color: transparent;
+}
+.carousel-slide h3{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
 .cuisine{
     margin: 10px;
     text-align: center;
     width: 260px;
+}
+.cuisine img{
+    border-radius: 20px;
+}
+.cuisine h3{
+    margin-top: 5px;
 }
 .dish-card{
     box-shadow: 0 0 5px 1px #d4d4d499;
@@ -536,9 +553,10 @@ body {
     height: 400px;
 }
 .carousel-slide img{
-    width: 100%;
-    height: 80%;
+    width: 170px;
+    height: 60%;
     object-fit: cover;
+    border-radius: 20px;
 }
 .cuisine img{
     width: 100%;
@@ -560,7 +578,7 @@ body {
 }
 .carousel-button {
     position: absolute;
-    top: 50%;
+    top: 36%;
     transform: translateY(-50%);
     background-color: rgba(0, 0, 0, 0.5);
     border: none;
@@ -569,10 +587,10 @@ body {
     z-index: 1;
 }
 .carousel-button.prev {
-    left: 10px;
+    left: -50px;
 }
 .carousel-button.next {
-    right: 10px;
+    right: -50px;
 }
 .add-to-cart {
     margin-top: 8%;
@@ -600,6 +618,10 @@ body {
 }
 .dish-card p {
     margin: 5px 0;
+}
+.restaurant-card-link {
+    text-decoration: none; /* Remove default underline */
+    color: #333;
 }
 
 /* Media Queries */
@@ -663,82 +685,82 @@ footer{
     border-top-left-radius: 125px;
     font-size: 13px;
     line-height: 20px;
-  }
-  footer .row{
+}
+footer .row{
     width: 85%;
     margin: auto;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     flex-wrap: wrap;
-  }
-  footer .col{
+}
+footer .col{
     flex-basis: 25%;
     padding: 10px;
-  }
-  .col:nth-child(2), .col:nth-child(3){
+}
+.col:nth-child(2), .col:nth-child(3){
     flex-basis: 15%;
-  }
-  footer .col img{
+}
+footer .col img{
     width: 200px;
     margin-bottom: 20px;
-  }
-  .col h3{
+}
+.col h3{
     width: fit-content;
     margin-bottom: 40px;
     position: relative;
-  }
-  #newsletter-email::placeholder{
-      color: #f4f4f4
-  }
-  .email_id{
+}
+#newsletter-email::placeholder{
+    color: #f4f4f4
+}
+.email_id{
     width: fit-content;
     border-bottom: 1px solid rgb(255, 255, 255);
     margin: 20px 0;
-  }
-  footer .col ul li{
+}
+footer .col ul li{
     list-style: none;
     margin-bottom: 12px;
-  }
-  footer .col ul li a{
+}
+footer .col ul li a{
     text-decoration: none;
     color: #f4f4f4;
-  }
-  footer .col ul li a:hover{
+}
+footer .col ul li a:hover{
     color: #FFD04D;
     transition: 0.3s;
-  }
-  footer .row .col form{
+}
+footer .row .col form{
     padding-bottom: 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid rgb(255, 255, 255);
     margin-bottom: 50px;
-  }
-  form #mail{
+}
+form #mail{
     width: 18px;
     margin-right: 10px;
     margin-bottom: 0;
-  }
-  form #send{
+}
+form #send{
     width: 18px;
     margin-bottom: 0;
-  }
-  form input{
+}
+form input{
     width: 100%;
     background-color: transparent;
     outline: none;
     border: none;
-  /*  color: rgb(255, 255, 255);*/
-  }
-  form button{
+    /*  color: rgb(255, 255, 255);*/
+}
+form button{
     background-color: transparent;
     border: none;
     outline: none;
     cursor: pointer;
-  }
-  .social_icon .fa-brands{
+}
+.social_icon .fa-brands{
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -749,17 +771,17 @@ footer{
     background-color: #f4f4f4;
     margin-right: 15px;
     cursor: ponter;
-  }
-  footer hr{
+}
+footer hr{
     width: 90%;
     border: 0;
     border-bottom: 1px solid #f4f4f4;
     margin: 20px auto;
-  }
-  footer p.copyright{
+}
+footer p.copyright{
     text-align: center;
-  }
-  .underline{
+}
+.underline{
     width: 100%;
     height: 2px;
     background-color: #767676;
@@ -768,8 +790,8 @@ footer{
     top: 25px;
     left: 0;
     overflow: hidden;
-  }
-  .underline span{
+}
+.underline span{
     width: 15px;
     height: 100%;
     background-color: #f4f4f4;
@@ -778,21 +800,21 @@ footer{
     top: 0;
     left: 10px;
     animation: moving 2s linear infinite;
-  }
-  #logout-btn{
+}
+#logout-btn{
     position: absolute;
     right: 30px;
-  }
-  
-  @keyframes moving{
+}
+
+@keyframes moving{
     0%{
         left: -20px;
     }    
     100%{
         left: 100%;
     }
-  }
-  
+}
+
 /* Responsive Design */
 @media(max-width: 1920px) and (min-width: 1201px){
     /* Footer section */
@@ -806,7 +828,7 @@ footer{
 
         margin-right: 2px;
     }
-    
+
 }
 @media(max-width: 991px) and (min-width: 768px){
     /* Footer section */

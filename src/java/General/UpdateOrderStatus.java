@@ -57,12 +57,14 @@ public class UpdateOrderStatus extends HttpServlet {
 
     private String getRedirectPage(String status) {
         switch (status) {
-            case "Ready":
+            case "Cooked":
                 return "src/pages/Restaurant/RestaurantDashboard.jsp";
             case "Picked Up":
                 return "src/pages/DeliveryExecutive/DeliveryDashboard.jsp";
             case "Delivered":
                 return "src/pages/DeliveryExecutive/DeliveryDashboard.jsp";
+            case "Cancelled":
+                return "src/pages/Customer/CustomerDashboard/CustomerOrder.jsp";
             default:
                 return "src/pages/Error/DatabaseError.html";
         }

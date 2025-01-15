@@ -11,13 +11,13 @@ public class MenuItemsDAO {
     // Method to get all menu items for a restaurant with category name and availability
     public List<MenuItems> getMenuItemsByRestaurant(int restaurantId) {
         List<MenuItems> menuItems = new ArrayList<>();
-        String query = "SELECT mi.item_id, mi.item_name, mi.price, mi.image, c.category_name, mi.availability, mi.category_id " +
-                       "FROM menu_items mi " +
-                       "JOIN categories c ON c.category_id = mi.category_id " +
-                       "WHERE mi.restaurant_id = ?";
+        String query = "SELECT mi.item_id, mi.item_name, mi.price, mi.image, c.category_name, mi.availability, mi.category_id "
+                + "FROM menu_items mi "
+                + "JOIN categories c ON c.category_id = mi.category_id "
+                + "WHERE mi.restaurant_id = ?";
 
         try (Connection con = Database.getConnection();
-             PreparedStatement ps = con.prepareStatement(query)) {
+                PreparedStatement ps = con.prepareStatement(query)) {
 
             ps.setInt(1, restaurantId);
 
@@ -52,13 +52,13 @@ public class MenuItemsDAO {
     // Method to get a single menu item by its ID, with category name and availability
     public MenuItems getMenuItemById(int itemId) {
         MenuItems item = null;
-        String query = "SELECT mi.item_id, mi.item_name, mi.price, mi.image, c.category_name, mi.availability, mi.restaurant_id, mi.category_id " +
-                       "FROM menu_items mi " +
-                       "JOIN categories c ON c.category_id = mi.category_id " +
-                       "WHERE mi.item_id = ?";
+        String query = "SELECT mi.item_id, mi.item_name, mi.price, mi.image, c.category_name, mi.availability, mi.restaurant_id, mi.category_id "
+                + "FROM menu_items mi "
+                + "JOIN categories c ON c.category_id = mi.category_id "
+                + "WHERE mi.item_id = ?";
 
         try (Connection con = Database.getConnection();
-             PreparedStatement ps = con.prepareStatement(query)) {
+                PreparedStatement ps = con.prepareStatement(query)) {
 
             ps.setInt(1, itemId);
 
@@ -90,13 +90,13 @@ public class MenuItemsDAO {
     // Method to get all menu items from the menu_items table with category name and availability
     public List<MenuItems> getAllMenuItems() {
         List<MenuItems> menuItems = new ArrayList<>();
-        String query = "SELECT mi.item_id, mi.item_name, mi.price, mi.image, c.category_name, mi.availability, mi.restaurant_id, mi.category_id " +
-                       "FROM menu_items mi " +
-                       "LEFT JOIN categories c ON c.category_id = mi.category_id";
+        String query = "SELECT mi.item_id, mi.item_name, mi.price, mi.image, c.category_name, mi.availability, mi.restaurant_id, mi.category_id "
+                + "FROM menu_items mi "
+                + "LEFT JOIN categories c ON c.category_id = mi.category_id";
 
         try (Connection con = Database.getConnection();
-             PreparedStatement ps = con.prepareStatement(query);
-             ResultSet rs = ps.executeQuery()) {
+                PreparedStatement ps = con.prepareStatement(query);
+                ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 MenuItems item = new MenuItems();
@@ -126,14 +126,14 @@ public class MenuItemsDAO {
     // Method to get menu items by location, including restaurant and category details
     public List<MenuItems> getMenuItemsByLocation(int location) {
         List<MenuItems> menuItems = new ArrayList<>();
-        String query = "SELECT mi.item_id, mi.item_name, mi.price, mi.image, c.category_name, mi.availability, mi.restaurant_id, mi.category_id, r.restaurant_name " +
-                       "FROM menu_items mi " +
-                       "LEFT JOIN restaurants r ON mi.restaurant_id = r.restaurant_id " +
-                       "LEFT JOIN categories c ON c.category_id = mi.category_id " +
-                       "WHERE r.location_id = ?";
+        String query = "SELECT mi.item_id, mi.item_name, mi.price, mi.image, c.category_name, mi.availability, mi.restaurant_id, mi.category_id, r.restaurant_name "
+                + "FROM menu_items mi "
+                + "LEFT JOIN restaurants r ON mi.restaurant_id = r.restaurant_id "
+                + "LEFT JOIN categories c ON c.category_id = mi.category_id "
+                + "WHERE r.location_id = ?";
 
         try (Connection con = Database.getConnection();
-             PreparedStatement ps = con.prepareStatement(query)) {
+                PreparedStatement ps = con.prepareStatement(query)) {
 
             ps.setInt(1, location);
 
@@ -164,19 +164,62 @@ public class MenuItemsDAO {
 
         return menuItems;
     }
+
     public List<MenuItems> getMenuItemsByKeyword(String keyword, int location) {
+        List<MenuItems> menuItems = new ArrayList<>();
+        String query = "SELECT mi.item_id, mi.item_name, mi.price, mi.image, c.category_name, mi.availability, mi.restaurant_id, mi.category_id, r.restaurant_name "
+                + "FROM menu_items mi "
+                + "LEFT JOIN restaurants r ON mi.restaurant_id = r.restaurant_id "
+                + "LEFT JOIN categories c ON c.category_id = mi.category_id "
+                + "WHERE r.location_id = ? AND LOWER(mi.item_name) LIKE ?"; // Add LIKE condition for keyword
+
+        try (Connection con = Database.getConnection();
+                PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setInt(1, location); // Set location
+            ps.setString(2, "%" + keyword + "%"); // Set keyword with wildcards for partial matching
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    MenuItems item = new MenuItems();
+
+                    item.setRestaurantName(rs.getString("restaurant_name"));
+                    item.setItemId(rs.getInt("item_id"));
+                    item.setItemName(rs.getString("item_name"));
+                    item.setPrice(rs.getDouble("price"));
+                    item.setImage(rs.getString("image"));
+                    item.setCategoryName(rs.getString("category_name"));
+                    item.setCategoryId(rs.getInt("category_id"));
+
+                    String availability = rs.getString("availability");
+                    item.setAvailability("Y".equals(availability)); // Set availability based on 'Y' or 'N'
+
+                    item.setRestaurantId(rs.getInt("restaurant_id"));
+
+                    menuItems.add(item);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return menuItems;
+    }
+
+public List<MenuItems> getMenuItemsByCategoryIdAndLocation(int categoryId, int locationId) {
     List<MenuItems> menuItems = new ArrayList<>();
-    String query = "SELECT mi.item_id, mi.item_name, mi.price, mi.image, c.category_name, mi.availability, mi.restaurant_id, mi.category_id, r.restaurant_name " +
-                   "FROM menu_items mi " +
-                   "LEFT JOIN restaurants r ON mi.restaurant_id = r.restaurant_id " +
-                   "LEFT JOIN categories c ON c.category_id = mi.category_id " +
-                   "WHERE r.location_id = ? AND LOWER(mi.item_name) LIKE ?"; // Add LIKE condition for keyword
+    String query = "SELECT mi.item_id, mi.item_name, mi.price, mi.image, c.category_name, mi.availability, mi.restaurant_id, mi.category_id, r.restaurant_name "
+            + "FROM menu_items mi "
+            + "LEFT JOIN restaurants r ON mi.restaurant_id = r.restaurant_id "
+            + "LEFT JOIN categories c ON c.category_id = mi.category_id "
+            + "WHERE mi.category_id = ? AND r.location_id = ?";
 
     try (Connection con = Database.getConnection();
          PreparedStatement ps = con.prepareStatement(query)) {
 
-        ps.setInt(1, location); // Set location
-        ps.setString(2, "%" + keyword + "%"); // Set keyword with wildcards for partial matching
+        ps.setInt(1, categoryId); // Set category_id
+        ps.setInt(2, locationId); // Set location_id
 
         try (ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
@@ -188,10 +231,10 @@ public class MenuItemsDAO {
                 item.setPrice(rs.getDouble("price"));
                 item.setImage(rs.getString("image"));
                 item.setCategoryName(rs.getString("category_name"));
-                item.setCategoryId(rs.getInt("category_id"));
+                item.setCategoryId(rs.getInt("category_id")); // Set category_id
 
                 String availability = rs.getString("availability");
-                item.setAvailability("Y".equals(availability)); // Set availability based on 'Y' or 'N'
+                item.setAvailability("Y".equals(availability)); // Set true for 'Y', false for 'N'
 
                 item.setRestaurantId(rs.getInt("restaurant_id"));
 
@@ -205,5 +248,6 @@ public class MenuItemsDAO {
 
     return menuItems;
 }
+
 
 }

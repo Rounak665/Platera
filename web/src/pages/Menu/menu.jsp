@@ -49,8 +49,6 @@
             // Create image path based on the image file path retrieved
             imagepath = request.getContextPath() + '/' + image;
 
-            System.out.println(location_id);
-
         %>
 
         <!-- Error Popup -->
@@ -62,7 +60,7 @@
             </div>
         </div>
 
-        
+
         <header>
             <nav class="navbar">
                 <div class="nav-left">
@@ -85,12 +83,8 @@
                     <li><a href="../Customer/Home.jsp">Home</a></li>
                     <li><a href="../RestaurantsInUser/restaurantsInUser.jsp">Restaurants</a></li>
                     <li id="active"><a href="./menu.jsp">Menu</a></li>
-                    <li><a href="#contact">Contact Us</a></li>
+                    <li><a href="../ContactUs/ContactUs.html">Contact Us</a></li>
                 </ul>
-                <div class="nav-icons">
-                    <i class="profile-icon fa-solid" id="profile-icon">&#128100;</i>
-                    <i class="cart-icon fa-solid" id="cart-icon">&#128722;</i>
-                </div>
                 <div class="hamburger-menu" id="hamburger-menu">
                     <i class="fa-solid fa-bars"></i>
                 </div>
@@ -109,14 +103,15 @@
             <div class="banner-content">
                 <h2>Welcome to Our Menu</h2>
                 <div class="search-bar">
-                    <form action="http://localhost:8080/Platera-Main/Search">
-                        <select name="keywordType" id="search-category">
-                            <option value="restaurants">Restaurants</option>
-                            <option value="dishes">Dishes</option>
-                        </select>
-                        <input name="keyword" type="text" id="search-input" placeholder="Search for restaurants or dishes..." />
-                        <button id="search-button">Search</button>
-                    </form>
+                <form action="http://localhost:8080/Platera-Main/Search">
+                    <select name="keywordType" id="search-category">
+                        <option value="restaurants">Restaurants</option>
+                        <option value="dishes">Dishes</option>
+                    </select>
+                    <input type="text" name="keyword" id="search-input" placeholder="Search for restaurants or dishes..." />
+                    <input type="hidden" name="location" value="<%=location_id%>">
+                    <button id="search-button">Search</button>
+                </form>
                 </div>
             </div>
         </section>
@@ -129,12 +124,16 @@
                     <ul class="carousel-track">
                         <%            MenuItemsDAO menuItemsDAO = new MenuItemsDAO();
                             List<MenuItems> menuItems = menuItemsDAO.getMenuItemsByLocation(location_id);
+                            Collections.shuffle(menuItems);
                         %>
                         <% for (MenuItems item : menuItems) {%>
+                        <a href="../Customer/RestaurantDetails/RestaurantDetails.jsp?restaurantId=<%= item.getRestaurantId()%>" class="restaurant-card-link">
                         <li class="carousel-slide">
                             <img src="<%=request.getContextPath()%>/<%= item.getImage()%>" alt="<%= item.getItemName()%>">
                             <h3><%= item.getItemName()%></h3>
+                            <p><%=item.getRestaurantName()%></p>
                         </li>
+                        </a>
                         <% } %>
                     </ul>
                 </div>
@@ -146,18 +145,30 @@
         <div class="cuisines">
             <h2>Our Cuisines</h2>
             <div class="cuisine-list">
-                <%            Utilities.CategoryDAO categoryDAO = new Utilities.CategoryDAO();
+                <%
+                    Utilities.CategoryDAO categoryDAO = new Utilities.CategoryDAO();
                     List<Utilities.Category> categories = categoryDAO.getAllCategories();
 
-                    for (Utilities.Category category : categories) {
+                    // Shuffle the categories to randomize the order
+                    Collections.shuffle(categories);
+
+                    // Limit the list to 8 categories
+                    List<Utilities.Category> limitedCategories = categories.size() > 8
+                            ? categories.subList(0, 8)
+                            : categories;
+
+                    for (Utilities.Category category : limitedCategories) {
                 %>
+                <a href="./Categories/categories.jsp?categoryId=<%=category.getId()%>" class="restaurant-card-link">
                 <div class="cuisine">
                     <img src="<%= request.getContextPath() + "/" + category.getImage()%>" alt="<%= category.getName()%>">
                     <h3><%= category.getName()%></h3>
                 </div>
+                </a>
                 <% } %>
             </div>
         </div>
+
 
 
         <div class="popular-dishes">
@@ -212,7 +223,7 @@
             <div class="container_footer">
                 <div class="row">
                     <div class="col">
-                        <img src="./assets/PlateraLogo-red.png" alt="" />
+                        <img src="./Assets/PlateraLogo-red.png" alt="" />
                         <p>
                             Platera delivers delicious meals from your favorite local
                             restaurants straight to your door, combining speed and convenience

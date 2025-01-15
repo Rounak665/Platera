@@ -35,7 +35,7 @@ public class Search extends HttpServlet {
 
         // Redirect to the appropriate page based on the keywordType
         if ("restaurants".equalsIgnoreCase(keywordType)) {
-            response.sendRedirect("src/pages/search/RestaurantSearchResult.jsp");
+            response.sendRedirect("src/pages/search/RestaurantsSearchResult.jsp");
         } else if ("dishes".equalsIgnoreCase(keywordType)) {
             response.sendRedirect("src/pages/search/MenuSearchResult.jsp");
         } else {
