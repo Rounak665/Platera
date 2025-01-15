@@ -29,7 +29,6 @@ public class ForgotPassword extends HttpServlet {
                 out.println("<h1>Error: The email address is not registered.</h1>");
                 return;
             }
-
             // Generate OTP
             Random rand = new Random();
             int otp = 100000 + rand.nextInt(900000); // Generate a 6-digit OTP

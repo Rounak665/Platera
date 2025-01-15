@@ -26,7 +26,7 @@
         <p>An OTP has been sent to your email address: <strong>${email} </strong></p>
          <!-- Message Section -->
     <p style="color: #F12630; font-size: 0.95rem; margin-bottom: 20px;">
-        Enter the OTP within <strong>2 minutes</strong>.
+        <!--Enter the OTP within <strong>2 minutes</strong>.-->
     </p>
         <form action="http://localhost:8080/Platera-Main/TwoFASignIn" method="POST">
             <input type="text" name="otp" placeholder="Enter OTP" required>

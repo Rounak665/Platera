@@ -23,7 +23,7 @@ public class TwoFASignIn extends HttpServlet {
         // Get the OTP stored in the session
         HttpSession session = request.getSession();
         String generatedOtp = (String) session.getAttribute("otp");
-        session.setAttribute("welcomePopup", true);  // Set welcome popup flag
+        session.setAttribute("welcomePopup", false);  // Set welcome popup flag
 
         // Check if the entered OTP matches the generated OTP
         if (enteredOtp != null && enteredOtp.equals(generatedOtp)) {
