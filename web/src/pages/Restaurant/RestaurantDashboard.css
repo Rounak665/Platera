@@ -464,6 +464,12 @@ label.form-label {
     justify-content: center;
     align-items: center;
 }
+.icon1 {
+    font-size: 2rem; /* Icon size */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .admin-login-wrapper {
     min-height: 100vh;
@@ -968,6 +974,7 @@ tr:hover {
     align-items: center;
     background-color: #34acdb;
     border-radius: 7px;
+    padding: 8px;
 }
 .page-action .btn:hover{
     background-color: #00b7ff;

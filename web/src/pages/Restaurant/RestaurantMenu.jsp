@@ -102,7 +102,7 @@
                     <h2 class="dash-title">Menu</h2>
 
                     <div class="page-action">
-                        <button class="btn btn-main" id="add-menu-btn" onclick="location.href = './AddDish.jsp'"><span class="icon"><ion-icon name="add-circle"></ion-icon></span> Add menu item</button>
+                        <button class="btn btn-main" id="add-menu-btn" onclick="location.href = './AddDish.jsp'"><span class="icon1"><ion-icon name="add-circle"></ion-icon></span> Add menu item</button>
                     </div>
 
                     <section class="recent">

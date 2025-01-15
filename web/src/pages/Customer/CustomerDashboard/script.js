@@ -209,3 +209,13 @@ document.getElementById('save-btn').addEventListener('click', () => {
   alert('Changes saved successfully!');
 });
 
+
+// -------------------Order Section Script-------------------
+function cancelOrder(orderId) {
+  if (confirm("Are you sure you want to cancel this order?")) {
+      // Perform AJAX request or redirect to cancel order endpoint
+      console.log("Order cancelled: " + orderId);
+  }
+}
+
+

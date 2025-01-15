@@ -166,6 +166,7 @@
                                 <hr>
                                 <div class="total">Total: $<%= currentOrder.getTotalAmount()%></div>
                                 <div class="status <%= currentOrder.getOrderStatus().toLowerCase()%>"><%= currentOrder.getOrderStatus()%></div>
+                                <button class="cancel-button" onclick="cancelOrder(<%= currentOrder.getOrderId() %>)">Cancel Order</button>
                             </div>
                             <%
                                 }

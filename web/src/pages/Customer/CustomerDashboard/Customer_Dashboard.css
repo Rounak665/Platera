@@ -599,6 +599,28 @@ hr {
     border-top: 1px solid #eee;
     margin: 15px 0;
 }
+.cancel-button {
+    background-color: #ff4d4d;
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    font-size: 14px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    margin-top: 10px; 
+    display: block; 
+    width: 100%; 
+    text-align: center; 
+}
+
+.cancel-button:hover {
+    background-color: #cc0000; /* Darker red on hover */
+}
+
+.cancel-button:active {
+    transform: scale(0.95); /* Slightly shrink on click */
+}
+
 
 
 
