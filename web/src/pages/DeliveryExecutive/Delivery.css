@@ -532,7 +532,7 @@ header {
     padding: 0rem 1rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     border-bottom: 1px solid #ccc;
     transition: left 500ms;
 }

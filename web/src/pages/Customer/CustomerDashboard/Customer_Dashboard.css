@@ -276,7 +276,7 @@ body {
     padding: 0 1rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     border-bottom: 1px solid #ccc;
     position: fixed; 
     top: 0;
