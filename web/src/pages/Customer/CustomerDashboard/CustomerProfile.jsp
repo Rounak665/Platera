@@ -77,6 +77,12 @@
             <div class="sidebar-menu">
                 <ul>
                     <li>
+                        <a href="../Home.jsp">
+                            <span class="icon"><ion-icon name="home"></ion-icon></span>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="./CustomerProfile.jsp">
                             <span class="icon"><ion-icon name="person"></ion-icon></span>
                             <span>Account</span>
