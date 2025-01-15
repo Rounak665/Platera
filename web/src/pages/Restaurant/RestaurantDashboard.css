@@ -560,6 +560,9 @@ label.form-label {
     margin-bottom: 1.5rem;
     list-style: none;
 }
+.sidebar-menu .logoutOption {
+    display: none;
+}
 .sidebar-menu ul {
     padding: 0 !important;
 }
@@ -1310,6 +1313,12 @@ tr:hover {
 
     .modal-header{
         margin-bottom: 60px;
+    }
+    .sidebar-menu .logoutOption {
+        display: flex;
+    }
+    .sidebar-menu {
+        margin-top: 40px;
     }
     
 }
