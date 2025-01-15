@@ -57,7 +57,7 @@ public class RestaurantDeleteCategories extends HttpServlet {
             // Execute the update
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
-                response.sendRedirect("src/pages/Restaurant/RestaurantMenu.jsp#errorPopup");
+                response.sendRedirect("src/pages/Restaurant/RestaurantCategory.jsp?deletedCategory");
             } else {
                 response.sendRedirect("src/pages/Restaurant/RestaurantMenu.jsp#errorPopup");
             }

@@ -73,23 +73,12 @@
                                 <span>Delivery Executive Management</span>
                             </a>
                         </li>
-                        <%
-                            if ("N".equals(executiveStatus)) {
-                        %>
                         <li class="logoutOption">
                             <form action="http://localhost:8080/Platera-Main/logout" method="POST">                          
                                 <button type="submit"><span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>Logout</button>
                             </form>
                         </li>
-                        <%
-                        } else if ("Y".equals(executiveStatus)) {
-                        %>
-                        <li class="logoutOption">
-                            <p>Change your status</p>
-                        </li>
-                        <%
-                            }
-                        %>
+
                     </ul>
                 </div>
             </div>
