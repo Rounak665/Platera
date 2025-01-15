@@ -150,7 +150,7 @@
                     if (restaurants != null && !restaurants.isEmpty()) {
                         for (Restaurant restaurant : restaurants) {
                 %>
-                <a href="../RestaurantDetails/RestaurantDetails.jsp?restaurantId=<%= restaurant.getRestaurantId()%>" class="restaurant-card-link">
+                <a href="../Customer/RestaurantDetails/RestaurantDetails.jsp?restaurantId=<%= restaurant.getRestaurantId()%>" class="restaurant-card-link">
                     <div class="restaurant-card">
 
                         <img src="<%= request.getContextPath()%>/<%= restaurant.getImage()%>"

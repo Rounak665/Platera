@@ -22,12 +22,17 @@
         <link rel="stylesheet" href="./RestaurantDashboard.css"> 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <style>
+            th{
+                text-align: center;
+            }
+        </style>
     </head>
     <body>
         <%
             // Simulate session attributes for debugging
             // int user_id = (Integer) session.getAttribute("user_id");
-            int user_id = 185;
+            int user_id = 311;
 
             int restaurantId = 0; // Default value for int
             String name = null;
@@ -44,7 +49,7 @@
             String imagePath = null;
 
             // Owner details
-            String ownerName=null;
+            String ownerName = null;
             String ownerPhone = null;
             String ownerAddress = null;
             String ownerEmail = null;
@@ -76,7 +81,7 @@
                 ownerAddress = restaurant.getOwnerAddress();
                 ownerEmail = restaurant.getOwnerEmail();
                 twoFA = restaurant.isTwoStepVerification();
-                
+
             }
         %>
         <!-- Error Popup -->
@@ -337,26 +342,21 @@
                                             <td><%= order.getCustomerName()%></td>
                                             <td><%= order.getOrderDate()%></td>
                                             <td>
-                                                <div class="order-items">
-                                                    <%
-                                                        // Display all items for the current order
-                                                        List<OrderItem> items = order.getItems(); // Assuming getItems() returns a list of OrderItem
-                                                        if (items != null && !items.isEmpty()) {
-                                                            for (OrderItem item : items) {
-                                                                String itemName = item.getItemName();
-                                                                int quantity = item.getQuantity();
-                                                                String itemImage = item.getImage(); // Assuming this returns the image path
-                                                    %>
-                                                    <div class="order-item">
-                                                        <p>
-                                                            <%= itemName%> (x<%= quantity%>)
-                                                        </p>
-                                                    </div>
-                                                    <%
-                                                            }
+                                                <%
+                                                    // Display all items for the current order
+                                                    List<OrderItem> items = order.getItems(); // Assuming getItems() returns a list of OrderItem
+                                                    if (items != null && !items.isEmpty()) {
+                                                        for (OrderItem item : items) {
+                                                            String itemName = item.getItemName();
+                                                            int quantity = item.getQuantity();
+                                                            String itemImage = item.getImage(); // Assuming this returns the image path
+%>
+                                                <%= itemName%> (x<%= quantity%>),                                                    
+                                                <%
                                                         }
-                                                    %>
-                                                </div>
+                                                    }
+                                                %>
+
                                             </td>
                                             <td><%= order.getTotalAmount()%></td>
                                             <td><%= order.getOrderStatus()%></td>
