@@ -46,7 +46,7 @@
                 <div class="sidebar-menu">
                     <ul>
                         <li>
-                            <a href="">
+                            <a href="./RestaurantDashboard.jsp">
                                 <span class="icon"><ion-icon name="home-sharp"></ion-icon></span>
                                 <span>Home</span>
                             </a>
