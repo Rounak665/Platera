@@ -142,6 +142,12 @@
                             <span>Orders</span>
                         </a>
                     </li>
+                    <li class="logoutOption">
+                        <a href="../AddDeliveryExecutive/AddDeliveryExecutive.jsp#Signin-popup">
+                            <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                            <span>Logout</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
