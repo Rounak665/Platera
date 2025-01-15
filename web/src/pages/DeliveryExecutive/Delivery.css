@@ -440,6 +440,10 @@ body {
     margin-bottom: 1.5rem;
     list-style: none;
 }
+.sidebar-menu .logoutOption {
+    display: none;
+}
+
 
 .sidebar.activate .menu{
     display: none;
@@ -2539,6 +2543,9 @@ tr:hover {
     }
     .sidebar li {
         margin-top: 40px;
+    }
+    .sidebar-menu .logoutOption {
+        display: flex;
     }
     .profile{
         flex-direction: column;

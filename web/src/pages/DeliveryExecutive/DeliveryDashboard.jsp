@@ -129,23 +129,29 @@
                     </div>
                 </div>
 
-                <div class="sidebar-menu">
-                    <ul>
-                        <li>
-                            <a href="">
-                                <span class="icon"><ion-icon name="home-sharp"></ion-icon></span>
-                                <span>Home</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="./DeliveryOrders.jsp">
-                                <span class="icon"><ion-icon name="cart"></ion-icon></span>
-                                <span>Orders</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+            <div class="sidebar-menu">
+                <ul>
+                    <li>
+                        <a href="">
+                            <span class="icon"><ion-icon name="home-sharp"></ion-icon></span>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./DeliveryOrders.jsp">
+                            <span class="icon"><ion-icon name="cart"></ion-icon></span>
+                            <span>Orders</span>
+                        </a>
+                    </li>
+                    <li class="logoutOption">
+                        <a href="../AddDeliveryExecutive/AddDeliveryExecutive.jsp#Signin-popup">
+                            <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
+        </div>
 
 
             <!-- sliding profile settings -->
