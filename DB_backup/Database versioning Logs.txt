@@ -1,0 +1,10 @@
+v1.4.0-Added two step verification column and fixed some minor issues regarding deletion in users table
+v1.4.1-Added column for 2 step verification and changed some constraints which reduced potential data redundancy and inconsistency 
+1.4.2-Added categories table and referenced it with menu_items table's category id
+1.5.0-Changed the whole restaurants table structure,Divided restaurants info across different tables,fixed the reviews table,changed the status check constraint in delivery_executives
+1.6.0-Many minor fixes beside adding a new table named order_restaurants
+1.6.1 Removed the order_restaurants table and added other minor columns 
+1.6.2 Updated some table references,created some new triggers to maintain data integrity and added a new table named coupons
+1.6.3 Removed unnecessary views,packages,types and purged recycle bin which significantly reduced the database size
+1.6.4 Created dummy restaurants for all locations and added men_items for some of them
+1.6.5 Created dummy customers for inserting reviews and added images for the menu_items also added categories for the restaurants
