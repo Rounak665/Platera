@@ -23,7 +23,7 @@ public class AcceptOrder extends HttpServlet {
         String deliveryAddress = request.getParameter("deliveryAddress");
 
         if (orderId == null || deliveryExecutiveId == null || deliveryAddress == null) {
-            response.sendRedirect("src/pages/Error/DatabaseError.html");
+            response.sendRedirect("src/pages/Error/505Error.html");
             return;
         }
 

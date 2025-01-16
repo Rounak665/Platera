@@ -23,7 +23,7 @@
             <img src="<%= request.getContextPath()%>/Public/images/PlateraLogo-red.png" alt="Logo" width="50" height="50">
         </div>
         <h2>Check your email</h2>
-        <p>An OTP has been sent to your email address: <strong>${email}</strong></p>
+        <p>An OTP has been sent to your email</p>
          <!-- Message Section -->
     <p style="color: #F12630; font-size: 0.95rem; margin-bottom: 20px;">
 <!--        Enter the OTP within <strong>1 minute</strong>.-->
