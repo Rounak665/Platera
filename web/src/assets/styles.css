@@ -397,8 +397,9 @@ header .nav_bar .logo img{
     height: 40px;
     width: 40px;
     cursor: pointer;
+    color: #fff;
 }
-.logreg-box .form-box .close-btn .ico{
+.logreg-box .form-box .close-btn .icon{
     height: 100%;
     width: 100%;
 }
