@@ -24,7 +24,6 @@ public class MenuItemsDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     MenuItems item = new MenuItems();
-
                     item.setItemId(rs.getInt("item_id"));
                     item.setItemName(rs.getString("item_name"));
                     item.setPrice(rs.getDouble("price"));

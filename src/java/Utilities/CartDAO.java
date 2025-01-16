@@ -38,7 +38,7 @@ public class CartDAO {
                     cartItems.add(cart);
                     count++;
                 }
-                System.out.println("Found " + count + " cart items for customer ID: " + customerId);
+//                System.out.println("Found " + count + " cart items for customer ID: " + customerId);
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -122,7 +122,6 @@ public class ApproveRestaurant extends HttpServlet {
                                 EmailUtility.sendEmail(email, subject, body);
                             }
                             response.sendRedirect("src/pages/Confirmations/requestApprove.html");
-
                         }
                     }
                 } else {

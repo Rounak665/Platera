@@ -410,9 +410,9 @@
                 %>
                 <div class="product-card">
                     <a href="../Menu/Categories/categories.jsp?categoryId=<%=category.getId()%>" class="restaurant-card-link">
-                    <img src="<%= request.getContextPath()%>/<%= category.getImage()%>" alt="<%= category.getName()%>" />
-                    <h4><%= category.getName()%></h4>
-                    <p>Explore our <%= category.getName().toLowerCase()%> menu</p>
+                        <img src="<%= request.getContextPath()%>/<%= category.getImage()%>" alt="<%= category.getName()%>" />
+                        <h4><%= category.getName()%></h4>
+                        <p>Explore our <%= category.getName().toLowerCase()%> menu</p>
                     </a>
                 </div>
                 <% }%>

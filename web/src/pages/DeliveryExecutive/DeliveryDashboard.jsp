@@ -35,7 +35,7 @@
         <!--Java Scriplets-->
         <%
             // Simulate session attributes for debugging
-                int user_id = (Integer) session.getAttribute("user_id");
+            int user_id = (Integer) session.getAttribute("user_id");
 //            int user_id = 282;
 
             DeliveryExecutive deliveryExecutive = null;
@@ -279,7 +279,7 @@
                                                 List<Location> locations = locationDAO.getLocations();
                                                 for (Location location : locations) {
                                             %>
-                                            <option value="<%= location.getId()%>" <%=(location.getId() == locationId)
+                                                    <option value="<%= location.getId()%>" <%=(location.getId() == locationId)
                                                             ? "selected" : ""%>>
                                                 <%= location.getName()%>
                                             </option>
@@ -318,7 +318,7 @@
                         <img src="../../../Public/images/logo.png" alt="">
                     </div>
                 </div>
-                
+
                 <div class="social-icons">
                     <%
                         if ("N".equals(executiveStatus)) {
