@@ -106,7 +106,7 @@
 //                int locationId = 1;
             %>
             <div class="banner-content">
-                <h2>Search Results For keyword</h2>
+                <h2>Search Results For <%=keyword%></h2>
             </div>
         </section>
 

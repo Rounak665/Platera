@@ -18,8 +18,8 @@
     </head>
     <body>
         <%
-        // Retrieve session attributes
-           Integer customer_id = (Integer) session.getAttribute("customerId");
+            // Retrieve session attributes
+            Integer customer_id = (Integer) session.getAttribute("customerId");
 //            int customer_id = 30;
             // Replace with the actual user/customer ID fetched from the session or request
             CartDAO cartDAO = new CartDAO();
@@ -39,7 +39,7 @@
             double total = subtotal + deliveryCharges - promotion;
         %>
 
-<!-- Error Popup -->
+        <!-- Error Popup -->
         <div class="error-popup" id="errorPopup">
             <div class="error-content">
                 <h2>Error</h2>
@@ -89,10 +89,10 @@
                     <a href="../Salford/salford.html" target="_blank"><img src="./Assets/salford-payments-bank.png" alt=""></a>
                 </header>
                 <form action="http://localhost:8080/Platera-Main/PaymentConfirmation" method="post">
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="customer@supermail.com" required>
-                    </div>
+                    <!--                    <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" id="email" placeholder="customer@supermail.com" required>
+                                        </div>-->
                     <div class="form-group">
                         <label for="paymentMethod">Payment method</label>
                         <div class="payment-methods">
@@ -117,7 +117,7 @@
                         </div>
                         <button type="submit" class="submit-button">Place Order</button>
                     </div>
-                    
+
                 </form>
 
 
@@ -135,7 +135,7 @@
                         </div>
                         <div class="form-group">
                             <label for="accountHolderName">Account Holder's Name</label>
-                            <input name="accountHolderName" type="text" id="accountHolderName" placeholder="John Doe" required>
+                            <input name="accountHolderName" type="text" id="accountHolderName" placeholder="Full Name" required>
                         </div>
                         <div class="form-group">
                             <label for="accountNumber">Account Number</label>
@@ -164,7 +164,7 @@
             <div class="container_footer">
                 <div class="row">
                     <div class="col">
-                        <img src="./assets/PlateraLogo-red.png" alt="" />
+                        <img src="./Assets/PlateraLogo-red.png" alt="" />
                         <p>
                             Platera delivers delicious meals from your favorite local
                             restaurants straight to your door, combining speed and convenience
@@ -197,7 +197,7 @@
                             </li>
                             <li>
                                 <a href="../FooterLinkPages/PrivacyPolicy/PrivacyPolicy.html" 
-                                target="_blank">Privacy Policy</a
+                                   target="_blank">Privacy Policy</a
                                 >
                             </li>
                             <li><a href="../FooterLinkPages/Help/Help.html" target="_blank">Help</a></li>
@@ -234,12 +234,12 @@
             <p class="copyright">Platera @2024 - All Rights Reserved</p>
         </footer>
         <script>
-            
+
             function goBack() {
-                window.location.href = "../DeliveryDetailsPage/deliverydetailspage.jsp";
+                window.history.back();
             }
         </script>
-        
+
         <script src="../../../error.js"></script>
         <script src="./paymentGateway.js"></script>
     </body>

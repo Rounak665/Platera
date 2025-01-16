@@ -1,0 +1,8 @@
+just change the version (and the the path location if needed) here to export the file
+
+exp SYSTEM/r2005 FILE=C:\Users\rouna\Desktop\DB_backup\DB_v1.6.3.dmp OWNER=ROUNAK GRANTS=Y COMPRESS=Y
+
+for import
+
+imp SYSTEM/r2005 FILE=C:\Users\rouna\Desktop\DB_backup\DB_v1.6.1.dmp FROMUSER=ROUNAK TOUSER=ROUNAKOLD GRANTS=Y IGNORE=Y
+

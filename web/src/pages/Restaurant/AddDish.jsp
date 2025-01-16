@@ -54,19 +54,19 @@
                             </a>
                         </li>
                         <li>
-                            <a href="./Category.jsp">
+                            <a href="./RestaurantCategory.jsp">
                                 <span class="icon"><ion-icon name="grid"></ion-icon></span>
                                 <span>Categories</span>
                             </a>
                         </li>
                         <li>
-                            <a href="./Menu.jsp">
+                            <a href="./RestaurantMenu.jsp">
                                 <span class="icon"><ion-icon name="book"></ion-icon></span>
                                 <span>Menu</span>
                             </a>
                         </li>
                         <li>
-                            <a href="./Orders.jsp">
+                            <a href="./RestaurantOrders.jsp">
                                 <span class="icon"><ion-icon name="cart"></ion-icon></span>
                                 <span>Orders</span>
                             </a>
@@ -99,8 +99,8 @@
                 </header>
                 <%
                     // Simulate session attributes for debugging
-                    // int user_id = (Integer) session.getAttribute("user_id");
-                    int user_id = 185;
+                     int user_id = (Integer) session.getAttribute("user_id");
+//                    int user_id = 185;
 
                     int restaurantId = 0; // Default value for int
                     String name = null;

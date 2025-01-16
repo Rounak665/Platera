@@ -16,9 +16,9 @@ public class RestaurantUpdateCategories extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Fetch the restaurantId from session
-        HttpSession session = request.getSession();
-//        Integer restaurantId = (Integer) session.getAttribute("restaurantId");
-        Integer restaurantId=101;
+        Integer restaurantId = Integer.parseInt(request.getParameter("restaurantId"));
+
+//        Integer restaurantId=101;
 
         // If restaurantId is not found in session, redirect to login or an error page
         if (restaurantId == null) {
@@ -51,7 +51,7 @@ public class RestaurantUpdateCategories extends HttpServlet {
                 if (rowsUpdated > 0) {
                     response.sendRedirect("src/pages/Restautant/RestaurantCategory.jsp?CategoryUpdated");
                 } else {
-                    response.sendRedirect("src/pages/Restautant/RestaurantCategory.jsp#errorPopup");
+                    response.sendRedirect("src/pages/Restaurant/RestaurantCategory.jsp#errorPopup");
                 }
             }
         } catch (SQLException e) {

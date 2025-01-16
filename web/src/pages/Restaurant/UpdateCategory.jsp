@@ -1,3 +1,5 @@
+<%@page import="Utilities.Restaurant"%>
+<%@page import="Utilities.RestaurantDAO"%>
 <%@page import="Utilities.CategoryDAO"%>
 <%@page import="Utilities.Category"%>
 <%@ page import="java.util.List" %>
@@ -12,6 +14,61 @@
     <link rel="stylesheet" href="./RestaurantDashboard.css"> <!-- Use the same CSS as the home page -->
 </head>
 <body>
+            <%
+            // Simulate session attributes for debugging
+            int user_id = (Integer) session.getAttribute("user_id");
+//            int user_id = 311;
+
+            int restaurantId = 0; // Default value for int
+            String name = null;
+            String address = null;
+            String phone = null;
+            String locationName = null;
+            int locationId = 0;
+            double minPrice = 0.0; // Default value for double
+            double maxPrice = 0.0; // Default value for double
+            double avgRating = 0.0; // Default value for double
+            String category1 = null;
+            String category2 = null;
+            String category3 = null;
+            String imagePath = null;
+
+            // Owner details
+            String ownerName = null;
+            String ownerPhone = null;
+            String ownerAddress = null;
+            String ownerEmail = null;
+            boolean twoFA = false; // Default value for boolean
+
+            Restaurant restaurant = null;
+
+            RestaurantDAO restaurantDAO = new RestaurantDAO();
+            restaurant = restaurantDAO.getRestaurantByUserId(user_id);
+
+            if (restaurant != null) {
+                restaurantId = restaurant.getRestaurantId();
+                name = restaurant.getName();
+                address = restaurant.getAddress();
+                phone = restaurant.getPhone();
+                locationId = restaurant.getLocationId();
+                locationName = restaurant.getLocation();
+                minPrice = restaurant.getMinPrice();
+                maxPrice = restaurant.getMaxPrice();
+                avgRating = restaurant.getRating();
+                category1 = restaurant.getCategory1();
+                category2 = restaurant.getCategory2();
+                category3 = restaurant.getCategory3();
+                imagePath = request.getContextPath() + '/' + restaurant.getImage();
+
+                // Owner details
+                ownerName = restaurant.getOwnerName();
+                ownerPhone = restaurant.getOwnerPhone();
+                ownerAddress = restaurant.getOwnerAddress();
+                ownerEmail = restaurant.getOwnerEmail();
+                twoFA = restaurant.isTwoStepVerification();
+
+            }
+        %>
     <!-- Error Popup -->
     <div class="error-popup" id="errorPopup">
         <div class="error-content">
@@ -44,25 +101,25 @@
             <div class="sidebar-menu">
                 <ul>
                     <li>
-                        <a href="./RestaurantDashboard.html">
+                        <a href="./RestaurantDashboard.jsp">
                             <span class="icon"><ion-icon name="home-sharp"></ion-icon></span>
                             <span>Home</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./Category.html">
+                        <a href="./RestaurantCategory.jsp">
                             <span class="icon"><ion-icon name="grid"></ion-icon></span>
                             <span>Categories</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./Menu.html">
+                        <a href="./RestaurantMenu.jsp">
                             <span class="icon"><ion-icon name="book"></ion-icon></span>
                             <span>Menu</span>
                         </a>
                     </li>
                     <li>
-                        <a href="./Orders.html">
+                        <a href="./RestaurantOrders.jsp">
                             <span class="icon"><ion-icon name="cart"></ion-icon></span>
                             <span>Orders</span>
                         </a>
@@ -104,6 +161,7 @@
     <section class="recent">
         <div class="activity-card pad-1">
             <form id="add-category-form" action="http://localhost:8080/Platera-Main/RestaurantUpdateCategories" method="post">
+                <input type="hidden" name="restaurantId" value="<%=restaurantId%>"
                 <!-- Category Dropdown 1 -->
                 <div class="form-group">
                     <label for="category-1">Category 1</label>
