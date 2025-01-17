@@ -153,11 +153,19 @@
 
             </div>
         </div>
+<<<<<<< Updated upstream
         <script>
             function goBack() {
                 window.history.back();
             }
         </script>
 
+=======
+                        <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+>>>>>>> Stashed changes
     </body>
 </html>
