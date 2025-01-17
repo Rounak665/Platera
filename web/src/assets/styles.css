@@ -532,7 +532,7 @@ header .nav_bar .logo img{
 
 .hero-carousel h2{
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
@@ -578,7 +578,7 @@ header .nav_bar .logo img{
 /* Search bar on carousel */
 .carousel-search {
     position: absolute;
-    bottom: 33%;
+    bottom: 25%;
     left: 50%;
     z-index: 2;
     transform: translateX(-50%);

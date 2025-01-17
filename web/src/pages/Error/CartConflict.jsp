@@ -141,7 +141,7 @@
                 </div>
                 <p>Your cart already contains items from another restaurant. Would you like to clear the cart and add the new items, or keep your existing items?</p>
                 <div class="popup-buttons">
-                    <button class="btn no" onclick="history.back">No</button>
+                    <button class="btn no" onclick="goBack()">No</button>
                     <form action="<%= request.getContextPath()%>/AddToCart" method="post">
                         <input type="hidden" name="customerId" value="<%= customerId%>">
                         <input type="hidden" name="itemId" value="<%= itemId%>">
@@ -153,5 +153,11 @@
 
             </div>
         </div>
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
+
     </body>
 </html>
