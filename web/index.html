@@ -97,7 +97,7 @@
                                 </div>
 
                                 <div class="remember-forgot">
-                                    <label><input type="checkbox">Remember me</label>
+                                    <label><input type="checkbox" name="rememberMe">Remember me</label>
                                     <a href="src/pages/ForgotPassword/ForgotPassword.jsp" target="_blank">Forgot password?</a>
                                 </div>
 
@@ -365,18 +365,18 @@
         <!-- Main Script -->
         <script>
 
-            let select = document.getElementById("select");
-            let list = document.getElementById("list");
+                    let select = document.getElementById("select");
+                    let list = document.getElementById("list");
 
-            list.addEventListener("click", function (e) {
-                if (e.target.tagName === "LI") {
-                    select.querySelector("p").innerHTML = e.target.innerHTML;
-                }
-            })
+                    list.addEventListener("click", function (e) {
+                        if (e.target.tagName === "LI") {
+                            select.querySelector("p").innerHTML = e.target.innerHTML;
+                        }
+                    })
 
-            select.addEventListener("click", function () {
-                list.classList.toggle("open");
-            })
+                    select.addEventListener("click", function () {
+                        list.classList.toggle("open");
+                    })
 
 
         </script>
@@ -424,6 +424,21 @@
             });
 
         </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const cookies = document.cookie.split("; ");
+                cookies.forEach(cookie => {
+                    const [key, value] = cookie.split("=");
+                    if (key === "email") {
+                        document.querySelector("input[name='email_signin']").value = decodeURIComponent(value);
+                    }
+                    if (key === "password") {
+                        document.querySelector("input[name='password_signin']").value = decodeURIComponent(value);
+                    }
+                });
+            });
+        </script>
+
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <script src="./error.js"></script>
 

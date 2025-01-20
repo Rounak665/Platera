@@ -25,6 +25,7 @@ public class sign_in extends HttpServlet {
 
         String email = request.getParameter("email_signin");
         String password = request.getParameter("password_signin");
+        String rememberMe = request.getParameter("rememberMe"); // Retrieve "Remember Me" checkbox
 
         try (Connection conn = Database.getConnection()) {
             // Validate the user's credentials and get user_id, user_role_id, two_step_verification, and email
@@ -40,69 +41,49 @@ public class sign_in extends HttpServlet {
                         int userRoleId = rs.getInt("user_role_id");
                         String userEmail = rs.getString("email");
 
-                        // Create or get session, store user_id, user_role_id and welcomePopup flag
+                        // Create or get session, store user_id, user_role_id, and welcomePopup flag
                         HttpSession session = request.getSession(true);
                         session.setAttribute("user_id", user_id);
-                        session.setAttribute("welcomePopup", false);  // Set welcome popup flag
-                        session.setAttribute("user_role_id", userRoleId);  // Store user role in session
+                        session.setAttribute("welcomePopup", false);
+                        session.setAttribute("user_role_id", userRoleId);
 
-                        // If two_step_verification is 'Y', generate OTP, send email, and store in session
+
+                        if ("on".equals(rememberMe)) { 
+
+                            javax.servlet.http.Cookie emailCookie = new javax.servlet.http.Cookie("email", email);
+                            javax.servlet.http.Cookie passwordCookie = new javax.servlet.http.Cookie("password", password);
+
+                            // Set cookie expiration (e.g., 7 days)
+                            emailCookie.setMaxAge(7 * 24 * 60 * 60);
+                            passwordCookie.setMaxAge(7 * 24 * 60 * 60);
+
+                            // Add cookies to the response
+                            response.addCookie(emailCookie);
+                            response.addCookie(passwordCookie);
+                        }
+
+                        // If two-step verification is required
                         if ("Y".equals(twoStepVerification)) {
-                            // Generate OTP
                             String otp = generateOTP();
-
-                            // Store OTP in session for verification on the next page
                             session.setAttribute("otp", otp);
 
-                            // Create the subject and body for the email
                             String subject = "Platera - Two-Step Verification OTP";
-                            String body = "Dear User,\n\n"
-                                    + "Thank you for signing in to your Platera account. As part of our security protocol, please use the one-time passcode (OTP) below to complete your login process.\n\n"
-                                    + "Your OTP is: " + otp + "\n\n"
-                                    + "Please enter this code in the OTP verification page to proceed. If you did not request this OTP, please ignore this email.\n\n"
-                                    + "Best regards,\n"
-                                    + "The Platera Team";
-
-                            // Send OTP to the user's email
+                            String body = "Dear User,\n\nYour OTP is: " + otp + "\n\nBest regards,\nPlatera Team";
                             boolean emailSent = EmailUtility.sendEmail(userEmail, subject, body);
 
                             if (emailSent) {
-                                // Redirect to OTP verification page
-                                response.sendRedirect("src/pages/OTPVerifications/TwoFAVerifyOTP.jsp");  // Redirect to OTP verification page
+                                response.sendRedirect("src/pages/OTPVerifications/TwoFAVerifyOTP.jsp");
                             } else {
-                                // If email sending failed, show an error
                                 out.println("<h2>Error sending OTP!</h2>");
                                 out.println("<p>There was an issue sending the OTP to your email. Please try again later.</p>");
                             }
                         } else {
-                            // Handle redirection based on user role
-                            String dashboardUrl = "";
-                            switch (userRoleId) {
-                                case 1:  // Admin
-                                    dashboardUrl = "src/pages/Admin/Admin_Order_Management.jsp";
-                                    break;
-                                case 2:  // Customer
-                                    dashboardUrl = "src/pages/Customer/Home.jsp";
-                                    break;
-                                case 3:  // Restaurant
-                                    dashboardUrl = "src/pages/Restaurant/RestaurantDashboard.jsp";
-                                    break;
-                                case 4:  // Delivery Executive
-                                    dashboardUrl = "src/pages/DeliveryExecutive/DeliveryDashboard.jsp";
-                                    break;
-                                default:
-                                    out.println("<h2>Invalid user role!</h2>");
-                                    return;  // Exit if the user role is invalid
-                            }
-                            // Redirect to the relevant dashboard
+                            String dashboardUrl = getDashboardUrl(userRoleId);
                             response.sendRedirect(dashboardUrl);
                         }
                     } else {
-                        // Invalid credentials
                         response.sendRedirect("src/pages/Error/EmailPasswordChecker.html");
                     }
-                } catch (Exception ex) {
-                    response.sendRedirect("index.html#errorPopup");
                 }
             }
         } catch (Exception e) {
@@ -111,10 +92,23 @@ public class sign_in extends HttpServlet {
         }
     }
 
-    // Helper method to generate a random 6-digit OTP
     private String generateOTP() {
         SecureRandom random = new SecureRandom();
-        int otp = 100000 + random.nextInt(900000);  // Generates a 6-digit OTP
-        return String.valueOf(otp);
+        return String.valueOf(100000 + random.nextInt(900000));
+    }
+
+    private String getDashboardUrl(int userRoleId) {
+        switch (userRoleId) {
+            case 1:
+                return "src/pages/Admin/Admin_Order_Management.jsp";
+            case 2:
+                return "src/pages/Customer/Home.jsp";
+            case 3:
+                return "src/pages/Restaurant/RestaurantDashboard.jsp";
+            case 4:
+                return "src/pages/DeliveryExecutive/DeliveryDashboard.jsp";
+            default:
+                throw new IllegalArgumentException("Invalid user role!");
+        }
     }
 }
