@@ -7,5 +7,5 @@ src/java/Utilities/Database.java
 /dist/
 history.log
 /.idea
-/.out
-/.target
+/out
+/target
