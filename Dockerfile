@@ -17,7 +17,8 @@ RUN mvn clean package
 FROM tomcat:9.0
 
 # Copy the generated WAR file from the build stage to Tomcat webapps
-COPY --from=build /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
+COPY --from=build /app/target/Platera-Main.war /usr/local/tomcat/webapps/Platera-Main.war
+
 
 # Expose port 8080
 EXPOSE 8080
