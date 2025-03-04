@@ -6,3 +6,6 @@ dist/Platera.war
 src/java/Utilities/Database.java
 /dist/
 history.log
+/.idea
+/.out
+/.target
