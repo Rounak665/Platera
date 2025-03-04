@@ -3,7 +3,7 @@ dist/Platera.war
 /build/
 /nbproject/
 
-src/java/Utilities/Database.java
+# src/java/Utilities/Database.java
 /dist/
 history.log
 /.idea
